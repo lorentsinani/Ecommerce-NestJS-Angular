@@ -1,0 +1,261 @@
+Table "order_status" {
+  "id" char [pk, not null]
+}
+
+Table "employees" {
+  "id" SERIAL [pk, increment]
+  "first_name" VARCHAR(50) [not null]
+  "last_name" VARCHAR(50) [not null]
+  "username" VARCHAR(50) [unique]
+  "email" VARCHAR(100) [unique]
+  "hashed_password" VARCHAR(255) [not null]
+  "birthdate" DATE [not null]
+  "hire_date" DATE [not null]
+  "job_title" VARCHAR(50) [not null]
+  "address" VARCHAR(100) [not null]
+  "city" VARCHAR(50) [not null]
+  "country" VARCHAR(50) [not null]
+  "phone_number" VARCHAR(20) [not null]
+  "photo_url" VARCHAR(255)
+  "salary" "DECIMAL(10, 2)" [not null]
+  "created_at" timestamp [not null, default: `NOW()`]
+  "updated_at" timestamp [not null, default: `NOW()`]
+}
+
+Table "suppliers" {
+  "id" SERIAL [pk, increment]
+  "company_name" VARCHAR(100) [not null]
+  "contact_name" VARCHAR(100) [not null]
+  "contact_title" VARCHAR(50)
+  "address" VARCHAR(100) [not null]
+  "city" VARCHAR(50) [not null]
+  "region" VARCHAR(50)
+  "postal_code" VARCHAR(20) [not null]
+  "country" VARCHAR(50) [not null]
+  "phone_number" VARCHAR(20) [not null]
+  "fax_number" VARCHAR(20)
+  "email" VARCHAR(100) [unique]
+  "created_at" timestamp [not null, default: `NOW()`]
+  "updated_at" timestamp [not null, default: `NOW()`]
+}
+
+Table "category" {
+  "id" SERIAL [pk, increment]
+  "category_name" VARCHAR(100) [not null]
+  "category_desc" TEXT
+  "category_image_url" VARCHAR(255)
+  "parent_category_id" INTEGER
+  "created_at" timestamp [not null, default: `NOW()`]
+  "updated_at" timestamp [not null, default: `NOW()`]
+}
+
+Table "products" {
+  "id" SERIAL [pk, increment]
+  "product_name" VARCHAR(255) [not null]
+  "product_code" VARCHAR(10) [unique]
+  "supplier_id" INTEGER
+  "category_id" INTEGER
+  "unit_price" "DECIMAL(10, 2)" [not null, default: 0.00]
+  "units_in_stock" INTEGER [not null, default: 0]
+  "units_on_order" INTEGER [not null, default: 0]
+  "reorder_level" INTEGER
+  "discontinued" BOOLEAN [not null, default: false]
+  "discontinued_date" DATE
+  "created_at" timestamp [not null, default: `NOW()`]
+  "updated_at" timestamp [not null, default: `NOW()`]
+}
+
+Table "delivery_method" {
+  "id" SERIAL [pk, increment]
+  "delivery_method_name" VARCHAR(50) [not null]
+  "phone_number" VARCHAR(50) [not null]
+  "delivery_time" INTERVAL [not null]
+  "created_at" timestamp [not null, default: `NOW()`]
+  "updated_at" timestamp [not null, default: `NOW()`]
+}
+
+Table "customers" {
+  "id" SERIAL [pk, increment]
+  "first_name" VARCHAR(50)
+  "last_name" VARCHAR(50)
+  "email" VARCHAR(100) [unique, not null]
+  "hashed_password" VARCHAR(255) [not null]
+  "phone" VARCHAR(20)
+  "address_line1" VARCHAR(100)
+  "address_line2" VARCHAR(100)
+  "city" VARCHAR(50)
+  "state" VARCHAR(50)
+  "postal_code" VARCHAR(20)
+  "country" VARCHAR(50)
+  "created_at" timestamp [not null, default: `NOW()`]
+  "updated_at" timestamp [not null, default: `NOW()`]
+}
+
+Table "address" {
+  "id" SERIAL [pk, increment]
+  "address_line1" VARCHAR(255) [not null]
+  "address_line2" VARCHAR(255)
+  "city" VARCHAR(100)
+  "state" VARCHAR(50)
+  "postal_code" VARCHAR(15)
+  "country" VARCHAR(100)
+  "email" VARCHAR(100)
+  "phone" VARCHAR(20)
+  "first_name" VARCHAR(50) [not null]
+  "last_name" VARCHAR(50) [not null]
+  "created_at" timestamp [not null, default: `NOW()`]
+  "updated_at" timestamp [not null, default: `NOW()`]
+}
+
+Table "order_discount" {
+  "id" SERIAL [pk, increment]
+  "order_id" INTEGER
+  "amount" "NUMERIC(10, 2)"
+  "description" VARCHAR(255)
+  "percentage" "NUMERIC(5, 2)"
+  "vat_amount" "NUMERIC(10, 2)" // /*Generated from (amount + vat_amount) */
+  "amount_with_vat" "NUMERIC(10, 2)"
+  "created_at" timestamp [default: `NOW()`]
+  "updated_at" timestamp [default: `NOW()`]
+}
+
+Table "currency" {
+  "id" SERIAL [pk, increment]
+  "code" CHAR(3) [not null]
+  "exchange_rate" "NUMERIC(10, 6)" [not null]
+  "is_base" BOOLEAN [not null, default: FALSE]
+  "created_at" timestamp [default: `NOW()`]
+  "updated_at" timestamp [default: `NOW()`]
+}
+
+Table "payment_info" {
+  "id" SERIAL [pk, increment]
+  "amount" NUMERIC
+  "billing_address_id" INTEGER
+  "order_id" INTEGER
+  "payment_date" timestamp
+  "transaction_number" VARCHAR(255)
+  "vat_amount" NUMERIC
+  "vat_percentage" NUMERIC
+  "external_message" TEXT
+  "created_at" timestamp [default: `NOW()`]
+  "updated_at" timestamp [default: `NOW()`]
+}
+
+Table "additional_payment_info" {
+  "id" SERIAL [pk, increment]
+  "last_updated_at" timestamp [default: `NOW()`]
+  "payment_info_id" INTEGER
+  "additional_notes" TEXT
+  "is_confirmed" BOOLEAN [not null, default: FALSE]
+  "confirmed_by" INTEGER
+  "confirmed_at" timestamp
+}
+
+Table "deliveries" {
+  "id" SERIAL [pk, increment]
+  "delivery_date" DATE
+  "delivery_comments" VARCHAR(255)
+  "delivery_address_id" INTEGER
+  "delivery_cost" NUMERIC
+  "delivery_method_id" INTEGER
+  "delivery_status_id" CHAR
+  "delivery_order_id" INTEGER
+  "promised_delivery_date" DATE
+  "created_at" timestamp [default: `NOW()`]
+  "updated_at" timestamp [default: `NOW()`]
+}
+
+Table "orders" {
+  "id" SERIAL [pk, increment]
+  "order_comments" VARCHAR(255)
+  "product_id" INTEGER
+  "currency_id" INTEGER
+  "customer_id" INTEGER
+  "employee_id" INTEGER
+  "last_updated_at" timestamp [default: `NOW()`]
+  "order_date" timestamp
+  "order_status" CHAR
+  "total" NUMERIC
+  "total_delivery_cost" NUMERIC
+  "total_delivery_cost_vat" NUMERIC
+  "total_discount" NUMERIC
+  "grand_total" NUMERIC
+}
+
+Table "order_history" {
+  "id" SERIAL [pk, increment]
+  "order_comments" VARCHAR(255)
+  "product_id" INTEGER
+  "currency_id" INTEGER
+  "customer_id" INTEGER
+  "employee_id" INTEGER
+  "last_updated_date" timestamp [default: `NOW()`]
+  "order_date" timestamp
+  "order_status" CHAR
+  "total" NUMERIC
+  "total_delivery_cost" NUMERIC
+  "total_delivery_cost_vat" NUMERIC
+  "total_discount" NUMERIC
+  "grand_total" NUMERIC
+}
+
+Table "reviews" {
+  "id" SERIAL [pk, increment]
+  "product_id" INTEGER
+  "customer_id" INTEGER
+  "rating" INTEGER
+  "review_text" TEXT
+  "review_date" timestamp [default: `NOW()`]
+}
+
+Table "wishlists" {
+  "id" SERIAL [pk, increment]
+  "customer_id" INTEGER [not null]
+  "product_id" INTEGER [not null]
+  "created_at" timestamp [not null, default: `NOW()`]
+}
+
+Ref:"suppliers"."id" < "products"."supplier_id" [delete: cascade]
+
+Ref:"category"."id" < "products"."category_id" [delete: set null]
+
+Ref:"address"."id" < "payment_info"."billing_address_id"
+
+Ref:"payment_info"."id" < "additional_payment_info"."payment_info_id" [delete: cascade]
+
+Ref:"employees"."id" < "additional_payment_info"."confirmed_by"
+
+Ref:"address"."id" < "deliveries"."delivery_address_id"
+
+Ref:"delivery_method"."id" < "deliveries"."delivery_method_id"
+
+Ref:"order_status"."id" < "deliveries"."delivery_status_id"
+
+Ref:"products"."id" < "orders"."product_id"
+
+Ref:"currency"."id" < "orders"."currency_id"
+
+Ref:"customers"."id" < "orders"."customer_id"
+
+Ref:"employees"."id" < "orders"."employee_id"
+
+Ref:"order_status"."id" < "orders"."order_status"
+
+Ref:"products"."id" < "order_history"."product_id"
+
+Ref:"currency"."id" < "order_history"."currency_id"
+
+Ref:"customers"."id" < "order_history"."customer_id"
+
+Ref:"employees"."id" < "order_history"."employee_id"
+
+Ref:"order_status"."id" < "order_history"."order_status"
+
+Ref:"products"."id" < "reviews"."product_id"
+
+Ref:"customers"."id" < "reviews"."customer_id"
+
+Ref:"customers"."id" < "wishlists"."customer_id" [delete: cascade]
+
+Ref:"products"."id" < "wishlists"."product_id" [delete: cascade]
