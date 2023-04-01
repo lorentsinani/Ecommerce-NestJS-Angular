@@ -18,8 +18,16 @@ import { FooterInfoComponent } from './footer/footer-info/footer-info.component'
     NavbarComponent,
     FooterComponent,
     NewsletterComponent,
-    FooterInfoComponent
+    FooterInfoComponent,
   ],
   imports: [CommonModule],
+  exports: [
+    HeaderComponent,
+    TopbarComponent,
+    NavbarComponent,
+    FooterComponent,
+    NewsletterComponent,
+    FooterInfoComponent,
+  ],
 })
 export class CoreModule {}
