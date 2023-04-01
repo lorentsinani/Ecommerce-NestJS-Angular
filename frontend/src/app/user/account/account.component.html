@@ -1,1 +1,70 @@
-<p>account works!</p>
+<div class="content-container">
+  <div class="my-profile-container">
+    <div class="my-profile-title">
+      <h2>My Profile</h2>
+    </div>
+    <div class="my-profile-list" *ngFor="let name of list">
+      <div>{{ name }}</div> <br>
+    </div>
+  </div> <hr>
+  <div class="account-details-container">
+    <div class="account-details-title">
+      <h2>Account Details</h2>
+    </div>
+    <div class="account-details-form" style="display: flex">
+      <div class="left-form-content">
+        <div class="first-name-form">
+          <br />
+          First Name: <br />
+          <br />
+          <input
+            type="text"
+            name="first-name-form"
+            id="first-name-form"
+            style="width: 270px; height: 20px"
+          />
+        </div>
+        <div class="email-form">
+          <br />
+          Email: <br />
+          <br />
+          <input
+            type="email"
+            name="email-form"
+            id="email-form"
+            style="width: 270px; height: 20px"
+          />
+        </div>
+        <div></div>
+      </div>
+      <div class="right-form-content">
+        <div class="last-name-form">
+          <br />
+          Last Name: <br />
+          <br />
+          <input
+            type="text"
+            name="last-name-form"
+            id="last-name-form"
+            style="width: 270px; height: 20px"
+          />
+        </div>
+        <div class="phone-form">
+          <br />
+          Phone: <br />
+          <br />
+          <input
+            type="tel"
+            name="phone-form"
+            id="phone-form"
+            style="width: 270px; height: 20px"
+          />
+        </div>
+        <div class="save-button-form">
+          <br />
+          <button type="submit" class="button">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
