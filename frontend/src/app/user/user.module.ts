@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { ProductdetailsComponent } from './productdetails/productdetails.component';
 import { NgModule } from '@angular/core';
@@ -47,6 +48,6 @@ import { FlashSaleItemComponent } from './home/flash-sale/flash-sale-item/flash-
     NewArrivalsItemComponent,
     FlashSaleItemComponent,
   ],
-  imports: [CommonModule, UserRoutingModule, MatCardModule],
+  imports: [CommonModule, UserRoutingModule, MatCardModule, BrowserAnimationsModule],
 })
 export class UserModule {}
