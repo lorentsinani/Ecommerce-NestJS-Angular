@@ -5,6 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BlogComponent } from './user/blog/blog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { UserModule } from './user/user.module';
 import { CoreModule } from './core/core.module';
@@ -17,4 +19,4 @@ import { AdminModule } from './admin/admin.module';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
