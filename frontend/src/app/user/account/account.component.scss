@@ -1,0 +1,41 @@
+.content-container {
+  padding: 20px;
+  margin-left: 140px;
+  margin-right: 140px;
+  margin-top: 75px;
+  margin-bottom: 75px;
+  display: flex;
+  background-color: whitesmoke;
+  border: 0.5px;
+}
+
+.my-profile-container {
+  margin-left: 40px;
+  width: 20%;
+}
+.my-profile-title {
+  justify-content: center;
+}
+.account-details-container {
+  margin-left: 70px;
+  width: 80%;
+}
+.account-details-title {
+  justify-content: center;
+}
+.account-details-form {
+  display: flex;
+}
+.left-form-content {
+  width: 40%;
+}
+.right-form-content {
+  width: 50%;
+}
+.button {
+  width: 70px;
+}
+.save-button-form {
+  width: 65%;
+  float: right;
+}
