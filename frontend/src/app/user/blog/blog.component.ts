@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./blog.component.scss']
 })
 export class BlogComponent {
+blogs = [{ title: 'Title', content: 'Some information', date: 'Some date' },
+  { title: 'Title', content: 'Some information', date: 'Some date' }]
 
+  categories = ['Laptops', 'Phones', 'Computers']
 }

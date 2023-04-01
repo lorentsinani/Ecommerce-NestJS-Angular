@@ -1,0 +1,36 @@
+.container {
+  max-width: 1170px;
+  width: 100%;
+  margin: 0 auto;
+}
+.blog_main-content {
+  display: grid;
+  grid-template-columns: repeat(4, 322px);
+  gap: 20px;
+}
+.blog_latest__title {
+  font-weight: 700;
+  font-size: 43px;
+}
+.blog_latest {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+.card-container__title {
+  font-weight: 700;
+}
+.blog_latest__info {
+  text-align: center;
+}
+.mat-mdc-card {
+  margin-bottom: 20px;
+}
+.related_info {
+  display: flex;
+}
+.related_info__pic {
+  width: 110px;
+}

@@ -1,3 +1,4 @@
+import { MatCardModule } from '@angular/material/card';
 import { ProductdetailsComponent } from './productdetails/productdetails.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -46,6 +47,6 @@ import { FlashSaleItemComponent } from './home/flash-sale/flash-sale-item/flash-
     NewArrivalsItemComponent,
     FlashSaleItemComponent,
   ],
-  imports: [CommonModule, UserRoutingModule],
+  imports: [CommonModule, UserRoutingModule, MatCardModule],
 })
 export class UserModule {}

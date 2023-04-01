@@ -1,1 +1,110 @@
-<p>blog works!</p>
+<div class="blog">
+    <div class="container">
+        <div class="blog_latest">
+            <p class="blog_latest__title">Latest Blog</p>
+            <p class="blog_latest__info">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, eius!
+                Odit est corrupti ipsam quod consectetur sunt provident quos minima,
+                ullam saepe. Harum illo doloribus labore ullam officiis impedit id.
+            </p>
+        </div>
+
+        <div class="blog_main-content">
+            <div>
+                <div class="card-container">
+                    <mat-card>
+                        <p>Categories</p>
+
+                        <ol>
+                            <ng-container *ngFor="let categorie of categories; let i=index">
+                                <li> {{ categorie }}</li>
+                            </ng-container>
+                        </ol>
+
+                    </mat-card>
+                    <mat-card>
+                        <p>Tags</p>
+                    </mat-card>
+                    <mat-card>
+                        <div class="related_info">
+                            <img mat-card-image src="../../../assets/laptop.png" alt="Card image"
+                                class="related_info__pic" />
+
+                            <mat-card-content> Some text </mat-card-content>
+                        </div>
+                    </mat-card>
+                    <mat-card>
+                        <div class="related_info">
+                            <img mat-card-image src="../../../assets/laptop.png" alt="Card image"
+                                class="related_info__pic" />
+
+                            <mat-card-content> Some text </mat-card-content>
+                        </div>
+                    </mat-card>
+                    <mat-card>
+                        <div class="related_info">
+                            <img mat-card-image src="../../../assets/laptop.png" alt="Card image"
+                                class="related_info__pic" />
+
+                            <mat-card-content> Some text</mat-card-content>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+            <div>
+                <div class="card-container">
+                    <mat-card *ngFor="let blog of blogs">
+                        <img mat-card-image src="../../../assets/laptop.png" alt="Card image" />
+                        <mat-card-header>
+                            <mat-card-title class="card-container__title">{{
+                                blog.title
+                                }}</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            {{ blog.content }}
+                        </mat-card-content>
+                        <mat-card-content>
+                            {{ blog.date }}
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+            <div>
+                <div class="card-container">
+                    <mat-card *ngFor="let blog of blogs">
+                        <img mat-card-image src="../../../assets/laptop.png" alt="Card image" />
+                        <mat-card-header>
+                            <mat-card-title class="card-container__title">{{
+                                blog.title
+                                }}</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            {{ blog.content }}
+                        </mat-card-content>
+                        <mat-card-content>
+                            {{ blog.date }}
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+            <div>
+                <div class="card-container">
+                    <mat-card *ngFor="let blog of blogs">
+                        <img mat-card-image src="../../../assets/laptop.png" alt="Card image" />
+                        <mat-card-header>
+                            <mat-card-title class="card-container__title">{{
+                                blog.title
+                                }}</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            {{ blog.content }}
+                        </mat-card-content>
+                        <mat-card-content>
+                            {{ blog.date }}
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

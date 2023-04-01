@@ -8,6 +8,7 @@ import { ProductdetailsComponent } from './productdetails/productdetails.compone
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BlogComponent } from './blog/blog.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'account',
     component: AccountComponent,
+  },
+  {
+    path: 'blog',
+    component: BlogComponent,
   },
   {
     path: 'cart',
@@ -43,6 +48,7 @@ const routes: Routes = [
     path: 'product-details',
     component: ProductdetailsComponent,
   },
+  
 ];
 
 @NgModule({
