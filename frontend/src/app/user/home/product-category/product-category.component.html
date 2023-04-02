@@ -1,9 +1,7 @@
-<p>product-category works!</p>
+<h2>
+  Category
+</h2>
 
-
-
-
-<!-- ngFor to show categories -->
-<app-category-item>
-
-</app-category-item>
+<div class="app-category-item-container">
+  <app-category-item *ngFor="let category of categories" [category]="category"></app-category-item>
+</div>

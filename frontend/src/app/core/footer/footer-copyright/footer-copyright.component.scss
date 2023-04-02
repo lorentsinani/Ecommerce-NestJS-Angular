@@ -1,0 +1,20 @@
+.site-footer {
+  background-color: #f0f0f0;
+  padding: 20px 0;
+
+  .container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .site-footer__content {
+    text-align: center;
+    margin-bottom: 10px;
+
+    .site-footer__legend {
+      font-size: 14px;
+      color: #777;
+      margin: 0;
+    }
+  }
+}
