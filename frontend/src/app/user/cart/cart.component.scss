@@ -1,0 +1,199 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.cart-content-container {
+  margin: 20px;
+  padding: 20px;
+}
+.mycart-title-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+.cart-checout-container {
+  display: flex;
+  margin: auto;
+  width: 100%;
+  padding: 10px;
+}
+.mycart-site {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.number-circle {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid orangered;
+  color: orangered;
+  text-align: center;
+  font: 20px Arial, sans-serif;
+}
+.mycart-text {
+  padding: 10px;
+  background: #fff;
+  color: orangered;
+  text-align: center;
+  font: 20px Arial, sans-serif;
+}
+.hr {
+  width: 50%;
+  margin-top: 10px;
+}
+.checkout-site {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.checkout-text {
+  padding: 10px;
+  background: #fff;
+  color: orangered;
+  text-align: center;
+  font: 20px Arial, sans-serif;
+}
+.filter-container {
+  margin-top: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  color: #ccc;
+}
+.products-summary-content-container {
+  padding: 20px;
+  display: flex;
+}
+.products-container {
+  width: 80%;
+  padding: 10px;
+}
+.product-image-content-container {
+  width: 70%;
+  border-top: 1px solid #ccc;
+  display: flex;
+  padding: 10px;
+}
+.select-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5%;
+  padding: 5px;
+}
+.product-image {
+  width: 30%;
+}
+.product-content-container {
+  display: flex;
+  padding: 10px;
+  width: 80%;
+}
+.product-content {
+  width: 100%;
+}
+.product-price {
+  color: orangered;
+}
+.product-delete {
+  font-family: arial;
+  font-size: 18px;
+  margin: 25px;
+  color: orangered;
+  /* Center vertically and horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+}
+.add-remove-buttons {
+  display: flex;
+  margin-top: 20px;
+}
+.remove-button-container {
+  margin-right: 10px;
+}
+.add-button-container {
+  margin-left: 10px;
+}
+.add-button {
+  background-color: orangered;
+  border-radius: 3px;
+  color: white;
+}
+.summary-content-container {
+  width: 22%;
+  padding: 10px;
+  margin-left: 10px;
+  margin-right: 15px;
+}
+.coupon-content {
+  height: 10%;
+}
+.coupon-button {
+  width: 100%;
+  height: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  font-size: 18px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.summary-content {
+  height: 40%;
+  border: 0.4px gainsboro solid;
+  padding: 10px;
+  margin-top: 15px;
+}
+.summary-title {
+  margin-left: 10px;
+}
+.total-price-container {
+  display: flex;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.total-content {
+  float: left;
+  margin-left: 10px;
+  width: 50%;
+  font-size: 14px;
+  color: grey !important;
+}
+.price-content {
+  float: right;
+  text-align: end;
+  width: 50%;
+  color: orangered;
+}
+.checkout-container {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.checkout-button {
+  width: 80%;
+  height: 30px;
+  border-radius: 5px;
+  background-color: orangered;
+  color: white;
+}
+.continue-redirect {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  color: orangered;
+}
