@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { ProductComponent } from './product/product.component';
 import { AboutComponent } from './about/about.component';
 import { CategoryComponent } from './category/category.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UserRoutingModule } from './user-routing.module';
 import { ProductCarouselComponent } from './home/product-carousel/product-carousel.component';
@@ -25,6 +26,8 @@ import { CategoryItemComponent } from './home/product-category/category-item/cat
 import { NewArrivalsItemComponent } from './home/new-arrivals/new-arrivals-item/new-arrivals-item.component';
 import { FlashSaleItemComponent } from './home/flash-sale/flash-sale-item/flash-sale-item.component';
 import { SideImageCarouselItemComponent } from './home/product-carousel/side-image-carousel/side-image-carousel-item/side-image-carousel-item.component';
+import { ContactInfoComponent } from './contact/contact-info/contact-info.component';
+import { ContactFormComponent } from './contact/contact-form/contact-form.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,10 @@ import { SideImageCarouselItemComponent } from './home/product-carousel/side-ima
     NewArrivalsItemComponent,
     FlashSaleItemComponent,
     SideImageCarouselItemComponent,
+    ContactInfoComponent,
+    ContactFormComponent,
+    
   ],
-  imports: [CommonModule, UserRoutingModule, MatCardModule, BrowserAnimationsModule],
+  imports: [CommonModule, UserRoutingModule, MatCardModule, BrowserAnimationsModule, FormsModule,ReactiveFormsModule],
 })
 export class UserModule {}
