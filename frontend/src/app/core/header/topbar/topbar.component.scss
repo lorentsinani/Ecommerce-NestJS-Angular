@@ -1,0 +1,42 @@
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  background-color: white;
+  color: black;
+  font-size: 14px;
+  padding: 0 20px;
+
+  .left-side {
+    display: flex;
+
+    a {
+      margin-right: 10px;
+
+      i {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .right-side {
+    display: flex;
+    align-items: center;
+
+    .contact-info {
+      margin-right: 20px;
+      font-weight: bold;
+
+      .phone {
+        margin-right: 10px;
+      }
+    }
+
+    .account {
+      i {
+        font-size: 20px;
+      }
+    }
+  }
+}

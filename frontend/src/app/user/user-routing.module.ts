@@ -13,7 +13,7 @@ import { BlogComponent } from './blog/blog.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   {
-    path: 'product-details',
+    path: 'product-details/:id',
     component: ProductdetailsComponent,
   },
   {
@@ -48,7 +48,6 @@ const routes: Routes = [
     path: 'product-details',
     component: ProductdetailsComponent,
   },
-  
 ];
 
 @NgModule({

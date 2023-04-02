@@ -1,0 +1,14 @@
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: left; /* align text to the left */
+  margin-bottom: 1rem;
+  margin-left: 30px;
+}
+.app-flash-sale-item-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}

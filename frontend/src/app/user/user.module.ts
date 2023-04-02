@@ -24,6 +24,7 @@ import { SideImageCarouselComponent } from './home/product-carousel/side-image-c
 import { CategoryItemComponent } from './home/product-category/category-item/category-item.component';
 import { NewArrivalsItemComponent } from './home/new-arrivals/new-arrivals-item/new-arrivals-item.component';
 import { FlashSaleItemComponent } from './home/flash-sale/flash-sale-item/flash-sale-item.component';
+import { SideImageCarouselItemComponent } from './home/product-carousel/side-image-carousel/side-image-carousel-item/side-image-carousel-item.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { FlashSaleItemComponent } from './home/flash-sale/flash-sale-item/flash-
     CategoryItemComponent,
     NewArrivalsItemComponent,
     FlashSaleItemComponent,
+    SideImageCarouselItemComponent,
   ],
   imports: [CommonModule, UserRoutingModule, MatCardModule, BrowserAnimationsModule],
 })

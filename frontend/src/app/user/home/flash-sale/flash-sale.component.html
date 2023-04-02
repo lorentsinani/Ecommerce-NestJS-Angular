@@ -1,7 +1,9 @@
-<p>flash-sale works!</p>
+<h2>Flash Sale</h2>
 
 
-<!-- ngFor to show flash sale items -->
-<app-flash-sale-item>
 
-</app-flash-sale-item>
+
+
+<div class="app-flash-sale-item-container">
+  <app-flash-sale-item *ngFor="let product of flashSales" [product]="product"></app-flash-sale-item>
+</div>

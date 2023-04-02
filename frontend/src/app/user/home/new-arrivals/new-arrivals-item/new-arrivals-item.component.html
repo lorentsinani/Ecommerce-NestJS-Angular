@@ -1,1 +1,28 @@
-<p>new-arrivals-item works!</p>
+<div class='container'>
+
+  <div class='product-card'>
+
+    <div class='product-display'>
+      <div class="product-icon">
+        <i class="fas fa-gem"></i>
+      </div>
+      <div class="product-image">
+        <img src="../../../../../assets/laptop.png" alt="Product Image">
+      </div>
+    </div>
+
+    <div class="product-details">
+      <div class="product-title">
+        {{ arrival.name }}
+      </div>
+      <div class="product-price">
+        Price: <span class="product-price-bold">${{ arrival.price }}</span>
+      </div>
+      <div class="product-rating">
+        <i class="fas fa-star"></i> {{ arrival.rate }}
+      </div>
+    </div>
+
+  </div>
+
+</div>

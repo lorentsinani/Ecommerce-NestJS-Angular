@@ -1,0 +1,82 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #eee;
+
+  &__left {
+    flex: 1;
+    text-align: left;
+  }
+
+  &__title {
+    margin: 0;
+  }
+
+  &__middle {
+    flex: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__routes {
+    display: flex;
+  }
+
+  &__link {
+    margin-right: 1rem;
+    color: #333;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__search {
+    display: flex;
+
+    input {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem 0 0 0.25rem;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    button {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0 0.25rem 0.25rem 0;
+      font-size: 1rem;
+      background-color: #fff;
+      cursor: pointer;
+      outline: none;
+
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+  }
+
+  &__right {
+    flex: 1;
+    text-align: right;
+
+    &__icon {
+      margin-left: 1rem;
+      color: #333;
+      text-decoration: none;
+
+      &:hover {
+        color: #000;
+      }
+
+      i {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
