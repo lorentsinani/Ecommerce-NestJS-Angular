@@ -1,0 +1,56 @@
+.container {
+  max-width: 1170px;
+  width: 100%;
+  margin: 0 auto;
+}
+.about-us__title {
+  font-weight: 700;
+  font-size: 43px;
+}
+.about-us__text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+.about-us__info {
+  text-align: center;
+}
+.choose-us {
+  display: grid;
+  grid-template-columns: repeat(4, 289px);
+  gap: 20px;
+}
+
+.our-team__members {
+  display: grid;
+  grid-template-columns: repeat(4, 289px);
+  gap: 20px;
+}
+.card-container__title {
+  font-weight: 700;
+}
+.choose-us__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 43px;
+}
+.our-team__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 43px;
+}
+.our-team__info {
+  text-align: center;
+}
+.choose-us__information {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
