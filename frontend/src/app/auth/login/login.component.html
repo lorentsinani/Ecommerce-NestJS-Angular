@@ -1,1 +1,11 @@
-<p>login works!</p>
+<div class="login-form" [@fadeInOut] class="login-form">
+    <form>
+      <label for="email">Email:</label>
+      <input type="email" formControlName="email" id="email" required>
+      <label for="password">Password:</label>
+      <input type="password" formControlName="password" id="password" required>
+      <button type="submit">Register</button>
+    </form>
+    <p>Don't have an account? <a routerLink="/register">Register</a></p>
+  </div>
+  

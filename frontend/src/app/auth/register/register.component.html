@@ -1,1 +1,13 @@
-<p>register works!</p>
+<div class="register-form" [@fadeInOut]>
+    <form (ngSubmit)="onSubmit()">
+      <label for="name">Name:</label>
+      <input type="text" formControlName="name" id="name" required>
+      <label for="email">Email:</label>
+      <input type="email" formControlName="email" id="email" required>
+      <label for="password">Password:</label>
+      <input type="password" formControlName="password" id="password" required>
+      <button type="submit">Register</button>
+    </form>
+    <p>Already have an account? <a routerLink="/login">Log in</a></p>
+  </div>
+  
