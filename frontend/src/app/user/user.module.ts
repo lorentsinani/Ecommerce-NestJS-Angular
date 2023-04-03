@@ -25,6 +25,8 @@ import { CategoryItemComponent } from './home/product-category/category-item/cat
 import { NewArrivalsItemComponent } from './home/new-arrivals/new-arrivals-item/new-arrivals-item.component';
 import { FlashSaleItemComponent } from './home/flash-sale/flash-sale-item/flash-sale-item.component';
 import { SideImageCarouselItemComponent } from './home/product-carousel/side-image-carousel/side-image-carousel-item/side-image-carousel-item.component';
+import { HelpCenterComponent } from './help-center/help-center.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { SideImageCarouselItemComponent } from './home/product-carousel/side-ima
     NewArrivalsItemComponent,
     FlashSaleItemComponent,
     SideImageCarouselItemComponent,
+    HelpCenterComponent,
+    PrivacyPolicyComponent,
   ],
   imports: [CommonModule, UserRoutingModule, MatCardModule, BrowserAnimationsModule],
 })
