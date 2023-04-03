@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { ProductComponent } from './product/product.component';
 import { AboutComponent } from './about/about.component';
 import { CategoryComponent } from './category/category.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UserRoutingModule } from './user-routing.module';
 import { ProductCarouselComponent } from './home/product-carousel/product-carousel.component';
@@ -27,6 +28,8 @@ import { FlashSaleItemComponent } from './home/flash-sale/flash-sale-item/flash-
 import { SideImageCarouselItemComponent } from './home/product-carousel/side-image-carousel/side-image-carousel-item/side-image-carousel-item.component';
 import { HelpCenterComponent } from './help-center/help-center.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { ContactInfoComponent } from './contact/contact-info/contact-info.component';
+import { ContactFormComponent } from './contact/contact-form/contact-form.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +56,9 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     SideImageCarouselItemComponent,
     HelpCenterComponent,
     PrivacyPolicyComponent,
+    ContactInfoComponent,
+    ContactFormComponent,
   ],
-  imports: [CommonModule, UserRoutingModule, MatCardModule, BrowserAnimationsModule],
+  imports: [CommonModule, UserRoutingModule, MatCardModule, BrowserAnimationsModule, FormsModule,ReactiveFormsModule],
 })
 export class UserModule {}
