@@ -1,4 +1,74 @@
 
+
+
+/*  OLD VERSION
+CREATE TABLE customers
+(
+    id          SERIAL PRIMARY KEY,
+    first_name           VARCHAR(50),
+    last_name            VARCHAR(50),
+    email                VARCHAR(100) UNIQUE NOT NULL,
+    hashed_password      VARCHAR(255) NOT NULL,
+    phone                VARCHAR(20),
+    address_line1        VARCHAR(100),
+    address_line2        VARCHAR(100),
+    city                 VARCHAR(50),
+    state                VARCHAR(50),
+    postal_code          VARCHAR(20),
+    country              VARCHAR(50),
+    created_at           TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at           TIMESTAMP NOT NULL DEFAULT NOW()
+);
+*/
+
+
+
+CREATE TYPE UserType AS ENUM ('customer', 'employee', 'admin');
+
+CREATE TABLE users
+(
+    id SERIAL PRIMARY KEY, 
+    user_type UserType NOT NULL,
+    first_name VARCHAR(50) NOT NULL, 
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL, 
+    password VARCHAR(255) NOT NULL, 
+    country VARCHAR(50) NOT NULL, 
+    city VARCHAR(50) NOT NULL,
+    birthdate DATE NOT NULL,
+    gender CHAR(1) NOT NULL, 
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE employees 
+(
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL UNIQUE,
+    hire_date DATE NOT NULL,
+    job_title VARCHAR(50) NOT NULL,
+    address VARCHAR(100),
+    photo_url VARCHAR(255),
+    salary DECIMAL(10,2) CHECK (salary > 250),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TYPE PermissionLevel AS ENUM (
+    'basic',
+    'administrative',
+    'superuser'
+);
+
+CREATE TABLE admins
+(
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL UNIQUE,
+    permission_level PermissionLevel NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+
+
 CREATE TABLE order_status
 (
     id char NOT NULL
@@ -31,6 +101,10 @@ CREATE TABLE employees
     created_at         TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at         TIMESTAMP NOT NULL DEFAULT NOW()
 );
+
+
+
+
 INSERT INTO employees (first_name, last_name, username, email, hashed_password, birthdate, hire_date, job_title, address, city, country, phone_number, photo_url, salary)
 VALUES
     ('John', 'Doe', 'Johnd', 'johndoe@example.com', '$2y$12$6N5j6ca5U6VQ0M8Wd7AHi.qHlRME.eUVav.EkkszD3qAPujwnjIb6', '1985-02-15', '2015-07-01', 'Sales Manager', '123 Main St', 'Anytown', 'USA', '555-123-4567', 'https://example.com/photos/johndoe.jpg', 75000.00),
@@ -78,6 +152,9 @@ CREATE TABLE category
     updated_at         TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
+
+
+
 INSERT INTO category (category_name, category_desc, category_image_url, parent_category_id)
 VALUES
     ('Electronics', 'Electronic devices and components', 'https://example.com/electronics.png', NULL),
@@ -106,6 +183,8 @@ CREATE TABLE products
     CONSTRAINT positive_units_in_stock CHECK (units_in_stock >= 0),
     CONSTRAINT positive_units_on_order CHECK (units_on_order >= 0)
 );
+
+
 INSERT INTO products (product_name, product_code, supplier_id, category_id, unit_price, units_in_stock, units_on_order, reorder_level, discontinued, created_at, updated_at)
 VALUES ('Product A', 'A001', 1, 1, 10.99, 100, 50, 20, false, NOW(), NOW()),
        ('Product B', 'B002', 2, 2, 20.99, 50, 20, 10, false, NOW(), NOW()),
@@ -132,23 +211,8 @@ VALUES
   ('Overnight', '555-3456', 'overnight');
 
 
-CREATE TABLE customers
-(
-    id          SERIAL PRIMARY KEY,
-    first_name           VARCHAR(50),
-    last_name            VARCHAR(50),
-    email                VARCHAR(100) UNIQUE NOT NULL,
-    hashed_password      VARCHAR(255) NOT NULL,
-    phone                VARCHAR(20),
-    address_line1        VARCHAR(100),
-    address_line2        VARCHAR(100),
-    city                 VARCHAR(50),
-    state                VARCHAR(50),
-    postal_code          VARCHAR(20),
-    country              VARCHAR(50),
-    created_at           TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at           TIMESTAMP NOT NULL DEFAULT NOW()
-);
+
+
 
 INSERT INTO customers (first_name, last_name, email, hashed_password, phone, address_line1, city, state, postal_code, country)
 VALUES
