@@ -11,7 +11,7 @@ License
 Installation
 To get started with this project, you will need to have Node.js and npm installed on your machine. Once you have those installed, follow these steps:
 
-Clone this repository to your local machine using the command git clone https://github.com/your-username/e-commerce-project.git.
+Clone this repository to your local machine using the command git clone https://github.com/lorentsinani/ssh-2023.git.
 Navigate to the project directory using the command cd e-commerce-project.
 Install the project dependencies using the command npm install.
 ## Usage
