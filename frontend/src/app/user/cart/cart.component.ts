@@ -10,17 +10,17 @@ export class CartComponent {
     {
       name: 'USB Speaker Portable',
       price: '$100.99',
-      imgPath: '../../../assets/laptop.png',
+      imgPath: '../../../assets/speaker.png',
     },
     {
       name: 'Joystick Pro',
       price: '$100.99',
-      imgPath: '../../../assets/laptop.png',
+      imgPath: '../../../assets/joystick.png',
     },
     {
-      name: 'Smartphone 5s',
-      price: '$100.99',
-      imgPath: '../../../assets/laptop.png',
+      name: 'Iphone 14 Pro',
+      price: '$999.99',
+      imgPath: '../../../assets/smartphone.png',
     },
   ];
 }

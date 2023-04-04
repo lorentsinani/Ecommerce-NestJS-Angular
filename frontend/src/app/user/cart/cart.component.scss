@@ -17,7 +17,7 @@
 .cart-checout-container {
   display: flex;
   margin: auto;
-  width: 100%;
+  width: 80%;
   padding: 10px;
 }
 .mycart-site {
@@ -34,6 +34,17 @@
   background: #fff;
   border: 1px solid orangered;
   color: orangered;
+  text-align: center;
+  font: 20px Arial, sans-serif;
+}
+.checkout-number-circle{
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #ccc;
+  color: #ccc;
   text-align: center;
   font: 20px Arial, sans-serif;
 }
@@ -57,13 +68,13 @@
 .checkout-text {
   padding: 10px;
   background: #fff;
-  color: orangered;
+  color: #ccc;
   text-align: center;
   font: 20px Arial, sans-serif;
 }
 .filter-container {
   margin-top: 30px;
-  margin-left: 10px;
+  margin-left: 40px;
   margin-right: 10px;
   margin-bottom: 10px;
   color: #ccc;
@@ -75,9 +86,10 @@
 .products-container {
   width: 80%;
   padding: 10px;
+  margin-left: 10px;
 }
 .product-image-content-container {
-  width: 70%;
+  width: 80%;
   border-top: 1px solid #ccc;
   display: flex;
   padding: 10px;
@@ -95,6 +107,7 @@
 .product-content-container {
   display: flex;
   padding: 10px;
+  margin-left: 10px;
   width: 80%;
 }
 .product-content {
@@ -127,16 +140,36 @@
 .add-button {
   background-color: orangered;
   border-radius: 3px;
+  border: #ccc;
   color: white;
+  width: 30px;
+  height: 30px;
+}
+.remove-button {
+  background-color: #ccc;
+  border-radius: 3px;
+  border: #ccc;
+  color: white;
+  width: 30px;
+  height: 30px;
+}
+.number-container{
+  padding: 7px;  
+  font-size: 14px;
 }
 .summary-content-container {
   width: 22%;
   padding: 10px;
-  margin-left: 10px;
-  margin-right: 15px;
+  margin-right: 100px;
 }
 .coupon-content {
   height: 10%;
+}
+#coupon-image{
+  width: 28px;
+  background-color: orangered;
+  border-radius: 3px;
+  border: #ccc;
 }
 .coupon-button {
   width: 100%;
@@ -183,11 +216,12 @@
   align-items: center;
 }
 .checkout-button {
-  width: 80%;
-  height: 30px;
+  width: 90%;
+  height: 40px;
   border-radius: 5px;
   background-color: orangered;
   color: white;
+  border: #ccc;
 }
 .continue-redirect {
   width: 100%;
