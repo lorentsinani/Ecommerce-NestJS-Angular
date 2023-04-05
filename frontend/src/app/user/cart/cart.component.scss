@@ -32,8 +32,8 @@
   height: 20px;
   padding: 10px;
   background: #fff;
-  border: 1px solid orangered;
-  color: orangered;
+  border: 1px solid #f36b5a;
+  color: #f36b5a;
   text-align: center;
   font: 20px Arial, sans-serif;
 }
@@ -51,7 +51,7 @@
 .mycart-text {
   padding: 10px;
   background: #fff;
-  color: orangered;
+  color: #f36b5a;
   text-align: center;
   font: 20px Arial, sans-serif;
 }
@@ -114,13 +114,13 @@
   width: 100%;
 }
 .product-price {
-  color: orangered;
+  color: #f36b5a;
 }
 .product-delete {
   font-family: arial;
   font-size: 18px;
   margin: 25px;
-  color: orangered;
+  color: #f36b5a;
   /* Center vertically and horizontally */
   display: flex;
   justify-content: center;
@@ -138,7 +138,7 @@
   margin-left: 10px;
 }
 .add-button {
-  background-color: orangered;
+  background-color: #f36b5a;
   border-radius: 3px;
   border: #ccc;
   color: white;
@@ -167,7 +167,7 @@
 }
 #coupon-image{
   width: 28px;
-  background-color: orangered;
+  background-color: #f36b5a;
   border-radius: 3px;
   border: #ccc;
 }
@@ -206,7 +206,7 @@
   float: right;
   text-align: end;
   width: 50%;
-  color: orangered;
+  color: #f36b5a;
 }
 .checkout-container {
   margin-top: 30px;
@@ -219,7 +219,7 @@
   width: 90%;
   height: 40px;
   border-radius: 5px;
-  background-color: orangered;
+  background-color: #f36b5a;
   color: white;
   border: #ccc;
 }
@@ -229,5 +229,5 @@
   justify-content: center;
   align-items: center;
   margin-top: 30px;
-  color: orangered;
+  color: #f36b5a;
 }

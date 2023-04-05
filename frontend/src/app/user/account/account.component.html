@@ -4,9 +4,11 @@
       <h2>My Profile</h2>
     </div>
     <div class="my-profile-list" *ngFor="let name of list">
-      <div>{{ name }}</div> <br>
+      <div class="redirect-list-accounts">{{ name }}</div>
+      <br />
     </div>
-  </div> <hr>
+  </div>
+  <hr />
   <div class="account-details-container">
     <div class="account-details-title">
       <h2>Account Details</h2>
@@ -17,23 +19,13 @@
           <br />
           First Name: <br />
           <br />
-          <input
-            type="text"
-            name="first-name-form"
-            id="first-name-form"
-            style="width: 270px; height: 20px"
-          />
+          <input type="text" name="first-name-form" class="input-form" />
         </div>
         <div class="email-form">
           <br />
           Email: <br />
           <br />
-          <input
-            type="email"
-            name="email-form"
-            id="email-form"
-            style="width: 270px; height: 20px"
-          />
+          <input type="email" name="email-form" class="input-form" />
         </div>
         <div></div>
       </div>
@@ -42,23 +34,13 @@
           <br />
           Last Name: <br />
           <br />
-          <input
-            type="text"
-            name="last-name-form"
-            id="last-name-form"
-            style="width: 270px; height: 20px"
-          />
+          <input type="text" name="last-name-form" class="input-form" />
         </div>
         <div class="phone-form">
           <br />
           Phone: <br />
           <br />
-          <input
-            type="tel"
-            name="phone-form"
-            id="phone-form"
-            style="width: 270px; height: 20px"
-          />
+          <input type="tel" name="phone-form" class="input-form" />
         </div>
         <div class="save-button-form">
           <br />

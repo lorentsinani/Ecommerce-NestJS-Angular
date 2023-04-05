@@ -1,3 +1,6 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
 .content-container {
   padding: 20px;
   margin-left: 140px;
@@ -7,6 +10,7 @@
   display: flex;
   background-color: whitesmoke;
   border: 0.5px;
+  width: 80%;
 }
 
 .my-profile-container {
@@ -15,7 +19,9 @@
 }
 .my-profile-title {
   justify-content: center;
+  margin-bottom: 30px;
 }
+
 .account-details-container {
   margin-left: 70px;
   width: 80%;
@@ -28,14 +34,24 @@
 }
 .left-form-content {
   width: 40%;
+  margin-right: 20px;
 }
 .right-form-content {
   width: 50%;
 }
 .button {
-  width: 70px;
+  width: 80px;
+  height: 30px;
+  border-radius: 4px;
+  border: #ccc;
+  background-color: #f36b5a;
+  color: white;
 }
 .save-button-form {
-  width: 65%;
+  width: 42%;
   float: right;
+}
+.input-form {
+  width: 400px;
+  height: 25px;
 }
