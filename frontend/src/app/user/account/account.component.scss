@@ -14,7 +14,7 @@
 }
 
 .my-profile-container {
-  margin-left: 40px;
+  margin-left: 10px;
   width: 20%;
 }
 .my-profile-title {
@@ -23,7 +23,7 @@
 }
 
 .account-details-container {
-  margin-left: 70px;
+  margin-left: 50px;
   width: 80%;
 }
 .account-details-title {
@@ -31,13 +31,15 @@
 }
 .account-details-form {
   display: flex;
+  justify-content: space-between;
 }
 .left-form-content {
-  width: 40%;
+  width: fit-content;
   margin-right: 20px;
 }
 .right-form-content {
-  width: 50%;
+  width: fit-content;
+  margin-left: 20px;
 }
 .button {
   width: 80px;
@@ -48,7 +50,6 @@
   color: white;
 }
 .save-button-form {
-  width: 42%;
   float: right;
 }
 .input-form {

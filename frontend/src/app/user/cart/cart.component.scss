@@ -89,10 +89,11 @@
   margin-left: 10px;
 }
 .product-image-content-container {
-  width: 80%;
+  width: 90%;
   border-top: 1px solid #ccc;
   display: flex;
   padding: 10px;
+  justify-content: space-between;
 }
 .select-box {
   display: flex;
@@ -101,8 +102,14 @@
   width: 5%;
   padding: 5px;
 }
-.product-image {
+.product-image-container {
   width: 30%;
+  padding: 15px;
+  margin-right: 15px;
+}
+.product-image {
+  width: 180px; 
+  height: 120px;
 }
 .product-content-container {
   display: flex;
@@ -158,9 +165,10 @@
   font-size: 14px;
 }
 .summary-content-container {
-  width: 22%;
+  width: 35%;
   padding: 10px;
-  margin-right: 100px;
+  margin-right: 60px;
+  margin-left: 30px;
 }
 .coupon-content {
   height: 10%;
@@ -182,18 +190,20 @@
   border: 1px solid #ccc;
 }
 .summary-content {
-  height: 40%;
+  height: 50%;
   border: 0.4px gainsboro solid;
+  border-radius: 5px;
   padding: 10px;
   margin-top: 15px;
 }
 .summary-title {
   margin-left: 10px;
+  margin-bottom: 30px;
 }
 .total-price-container {
   display: flex;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }
 .total-content {
   float: left;
@@ -207,6 +217,7 @@
   text-align: end;
   width: 50%;
   color: #f36b5a;
+  margin-right: 15px;
 }
 .checkout-container {
   margin-top: 30px;
