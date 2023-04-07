@@ -15,10 +15,4 @@ export class CreateCategoryDto {
 
   @IsNumber()
   parent_category_id: number;
-
-  @IsDate()
-  created_at: Date;
-
-  @IsDate()
-  updated_at: Date;
 }

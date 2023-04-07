@@ -43,12 +43,4 @@ export class CreateAddressDto {
   @IsString()
   @IsNotEmpty()
   last_name: string;
-
-  @IsNotEmpty()
-  @IsDate()
-  created_at: Date;
-
-  @IsNotEmpty()
-  @IsDate()
-  updated_at: Date;
 }

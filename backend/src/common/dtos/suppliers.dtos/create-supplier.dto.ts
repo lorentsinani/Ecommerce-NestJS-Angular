@@ -1,4 +1,4 @@
-import { IsDate, IsEmail, IsEnum, IsNotEmpty, IsString, Length } from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, IsString, Length } from 'class-validator';
 import { UserType } from '../../constants/enums/user-type.enum';
 export class CreateSupplierDto {
   @IsString()
@@ -51,12 +51,4 @@ export class CreateSupplierDto {
   @IsNotEmpty()
   @Length(1, 100)
   email: string;
-
-  @IsNotEmpty()
-  @IsDate()
-  created_At: Date;
-
-  @IsNotEmpty()
-  @IsDate()
-  updated_At: Date;
 }
