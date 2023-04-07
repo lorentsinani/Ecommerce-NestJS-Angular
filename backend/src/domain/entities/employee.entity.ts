@@ -1,8 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, Check } from 'typeorm';
 import { User } from './user.entity';
+import { IAdmin } from '../../common/interfaces/admin.interface';
+import { IEmployee } from '../../common/interfaces/employee.interface';
 
 @Entity()
-export class Employee {
+export class Employee implements IEmployee {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -22,6 +24,7 @@ export class Employee {
   @Column({ length: 255, nullable: true })
   photo_url: string;
 
-  @Column({ type: 'decimal', check: '(salary > 250)', nullable: true })
+  @Column({ type: 'decimal', nullable: true })
+  @Check('(salary > 250)')
   salary: number;
 }
