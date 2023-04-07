@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
 import { SuppliersService } from './suppliers.service';
-import { CreateSupplierDto } from 'src/common/dtos/suppliers.dtos/create-supplier.dto';
-import { ISuppliers } from 'src/common/interfaces/suppliers.interface';
 import { DeleteResult, UpdateResult } from 'typeorm';
-import { UpdateSupplierDto } from 'src/common/dtos/suppliers.dtos/update-supplier.dto';
+import { CreateSupplierDto } from '../../common/dtos/suppliers/create-supplier.dto';
+import { ISuppliers } from '../../common/interfaces/suppliers.interface';
+import { UpdateSupplierDto } from '../../common/dtos/suppliers/update-supplier.dto';
 
 @Controller('suppliers')
 export class SuppliersController {
@@ -24,13 +24,16 @@ export class SuppliersController {
     return await this.suppliersService.findAll();
   }
 
-  @Delete('/:id')
+  @Delete(':id')
   async removeSupplier(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {
     return await this.suppliersService.remove(id);
   }
 
-  @Patch('/:id')
-  async updateSupplier(@Param('id', ParseIntPipe) id: number, @Body() supplierBody: UpdateSupplierDto): Promise<UpdateResult> {
+  @Patch(':id')
+  async updateSupplier(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() supplierBody: UpdateSupplierDto,
+  ): Promise<UpdateResult> {
     return await this.suppliersService.update(id, supplierBody);
   }
 }

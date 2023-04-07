@@ -1,17 +1,17 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { CreateSupplierDto } from 'src/common/dtos/suppliers.dtos/create-supplier.dto';
 import { Suppliers } from '../entities/suppliers.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ISuppliers } from 'src/common/interfaces/suppliers.interface';
-import { UpdateSupplierDto } from 'src/common/dtos/suppliers.dtos/update-supplier.dto';
+import { ISuppliers } from '../../common/interfaces/suppliers.interface';
+import { CreateSupplierDto } from '../../common/dtos/suppliers/create-supplier.dto';
+import { UpdateSupplierDto } from '../../common/dtos/suppliers/update-supplier.dto';
 
 @Injectable()
 export class SuppliersService {
   constructor(@InjectRepository(Suppliers) private suppliersRepository: Repository<Suppliers>) {}
 
-  create(supplierBody: CreateSupplierDto): Promise<ISuppliers> {
-    const supplier = this.suppliersRepository.create({ ...supplierBody });
+  async create(supplierBody: CreateSupplierDto): Promise<ISuppliers> {
+    const supplier = this.suppliersRepository.create(supplierBody);
 
     return this.suppliersRepository.save(supplier);
   }
@@ -25,7 +25,7 @@ export class SuppliersService {
     return supplier;
   }
 
-  findAll(): Promise<ISuppliers[]> {
+  async findAll(): Promise<ISuppliers[]> {
     return this.suppliersRepository.find();
   }
 

@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
-import { ICategory } from 'src/common/interfaces/category.interface';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { CategoryService } from './category.service';
-import { CreateCategoryDto } from 'src/common/dtos/category.dtos/create-category.dto';
-import { UpdateCategoryDto } from 'src/common/dtos/category.dtos/update-category.dto';
+import { CreateCategoryDto } from '../../common/dtos/category/create-category.dto';
+import { ICategory } from '../../common/interfaces/category.interface';
+import { UpdateCategoryDto } from '../../common/dtos/category/update-category.dto';
 
 @Controller('category')
 export class CategoryController {
@@ -24,12 +24,12 @@ export class CategoryController {
     return await this.categoryService.findAll();
   }
 
-  @Delete('/:id')
+  @Delete(':id')
   async removeCategory(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {
-    return await this.categoryService.remove(id);
+    return await this.categoryService.delete(id);
   }
 
-  @Patch('/:id')
+  @Patch(':id')
   async updateCategory(
     @Param('id', ParseIntPipe) id: number,
     @Body() categoryBody: UpdateCategoryDto,

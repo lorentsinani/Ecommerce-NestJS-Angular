@@ -2,8 +2,8 @@ import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from 
 import { IAddress } from 'src/common/interfaces/address.interface';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { AddressService } from './address.service';
-import { CreateAddressDto } from 'src/common/dtos/address.dtos/create-address.dto';
-import { UpdateAddressDto } from 'src/common/dtos/address.dtos/update-address.dto';
+import { CreateAddressDto } from 'src/common/dtos/address/create-address.dto';
+import { UpdateAddressDto } from 'src/common/dtos/address/update-address.dto';
 
 @Controller('address')
 export class AddressController {
@@ -24,12 +24,12 @@ export class AddressController {
     return await this.addressService.findAll();
   }
 
-  @Delete('/:id')
+  @Delete(':id')
   async removeAddress(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {
     return await this.addressService.remove(id);
   }
 
-  @Patch('/:id')
+  @Patch(':id')
   async updateAddress(
     @Param('id', ParseIntPipe) id: number,
     @Body() addressBody: UpdateAddressDto,

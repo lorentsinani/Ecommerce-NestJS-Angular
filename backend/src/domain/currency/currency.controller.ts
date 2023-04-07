@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
 import { CurrencyService } from './currency.service';
 import { DeleteResult, UpdateResult } from 'typeorm';
-import { ICurrency } from 'src/common/interfaces/currency.interface';
-import { CreateCurrencyDto } from 'src/common/dtos/currency.dtos/create-currency.dto';
-import { UpdateCurrencyDto } from 'src/common/dtos/currency.dtos/update-currency.dto';
+import { CreateCurrencyDto } from '../../common/dtos/currency/create-currency.dto';
+import { ICurrency } from '../../common/interfaces/currency.interface';
+import { UpdateCurrencyDto } from '../../common/dtos/currency/update-currency.dto';
 
 @Controller('currency')
 export class CurrencyController {
@@ -24,12 +24,12 @@ export class CurrencyController {
     return await this.currencyService.findAll();
   }
 
-  @Delete('/:id')
+  @Delete(':id')
   async removeCurrency(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {
     return await this.currencyService.remove(id);
   }
 
-  @Patch('/:id')
+  @Patch(':id')
   async updateCurrency(
     @Param('id', ParseIntPipe) id: number,
     @Body() currencyBody: UpdateCurrencyDto,

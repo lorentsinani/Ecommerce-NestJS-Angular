@@ -2,16 +2,16 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { Currency } from '../entities/currency.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeleteResult, UpdateResult } from 'typeorm';
-import { ICurrency } from 'src/common/interfaces/currency.interface';
-import { CreateCurrencyDto } from 'src/common/dtos/currency.dtos/create-currency.dto';
-import { UpdateCurrencyDto } from 'src/common/dtos/currency.dtos/update-currency.dto';
+import { CreateCurrencyDto } from '../../common/dtos/currency/create-currency.dto';
+import { ICurrency } from '../../common/interfaces/currency.interface';
+import { UpdateCurrencyDto } from '../../common/dtos/currency/update-currency.dto';
 
 @Injectable()
 export class CurrencyService {
   constructor(@InjectRepository(Currency) private currencyRepository: Repository<Currency>) {}
 
-  create(currencyBody: CreateCurrencyDto): Promise<ICurrency> {
-    const currency = this.currencyRepository.create({ ...currencyBody });
+  async create(currencyBody: CreateCurrencyDto): Promise<ICurrency> {
+    const currency = this.currencyRepository.create(currencyBody);
 
     return this.currencyRepository.save(currency);
   }
@@ -25,17 +25,8 @@ export class CurrencyService {
     return currency;
   }
 
-  findAll(): Promise<ICurrency[]> {
+  async findAll(): Promise<ICurrency[]> {
     return this.currencyRepository.find();
-  }
-
-  async remove(id: number): Promise<DeleteResult> {
-    const deletedCurrency = await this.currencyRepository.delete(id);
-
-    if (deletedCurrency.affected === 0) {
-      throw new HttpException('Currency not found', HttpStatus.NOT_FOUND);
-    }
-    return deletedCurrency;
   }
 
   async update(id: number, currencyBody: UpdateCurrencyDto): Promise<UpdateResult> {
@@ -45,5 +36,14 @@ export class CurrencyService {
       throw new HttpException('Currency not found!', HttpStatus.NOT_FOUND);
     }
     return updateCurrency;
+  }
+
+  async remove(id: number): Promise<DeleteResult> {
+    const deletedCurrency = await this.currencyRepository.delete(id);
+
+    if (deletedCurrency.affected === 0) {
+      throw new HttpException('Currency not found', HttpStatus.NOT_FOUND);
+    }
+    return deletedCurrency;
   }
 }

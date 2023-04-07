@@ -5,7 +5,7 @@ export interface IEmployee {
   user: IUser;
   hire_date: Date;
   job_title: string;
-  address: string | null;
-  photo_url: string | null;
-  salary: number | null;
+  address: string;
+  photo_url: string;
+  salary: number;
 }

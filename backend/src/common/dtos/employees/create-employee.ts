@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsEnum, Length } from 'class-validator';
+import { IsNotEmpty, IsString, Length } from 'class-validator';
 import { Type } from 'class-transformer';
 import { CreateUserDto } from '../users/create-user.dto';
 
