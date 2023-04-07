@@ -1,5 +1,8 @@
 import { databaseConfig } from './database-config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import * as path from 'path';
+import { User } from '../domain/entities/user.entity';
+import { Admin } from '../domain/entities/admin.entity';
 
 // TypeORM configuration
 export const typeOrmConfig = () => {
@@ -10,9 +13,7 @@ export const typeOrmConfig = () => {
     username: databaseConfig().username,
     password: databaseConfig().password,
     database: databaseConfig().database,
-    entities: [
-      /* Array of your entity classes */
-    ],
+    entities: [User, Admin],
     synchronize: true, // Auto-create database tables (for development only)
   } as TypeOrmModuleOptions;
 };
