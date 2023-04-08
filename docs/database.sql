@@ -148,7 +148,112 @@ VALUES
 
 
 
--- TO BE DONE 
+
+
+-- Not finished
+
+
+
+-- Product related 
+CREATE TABLE products (
+  id SERIAL PRIMARY KEY,
+  product_name VARCHAR(255) NOT NULL,
+  product_code VARCHAR(50) UNIQUE NOT NULL,
+  supplier_id INTEGER NOT NULL,
+  category_id INTEGER NOT NULL,
+  released_date DATE NOT NULL,
+  price_with_vat DECIMAL(10, 2) NOT NULL,
+  price_without_vat DECIMAL(10, 2) NOT NULL,
+  vat DECIMAL(10, 2),
+  availability_in_stock INTEGER NOT NULL,
+  discount DECIMAL(5, 2),
+  product_details_id INTEGER UNIQUE NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  CONSTRAINT fk_supplier_id FOREIGN KEY (supplier_id) REFERENCES supplier (id),
+  CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES category (id),
+  CONSTRAINT fk_product_details_id FOREIGN KEY (product_details_id) REFERENCES product_details (id)
+);
+
+
+CREATE TABLE product_details (
+  id SERIAL PRIMARY KEY,
+  origin VARCHAR(255),
+  producer VARCHAR(255),
+  warranty VARCHAR(255),
+  color VARCHAR(255),
+  size VARCHAR(255),
+  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE product_images (
+  id SERIAL PRIMARY KEY,
+  product_id INTEGER NOT NULL REFERENCES product(id) ON DELETE CASCADE,
+  image_url VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+
+CREATE TABLE reviews
+(
+    id              SERIAL PRIMARY KEY,
+    product_id      INTEGER REFERENCES products(id),
+    customer_id     INTEGER DEFAULT -1, -- Use -1 as a default value for guest users
+    guest_name      varchar(50) default null,
+    rating          INTEGER CHECK (rating >= 1 AND rating <= 5),
+    review_text     TEXT,
+    review_date     TIMESTAMP DEFAULT NOW()
+);
+
+
+CREATE TABLE wishlists (
+  id SERIAL PRIMARY KEY,
+  customer_id INTEGER NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
+  product_id INTEGER NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  UNIQUE (customer_id, product_id),
+);
+
+
+
+
+-- Order Related
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  customer_id INT NOT NULL,
+  order_comment VARCHAR(255),
+  currency_id INT,
+  employee_id INT,
+  order_status_id INT,
+  address_id INTEGER NOT NULL REFERENCES address(id),
+  order_date DATE,
+  total_amount_with_vat DECIMAL(10, 2),
+  total_amount_without_vat DECIMAL(10, 2),
+  vat DECIMAL(10, 2),
+  CONSTRAINT fk_order_status_id FOREIGN KEY (order_status_id) REFERENCES order_status(id),
+  CONSTRAINT fk_currency_id FOREIGN KEY (currency_id) REFERENCES currency(id),
+  CONSTRAINT fk_customer_id FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+  CONSTRAINT fk_employee_id FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
+);
+
+
+-- Order Items represent the specific product in a particular order
+CREATE TABLE order_items (
+  order_item_id SERIAL PRIMARY KEY,
+  order_id INT NOT NULL,
+  product_id INT NOT NULL,
+  quantity INT NOT NULL,
+  price_with_vat DECIMAL(10, 2) NOT NULL,
+  price_without_vat DECIMAL(10, 2) NOT NULL,
+  vat DECIMAL(10, 2),
+  total_amount DECIMAL(10, 2),
+  CONSTRAINT fk_order_id FOREIGN KEY (order_id) REFERENCES orders(id),
+  CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
 CREATE TABLE order_status
 (
     id serial PRIMARY KEY,
@@ -157,7 +262,24 @@ CREATE TABLE order_status
     updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE delivery_method
+
+
+CREATE TABLE deliveries (
+    id SERIAL PRIMARY KEY,
+    delivery_date DATE,
+    delivery_comments VARCHAR(255),
+    delivery_cost NUMERIC,
+    delivery_method_id INTEGER REFERENCES delivery_method(id),
+    delivery_status_id ENUM ('pending', 'in_transit', 'delivered', 'failed'), 
+    delivery_order_id INTEGER,
+    promised_delivery_date DATE,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW(),
+    CONSTRAINT fk_delivery_order_id FOREIGN KEY (delivery_order_id) REFERENCES orders(id)
+);
+
+
+CREATE TABLE delivery_methods
 (
     id SERIAL PRIMARY KEY,
     delivery_method_name VARCHAR(50) NOT NULL,
@@ -172,171 +294,40 @@ CREATE TABLE delivery_method
 
 
 
-
-
-
--- Not finished
-
-
-CREATE TABLE products
-(
-    id          SERIAL PRIMARY KEY,
-    product_name        VARCHAR(255) NOT NULL,
-    product_code        VARCHAR(10) UNIQUE,
-    supplier_id         INTEGER REFERENCES suppliers(id) ON DELETE CASCADE,
-    category_id         INTEGER REFERENCES category(id) ON DELETE SET NULL,
-    unit_price          DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-    units_in_stock      INTEGER NOT NULL DEFAULT 0,
-    units_on_order      INTEGER NOT NULL DEFAULT 0,
-    reorder_level       INTEGER,
-    discontinued        BOOLEAN NOT NULL DEFAULT false,
-    discontinued_date   DATE,
-    created_at          TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at          TIMESTAMP NOT NULL DEFAULT NOW(),
-    CONSTRAINT positive_unit_price CHECK (unit_price >= 0),
-    CONSTRAINT positive_units_in_stock CHECK (units_in_stock >= 0),
-    CONSTRAINT positive_units_on_order CHECK (units_on_order >= 0)
+CREATE TABLE payments (
+  payment_id SERIAL PRIMARY KEY,
+  order_id INT NOT NULL,
+  payment_amount DECIMAL(10, 2) NOT NULL,
+  payment_method VARCHAR(255) NOT NULL,
+  payment_status VARCHAR(255) NOT NULL,
+  payment_date TIMESTAMP NOT NULL,
+  CONSTRAINT fk_order_id FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
 
-INSERT INTO products (product_name, product_code, supplier_id, category_id, unit_price, units_in_stock, units_on_order, reorder_level, discontinued, created_at, updated_at)
-VALUES ('Product A', 'A001', 1, 1, 10.99, 100, 50, 20, false, NOW(), NOW()),
-       ('Product B', 'B002', 2, 2, 20.99, 50, 20, 10, false, NOW(), NOW()),
-       ('Product C', 'C003', 1, 1, 15.99, 200, 100, 50, false, NOW(), NOW()),
-       ('Product D', 'D004', 3, 3, 5.99, 300, 150, 75, false, NOW(), NOW()),
-       ('Product E', 'E005', 2, 2, 12.99, 75, 30, 15, false, NOW(), NOW());
 
-
-
-
-CREATE TABLE order_discount
-(
-    id              SERIAL PRIMARY KEY,
-    order_id        INTEGER,
-    amount          NUMERIC(10, 2),
-    description     VARCHAR(255),
-    percentage      NUMERIC(5, 2),
-    vat_amount      NUMERIC(10, 2),
-    amount_with_vat NUMERIC(10, 2) GENERATED ALWAYS AS (amount + vat_amount) STORED,
-    created_at      TIMESTAMP DEFAULT NOW(),
-    updated_at      TIMESTAMP DEFAULT NOW()
+CREATE TABLE payments (
+  payment_id SERIAL PRIMARY KEY,
+  order_id INT NOT NULL,
+  payment_amount DECIMAL(10, 2) NOT NULL,
+  payment_method VARCHAR(255) NOT NULL,
+  payment_status VARCHAR(255) NOT NULL,
+  payment_date TIMESTAMP NOT NULL,
+  CONSTRAINT fk_order_id FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
-INSERT INTO order_discount (order_id, amount, description, percentage, vat_amount)
-VALUES
-    (1, 50.00, 'Discount 1', 10.00, 5.00),
-    (2, 20.00, 'Discount 2', 5.00, 1.00),
-    (3, 75.00, 'Discount 3', 15.00, 6.00),
-    (4, 30.00, 'Discount 4', 7.50, 2.00),
-    (5, 100.00, 'Discount 5', 20.00, 10.00);
 
-
-
-
-
+-- Payment Information
 CREATE TABLE payment_info (
-    id                  SERIAL PRIMARY KEY,
-    amount              NUMERIC,
-    billing_address_id  INTEGER REFERENCES address,
-    order_id            INTEGER,
-    payment_date        TIMESTAMP,
-    transaction_number  VARCHAR(255),
-    vat_amount          NUMERIC,
-    vat_percentage      NUMERIC,
-    external_message    TEXT,
-    created_at          TIMESTAMP DEFAULT NOW(),
-    updated_at          TIMESTAMP DEFAULT NOW()
+    id SERIAL PRIMARY KEY,
+    last_updated_at TIMESTAMP DEFAULT NOW(),
+    payment_id INT NOT NULL,
+    additional_notes TEXT,
+    is_confirmed BOOLEAN NOT NULL DEFAULT FALSE,
+    confirmed_by INTEGER,
+    confirmed_at TIMESTAMP,
+    CONSTRAINT fk_payment_id FOREIGN KEY (payment_id) REFERENCES payments(payment_id) ON DELETE CASCADE,
+    CONSTRAINT fk_confirmed_by FOREIGN KEY (confirmed_by) REFERENCES employees(employee_id)
 );
 
-INSERT INTO payment_info (amount, billing_address_id, order_id, payment_date, transaction_number, vat_amount, vat_percentage)
-VALUES
-    (100.50, 1, 1, '2023-03-23 10:30:00', '12345', 10.05, 10),
-    (50.75, 2, 2, '2023-03-24 15:45:00', '67890', 5.08, 10),
-    (75.20, 1, 3, '2023-03-25 12:15:00', '24680', 7.52, 10),
-    (120.00, 3, 4, '2023-03-26 18:00:00', '13579', 12.00, 10);
-
-CREATE TABLE additional_payment_info
-(
-    id                   SERIAL PRIMARY KEY,
-    last_updated_at      TIMESTAMP DEFAULT NOW(),
-    payment_info_id      INTEGER REFERENCES payment_info(id) ON DELETE CASCADE,
-    additional_notes     TEXT,
-    is_confirmed         BOOLEAN NOT NULL DEFAULT FALSE,
-    confirmed_by         INTEGER REFERENCES employees(id),
-    confirmed_at         TIMESTAMP
-);
-
-
-CREATE TABLE deliveries
-(
-    id                       SERIAL PRIMARY KEY,
-    delivery_date            DATE,
-    delivery_comments        VARCHAR(255),
-    delivery_address_id      INTEGER REFERENCES address(id),
-    delivery_cost            NUMERIC,
-    delivery_method_id       INTEGER REFERENCES delivery_method(id),
-    delivery_status_id       CHAR REFERENCES order_status(id),
-    delivery_order_id        INTEGER,
-    promised_delivery_date   DATE,
-    created_at               TIMESTAMP DEFAULT NOW(),
-    updated_at               TIMESTAMP DEFAULT NOW()
-);
-
-
-CREATE TABLE orders
-(
-    id                      SERIAL PRIMARY KEY,
-    order_comments          VARCHAR(255),
-    product_id              INTEGER REFERENCES products(id),
-    currency_id             INTEGER REFERENCES currency(id),
-    customer_id             INTEGER REFERENCES customers(id),
-    employee_id             INTEGER REFERENCES employees(id),
-    last_updated_at         TIMESTAMP DEFAULT NOW(),
-    order_date              TIMESTAMP,
-    order_status            CHAR REFERENCES order_status(id),
-    total                   NUMERIC,
-    total_delivery_cost     NUMERIC,
-    total_delivery_cost_vat NUMERIC,
-    total_discount          NUMERIC,
-    grand_total             NUMERIC
-);
-
-
-CREATE TABLE order_history
-(
-    id                      SERIAL PRIMARY KEY,
-    order_comments          VARCHAR(255),
-    product_id              INTEGER REFERENCES products(id),
-    currency_id             INTEGER REFERENCES currency(id),
-    customer_id             INTEGER REFERENCES customers(id),
-    employee_id             INTEGER REFERENCES employees(id),
-    last_updated_date       TIMESTAMP DEFAULT NOW(),
-    order_date              TIMESTAMP,
-    order_status            CHAR REFERENCES order_status(id),
-    total                   NUMERIC,
-    total_delivery_cost     NUMERIC,
-    total_delivery_cost_vat NUMERIC,
-    total_discount          NUMERIC,
-    grand_total             NUMERIC
-);
-
-
-
-CREATE TABLE reviews
-(
-    id              SERIAL PRIMARY KEY,
-    product_id      INTEGER REFERENCES products(id),
-    customer_id     INTEGER REFERENCES customers(id),
-    rating          INTEGER CHECK (rating >= 1 AND rating <= 5),
-    review_text     TEXT,
-    review_date     TIMESTAMP DEFAULT NOW()
-);
-
-
-CREATE TABLE wishlists (
-  id SERIAL PRIMARY KEY,
-  customer_id INTEGER NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
-  product_id INTEGER NOT NULL REFERENCES products(id) ON DELETE CASCADE,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW()
-);
 
