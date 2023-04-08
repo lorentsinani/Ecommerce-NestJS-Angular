@@ -3,26 +3,17 @@ import { ConfigModule } from '@nestjs/config';
 import { appConfig } from './config/app-config';
 import { databaseConfig } from './config/database-config';
 import { jwtConfig } from './config/jwt-config';
-import { ApplicationServicesModule } from './application-services/application-services.module';
-import { ControllersModule } from './controllers/controllers.module';
+import { ApplicationServicesModule } from './application/application-services.module';
 import { DomainModule } from './domain/domain.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { typeOrmConfig } from './config/typeorm-config';
+import { DatabaseModule } from './common/database/database.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      load: [appConfig, databaseConfig, jwtConfig],
-      isGlobal: true,
-    }),
-    TypeOrmModule.forRootAsync({
-      useFactory: () => typeOrmConfig(),
-    }),
+    ConfigModule.forRoot({ load: [appConfig, databaseConfig, jwtConfig], isGlobal: true }),
+    DatabaseModule,
     ApplicationServicesModule,
-    ControllersModule,
-    DomainModule,
+    DomainModule
   ],
-  controllers: [],
-  providers: [],
+  providers: []
 })
 export class AppModule {}

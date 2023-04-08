@@ -5,7 +5,7 @@ export interface IJwtConfig {
   jwt_expires_in: string;
 }
 
-export const jwtConfig = registerAs('app', (): IJwtConfig => {
+export const jwtConfig = registerAs('jwt', (): IJwtConfig => {
   const config: IJwtConfig = {
     jwt_secret: process.env.JWT_SECRET || '',
     jwt_expires_in: process.env.JWT_EXPIRES_IN || '',
