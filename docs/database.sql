@@ -44,50 +44,6 @@ CREATE TABLE admins
 
 
 
-CREATE TABLE order_status
-(
-    id serial PRIMARY KEY,
-    status ENUM ('pending', 'shipped', 'delivered', 'cancelled') NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
-);
-
-
-
-CREATE TABLE employees
-(
-    id     SERIAL PRIMARY KEY,
-    first_name      VARCHAR(50) NOT NULL,
-    last_name       VARCHAR(50) NOT NULL,
-    username        VARCHAR(50) UNIQUE,
-    email           VARCHAR(100) UNIQUE,
-    hashed_password   VARCHAR(255) NOT NULL,
-    birthdate       DATE NOT NULL,
-    hire_date       DATE NOT NULL,
-    job_title       VARCHAR(50) NOT NULL,
-    address         VARCHAR(100) NOT NULL,
-    city            VARCHAR(50) NOT NULL,
-    country         VARCHAR(50) NOT NULL,
-    phone_number    VARCHAR(20) NOT NULL,
-    photo_url       VARCHAR(255),
-    salary          DECIMAL(10,2) NOT NULL CHECK (salary > 0),
-    created_at         TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at         TIMESTAMP NOT NULL DEFAULT NOW()
-);
-
-
-
-
-INSERT INTO employees (first_name, last_name, username, email, hashed_password, birthdate, hire_date, job_title, address, city, country, phone_number, photo_url, salary)
-VALUES
-    ('John', 'Doe', 'Johnd', 'johndoe@example.com', '$2y$12$6N5j6ca5U6VQ0M8Wd7AHi.qHlRME.eUVav.EkkszD3qAPujwnjIb6', '1985-02-15', '2015-07-01', 'Sales Manager', '123 Main St', 'Anytown', 'USA', '555-123-4567', 'https://example.com/photos/johndoe.jpg', 75000.00),
-    ('Jane', 'Smith', 'Janes', 'janesmith@example.com', '$2y$12$6N5j6ca5U6VQ0M8Wd7AHi.qHlRME.eUVav.EkkszD3qAPujwnjIb6', '1990-06-10', '2017-02-15', 'Marketing Coordinator', '456 Elm St', 'Anycity', 'Canada', '555-555-1234', NULL, 50000.00),
-    ('Mark', 'Johnson', 'Markj', 'markjohnson@example.com', '$2y$12$6N5j6ca5U6VQ0M8Wd7AHi.qHlRME.eUVav.EkkszD3qAPujwnjIb6', '1982-09-21', '2008-03-01', 'Software Engineer', '789 Oak St', 'Anystate', 'USA', '555-789-1234', 'https://example.com/photos/markjohnson.jpg', 100000.00),
-    ('Sarah', 'Lee', 'Sarahl', 'sarahlee@example.com', '$2y$12$6N5j6ca5U6VQ0M8Wd7AHi.qHlRME.eUVav.EkkszD3qAPujwnjIb6', '1995-12-05', '2020-01-01', 'Customer Support Representative', '1010 Pine St', 'Anycity', 'USA', '555-333-4444', NULL, 40000.00),
-    ('David', 'Nguyen', 'Davidn', 'davidnguyen@example.com', '$2y$12$6N5j6ca5U6VQ0M8Wd7AHi.qHlRME.eUVav.EkkszD3qAPujwnjIb6', '1998-03-28', '2021-02-01', 'Intern', '2468 Maple St', 'Anystate', 'Canada', '555-987-6543', NULL, 25000.00);
-
-
-
 CREATE TABLE suppliers
 (
     id    SERIAL PRIMARY KEY,
@@ -113,6 +69,28 @@ INSERT INTO suppliers (company_name, contact_name, contact_title, address, city,
 ('Global Trading Co.', 'Maria Rodriguez', 'Marketing Director', '321 Maple Rd', 'Midtown', 'FL', '09876', 'USA', '555-555-9876', '555-555-1213', 'maria@globaltradingco.com'),
 ('Gizmos R Us', 'Bill Thompson', 'VP of Operations', '987 Cherry St', 'Downtown', 'GA', '13579', 'USA', '555-555-5555', NULL, 'bill@gizmosrus.com');
 
+CREATE TABLE address
+(
+    id           SERIAL PRIMARY KEY,
+    address_line1        VARCHAR(255) NOT NULL,
+    address_line2        VARCHAR(255),
+    city                 VARCHAR(100),
+    state                VARCHAR(50),
+    postal_code          VARCHAR(15),
+    country              VARCHAR(100),
+    email                VARCHAR(100),
+    phone                VARCHAR(20),
+    first_name           VARCHAR(50) NOT NULL,
+    last_name            VARCHAR(50) NOT NULL,
+    created_at           TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at           TIMESTAMP NOT NULL DEFAULT NOW()
+);
+INSERT INTO address (address_line1, address_line2, city, state, postal_code, country, email, phone, first_name, last_name)
+VALUES
+    ('123 Main St', 'Apt 2', 'Anytown', 'CA', '12345', 'USA', 'john@example.com', '555-1234', 'John', 'Doe'),
+    ('456 Oak Ave', NULL, 'Smallville', 'NY', '54321', 'USA', 'jane@example.com', '555-5678', 'Jane', 'Smith'),
+    ('789 Elm St', NULL, 'Big City', 'TX', '98765', 'USA', 'sam@example.com', '555-2468', 'Sam', 'Johnson'),
+    ('321 Maple Ln', 'Unit 10', 'Somewhere', 'FL', '24680', 'USA', 'kate@example.com', '555-3690', 'Kate', 'Lee');
 
 CREATE TABLE category
 (
@@ -135,6 +113,69 @@ VALUES
     ('Books', 'Printed and digital books', 'https://example.com/books.png', NULL),
     ('Home & Garden', 'Furniture and home decor', 'https://example.com/home-garden.png', NULL),
     ('Toys & Games', 'Games and toys for all ages', 'https://example.com/toys-games.png', NULL);
+
+CREATE TABLE currency
+(
+    id              SERIAL PRIMARY KEY,
+    code            CHAR(3) NOT NULL,
+    exchange_rate   NUMERIC(10, 6) NOT NULL,
+    is_base         BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at      TIMESTAMP DEFAULT NOW(),
+    updated_at      TIMESTAMP DEFAULT NOW()
+);
+
+INSERT INTO currency (code, exchange_rate, is_base)
+VALUES
+    ('USD', 1.000000, FALSE),
+    ('EUR', 1.128779, TRUE),
+    ('JPY', 0.009140, FALSE),
+    ('GBP', 1.378625, FALSE);
+
+
+
+-- Finished ^ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- TO BE DONE 
+CREATE TABLE order_status
+(
+    id serial PRIMARY KEY,
+    status ENUM ('pending', 'shipped', 'delivered', 'cancelled') NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE delivery_method
+(
+    id SERIAL PRIMARY KEY,
+    delivery_method_name VARCHAR(50) NOT NULL,
+    phone_number VARCHAR(50) NOT NULL,
+    delivery_time INTERVAL NOT NULL,
+    delivery_method ENUM ('pickup', 'courier', 'shipping') NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+
+
+
+
+
+
+
+-- Not finished
 
 
 CREATE TABLE products
@@ -166,56 +207,6 @@ VALUES ('Product A', 'A001', 1, 1, 10.99, 100, 50, 20, false, NOW(), NOW()),
        ('Product E', 'E005', 2, 2, 12.99, 75, 30, 15, false, NOW(), NOW());
 
 
-CREATE TABLE delivery_method
-(
-    id   SERIAL PRIMARY KEY,
-    delivery_method_name VARCHAR(50) NOT NULL,
-    phone_number         VARCHAR(50) NOT NULL,
-    delivery_time        INTERVAL NOT NULL,
-    created_at           TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at           TIMESTAMP NOT NULL DEFAULT NOW()
-);
-
-INSERT INTO delivery_method (delivery_method_name, phone_number, delivery_time)
-VALUES
-  ('Express', '555-1234', '2 hours'),
-  ('Standard', '555-5678', '1 day'),
-  ('International', '555-9012', '5 days'),
-  ('Overnight', '555-3456', 'overnight');
-
-
-
-
-
-INSERT INTO customers (first_name, last_name, email, hashed_password, phone, address_line1, city, state, postal_code, country)
-VALUES
-    ('John', 'Doe', 'johndoe@example.com', '$2y$12$6N5j6ca5U6VQ0M8Wd7AHi.qHlRME.eUVav.EkkszD3qAPujwnjIb6', '123-456-7890', '123 Main St', 'Los Angeles', 'CA', '90001', 'USA'),
-    ('Jane', 'Smith', 'janesmith@example.com', '$2y$12$6N5j6ca5U6VQ0M8Wd7AHi.qHlRME.eUVav.EkkszD3qAPujwnjIb6', '456-789-0123', '456 Oak Ave', 'San Francisco', 'CA', '94102', 'USA'),
-    ('Bob', 'Johnson', 'bobjohnson@example.com', '$2y$12$6N5j6ca5U6VQ0M8Wd7AHi.qHlRME.eUVav.EkkszD3qAPujwnjIb6', '789-012-3456', '789 Elm St', 'New York', 'NY', '10001', 'USA');
-
-
-CREATE TABLE address
-(
-    id           SERIAL PRIMARY KEY,
-    address_line1        VARCHAR(255) NOT NULL,
-    address_line2        VARCHAR(255),
-    city                 VARCHAR(100),
-    state                VARCHAR(50),
-    postal_code          VARCHAR(15),
-    country              VARCHAR(100),
-    email                VARCHAR(100),
-    phone                VARCHAR(20),
-    first_name           VARCHAR(50) NOT NULL,
-    last_name            VARCHAR(50) NOT NULL,
-    created_at           TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at           TIMESTAMP NOT NULL DEFAULT NOW()
-);
-INSERT INTO address (address_line1, address_line2, city, state, postal_code, country, email, phone, first_name, last_name)
-VALUES
-    ('123 Main St', 'Apt 2', 'Anytown', 'CA', '12345', 'USA', 'john@example.com', '555-1234', 'John', 'Doe'),
-    ('456 Oak Ave', NULL, 'Smallville', 'NY', '54321', 'USA', 'jane@example.com', '555-5678', 'Jane', 'Smith'),
-    ('789 Elm St', NULL, 'Big City', 'TX', '98765', 'USA', 'sam@example.com', '555-2468', 'Sam', 'Johnson'),
-    ('321 Maple Ln', 'Unit 10', 'Somewhere', 'FL', '24680', 'USA', 'kate@example.com', '555-3690', 'Kate', 'Lee');
 
 
 CREATE TABLE order_discount
@@ -241,22 +232,6 @@ VALUES
 
 
 
-CREATE TABLE currency
-(
-    id              SERIAL PRIMARY KEY,
-    code            CHAR(3) NOT NULL,
-    exchange_rate   NUMERIC(10, 6) NOT NULL,
-    is_base         BOOLEAN NOT NULL DEFAULT FALSE,
-    created_at      TIMESTAMP DEFAULT NOW(),
-    updated_at      TIMESTAMP DEFAULT NOW()
-);
-
-INSERT INTO currency (code, exchange_rate, is_base)
-VALUES
-    ('USD', 1.000000, FALSE),
-    ('EUR', 1.128779, TRUE),
-    ('JPY', 0.009140, FALSE),
-    ('GBP', 1.378625, FALSE);
 
 
 CREATE TABLE payment_info (
