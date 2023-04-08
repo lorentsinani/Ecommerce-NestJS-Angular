@@ -1,28 +1,3 @@
-
-
-
-/*  OLD VERSION
-CREATE TABLE customers
-(
-    id          SERIAL PRIMARY KEY,
-    first_name           VARCHAR(50),
-    last_name            VARCHAR(50),
-    email                VARCHAR(100) UNIQUE NOT NULL,
-    hashed_password      VARCHAR(255) NOT NULL,
-    phone                VARCHAR(20),
-    address_line1        VARCHAR(100),
-    address_line2        VARCHAR(100),
-    city                 VARCHAR(50),
-    state                VARCHAR(50),
-    postal_code          VARCHAR(20),
-    country              VARCHAR(50),
-    created_at           TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at           TIMESTAMP NOT NULL DEFAULT NOW()
-);
-*/
-
-
-
 CREATE TYPE UserType AS ENUM ('customer', 'employee', 'admin');
 
 CREATE TABLE users
@@ -71,9 +46,15 @@ CREATE TABLE admins
 
 CREATE TABLE order_status
 (
-    id char NOT NULL
-        PRIMARY KEY
+    id serial PRIMARY KEY,
+    status ENUM ('pending', 'shipped', 'delivered', 'cancelled') NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
+
+
+
+
 
 INSERT INTO order_status (id) VALUES ('N'); -- New
 INSERT INTO order_status (id) VALUES ('P'); -- In progress
