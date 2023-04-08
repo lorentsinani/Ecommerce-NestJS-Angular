@@ -1,8 +1,8 @@
-import { ExceptionFilter, Catch, ArgumentsHost, HttpStatus } from '@nestjs/common';
+import { ExceptionFilter, Catch, ArgumentsHost, HttpStatus, UnauthorizedException } from '@nestjs/common';
 
-@Catch()
+@Catch(UnauthorizedException)
 export class UnauthorizedExceptionFilter implements ExceptionFilter {
-  catch(exception: any, host: ArgumentsHost) {
+  catch(exception: UnauthorizedException, host: ArgumentsHost) {
     const response = host.switchToHttp().getResponse();
     const statusCode = HttpStatus.UNAUTHORIZED;
     const message = 'Unauthorized';
