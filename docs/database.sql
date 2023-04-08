@@ -54,14 +54,6 @@ CREATE TABLE order_status
 
 
 
-
-
-INSERT INTO order_status (id) VALUES ('N'); -- New
-INSERT INTO order_status (id) VALUES ('P'); -- In progress
-INSERT INTO order_status (id) VALUES ('C'); -- Completed
-INSERT INTO order_status (id) VALUES ('X'); -- Cancelled
-
-
 CREATE TABLE employees
 (
     id     SERIAL PRIMARY KEY,
