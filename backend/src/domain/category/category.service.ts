@@ -24,7 +24,7 @@ export class CategoryService {
     return category;
   }
 
-  findAll(): Promise<ICategory[]> {
+  async findAll(): Promise<ICategory[]> {
     return this.categoryRepository.find();
   }
 
