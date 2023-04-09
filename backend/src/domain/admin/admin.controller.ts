@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Param, Post, Patch } from '@nestjs/common';
-import { ParseIntPipe, UseFilters, UsePipes, ValidationPipe, Delete } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Patch, ValidationPipe } from '@nestjs/common';
+import { ParseIntPipe, UseFilters, UsePipes, Delete } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { IAdmin } from '../../common/interfaces/admin.interface';
 import { ValidationExceptionFilter } from '../../common/filters/validation-exception.filter';
@@ -14,30 +14,30 @@ export class AdminController {
   @Post()
   @UsePipes(new ValidationPipe())
   @UseFilters(new ValidationExceptionFilter())
-  async createAdmin(@Body() createAdminDto: CreateAdminDto): Promise<IAdmin> {
-    return this.adminService.createAdmin(createAdminDto);
+  async create(@Body() createAdminDto: CreateAdminDto): Promise<IAdmin> {
+    return this.adminService.create(createAdminDto);
   }
 
   @Get()
   async findAll(): Promise<IAdmin[]> {
-    return this.adminService.findAllAdmins();
+    return this.adminService.findAll();
   }
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number): Promise<IAdmin> {
-    return this.adminService.findAdminById(id);
+    return this.adminService.findById(id);
   }
 
   @Patch(':id')
   @UsePipes(new ValidationPipe(), new NullDtoValidationPipe())
   @UseFilters(new ValidationExceptionFilter())
-  async updateAdmin(@Param('id', ParseIntPipe) id: number, @Body() updateAdminDto: UpdateAdminDto): Promise<IAdmin> {
-    return this.adminService.updateAdmin(id, updateAdminDto);
+  async update(@Param('id', ParseIntPipe) id: number, @Body() updateAdminDto: UpdateAdminDto): Promise<IAdmin> {
+    return this.adminService.update(id, updateAdminDto);
   }
 
   @Delete(':id')
   @UsePipes(new ValidationPipe())
   @UseFilters(new ValidationExceptionFilter())
   async delete(@Param('id', ParseIntPipe) user_id: number): Promise<IAdmin> {
-    return this.adminService.deleteAdmin(user_id);
+    return this.adminService.delete(user_id);
   }
 }

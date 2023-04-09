@@ -17,29 +17,29 @@ export class UsersController {
   @Post()
   @UsePipes(new ValidationPipe())
   @UseFilters(new DuplicateKeyExceptionFilter())
-  async createUser(@Body() createUserDto: CreateUserDto): Promise<IUser> {
-    return this.usersService.createUser(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto): Promise<IUser> {
+    return this.usersService.create(createUserDto);
   }
 
   @Get()
-  async findAllUsers(): Promise<IUser[]> {
-    return this.usersService.findAllUsers();
+  async findAll(): Promise<IUser[]> {
+    return this.usersService.findAll();
   }
 
   @Get(':id')
-  async findUserById(@Param('id', ParseIntPipe) id: number): Promise<IUser> {
-    return this.usersService.findUserById(id);
+  async findById(@Param('id', ParseIntPipe) id: number): Promise<IUser> {
+    return this.usersService.findById(id);
   }
 
   @Patch(':id')
   @UsePipes(new ValidationPipe(), new NullDtoValidationPipe())
   @UseFilters(new DuplicateKeyExceptionFilter())
-  async updateUser(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto): Promise<IUser> {
-    return this.usersService.updateUser(id, updateUserDto);
+  async update(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto): Promise<IUser> {
+    return this.usersService.update(id, updateUserDto);
   }
 
   @Delete(':id')
-  async deleteUser(@Param('id', ParseIntPipe) id: number): Promise<IUser> {
-    return this.usersService.deleteUser(id);
+  async delete(@Param('id', ParseIntPipe) id: number): Promise<IUser> {
+    return this.usersService.delete(id);
   }
 }

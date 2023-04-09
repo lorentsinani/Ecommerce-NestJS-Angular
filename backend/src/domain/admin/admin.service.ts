@@ -8,7 +8,7 @@ import { AdminRepository } from './admin.repository';
 export class AdminService {
   constructor(private readonly adminRepository: AdminRepository) {}
 
-  async createAdmin(createAdminDto: CreateAdminDto): Promise<IAdmin> {
+  async create(createAdminDto: CreateAdminDto): Promise<IAdmin> {
     const createdAdmin = await this.adminRepository.createAdmin(createAdminDto);
 
     if (!createdAdmin) {
@@ -17,11 +17,11 @@ export class AdminService {
     return createdAdmin.raw;
   }
 
-  async findAllAdmins(): Promise<IAdmin[]> {
+  async findAll(): Promise<IAdmin[]> {
     return this.adminRepository.findAllAdmins();
   }
 
-  async findAdminByEmail(email: string): Promise<IAdmin> {
+  async findByEmail(email: string): Promise<IAdmin> {
     const admin = await this.adminRepository.findAdminByEmail(email);
 
     if (!admin) {
@@ -30,7 +30,7 @@ export class AdminService {
 
     return admin;
   }
-  async findAdminById(user_id: number): Promise<IAdmin> {
+  async findById(user_id: number): Promise<IAdmin> {
     const admin = await this.adminRepository.findAdminById(user_id);
 
     if (!admin) {
@@ -40,7 +40,7 @@ export class AdminService {
     return admin;
   }
 
-  async updateAdmin(user_id: number, updateAdminDto: UpdateAdminDto): Promise<IAdmin> {
+  async update(user_id: number, updateAdminDto: UpdateAdminDto): Promise<IAdmin> {
     const updatedAdmin = await this.adminRepository.updateAdmin(user_id, updateAdminDto);
 
     if (!updatedAdmin.affected) {
@@ -50,7 +50,7 @@ export class AdminService {
     return updatedAdmin.raw;
   }
 
-  async deleteAdmin(user_id: number): Promise<IAdmin> {
+  async delete(user_id: number): Promise<IAdmin> {
     const deletedAdmin = await this.adminRepository.deleteAdmin(user_id);
 
     if (!deletedAdmin.affected) {
