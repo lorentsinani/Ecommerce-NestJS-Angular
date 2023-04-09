@@ -1,5 +1,8 @@
-import { IsDate, IsEnum, IsNotEmpty, IsString, Length } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString, Length } from 'class-validator';
 import { UserType } from '../../constants/enums/user-type.enum';
+import { UserGender } from '../../constants/enums/user-gender.enum';
+import { IsDateFormat } from '../../decorators/date-format.decorator';
+import { IsCustomEmail } from '../../decorators/email-format.decorator';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -16,15 +19,10 @@ export class CreateUserDto {
   @Length(1, 50)
   last_name: string;
 
-  @IsNotEmpty()
-  @IsString()
-  @Length(1, 100)
+  @IsCustomEmail() // custom decorator
   email: string;
 
-  @IsNotEmpty()
-  @IsString()
-  @Length(1, 255)
-  password: string;
+  password: string; // No decorator needed because of the middleware check
 
   @IsNotEmpty()
   @IsString()
@@ -36,12 +34,11 @@ export class CreateUserDto {
   @Length(1, 50)
   city: string;
 
-  @IsNotEmpty()
-  @IsDate()
+  @IsDateFormat()
   birthdate: Date;
 
   @IsNotEmpty()
   @IsString()
-  @Length(1, 1)
-  gender: string;
+  @IsEnum(UserGender)
+  gender: UserGender;
 }

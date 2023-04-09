@@ -10,7 +10,7 @@ export class SuppliersController {
   constructor(private suppliersService: SuppliersService) {}
 
   @Post()
-  async create(@Body() supplierBody: CreateSupplierDto): Promise<any> {
+  async create(@Body() supplierBody: CreateSupplierDto): Promise<ISuppliers> {
     return this.suppliersService.create(supplierBody);
   }
 

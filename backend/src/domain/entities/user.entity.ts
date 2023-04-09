@@ -1,6 +1,7 @@
 import { IUser } from './../../common/interfaces/user.interface';
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { UserType } from '../../common/constants/enums/user-type.enum';
+import { UserGender } from '../../common/constants/enums/user-gender.enum';
 
 @Entity()
 export class User implements IUser {
@@ -31,8 +32,8 @@ export class User implements IUser {
   @Column({ type: 'date' })
   birthdate: Date;
 
-  @Column({ length: 1 })
-  gender: string;
+  @Column()
+  gender: UserGender;
 
   @CreateDateColumn()
   created_at: Date;
