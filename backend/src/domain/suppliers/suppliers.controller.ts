@@ -1,22 +1,36 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  UseFilters,
+  UsePipes,
+  ValidationPipe
+} from '@nestjs/common';
 import { SuppliersService } from './suppliers.service';
-import { DeleteResult, UpdateResult } from 'typeorm';
 import { CreateSupplierDto } from '../../common/dtos/suppliers/create-supplier.dto';
 import { ISuppliers } from '../../common/interfaces/suppliers.interface';
 import { UpdateSupplierDto } from '../../common/dtos/suppliers/update-supplier.dto';
+import { DuplicateKeyExceptionFilter } from '../../common/filters/duplicate-key-exception.filter';
 
 @Controller('suppliers')
 export class SuppliersController {
   constructor(private suppliersService: SuppliersService) {}
 
   @Post()
-  async create(@Body() supplierBody: CreateSupplierDto): Promise<any> {
-    return this.suppliersService.create(supplierBody);
+  @UsePipes(new ValidationPipe())
+  @UseFilters(new DuplicateKeyExceptionFilter())
+  async create(@Body() supplierBody: CreateSupplierDto): Promise<ISuppliers> {
+    return this.suppliersService.createSupplier(supplierBody);
   }
 
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number): Promise<ISuppliers> {
-    return this.suppliersService.findOneById(id);
+    return this.suppliersService.findSupplierById(id);
   }
 
   @Get()
@@ -24,13 +38,15 @@ export class SuppliersController {
     return this.suppliersService.findAll();
   }
 
-  @Delete(':id')
-  async delete(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {
-    return this.suppliersService.delete(id);
+  @Patch(':id')
+  @UsePipes(new ValidationPipe())
+  @UseFilters(new DuplicateKeyExceptionFilter())
+  async update(@Param('id', ParseIntPipe) id: number, @Body() supplierBody: UpdateSupplierDto): Promise<ISuppliers> {
+    return this.suppliersService.updateSupplier(id, supplierBody);
   }
 
-  @Patch(':id')
-  async update(@Param('id', ParseIntPipe) id: number, @Body() supplierBody: UpdateSupplierDto): Promise<UpdateResult> {
-    return this.suppliersService.update(id, supplierBody);
+  @Delete(':id')
+  async delete(@Param('id', ParseIntPipe) id: number): Promise<ISuppliers> {
+    return this.suppliersService.deleteSupplier(id);
   }
 }

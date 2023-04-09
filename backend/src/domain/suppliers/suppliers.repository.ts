@@ -10,6 +10,18 @@ export class SuppliersRepository extends Repository<Suppliers> {
   constructor(dataSource: DataSource) {
     super(Suppliers, dataSource.createEntityManager());
   }
+
+  async createSupplier(createSupplierDto: CreateSupplierDto): Promise<ISuppliers> {
+    const createdSupplier = await this.createQueryBuilder()
+      .insert()
+      .into(Suppliers)
+      .values(createSupplierDto)
+      .returning('*')
+      .execute();
+
+    return createdSupplier.raw;
+  }
+
   async findSupplierById(id: number): Promise<ISuppliers> {
     const supplierExist = await this.findOne({ where: { id } });
 
@@ -30,16 +42,6 @@ export class SuppliersRepository extends Repository<Suppliers> {
     return supplierExist;
   }
 
-  async createSupplier(createSupplierDto: CreateSupplierDto): Promise<ISuppliers> {
-    const createdSupplier = await this.createQueryBuilder()
-      .insert()
-      .into(Suppliers)
-      .values(createSupplierDto)
-      .returning('*')
-      .execute();
-
-    return createdSupplier.raw;
-  }
   async updateSupplier(id: number, updateSupplierDto: UpdateSupplierDto): Promise<ISuppliers> {
     const updatedSupplier = await this.createQueryBuilder()
       .update(Suppliers)
