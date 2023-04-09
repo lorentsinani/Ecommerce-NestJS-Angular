@@ -1,30 +1,26 @@
-import { IsNotEmpty, IsString, Length } from 'class-validator';
-import { Type } from 'class-transformer';
-import { CreateUserDto } from '../users/create-user.dto';
+import { IsNotEmpty, IsString, IsNumber, IsDate } from 'class-validator';
 
 export class CreateEmployeeDto {
-  @Type(() => CreateUserDto)
   @IsNotEmpty()
-  user: CreateUserDto;
+  @IsNumber()
+  user_id: number;
 
   @IsNotEmpty()
   @IsString()
-  @Length(1, 50)
-  job_title: string;
-
-  @IsNotEmpty()
-  @Type(() => Date)
+  @IsDate()
   hire_date: Date;
 
+  @IsNotEmpty()
   @IsString()
-  @Length(0, 100)
+  job_title: string;
+
+  @IsString()
   address: string;
 
   @IsString()
-  @Length(0, 255)
   photo_url: string;
 
   @IsNotEmpty()
-  @Type(() => Number)
+  @IsNumber()
   salary: number;
 }
