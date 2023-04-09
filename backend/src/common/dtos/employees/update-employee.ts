@@ -1,27 +1,24 @@
-import { IsOptional, IsNotEmpty, IsString, IsEnum, Length } from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsString, IsNumber, IsDate, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class UpdateEmployeeDto {
   @IsOptional()
-  @Type(() => Date)
+  @IsNotEmpty()
+  @IsDate()
   hire_date: Date;
 
   @IsOptional()
   @IsString()
-  @Length(1, 50)
   job_title: string;
 
   @IsOptional()
   @IsString()
-  @Length(0, 100)
-  address: string;
+  address?: string;
 
   @IsOptional()
   @IsString()
-  @Length(0, 255)
-  photo_url: string;
+  photo_url?: string;
 
   @IsOptional()
-  @Type(() => Number)
-  salary: number;
+  @IsNumber()
+  salary?: number;
 }

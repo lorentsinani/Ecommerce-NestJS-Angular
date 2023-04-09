@@ -1,37 +1,48 @@
 import { UserType } from './../../constants/enums/user-type.enum';
-import { IsEnum, IsString, Length } from 'class-validator';
+import { IsEnum, IsString, Length, IsNotEmpty, IsDate, IsOptional } from 'class-validator';
 
 export class UpdateUserDto {
+  @IsOptional()
   @IsEnum(UserType)
-  user_type?: UserType;
+  user_type: UserType;
 
+  @IsOptional()
   @IsString()
   @Length(1, 50)
-  first_name?: string;
+  first_name: string;
 
+  @IsOptional()
   @IsString()
   @Length(1, 50)
-  last_name?: string;
+  last_name: string;
 
+  @IsOptional()
   @IsString()
   @Length(1, 100)
-  email?: string;
+  email: string;
 
+  @IsOptional()
   @IsString()
   @Length(1, 255)
-  password?: string;
+  password: string;
 
+  @IsOptional()
   @IsString()
   @Length(1, 50)
-  country?: string;
+  country: string;
 
+  @IsOptional()
   @IsString()
   @Length(1, 50)
-  city?: string;
+  city: string;
 
+  @IsOptional()
+  @IsNotEmpty()
+  @IsDate()
   birthdate?: Date;
 
+  @IsOptional()
   @IsString()
   @Length(1, 1)
-  gender?: string;
+  gender: string;
 }

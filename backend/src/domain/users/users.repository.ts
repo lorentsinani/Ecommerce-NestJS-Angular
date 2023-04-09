@@ -10,6 +10,21 @@ export class UsersRepository extends Repository<User> {
   constructor(dataSource: DataSource) {
     super(User, dataSource.createEntityManager());
   }
+  async createUser(createUserDto: CreateUserDto): Promise<IUser> {
+    const createdUser = await this.createQueryBuilder()
+      .insert()
+      .into(User)
+      .values(createUserDto)
+      .returning('*')
+      .execute();
+
+    return createdUser.raw;
+  }
+
+  findAllUsers(): Promise<IUser[]> {
+    return this.find();
+  }
+
   async findUserById(id: number): Promise<IUser> {
     const user = await this.findOne({ where: { id } });
 
@@ -30,16 +45,6 @@ export class UsersRepository extends Repository<User> {
     return userExist;
   }
 
-  async createUser(createUserDto: CreateUserDto): Promise<IUser> {
-    const createdUser = await this.createQueryBuilder()
-      .insert()
-      .into(User)
-      .values(createUserDto)
-      .returning('*')
-      .execute();
-
-    return createdUser.raw;
-  }
   async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<IUser> {
     const updatedUser = await this.createQueryBuilder()
       .update(User)
