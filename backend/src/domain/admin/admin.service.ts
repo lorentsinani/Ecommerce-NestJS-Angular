@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { IAdmin } from '../../common/interfaces/admin.interface';
 import { CreateAdminDto } from '../../common/dtos/admin/create-admin.dto';
 import { UpdateAdminDto } from '../../common/dtos/admin/update-admin.dto';
@@ -9,21 +9,54 @@ export class AdminService {
   constructor(private readonly adminRepository: AdminRepository) {}
 
   async createAdmin(createAdminDto: CreateAdminDto): Promise<IAdmin> {
-    return this.adminRepository.createAdmin(createAdminDto);
+    const createdAdmin = await this.adminRepository.createAdmin(createAdminDto);
+
+    if (!createdAdmin) {
+      throw new HttpException('Admin is not created', HttpStatus.BAD_REQUEST);
+    }
+    return createdAdmin.raw;
   }
 
-  async findAdminById(user_id: number): Promise<IAdmin> {
-    return this.adminRepository.findAdminById(user_id);
-  }
   async findAllAdmins(): Promise<IAdmin[]> {
     return this.adminRepository.findAllAdmins();
   }
 
+  async findAdminByEmail(email: string): Promise<IAdmin> {
+    const admin = await this.adminRepository.findAdminByEmail(email);
+
+    if (!admin) {
+      throw new HttpException('Admin not found', HttpStatus.NOT_FOUND);
+    }
+
+    return admin;
+  }
+  async findAdminById(user_id: number): Promise<IAdmin> {
+    const admin = await this.adminRepository.findAdminById(user_id);
+
+    if (!admin) {
+      throw new HttpException('Admin not found', HttpStatus.NOT_FOUND);
+    }
+
+    return admin;
+  }
+
   async updateAdmin(user_id: number, updateAdminDto: UpdateAdminDto): Promise<IAdmin> {
-    return this.adminRepository.updateAdmin(user_id, updateAdminDto);
+    const updatedAdmin = await this.adminRepository.updateAdmin(user_id, updateAdminDto);
+
+    if (!updatedAdmin.affected) {
+      throw new HttpException('Admin not found', HttpStatus.NOT_FOUND);
+    }
+
+    return updatedAdmin.raw;
   }
 
   async deleteAdmin(user_id: number): Promise<IAdmin> {
-    return this.adminRepository.deleteAdmin(user_id);
+    const deletedAdmin = await this.adminRepository.deleteAdmin(user_id);
+
+    if (!deletedAdmin.affected) {
+      throw new HttpException('Admin not found', HttpStatus.NOT_FOUND);
+    }
+
+    return deletedAdmin.raw;
   }
 }

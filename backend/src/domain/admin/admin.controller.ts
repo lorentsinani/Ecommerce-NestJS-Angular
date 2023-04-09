@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { ParseIntPipe, UseFilters, UsePipes, ValidationPipe, Put, Delete } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Patch } from '@nestjs/common';
+import { ParseIntPipe, UseFilters, UsePipes, ValidationPipe, Delete } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { IAdmin } from '../../common/interfaces/admin.interface';
 import { ValidationExceptionFilter } from '../../common/filters/validation-exception.filter';
@@ -27,7 +27,7 @@ export class AdminController {
     return this.adminService.findAdminById(id);
   }
 
-  @Put(':id')
+  @Patch(':id')
   @UsePipes(new ValidationPipe(), new NullDtoValidationPipe())
   @UseFilters(new ValidationExceptionFilter())
   async updateAdmin(@Param('id', ParseIntPipe) id: number, @Body() updateAdminDto: UpdateAdminDto): Promise<IAdmin> {

@@ -16,7 +16,7 @@ export class UsersModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(PasswordHasherMiddleware).forRoutes(
       { path: 'users', method: RequestMethod.POST }, // create route
-      { path: 'users/:id', method: RequestMethod.PUT } // update route
+      { path: 'users/:id', method: RequestMethod.PATCH } // update route
     );
   }
 }

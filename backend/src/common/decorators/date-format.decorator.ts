@@ -8,6 +8,7 @@ import {
 
 @ValidatorConstraint({ name: 'dateFormat', async: false })
 export class DateFormatConstraint implements ValidatorConstraintInterface {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   validate(date: string, args: ValidationArguments): boolean {
     // Check for not empty value
     if (!date) {
@@ -24,6 +25,7 @@ export class DateFormatConstraint implements ValidatorConstraintInterface {
     return dateFormatRegex.test(date);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   defaultMessage(args: ValidationArguments): string {
     return `The date must be in the format "mm/dd/yyyy" and cannot be empty.`;
   }

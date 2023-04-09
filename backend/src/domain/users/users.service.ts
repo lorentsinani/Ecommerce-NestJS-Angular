@@ -1,5 +1,5 @@
 import { UsersRepository } from './users.repository';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { IUser } from '../../common/interfaces/user.interface';
 import { UpdateUserDto } from '../../common/dtos/users/update-user.dto';
 import { CreateUserDto } from '../../common/dtos/users/create-user.dto';
@@ -9,7 +9,13 @@ export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
   async createUser(createUserDto: CreateUserDto): Promise<IUser> {
-    return this.usersRepository.createUser(createUserDto);
+    const createUser = await this.usersRepository.createUser(createUserDto);
+
+    if (!createUser) {
+      throw new HttpException('User is not created', HttpStatus.BAD_REQUEST);
+    }
+
+    return createUser.raw;
   }
 
   async findAllUsers(): Promise<IUser[]> {
@@ -17,18 +23,42 @@ export class UsersService {
   }
 
   async findUserById(id: number): Promise<IUser> {
-    return this.usersRepository.findUserById(id);
+    const userExist = await this.usersRepository.findUserById(id);
+
+    if (!userExist) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+
+    return userExist;
   }
 
   async findUserByEmail(email: string): Promise<IUser> {
-    return this.usersRepository.findUserByEmail(email);
+    const userExist = await this.usersRepository.findUserByEmail(email);
+
+    if (!userExist) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+
+    return userExist;
   }
 
   async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<IUser> {
-    return this.usersRepository.updateUser(id, updateUserDto);
+    const updatedUser = await this.usersRepository.updateUser(id, updateUserDto);
+
+    if (!updatedUser.affected) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+
+    return updatedUser.raw;
   }
 
   async deleteUser(id: number): Promise<IUser> {
-    return this.usersRepository.deleteUser(id);
+    const deletedUser = await this.usersRepository.deleteUser(id);
+
+    if (!deletedUser.affected) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+
+    return deletedUser.raw;
   }
 }
