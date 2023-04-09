@@ -10,25 +10,6 @@ export class CategoryRepository extends Repository<Category> {
   constructor(dataSource: DataSource) {
     super(Category, dataSource.createEntityManager());
   }
-  async findCategoryById(id: number): Promise<ICategory> {
-    const categoryExist = await this.findOne({ where: { id } });
-
-    if (!categoryExist) {
-      throw new HttpException('Category not found', HttpStatus.NOT_FOUND);
-    }
-
-    return categoryExist;
-  }
-
-  async findCategoryByCode(category_name: string): Promise<ICategory> {
-    const categoryExist = await this.findOne({ where: { category_name } });
-
-    if (!categoryExist) {
-      throw new HttpException('Category not found', HttpStatus.NOT_FOUND);
-    }
-
-    return categoryExist;
-  }
 
   async createCategory(createCategoryDto: CreateCategoryDto): Promise<ICategory> {
     const createdCategory = await this.createQueryBuilder()
@@ -40,6 +21,27 @@ export class CategoryRepository extends Repository<Category> {
 
     return createdCategory.raw;
   }
+
+  async findCategoryById(id: number): Promise<ICategory> {
+    const categoryExist = await this.findOne({ where: { id } });
+
+    if (!categoryExist) {
+      throw new HttpException('Category not found', HttpStatus.NOT_FOUND);
+    }
+
+    return categoryExist;
+  }
+
+  async findCategoryByCategoryName(category_name: string): Promise<ICategory> {
+    const categoryExist = await this.findOne({ where: { category_name } });
+
+    if (!categoryExist) {
+      throw new HttpException('Category not found', HttpStatus.NOT_FOUND);
+    }
+
+    return categoryExist;
+  }
+
   async updateCategory(id: number, updateCategoryDto: UpdateCategoryDto): Promise<ICategory> {
     const updatedCategory = await this.createQueryBuilder()
       .update(Category)
