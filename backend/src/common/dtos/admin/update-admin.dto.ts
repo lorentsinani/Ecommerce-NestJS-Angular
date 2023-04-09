@@ -1,11 +1,11 @@
-import { IsEAN, IsEnum, IsNotEmpty } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional } from 'class-validator';
 import { PermissionLevel } from '../../constants/enums/permission-level.enum';
-import { IUser } from '../../interfaces/user.interface';
 
 export class UpdateAdminDto {
-  @IsNotEmpty()
-  user?: IUser;
-
+  @IsOptional()
   @IsEnum(PermissionLevel)
   permission_level?: PermissionLevel;
+
+  @IsOptional()
+  user_id?: number;
 }

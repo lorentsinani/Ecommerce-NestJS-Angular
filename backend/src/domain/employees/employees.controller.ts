@@ -1,23 +1,11 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Post,
-  Put,
-  UseFilters,
-  UsePipes,
-  ValidationPipe
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { Post, Put, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { IEmployee } from '../../common/interfaces/employee.interface';
 import { ValidationExceptionFilter } from '../../common/filters/validation-exception.filter';
-import { UpdateResult } from 'typeorm';
-import { UpdateEmployeeDto } from '../../common/dtos/employees/update-employee';
 import { CreateEmployeeDto } from '../../common/dtos/employees/create-employee';
-
+import { UpdateEmployeeDto } from '../../common/dtos/employees/update-employee';
+import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
 @Controller('employees')
 export class EmployeesController {
   constructor(private employeesService: EmployeesService) {}
@@ -28,29 +16,29 @@ export class EmployeesController {
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number): Promise<IEmployee> {
-    return this.employeesService.findOneById(id);
+  async findOne(@Param('id', ParseIntPipe) user_id: number): Promise<IEmployee> {
+    return this.employeesService.findEmployeeById(user_id);
   }
 
   @Post()
   @UsePipes(new ValidationPipe())
   @UseFilters(new ValidationExceptionFilter())
-  async create(@Body() createUserDto: CreateEmployeeDto): Promise<IEmployee> {
-    return this.employeesService.create(createUserDto);
+  async createEmployee(@Body() createUserDto: CreateEmployeeDto): Promise<IEmployee> {
+    return this.employeesService.createEmployee(createUserDto);
   }
 
   @Put(':id')
-  @UsePipes(new ValidationPipe())
+  @UsePipes(new ValidationPipe(), new NullDtoValidationPipe())
   @UseFilters(new ValidationExceptionFilter())
-  async update(
-    @Param('id', ParseIntPipe) id: number,
+  async updateEmployee(
+    @Param('id', ParseIntPipe) user_id: number,
     @Body() updateEmployeeDto: UpdateEmployeeDto
-  ): Promise<UpdateResult> {
-    return this.employeesService.update(id, updateEmployeeDto);
+  ): Promise<IEmployee> {
+    return this.employeesService.updateEmployee(user_id, updateEmployeeDto);
   }
 
   @Delete(':id')
-  async delete(@Param('id', ParseIntPipe) id: number): Promise<IEmployee> {
-    return this.employeesService.delete(id);
+  async deleteEmployee(user_id: number): Promise<IEmployee> {
+    return this.employeesService.deleteEmployee(user_id);
   }
 }

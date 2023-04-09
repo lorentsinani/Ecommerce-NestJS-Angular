@@ -30,6 +30,10 @@ export class UsersRepository extends Repository<User> {
     return userExist;
   }
 
+  findAllUsers(): Promise<IUser[]> {
+    return this.find();
+  }
+
   async createUser(createUserDto: CreateUserDto): Promise<IUser> {
     const createdUser = await this.createQueryBuilder()
       .insert()
@@ -40,6 +44,7 @@ export class UsersRepository extends Repository<User> {
 
     return createdUser.raw;
   }
+
   async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<IUser> {
     const updatedUser = await this.createQueryBuilder()
       .update(User)

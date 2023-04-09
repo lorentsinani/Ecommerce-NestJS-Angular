@@ -1,7 +1,10 @@
+import { Admin } from './../entities/admin.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
-import { Admin } from '../entities/admin.entity';
 import { IAdmin } from '../../common/interfaces/admin.interface';
+import { User } from '../entities/user.entity';
+import { UpdateAdminDto } from '../../common/dtos/admin/update-admin.dto';
+import { CreateAdminDto } from '../../common/dtos/admin/create-admin.dto';
 
 @Injectable()
 export class AdminRepository extends Repository<Admin> {
@@ -9,15 +12,69 @@ export class AdminRepository extends Repository<Admin> {
     super(Admin, dataSource.createEntityManager());
   }
 
-  async deleteAdmin(id: number): Promise<IAdmin> {
-    // this should be changed
-    const deletedAdmin = await this.findOne({ where: { id } });
-
-    if (!deletedAdmin) {
+  async findAdminById(id: number): Promise<IAdmin> {
+    const admin = await this.findOne({ where: { user_id: id } });
+    if (!admin) {
       throw new HttpException('Admin not found', HttpStatus.NOT_FOUND);
     }
 
-    await this.createQueryBuilder().delete().from(Admin).where('id = :id', { id }).returning('*').execute();
-    return deletedAdmin;
+    return admin;
+  }
+
+  async findAdminByEmail(email: string): Promise<IAdmin> {
+    const admin = await this.createQueryBuilder('admin')
+      .innerJoinAndSelect('admin.user', 'user', 'user.email = :email', { email })
+      .getOne();
+
+    if (!admin) {
+      throw new HttpException('Admin not found', HttpStatus.NOT_FOUND);
+    }
+
+    return admin;
+  }
+
+  async findAllAdmins(): Promise<IAdmin[]> {
+    return this.find();
+  }
+
+  async createAdmin(createAdminDto: CreateAdminDto): Promise<IAdmin> {
+    const createdAdmin = await this.createQueryBuilder()
+      .insert()
+      .into(Admin)
+      .values(createAdminDto)
+      .returning('*')
+      .execute();
+
+    return createdAdmin.raw;
+  }
+
+  async updateAdmin(user_id: number, updateAdminDto: UpdateAdminDto): Promise<IAdmin> {
+    const updatedAdmin = await this.createQueryBuilder()
+      .update(Admin)
+      .set(updateAdminDto)
+      .where('user_id = :user_id', { user_id })
+      .execute();
+
+    if (!updatedAdmin.affected) {
+      throw new HttpException('Admin not found', HttpStatus.NOT_FOUND);
+    }
+    return updatedAdmin.raw;
+  }
+
+  async deleteAdmin(user_id: number): Promise<IAdmin> {
+    const deletedAdmin = await this.manager
+      .getRepository(User)
+      .createQueryBuilder()
+      .delete()
+      .from(User)
+      .where('id = :id', { id: user_id })
+      .returning('*')
+      .execute();
+
+    if (!deletedAdmin.affected) {
+      throw new HttpException('Admin not found', HttpStatus.NOT_FOUND);
+    }
+
+    return deletedAdmin.raw;
   }
 }

@@ -7,6 +7,7 @@ import { UpdateUserDto } from '../../common/dtos/users/update-user.dto';
 
 import { DuplicateKeyExceptionFilter } from '../../common/filters/duplicate-key-exception.filter';
 import { RemovePasswordInterceptor } from '../../common/interceptors/remove-password.interceptor';
+import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
 
 @Controller('users')
 @UseInterceptors(RemovePasswordInterceptor)
@@ -31,12 +32,9 @@ export class UsersController {
   }
 
   @Put(':id')
-  @UsePipes(new ValidationPipe())
+  @UsePipes(new ValidationPipe(), new NullDtoValidationPipe())
   @UseFilters(new DuplicateKeyExceptionFilter())
-  async updateUser(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() updateUserDto: Partial<UpdateUserDto>
-  ): Promise<IUser> {
+  async updateUser(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto): Promise<IUser> {
     return this.usersService.updateUser(id, updateUserDto);
   }
 
