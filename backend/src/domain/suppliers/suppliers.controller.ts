@@ -16,6 +16,7 @@ import { CreateSupplierDto } from '../../common/dtos/suppliers/create-supplier.d
 import { ISuppliers } from '../../common/interfaces/suppliers.interface';
 import { UpdateSupplierDto } from '../../common/dtos/suppliers/update-supplier.dto';
 import { DuplicateKeyExceptionFilter } from '../../common/filters/duplicate-key-exception.filter';
+import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
 
 @Controller('suppliers')
 export class SuppliersController {
@@ -24,13 +25,8 @@ export class SuppliersController {
   @Post()
   @UsePipes(new ValidationPipe())
   @UseFilters(new DuplicateKeyExceptionFilter())
-  async create(@Body() supplierBody: CreateSupplierDto): Promise<ISuppliers> {
+  async createSupplier(@Body() supplierBody: CreateSupplierDto): Promise<ISuppliers> {
     return this.suppliersService.createSupplier(supplierBody);
-  }
-
-  @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number): Promise<ISuppliers> {
-    return this.suppliersService.findSupplierById(id);
   }
 
   @Get()
@@ -38,15 +34,20 @@ export class SuppliersController {
     return this.suppliersService.findAll();
   }
 
+  @Get(':id')
+  async findSupplierById(@Param('id', ParseIntPipe) id: number): Promise<ISuppliers> {
+    return this.suppliersService.findSupplierById(id);
+  }
+
   @Patch(':id')
-  @UsePipes(new ValidationPipe())
+  @UsePipes(new ValidationPipe(), new NullDtoValidationPipe())
   @UseFilters(new DuplicateKeyExceptionFilter())
-  async update(@Param('id', ParseIntPipe) id: number, @Body() supplierBody: UpdateSupplierDto): Promise<ISuppliers> {
+  async updateSupplier(@Param('id', ParseIntPipe) id: number, @Body() supplierBody: UpdateSupplierDto): Promise<ISuppliers> {
     return this.suppliersService.updateSupplier(id, supplierBody);
   }
 
   @Delete(':id')
-  async delete(@Param('id', ParseIntPipe) id: number): Promise<ISuppliers> {
+  async deleteSupplier(@Param('id', ParseIntPipe) id: number): Promise<ISuppliers> {
     return this.suppliersService.deleteSupplier(id);
   }
 }

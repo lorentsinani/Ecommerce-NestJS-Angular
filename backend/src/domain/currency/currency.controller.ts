@@ -16,6 +16,7 @@ import { CreateCurrencyDto } from '../../common/dtos/currency/create-currency.dt
 import { ICurrency } from '../../common/interfaces/currency.interface';
 import { UpdateCurrencyDto } from '../../common/dtos/currency/update-currency.dto';
 import { DuplicateKeyExceptionFilter } from '../../common/filters/duplicate-key-exception.filter';
+import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
 
 @Controller('currency')
 export class CurrencyController {
@@ -24,13 +25,8 @@ export class CurrencyController {
   @Post()
   @UsePipes(new ValidationPipe())
   @UseFilters(new DuplicateKeyExceptionFilter())
-  async create(@Body() currencyBody: CreateCurrencyDto): Promise<ICurrency> {
+  async createCurrency(@Body() currencyBody: CreateCurrencyDto): Promise<ICurrency> {
     return this.currencyService.createCurrency(currencyBody);
-  }
-
-  @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number): Promise<ICurrency> {
-    return this.currencyService.findCurrencyById(id);
   }
 
   @Get()
@@ -38,8 +34,13 @@ export class CurrencyController {
     return this.currencyService.findAll();
   }
 
+  @Get(':id')
+  async findCurrencyById(@Param('id', ParseIntPipe) id: number): Promise<ICurrency> {
+    return this.currencyService.findCurrencyById(id);
+  }
+
   @Patch(':id')
-  @UsePipes(new ValidationPipe())
+  @UsePipes(new ValidationPipe(), new NullDtoValidationPipe())
   @UseFilters(new DuplicateKeyExceptionFilter())
   async updateCurrency(
     @Param('id', ParseIntPipe) id: number,
@@ -49,7 +50,7 @@ export class CurrencyController {
   }
 
   @Delete(':id')
-  async delete(@Param('id', ParseIntPipe) id: number): Promise<ICurrency> {
+  async deleteCurrency(@Param('id', ParseIntPipe) id: number): Promise<ICurrency> {
     return this.currencyService.deleteCurrency(id);
   }
 }

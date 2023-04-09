@@ -16,6 +16,7 @@ import { CreateCategoryDto } from '../../common/dtos/category/create-category.dt
 import { ICategory } from '../../common/interfaces/category.interface';
 import { UpdateCategoryDto } from '../../common/dtos/category/update-category.dto';
 import { DuplicateKeyExceptionFilter } from '../../common/filters/duplicate-key-exception.filter';
+import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
 
 @Controller('category')
 export class CategoryController {
@@ -39,7 +40,7 @@ export class CategoryController {
   }
 
   @Patch(':id')
-  @UsePipes(new ValidationPipe())
+  @UsePipes(new ValidationPipe(), new NullDtoValidationPipe())
   @UseFilters(new DuplicateKeyExceptionFilter())
   async updateCategory(
     @Param('id', ParseIntPipe) id: number,
@@ -49,7 +50,7 @@ export class CategoryController {
   }
 
   @Delete(':id')
-  async removeCategory(@Param('id', ParseIntPipe) id: number): Promise<ICategory> {
+  async deleteCategory(@Param('id', ParseIntPipe) id: number): Promise<ICategory> {
     return this.categoryService.deleteCategory(id);
   }
 }
