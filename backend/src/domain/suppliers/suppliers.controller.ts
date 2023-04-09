@@ -1,16 +1,5 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Patch,
-  Post,
-  UseFilters,
-  UsePipes,
-  ValidationPipe
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { Patch, Post, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { SuppliersService } from './suppliers.service';
 import { CreateSupplierDto } from '../../common/dtos/suppliers/create-supplier.dto';
 import { ISuppliers } from '../../common/interfaces/suppliers.interface';
@@ -22,7 +11,7 @@ import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pi
 export class SuppliersController {
   constructor(private suppliersService: SuppliersService) {}
 
-  @Post()
+
   @UsePipes(new ValidationPipe())
   @UseFilters(new DuplicateKeyExceptionFilter())
   async createSupplier(@Body() supplierBody: CreateSupplierDto): Promise<ISuppliers> {
@@ -30,7 +19,7 @@ export class SuppliersController {
   }
 
   @Get()
-  async findAll() {
+  async findAllSuppliers() {
     return this.suppliersService.findAll();
   }
 

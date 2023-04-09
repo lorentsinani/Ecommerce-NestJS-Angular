@@ -3,7 +3,7 @@ import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../entities/user.entity';
-import { PasswordHashMiddleware } from '../../common/middlewares/password-hash.middleware';
+import { PasswordHasherMiddleware } from '../../common/middlewares/password-hasher.middleware';
 import { UsersRepository } from './users.repository';
 
 @Module({
@@ -14,7 +14,7 @@ import { UsersRepository } from './users.repository';
 })
 export class UsersModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(PasswordHashMiddleware).forRoutes(
+    consumer.apply(PasswordHasherMiddleware).forRoutes(
       { path: 'users', method: RequestMethod.POST }, // create route
       { path: 'users/:id', method: RequestMethod.PUT } // update route
     );
