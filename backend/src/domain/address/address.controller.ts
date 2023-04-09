@@ -1,22 +1,31 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  UseFilters,
+  UsePipes,
+  ValidationPipe
+} from '@nestjs/common';
 import { IAddress } from 'src/common/interfaces/address.interface';
-import { UpdateResult } from 'typeorm';
 import { AddressService } from './address.service';
 import { CreateAddressDto } from 'src/common/dtos/address/create-address.dto';
 import { UpdateAddressDto } from 'src/common/dtos/address/update-address.dto';
+import { DuplicateKeyExceptionFilter } from '../../common/filters/duplicate-key-exception.filter';
 
 @Controller('address')
 export class AddressController {
   constructor(private addressService: AddressService) {}
 
   @Post()
+  @UsePipes(new ValidationPipe())
+  @UseFilters(new DuplicateKeyExceptionFilter())
   async create(@Body() addressBody: CreateAddressDto): Promise<IAddress> {
-    return this.addressService.create(addressBody);
-  }
-
-  @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number): Promise<IAddress> {
-    return this.addressService.findOneById(id);
+    return this.addressService.createAddress(addressBody);
   }
 
   @Get()
@@ -24,13 +33,20 @@ export class AddressController {
     return this.addressService.findAll();
   }
 
-  @Delete(':id')
-  async delete(@Param('id', ParseIntPipe) id: number): Promise<IAddress> {
-    return this.addressService.delete(id);
+  @Get(':id')
+  async findOne(@Param('id', ParseIntPipe) id: number): Promise<IAddress> {
+    return this.addressService.findAddressById(id);
   }
 
   @Patch(':id')
-  async update(@Param('id', ParseIntPipe) id: number, @Body() addressBody: UpdateAddressDto): Promise<UpdateResult> {
-    return this.addressService.update(id, addressBody);
+  @UsePipes(new ValidationPipe())
+  @UseFilters(new DuplicateKeyExceptionFilter())
+  async update(@Param('id', ParseIntPipe) id: number, @Body() addressBody: UpdateAddressDto): Promise<IAddress> {
+    return this.addressService.updateAddress(id, addressBody);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id', ParseIntPipe) id: number): Promise<IAddress> {
+    return this.addressService.deleteAddress(id);
   }
 }

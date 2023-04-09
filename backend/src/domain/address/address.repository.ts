@@ -10,6 +10,18 @@ export class AddressRepository extends Repository<Address> {
   constructor(dataSource: DataSource) {
     super(Address, dataSource.createEntityManager());
   }
+
+  async createAddress(createAddressDto: CreateAddressDto): Promise<IAddress> {
+    const createdAddress = await this.createQueryBuilder()
+      .insert()
+      .into(Address)
+      .values(createAddressDto)
+      .returning('*')
+      .execute();
+
+    return createdAddress.raw;
+  }
+
   async findAddressById(id: number): Promise<IAddress> {
     const addressExist = await this.findOne({ where: { id } });
 
@@ -30,16 +42,6 @@ export class AddressRepository extends Repository<Address> {
     return addressExist;
   }
 
-  async createAddress(createAddressDto: CreateAddressDto): Promise<IAddress> {
-    const createdAddress = await this.createQueryBuilder()
-      .insert()
-      .into(Address)
-      .values(createAddressDto)
-      .returning('*')
-      .execute();
-
-    return createdAddress.raw;
-  }
   async updateAddress(id: number, updateAddressDto: UpdateAddressDto): Promise<IAddress> {
     const updatedAddress = await this.createQueryBuilder()
       .update(Address)
