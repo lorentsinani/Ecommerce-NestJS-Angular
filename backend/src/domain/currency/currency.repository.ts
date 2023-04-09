@@ -10,6 +10,18 @@ export class CurrencyRepository extends Repository<Currency> {
   constructor(dataSource: DataSource) {
     super(Currency, dataSource.createEntityManager());
   }
+
+  async createCurrency(createCurrencyDto: CreateCurrencyDto): Promise<ICurrency> {
+    const createdCurrency = await this.createQueryBuilder()
+      .insert()
+      .into(Currency)
+      .values(createCurrencyDto)
+      .returning('*')
+      .execute();
+
+    return createdCurrency.raw;
+  }
+
   async findCurrencyById(id: number): Promise<ICurrency> {
     const currencyExist = await this.findOne({ where: { id } });
 
@@ -30,16 +42,6 @@ export class CurrencyRepository extends Repository<Currency> {
     return currencyExist;
   }
 
-  async createCurrency(createCurrencyDto: CreateCurrencyDto): Promise<ICurrency> {
-    const createdCurrency = await this.createQueryBuilder()
-      .insert()
-      .into(Currency)
-      .values(createCurrencyDto)
-      .returning('*')
-      .execute();
-
-    return createdCurrency.raw;
-  }
   async updateCurrency(id: number, updateCurrencyDto: UpdateCurrencyDto): Promise<ICurrency> {
     const updatedCurrency = await this.createQueryBuilder()
       .update(Currency)
