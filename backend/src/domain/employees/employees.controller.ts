@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe } from '@nestjs/common';
-import { Post, Put, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch } from '@nestjs/common';
+import { Post, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { IEmployee } from '../../common/interfaces/employee.interface';
 import { ValidationExceptionFilter } from '../../common/filters/validation-exception.filter';
@@ -27,7 +27,7 @@ export class EmployeesController {
     return this.employeesService.findEmployeeById(user_id);
   }
 
-  @Put(':id')
+  @Patch(':id')
   @UsePipes(new ValidationPipe(), new NullDtoValidationPipe())
   @UseFilters(new ValidationExceptionFilter())
   async updateEmployee(
