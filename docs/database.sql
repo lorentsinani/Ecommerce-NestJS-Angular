@@ -18,8 +18,7 @@ CREATE TABLE users
 
 CREATE TABLE employees 
 (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL UNIQUE,
+    user_id INTEGER NOT NULL PRIMARY KEY,
     hire_date DATE NOT NULL,
     job_title VARCHAR(50) NOT NULL,
     address VARCHAR(100),
@@ -36,8 +35,7 @@ CREATE TYPE PermissionLevel AS ENUM (
 
 CREATE TABLE admins
 (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL UNIQUE,
+    user_id INTEGER NOT NULL PRIMARY KEY,
     permission_level PermissionLevel NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
@@ -98,7 +96,6 @@ CREATE TABLE category
     category_name      VARCHAR(100) NOT NULL,
     category_desc      TEXT,
     category_image_url VARCHAR(255),
-    parent_category_id INTEGER,
     created_at         TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at         TIMESTAMP NOT NULL DEFAULT NOW()
 );

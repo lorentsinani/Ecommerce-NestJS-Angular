@@ -11,6 +11,13 @@ import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pi
 export class AdminController {
   constructor(private adminService: AdminService) {}
 
+  @Post()
+  @UsePipes(new ValidationPipe())
+  @UseFilters(new ValidationExceptionFilter())
+  async createAdmin(@Body() createAdminDto: CreateAdminDto): Promise<IAdmin> {
+    return this.adminService.createAdmin(createAdminDto);
+  }
+
   @Get()
   async findAll(): Promise<IAdmin[]> {
     return this.adminService.findAllAdmins();
@@ -20,19 +27,13 @@ export class AdminController {
     return this.adminService.findAdminById(id);
   }
 
-  @Post()
-  @UsePipes(new ValidationPipe())
-  @UseFilters(new ValidationExceptionFilter())
-  async createAdmin(@Body() createAdminDto: CreateAdminDto): Promise<IAdmin> {
-    return this.adminService.createAdmin(createAdminDto);
-  }
-
   @Put(':id')
   @UsePipes(new ValidationPipe(), new NullDtoValidationPipe())
   @UseFilters(new ValidationExceptionFilter())
   async updateAdmin(@Param('id', ParseIntPipe) id: number, @Body() updateAdminDto: UpdateAdminDto): Promise<IAdmin> {
     return this.adminService.updateAdmin(id, updateAdminDto);
   }
+
   @Delete(':id')
   @UsePipes(new ValidationPipe())
   @UseFilters(new ValidationExceptionFilter())

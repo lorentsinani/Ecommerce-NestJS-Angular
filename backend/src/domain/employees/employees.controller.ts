@@ -10,6 +10,13 @@ import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pi
 export class EmployeesController {
   constructor(private employeesService: EmployeesService) {}
 
+  @Post()
+  @UsePipes(new ValidationPipe())
+  @UseFilters(new ValidationExceptionFilter())
+  async createEmployee(@Body() createUserDto: CreateEmployeeDto): Promise<IEmployee> {
+    return this.employeesService.createEmployee(createUserDto);
+  }
+
   @Get()
   async findAll(): Promise<IEmployee[]> {
     return this.employeesService.findAll();
@@ -18,13 +25,6 @@ export class EmployeesController {
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) user_id: number): Promise<IEmployee> {
     return this.employeesService.findEmployeeById(user_id);
-  }
-
-  @Post()
-  @UsePipes(new ValidationPipe())
-  @UseFilters(new ValidationExceptionFilter())
-  async createEmployee(@Body() createUserDto: CreateEmployeeDto): Promise<IEmployee> {
-    return this.employeesService.createEmployee(createUserDto);
   }
 
   @Put(':id')

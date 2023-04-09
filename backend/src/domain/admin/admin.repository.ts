@@ -12,6 +12,21 @@ export class AdminRepository extends Repository<Admin> {
     super(Admin, dataSource.createEntityManager());
   }
 
+  async createAdmin(createAdminDto: CreateAdminDto): Promise<IAdmin> {
+    const createdAdmin = await this.createQueryBuilder()
+      .insert()
+      .into(Admin)
+      .values(createAdminDto)
+      .returning('*')
+      .execute();
+
+    return createdAdmin.raw;
+  }
+
+  async findAllAdmins(): Promise<IAdmin[]> {
+    return this.find();
+  }
+
   async findAdminById(id: number): Promise<IAdmin> {
     const admin = await this.findOne({ where: { user_id: id } });
     if (!admin) {
@@ -31,21 +46,6 @@ export class AdminRepository extends Repository<Admin> {
     }
 
     return admin;
-  }
-
-  async findAllAdmins(): Promise<IAdmin[]> {
-    return this.find();
-  }
-
-  async createAdmin(createAdminDto: CreateAdminDto): Promise<IAdmin> {
-    const createdAdmin = await this.createQueryBuilder()
-      .insert()
-      .into(Admin)
-      .values(createAdminDto)
-      .returning('*')
-      .execute();
-
-    return createdAdmin.raw;
   }
 
   async updateAdmin(user_id: number, updateAdminDto: UpdateAdminDto): Promise<IAdmin> {

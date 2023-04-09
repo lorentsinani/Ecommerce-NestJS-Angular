@@ -11,6 +11,21 @@ export class EmployeesRepository extends Repository<Employee> {
   constructor(dataSource: DataSource) {
     super(Employee, dataSource.createEntityManager());
   }
+  async createEmployee(createEmployeeDto: CreateEmployeeDto): Promise<IEmployee> {
+    const createdEmployee = await this.createQueryBuilder()
+      .insert()
+      .into(Employee)
+      .values(createEmployeeDto)
+      .returning('*')
+      .execute();
+
+    return createdEmployee.raw;
+  }
+
+  async findAllEmployees(): Promise<IEmployee[]> {
+    return this.find();
+  }
+
   async findEmployeeById(id: number): Promise<IEmployee> {
     const employee = await this.findOne({ where: { user_id: id } });
     if (!employee) {
@@ -32,23 +47,7 @@ export class EmployeesRepository extends Repository<Employee> {
     return employee;
   }
 
-  async findAllEmployees(): Promise<IEmployee[]> {
-    return this.find();
-  }
-
-  async createEmployee(createEmployeeDto: CreateEmployeeDto): Promise<IEmployee> {
-    const createdEmployee = await this.createQueryBuilder()
-      .insert()
-      .into(Employee)
-      .values(createEmployeeDto)
-      .returning('*')
-      .execute();
-
-    return createdEmployee.raw;
-  }
-
   async updateEmployee(user_id: number, updateEmployeeDto: UpdateEmployeeDto): Promise<IEmployee> {
-    
     const updatedEmployee = await this.createQueryBuilder()
       .update(Employee)
       .set(updateEmployeeDto)

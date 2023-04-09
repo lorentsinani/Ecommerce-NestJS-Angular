@@ -1,5 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { UpdateResult } from 'typeorm';
+import { Injectable } from '@nestjs/common';
 import { IAdmin } from '../../common/interfaces/admin.interface';
 import { CreateAdminDto } from '../../common/dtos/admin/create-admin.dto';
 import { UpdateAdminDto } from '../../common/dtos/admin/update-admin.dto';
