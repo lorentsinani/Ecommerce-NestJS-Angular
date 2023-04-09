@@ -8,7 +8,7 @@ export interface IJwtConfig {
 export const jwtConfig = registerAs('jwt', (): IJwtConfig => {
   const config: IJwtConfig = {
     jwt_secret: process.env.JWT_SECRET || '',
-    jwt_expires_in: process.env.JWT_EXPIRES_IN || '',
+    jwt_expires_in: process.env.JWT_EXPIRES_IN || ''
   };
   return config;
 });

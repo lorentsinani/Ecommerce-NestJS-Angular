@@ -9,12 +9,12 @@ import {
   Put,
   UseFilters,
   UsePipes,
-  ValidationPipe,
+  ValidationPipe
 } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { IEmployee } from '../../common/interfaces/employee.interface';
 import { ValidationExceptionFilter } from '../../common/filters/validation-exception.filter';
-import { DeleteResult, UpdateResult } from 'typeorm';
+import { UpdateResult } from 'typeorm';
 import { UpdateEmployeeDto } from '../../common/dtos/employees/update-employee';
 import { CreateEmployeeDto } from '../../common/dtos/employees/create-employee';
 
@@ -35,7 +35,7 @@ export class EmployeesController {
   @Post()
   @UsePipes(new ValidationPipe())
   @UseFilters(new ValidationExceptionFilter())
-  async create(@Body() createUserDto: CreateEmployeeDto): Promise<any> {
+  async create(@Body() createUserDto: CreateEmployeeDto): Promise<IEmployee> {
     return this.employeesService.create(createUserDto);
   }
 
@@ -44,13 +44,13 @@ export class EmployeesController {
   @UseFilters(new ValidationExceptionFilter())
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateEmployeeDto: UpdateEmployeeDto,
+    @Body() updateEmployeeDto: UpdateEmployeeDto
   ): Promise<UpdateResult> {
     return this.employeesService.update(id, updateEmployeeDto);
   }
 
   @Delete(':id')
-  async delete(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {
+  async delete(@Param('id', ParseIntPipe) id: number): Promise<IEmployee> {
     return this.employeesService.delete(id);
   }
 }

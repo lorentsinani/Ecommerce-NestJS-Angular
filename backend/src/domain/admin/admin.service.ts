@@ -1,13 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository, ReturningStatementNotSupportedError, UpdateResult } from 'typeorm';
-import { Admin } from '../entities/admin.entity';
+import { UpdateResult } from 'typeorm';
 import { IAdmin } from '../../common/interfaces/admin.interface';
 import { CreateAdminDto } from '../../common/dtos/admin/create-admin.dto';
 import { UpdateAdminDto } from '../../common/dtos/admin/update-admin.dto';
+import { AdminRepository } from './admin.repository';
 @Injectable()
 export class AdminService {
-  constructor(@InjectRepository(Admin) private adminsRepository: Repository<Admin>) {}
+  constructor(private readonly adminsRepository: AdminRepository) {}
 
   async create(createAdminDto: CreateAdminDto): Promise<IAdmin> {
     const admin = this.adminsRepository.create(createAdminDto);
@@ -26,18 +25,14 @@ export class AdminService {
   }
 
   async update(id: number, updateAdminDto: UpdateAdminDto): Promise<UpdateResult> {
-    const result = await this.adminsRepository.update(id, updateAdminDto);
-    if (result.affected === 0) {
+    const updatedAdmin = await this.adminsRepository.update(id, updateAdminDto);
+    if (updatedAdmin.affected === 0) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
-    return result;
+    return updatedAdmin;
   }
 
-  async delete(id: number): Promise<DeleteResult> {
-    const result = await this.adminsRepository.delete(id);
-    if (result.affected === 0) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-    }
-    return result;
+  async delete(id: number): Promise<IAdmin> {
+    return this.adminsRepository.deleteAdmin(id);
   }
 }

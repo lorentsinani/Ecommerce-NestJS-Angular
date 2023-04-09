@@ -1,14 +1,13 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { Currency } from '../entities/currency.entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DeleteResult, UpdateResult } from 'typeorm';
+import { UpdateResult } from 'typeorm';
 import { CreateCurrencyDto } from '../../common/dtos/currency/create-currency.dto';
 import { ICurrency } from '../../common/interfaces/currency.interface';
 import { UpdateCurrencyDto } from '../../common/dtos/currency/update-currency.dto';
+import { CurrencyRepository } from './currency.repository';
 
 @Injectable()
 export class CurrencyService {
-  constructor(@InjectRepository(Currency) private currencyRepository: Repository<Currency>) {}
+  constructor(private readonly currencyRepository: CurrencyRepository) {}
 
   async create(currencyBody: CreateCurrencyDto): Promise<ICurrency> {
     const currency = this.currencyRepository.create(currencyBody);
@@ -38,12 +37,7 @@ export class CurrencyService {
     return updateCurrency;
   }
 
-  async remove(id: number): Promise<DeleteResult> {
-    const deletedCurrency = await this.currencyRepository.delete(id);
-
-    if (deletedCurrency.affected === 0) {
-      throw new HttpException('Currency not found', HttpStatus.NOT_FOUND);
-    }
-    return deletedCurrency;
+  async delete(id: number): Promise<ICurrency> {
+    return this.currencyRepository.deleteCurrency(id);
   }
 }

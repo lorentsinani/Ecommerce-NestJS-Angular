@@ -1,4 +1,4 @@
-import { Length, IsString, IsOptional, IsNumber } from "class-validator";
+import { Length, IsString, IsOptional, IsNumber } from 'class-validator';
 
 export class UpdateCategoryDto {
   @Length(1, 100)

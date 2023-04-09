@@ -8,6 +8,6 @@ import { AddressModule } from './address/address.module';
 import { CurrencyModule } from './currency/currency.module';
 
 @Module({
-  imports: [UsersModule, EmployeesModule, AdminModule, SuppliersModule, CategoryModule, AddressModule, CurrencyModule],
+  imports: [UsersModule, EmployeesModule, AdminModule, SuppliersModule, CategoryModule, AddressModule, CurrencyModule]
 })
 export class DomainModule {}

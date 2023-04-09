@@ -9,14 +9,14 @@ import {
   UsePipes,
   ValidationPipe,
   Put,
-  Delete,
+  Delete
 } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { IAdmin } from '../../common/interfaces/admin.interface';
 import { ValidationExceptionFilter } from '../../common/filters/validation-exception.filter';
 import { CreateAdminDto } from '../../common/dtos/admin/create-admin.dto';
 import { UpdateAdminDto } from '../../common/dtos/admin/update-admin.dto';
-import { DeleteResult, UpdateResult } from 'typeorm';
+import { UpdateResult } from 'typeorm';
 
 @Controller('admin')
 export class AdminController {
@@ -34,7 +34,7 @@ export class AdminController {
   @Post()
   @UsePipes(new ValidationPipe())
   @UseFilters(new ValidationExceptionFilter())
-  async create(@Body() createAdminDto: CreateAdminDto): Promise<any> {
+  async create(@Body() createAdminDto: CreateAdminDto): Promise<IAdmin> {
     return this.adminService.create(createAdminDto);
   }
 
@@ -47,7 +47,7 @@ export class AdminController {
   @Delete(':id')
   @UsePipes(new ValidationPipe())
   @UseFilters(new ValidationExceptionFilter())
-  async delete(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {
+  async delete(@Param('id', ParseIntPipe) id: number): Promise<IAdmin> {
     return this.adminService.delete(id);
   }
 }

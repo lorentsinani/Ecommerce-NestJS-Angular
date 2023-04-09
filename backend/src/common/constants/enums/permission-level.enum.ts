@@ -1,5 +1,5 @@
 export enum PermissionLevel {
   Basic = 'basic',
   Administrative = 'administrative',
-  Superuser = 'superuser',
+  Superuser = 'superuser'
 }

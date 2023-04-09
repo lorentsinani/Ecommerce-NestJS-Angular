@@ -1,14 +1,13 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { Suppliers } from '../entities/suppliers.entity';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
+import { DeleteResult, UpdateResult } from 'typeorm';
 import { ISuppliers } from '../../common/interfaces/suppliers.interface';
 import { CreateSupplierDto } from '../../common/dtos/suppliers/create-supplier.dto';
 import { UpdateSupplierDto } from '../../common/dtos/suppliers/update-supplier.dto';
+import { SuppliersRepository } from './suppliers.repository';
 
 @Injectable()
 export class SuppliersService {
-  constructor(@InjectRepository(Suppliers) private suppliersRepository: Repository<Suppliers>) {}
+  constructor(private readonly suppliersRepository: SuppliersRepository) {}
 
   async create(supplierBody: CreateSupplierDto): Promise<ISuppliers> {
     const supplier = this.suppliersRepository.create(supplierBody);
@@ -29,7 +28,7 @@ export class SuppliersService {
     return this.suppliersRepository.find();
   }
 
-  async remove(id: number): Promise<DeleteResult> {
+  async delete(id: number): Promise<DeleteResult> {
     const deletedSupplier = await this.suppliersRepository.delete(id);
 
     if (deletedSupplier.affected === 0) {

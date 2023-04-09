@@ -20,6 +20,7 @@ import { ValidationExceptionFilter } from '../../common/filters/validation-excep
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { DuplicateKeyExceptionFilter } from '../../common/filters/duplicate-key-exception.filter';
 import { RemovePasswordInterceptor } from '../../common/interceptors/remove-password.interceptor';
+import { NotFoundExceptionFilter } from '../../common/filters/not-found.exception.filter';
 
 @Controller('users')
 @UseInterceptors(RemovePasswordInterceptor)
@@ -27,31 +28,31 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get()
-  async findAll(): Promise<IUser[]> {
-    return this.usersService.findAll();
+  async findAllUsers(): Promise<IUser[]> {
+    return this.usersService.findAllUsers();
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number): Promise<IUser> {
-    return this.usersService.findOneById(id);
+  async findUser(@Param('id', ParseIntPipe) id: number): Promise<IUser> {
+    return this.usersService.findUserById(id);
   }
 
   @Post()
   @UsePipes(new ValidationPipe())
   @UseFilters(new ValidationExceptionFilter(), new DuplicateKeyExceptionFilter())
-  async create(@Body() createUserDto: CreateUserDto): Promise<any> {
-    return this.usersService.create(createUserDto);
+  async createUser(@Body() createUserDto: CreateUserDto): Promise<any> {
+    return this.usersService.createUser(createUserDto);
   }
 
   @Put(':id')
   @UsePipes(new ValidationPipe())
   @UseFilters(new ValidationExceptionFilter(), new DuplicateKeyExceptionFilter())
-  async update(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto): Promise<UpdateResult> {
-    return this.usersService.update(id, updateUserDto);
+  async updateUser(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto): Promise<UpdateResult> {
+    return this.usersService.updateUser(id, updateUserDto);
   }
 
   @Delete(':id')
-  async delete(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {
-    return this.usersService.delete(id);
+  async deleteUser(@Param('id', ParseIntPipe) id: number): Promise<IUser> {
+    return this.usersService.deleteUser(id);
   }
 }

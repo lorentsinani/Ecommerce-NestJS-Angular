@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
 import { IAddress } from 'src/common/interfaces/address.interface';
-import { DeleteResult, UpdateResult } from 'typeorm';
+import { UpdateResult } from 'typeorm';
 import { AddressService } from './address.service';
 import { CreateAddressDto } from 'src/common/dtos/address/create-address.dto';
 import { UpdateAddressDto } from 'src/common/dtos/address/update-address.dto';
@@ -10,30 +10,27 @@ export class AddressController {
   constructor(private addressService: AddressService) {}
 
   @Post()
-  async createAddress(@Body() addressBody: CreateAddressDto): Promise<IAddress> {
-    return await this.addressService.create(addressBody);
+  async create(@Body() addressBody: CreateAddressDto): Promise<IAddress> {
+    return this.addressService.create(addressBody);
   }
 
   @Get(':id')
-  async findAddress(@Param('id', ParseIntPipe) id: number): Promise<IAddress> {
-    return await this.addressService.findOneById(id);
+  async findOne(@Param('id', ParseIntPipe) id: number): Promise<IAddress> {
+    return this.addressService.findOneById(id);
   }
 
   @Get()
-  async findAllAddresses(): Promise<IAddress[]> {
-    return await this.addressService.findAll();
+  async findAll(): Promise<IAddress[]> {
+    return this.addressService.findAll();
   }
 
   @Delete(':id')
-  async removeAddress(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {
-    return await this.addressService.remove(id);
+  async delete(@Param('id', ParseIntPipe) id: number): Promise<IAddress> {
+    return this.addressService.delete(id);
   }
 
   @Patch(':id')
-  async updateAddress(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() addressBody: UpdateAddressDto,
-  ): Promise<UpdateResult> {
-    return await this.addressService.update(id, addressBody);
+  async update(@Param('id', ParseIntPipe) id: number, @Body() addressBody: UpdateAddressDto): Promise<UpdateResult> {
+    return this.addressService.update(id, addressBody);
   }
 }

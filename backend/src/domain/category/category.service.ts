@@ -1,14 +1,13 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DeleteResult, UpdateResult } from 'typeorm';
-import { Category } from '../entities/category.entity';
+import { UpdateResult } from 'typeorm';
 import { CreateCategoryDto } from '../../common/dtos/category/create-category.dto';
 import { ICategory } from '../../common/interfaces/category.interface';
 import { UpdateCategoryDto } from '../../common/dtos/category/update-category.dto';
+import { CategoryRepository } from './category.repository';
 
 @Injectable()
 export class CategoryService {
-  constructor(@InjectRepository(Category) private categoryRepository: Repository<Category>) {}
+  constructor(private readonly categoryRepository: CategoryRepository) {}
 
   async create(categoryBody: CreateCategoryDto): Promise<ICategory> {
     const category = this.categoryRepository.create(categoryBody);
@@ -38,12 +37,7 @@ export class CategoryService {
     return updateCategory;
   }
 
-  async delete(id: number): Promise<DeleteResult> {
-    const deletedCategory = await this.categoryRepository.delete(id);
-
-    if (deletedCategory.affected === 0) {
-      throw new HttpException('Category not found', HttpStatus.NOT_FOUND);
-    }
-    return deletedCategory;
+  async delete(id: number): Promise<ICategory> {
+    return this.categoryRepository.deleteCategory(id);
   }
 }
