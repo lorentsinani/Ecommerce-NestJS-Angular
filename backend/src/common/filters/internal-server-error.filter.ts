@@ -1,10 +1,10 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpStatus } from '@nestjs/common';
 import { Response } from 'express';
 
-@Catch()
+@Catch(InternalServerErrorFilter)
 export class InternalServerErrorFilter implements ExceptionFilter {
-  catch(exception: any, host: ArgumentsHost) {
-    const response = host.switchToHttp().getResponse();
+  catch(exception: InternalServerErrorFilter, host: ArgumentsHost) {
+    const response: Response = host.switchToHttp().getResponse();
     const statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
     const message = 'Internal Server Error';
 
