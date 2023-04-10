@@ -8,7 +8,7 @@ import { CreateUserDto } from '../../common/dtos/users/create-user.dto';
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  async create(createUserDto: CreateUserDto): Promise<IUser> {
+  async createUser(createUserDto: CreateUserDto): Promise<IUser> {
     const createUser = await this.usersRepository.createUser(createUserDto);
 
     if (!createUser) {
@@ -18,11 +18,11 @@ export class UsersService {
     return createUser.raw[0];
   }
 
-  async findAll(): Promise<IUser[]> {
+  async findAllUsers(): Promise<IUser[]> {
     return this.usersRepository.findAllUsers();
   }
 
-  async findById(id: number): Promise<IUser> {
+  async findUserById(id: number): Promise<IUser> {
     const userExist = await this.usersRepository.findUserById(id);
 
     if (!userExist) {
@@ -32,7 +32,7 @@ export class UsersService {
     return userExist;
   }
 
-  async findByEmail(email: string): Promise<IUser> {
+  async findUserByEmail(email: string): Promise<IUser> {
     const userExist = await this.usersRepository.findUserByEmail(email);
 
     if (!userExist) {
@@ -42,7 +42,7 @@ export class UsersService {
     return userExist;
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<IUser> {
+  async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<IUser> {
     const updatedUser = await this.usersRepository.updateUser(id, updateUserDto);
 
     if (!updatedUser.affected) {
@@ -52,7 +52,7 @@ export class UsersService {
     return updatedUser.raw[0];
   }
 
-  async delete(id: number): Promise<IUser> {
+  async deleteUser(id: number): Promise<IUser> {
     const deletedUser = await this.usersRepository.deleteUser(id);
 
     if (!deletedUser.affected) {

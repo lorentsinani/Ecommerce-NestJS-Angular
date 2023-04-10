@@ -8,7 +8,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 export class EmployeesService {
   constructor(private readonly employeesRepository: EmployeesRepository) {}
 
-  async create(createUserDto: CreateEmployeeDto): Promise<IEmployee> {
+  async createEmployee(createUserDto: CreateEmployeeDto): Promise<IEmployee> {
     const createdEmployee = await this.employeesRepository.createEmployee(createUserDto);
 
     if (!createdEmployee) {
@@ -27,7 +27,7 @@ export class EmployeesService {
     return employee;
   }
 
-  async findById(user_id: number): Promise<IEmployee> {
+  async findEmployeeById(user_id: number): Promise<IEmployee> {
     const employee = await this.employeesRepository.findEmployeeById(user_id);
 
     if (!employee) {
@@ -37,7 +37,7 @@ export class EmployeesService {
     return employee;
   }
 
-  async update(user_id: number, updateUserDto: UpdateEmployeeDto): Promise<IEmployee> {
+  async updateEmployee(user_id: number, updateUserDto: UpdateEmployeeDto): Promise<IEmployee> {
     const updatedEmployee = await this.employeesRepository.updateEmployee(user_id, updateUserDto);
 
     if (!updatedEmployee.affected) {
@@ -47,7 +47,7 @@ export class EmployeesService {
     return updatedEmployee.raw[0];
   }
 
-  async delete(user_id: number): Promise<IEmployee> {
+  async deleteEmployee(user_id: number): Promise<IEmployee> {
     const deletedEmployee = await this.employeesRepository.deleteEmployee(user_id);
 
     if (!deletedEmployee.affected) {

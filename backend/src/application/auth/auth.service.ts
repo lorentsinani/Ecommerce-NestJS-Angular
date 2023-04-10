@@ -8,7 +8,7 @@ export class AuthService {
   constructor(private usersService: UsersService, private jwtService: JwtService) {}
 
   async signIn(email: string, password: string) {
-    const user = await this.usersService.findByEmail(email);
+    const user = await this.usersService.findUserByEmail(email);
 
     const passwordMatched = await PasswordUtil.comparePassword(password, user?.password);
     if (!passwordMatched) {

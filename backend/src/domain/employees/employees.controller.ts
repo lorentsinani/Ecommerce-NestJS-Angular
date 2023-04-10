@@ -13,8 +13,8 @@ export class EmployeesController {
   @Post()
   @UsePipes(new ValidationPipe())
   @UseFilters(new ValidationExceptionFilter())
-  async create(@Body() createUserDto: CreateEmployeeDto): Promise<IEmployee> {
-    return this.employeesService.create(createUserDto);
+  async createEmployee(@Body() createUserDto: CreateEmployeeDto): Promise<IEmployee> {
+    return this.employeesService.createEmployee(createUserDto);
   }
 
   @Get()
@@ -24,21 +24,21 @@ export class EmployeesController {
 
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) user_id: number): Promise<IEmployee> {
-    return this.employeesService.findById(user_id);
+    return this.employeesService.findEmployeeById(user_id);
   }
 
   @Patch(':id')
   @UsePipes(new ValidationPipe(), new NullDtoValidationPipe())
   @UseFilters(new ValidationExceptionFilter())
-  async update(
+  async updateEmployee(
     @Param('id', ParseIntPipe) user_id: number,
     @Body() updateEmployeeDto: UpdateEmployeeDto
   ): Promise<IEmployee> {
-    return this.employeesService.update(user_id, updateEmployeeDto);
+    return this.employeesService.updateEmployee(user_id, updateEmployeeDto);
   }
 
   @Delete(':id')
-  async delete(user_id: number): Promise<IEmployee> {
-    return this.employeesService.delete(user_id);
+  async deleteEmployee(user_id: number): Promise<IEmployee> {
+    return this.employeesService.deleteEmployee(user_id);
   }
 }
