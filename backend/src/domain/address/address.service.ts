@@ -4,60 +4,60 @@ import { CreateAddressDto } from '../../common/dtos/address/create-address.dto';
 import { UpdateAddressDto } from '../../common/dtos/address/update-address.dto';
 import { AddressRepository } from './address.repository';
 
-const createExceptionMessage = 'Address is not created';
-const findExceptionMessage = 'Address not found';
-
 @Injectable()
 export class AddressService {
+  private static CreateExceptionMessage = 'Address is not created';
+  private static FindExceptionMessage = 'Address not found';
+
   constructor(private readonly addressRepository: AddressRepository) {}
 
   async create(addressBody: CreateAddressDto): Promise<IAddress> {
     const createdAddress = await this.addressRepository.createAddress(addressBody);
 
     if (!createdAddress) {
-      throw new HttpException(createExceptionMessage, HttpStatus.BAD_REQUEST);
+      throw new HttpException(AddressService.CreateExceptionMessage, HttpStatus.BAD_REQUEST);
     }
 
-    return createdAddress.raw;
+    return createdAddress.raw[0];
   }
 
   async findAll(): Promise<IAddress[]> {
-    const existAddress = await this.addressRepository.findAllAddresses();
+    const addressExist = await this.addressRepository.findAllAddresses();
 
-    if (!existAddress) {
-      throw new HttpException(findExceptionMessage, HttpStatus.NOT_FOUND);
+    if (!addressExist) {
+      throw new HttpException(AddressService.FindExceptionMessage, HttpStatus.NOT_FOUND);
     }
 
-    return existAddress;
+    return addressExist;
   }
 
   async findById(id: number): Promise<IAddress> {
-    const existAddress = await this.addressRepository.findAddressById(id);
+    const addressExist = await this.addressRepository.findAddressById(id);
 
-    if (!existAddress) {
-      throw new HttpException(findExceptionMessage, HttpStatus.NOT_FOUND);
+    if (!addressExist) {
+      throw new HttpException(AddressService.FindExceptionMessage, HttpStatus.NOT_FOUND);
     }
 
-    return existAddress;
+    return addressExist;
   }
 
   async update(id: number, addressBody: UpdateAddressDto): Promise<IAddress> {
     const updatedAddress = await this.addressRepository.updateAddress(id, addressBody);
 
     if (!updatedAddress) {
-      throw new HttpException(findExceptionMessage, HttpStatus.NOT_FOUND);
+      throw new HttpException(AddressService.FindExceptionMessage, HttpStatus.NOT_FOUND);
     }
 
-    return updatedAddress.raw;
+    return updatedAddress.raw[0];
   }
 
   async delete(id: number): Promise<IAddress> {
     const deletedUser = await this.addressRepository.deleteAddress(id);
 
     if (!deletedUser) {
-      throw new HttpException(findExceptionMessage, HttpStatus.NOT_FOUND);
+      throw new HttpException(AddressService.FindExceptionMessage, HttpStatus.NOT_FOUND);
     }
 
-    return deletedUser.raw;
+    return deletedUser.raw[0];
   }
 }

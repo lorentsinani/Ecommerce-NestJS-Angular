@@ -4,20 +4,21 @@ import { CreateSupplierDto } from '../../common/dtos/suppliers/create-supplier.d
 import { UpdateSupplierDto } from '../../common/dtos/suppliers/update-supplier.dto';
 import { SuppliersRepository } from './suppliers.repository';
 
-const createExceptionMessage = 'Supplier is not created';
-const findExceptionMessage = 'Supplier not found';
 @Injectable()
 export class SuppliersService {
+  private static CreateExceptionMessage = 'Supplier is not created';
+  private static FindExceptionMessage = 'Supplier not found';
+
   constructor(private readonly suppliersRepository: SuppliersRepository) {}
 
   async create(supplierBody: CreateSupplierDto): Promise<ISuppliers> {
     const createdSupplier = await this.suppliersRepository.createSupplier(supplierBody);
 
     if (!createdSupplier) {
-      throw new HttpException(createExceptionMessage, HttpStatus.BAD_REQUEST);
+      throw new HttpException(SuppliersService.CreateExceptionMessage, HttpStatus.BAD_REQUEST);
     }
 
-    return createdSupplier.raw;
+    return createdSupplier.raw[0];
   }
 
   async findAll(): Promise<ISuppliers[]> {
@@ -28,7 +29,7 @@ export class SuppliersService {
     const supplierExist = await this.suppliersRepository.findSupplierById(id);
 
     if (!supplierExist) {
-      throw new HttpException(findExceptionMessage, HttpStatus.NOT_FOUND);
+      throw new HttpException(SuppliersService.FindExceptionMessage, HttpStatus.NOT_FOUND);
     }
 
     return supplierExist;
@@ -38,7 +39,7 @@ export class SuppliersService {
     const supplierExist = await this.suppliersRepository.findSupplierByEmail(email);
 
     if (!supplierExist) {
-      throw new HttpException(findExceptionMessage, HttpStatus.NOT_FOUND);
+      throw new HttpException(SuppliersService.FindExceptionMessage, HttpStatus.NOT_FOUND);
     }
 
     return supplierExist;
@@ -48,19 +49,19 @@ export class SuppliersService {
     const updatedSupplier = await this.suppliersRepository.updateSupplier(id, supplierBody);
 
     if (!updatedSupplier.affected) {
-      throw new HttpException(findExceptionMessage, HttpStatus.NOT_FOUND);
+      throw new HttpException(SuppliersService.FindExceptionMessage, HttpStatus.NOT_FOUND);
     }
 
-    return updatedSupplier.raw;
+    return updatedSupplier.raw[0];
   }
 
   async delete(id: number): Promise<ISuppliers> {
     const deletedSupplier = await this.suppliersRepository.deleteSupplier(id);
 
     if (deletedSupplier.affected) {
-      throw new HttpException(findExceptionMessage, HttpStatus.NOT_FOUND);
+      throw new HttpException(SuppliersService.FindExceptionMessage, HttpStatus.NOT_FOUND);
     }
 
-    return deletedSupplier.raw;
+    return deletedSupplier.raw[0];
   }
 }
