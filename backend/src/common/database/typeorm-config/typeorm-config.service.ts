@@ -5,6 +5,10 @@ import { Admin } from '../../../domain/entities/admin.entity';
 import { User } from '../../../domain/entities/user.entity';
 import { IDatabaseConfig } from '../../../config/database-config';
 import { Employee } from '../../../domain/entities/employee.entity';
+import { Suppliers } from '../../../domain/entities/suppliers.entity';
+import { Address } from '../../../domain/entities/address.entity';
+import { Category } from '../../../domain/entities/category.entity';
+import { Currency } from '../../../domain/entities/currency.entity';
 
 @Injectable()
 export class TypeormConfigService implements TypeOrmOptionsFactory {
@@ -20,7 +24,7 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
       username: databaseConfig.username,
       password: databaseConfig.password,
       database: databaseConfig.database,
-      entities: [Admin, User, Employee], // All the entities that you create should be added here
+      entities: [Admin, User, Employee, Suppliers, Address, Category, Currency], // All the entities that you create should be added here
       synchronize: true
     } as TypeOrmModuleOptions;
   }
