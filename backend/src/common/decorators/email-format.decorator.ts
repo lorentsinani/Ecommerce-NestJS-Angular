@@ -20,6 +20,11 @@ export class EmailFormatConstraint implements ValidatorConstraintInterface {
       return false;
     }
 
+    // Check for email length
+    if (email.length > 100) {
+      return false;
+    }
+
     // Check for email format using regex
     const emailFormatRegex =
       /^[a-zA-Z][a-zA-Z0-9_]*[a-zA-Z0-9]+(_[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*(\.[a-zA-Z]{2,})$/;
