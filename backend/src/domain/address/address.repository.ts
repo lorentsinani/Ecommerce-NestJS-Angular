@@ -1,5 +1,5 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { DataSource, Repository } from 'typeorm';
+import { Injectable } from '@nestjs/common';
+import { DataSource, DeleteResult, InsertResult, Repository, UpdateResult } from 'typeorm';
 import { IAddress } from '../../common/interfaces/address.interface';
 import { Address } from '../entities/address.entity';
 import { CreateAddressDto } from '../../common/dtos/address/create-address.dto';
@@ -11,64 +11,32 @@ export class AddressRepository extends Repository<Address> {
     super(Address, dataSource.createEntityManager());
   }
 
-  async createAddress(createAddressDto: CreateAddressDto): Promise<IAddress> {
-    const createdAddress = await this.createQueryBuilder()
-      .insert()
-      .into(Address)
-      .values(createAddressDto)
-      .returning('*')
-      .execute();
-
-    return createdAddress.raw;
+  async createAddress(createAddressDto: CreateAddressDto): Promise<InsertResult> {
+    return this.createQueryBuilder().insert().into(Address).values(createAddressDto).returning('*').execute();
   }
 
-  async findAddressById(id: number): Promise<IAddress> {
-    const addressExist = await this.findOne({ where: { id } });
-
-    if (!addressExist) {
-      throw new HttpException('Address not found', HttpStatus.NOT_FOUND);
-    }
-
-    return addressExist;
+  async findAllAddresses(): Promise<IAddress[]> {
+    return this.find();
   }
 
-  async findAddressByFirstName(first_name: string): Promise<IAddress> {
-    const addressExist = await this.findOne({ where: { first_name } });
-
-    if (!addressExist) {
-      throw new HttpException('Address not found', HttpStatus.NOT_FOUND);
-    }
-
-    return addressExist;
+  async findAddressById(id: number): Promise<IAddress | null> {
+    return this.findOne({ where: { id } });
   }
 
-  async updateAddress(id: number, updateAddressDto: UpdateAddressDto): Promise<IAddress> {
-    const updatedAddress = await this.createQueryBuilder()
+  async findAddressByFirstName(first_name: string): Promise<IAddress | null> {
+    return this.findOne({ where: { first_name } });
+  }
+
+  async updateAddress(id: number, updateAddressDto: UpdateAddressDto): Promise<UpdateResult> {
+    return this.createQueryBuilder()
       .update(Address)
       .set(updateAddressDto)
       .where('id = :id', { id })
       .returning('*')
       .execute();
-
-    if (!updatedAddress.affected) {
-      throw new HttpException('Address not found', HttpStatus.NOT_FOUND);
-    }
-
-    return updatedAddress.raw;
   }
 
-  async deleteAddress(id: number): Promise<IAddress> {
-    const deletedAddress = await this.createQueryBuilder()
-      .delete()
-      .from(Address)
-      .where('id = :id', { id })
-      .returning('*')
-      .execute();
-
-    if (!deletedAddress.affected) {
-      throw new HttpException('Address not found', HttpStatus.NOT_FOUND);
-    }
-
-    return deletedAddress.raw;
+  async deleteAddress(id: number): Promise<DeleteResult> {
+    return this.createQueryBuilder().delete().from(Address).where('id = :id', { id }).returning('*').execute();
   }
 }

@@ -25,8 +25,8 @@ export class AddressController {
   @Post()
   @UsePipes(new ValidationPipe())
   @UseFilters(new DuplicateKeyExceptionFilter())
-  async createAddress(@Body() addressBody: CreateAddressDto): Promise<IAddress> {
-    return this.addressService.createAddress(addressBody);
+  async create(@Body() addressBody: CreateAddressDto): Promise<IAddress> {
+    return this.addressService.create(addressBody);
   }
 
   @Get()
@@ -35,19 +35,19 @@ export class AddressController {
   }
 
   @Get(':id')
-  async findAddressById(@Param('id', ParseIntPipe) id: number): Promise<IAddress> {
-    return this.addressService.findAddressById(id);
+  async findById(@Param('id', ParseIntPipe) id: number): Promise<IAddress> {
+    return this.addressService.findById(id);
   }
 
   @Patch(':id')
   @UsePipes(new ValidationPipe(), new NullDtoValidationPipe())
   @UseFilters(new DuplicateKeyExceptionFilter())
-  async updateAddress(@Param('id', ParseIntPipe) id: number, @Body() addressBody: UpdateAddressDto): Promise<IAddress> {
-    return this.addressService.updateAddress(id, addressBody);
+  async update(@Param('id', ParseIntPipe) id: number, @Body() addressBody: UpdateAddressDto): Promise<IAddress> {
+    return this.addressService.update(id, addressBody);
   }
 
   @Delete(':id')
-  async deleteAddress(@Param('id', ParseIntPipe) id: number): Promise<IAddress> {
-    return this.addressService.deleteAddress(id);
+  async delete(@Param('id', ParseIntPipe) id: number): Promise<IAddress> {
+    return this.addressService.delete(id);
   }
 }
