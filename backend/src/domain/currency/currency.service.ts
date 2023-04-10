@@ -1,34 +1,73 @@
-import { Injectable } from '@nestjs/common';
-import { CreateCurrencyDto } from '../../common/dtos/currency/create-currency.dto';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ICurrency } from '../../common/interfaces/currency.interface';
+import { CreateCurrencyDto } from '../../common/dtos/currency/create-currency.dto';
 import { UpdateCurrencyDto } from '../../common/dtos/currency/update-currency.dto';
 import { CurrencyRepository } from './currency.repository';
 
 @Injectable()
 export class CurrencyService {
+  private NotCreatedExceptionMessage = 'Currency is not created';
+  private NotFoundExceptionMessage = 'Currency not found';
+
   constructor(private readonly currencyRepository: CurrencyRepository) {}
 
-  async createCurrency(currencyBody: CreateCurrencyDto): Promise<ICurrency> {
-    return this.currencyRepository.createCurrency(currencyBody);
+  async create(currencyBody: CreateCurrencyDto): Promise<ICurrency> {
+    const createdCurrency = await this.currencyRepository.createCurrency(currencyBody);
+
+    if (!createdCurrency) {
+      throw new HttpException(this.NotCreatedExceptionMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    return createdCurrency.raw[0];
   }
 
   async findAll(): Promise<ICurrency[]> {
-    return this.currencyRepository.find();
+    const currencyExist = await this.currencyRepository.findAllCurrencies();
+
+    if (!currencyExist) {
+      throw new HttpException(this.NotFoundExceptionMessage, HttpStatus.NOT_FOUND);
+    }
+
+    return currencyExist;
   }
 
-  async findCurrencyById(id: number): Promise<ICurrency> {
-    return this.currencyRepository.findCurrencyById(id);
+  async findById(id: number): Promise<ICurrency> {
+    const currencyExist = await this.currencyRepository.findCurrencyById(id);
+
+    if (!currencyExist) {
+      throw new HttpException(this.NotFoundExceptionMessage, HttpStatus.NOT_FOUND);
+    }
+
+    return currencyExist;
   }
 
-  async findCurrencyByCode(code: string): Promise<ICurrency> {
-    return this.currencyRepository.findCurrencyByCode(code);
+  async findByCode(code: string): Promise<ICurrency> {
+    const currencyExist = await this.currencyRepository.findCurrencyByCode(code);
+
+    if (!currencyExist) {
+      throw new HttpException(this.NotFoundExceptionMessage, HttpStatus.NOT_FOUND);
+    }
+
+    return currencyExist;
   }
 
-  async updateCurrency(id: number, currencyBody: UpdateCurrencyDto): Promise<ICurrency> {
-    return this.currencyRepository.updateCurrency(id, currencyBody);
+  async update(id: number, currencyBody: UpdateCurrencyDto): Promise<ICurrency> {
+    const updatedCurrency = await this.currencyRepository.updateCurrency(id, currencyBody);
+
+    if (!updatedCurrency.affected) {
+      throw new HttpException(this.NotFoundExceptionMessage, HttpStatus.NOT_FOUND);
+    }
+
+    return updatedCurrency.raw[0];
   }
 
-  async deleteCurrency(id: number): Promise<ICurrency> {
-    return this.currencyRepository.deleteCurrency(id);
+  async delete(id: number): Promise<ICurrency> {
+    const deletedCurrency = await this.currencyRepository.deleteCurrency(id);
+
+    if (!deletedCurrency.affected) {
+      throw new HttpException(this.NotFoundExceptionMessage, HttpStatus.NOT_FOUND);
+    }
+
+    return deletedCurrency.raw[0];
   }
 }

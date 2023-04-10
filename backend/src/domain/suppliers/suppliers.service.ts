@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ISuppliers } from '../../common/interfaces/suppliers.interface';
 import { CreateSupplierDto } from '../../common/dtos/suppliers/create-supplier.dto';
 import { UpdateSupplierDto } from '../../common/dtos/suppliers/update-supplier.dto';
@@ -6,29 +6,62 @@ import { SuppliersRepository } from './suppliers.repository';
 
 @Injectable()
 export class SuppliersService {
+  private NotCreatedExceptionMessage = 'Supplier is not created';
+  private NoutFoundExceptionMessage = 'Supplier not found';
+
   constructor(private readonly suppliersRepository: SuppliersRepository) {}
 
-  async createSupplier(supplierBody: CreateSupplierDto): Promise<ISuppliers> {
-    return this.suppliersRepository.createSupplier(supplierBody);
+  async create(supplierBody: CreateSupplierDto): Promise<ISuppliers> {
+    const createdSupplier = await this.suppliersRepository.createSupplier(supplierBody);
+
+    if (!createdSupplier) {
+      throw new HttpException(this.NotCreatedExceptionMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    return createdSupplier.raw[0];
   }
 
   async findAll(): Promise<ISuppliers[]> {
-    return this.suppliersRepository.find();
+    return this.suppliersRepository.findAllSupliers();
   }
 
-  async findSupplierById(id: number): Promise<ISuppliers> {
-    return this.suppliersRepository.findSupplierById(id);
+  async findById(id: number): Promise<ISuppliers> {
+    const supplierExist = await this.suppliersRepository.findSupplierById(id);
+
+    if (!supplierExist) {
+      throw new HttpException(this.NoutFoundExceptionMessage, HttpStatus.NOT_FOUND);
+    }
+
+    return supplierExist;
   }
 
-  async findOneByEmail(email: string): Promise<ISuppliers> {
-    return this.suppliersRepository.findSupplierByEmail(email);
+  async findByEmail(email: string): Promise<ISuppliers> {
+    const supplierExist = await this.suppliersRepository.findSupplierByEmail(email);
+
+    if (!supplierExist) {
+      throw new HttpException(this.NoutFoundExceptionMessage, HttpStatus.NOT_FOUND);
+    }
+
+    return supplierExist;
   }
 
-  async updateSupplier(id: number, supplierBody: UpdateSupplierDto): Promise<ISuppliers> {
-    return this.suppliersRepository.updateSupplier(id, supplierBody);
+  async update(id: number, supplierBody: UpdateSupplierDto): Promise<ISuppliers> {
+    const updatedSupplier = await this.suppliersRepository.updateSupplier(id, supplierBody);
+
+    if (!updatedSupplier.affected) {
+      throw new HttpException(this.NoutFoundExceptionMessage, HttpStatus.NOT_FOUND);
+    }
+
+    return updatedSupplier.raw[0];
   }
 
-  async deleteSupplier(id: number): Promise<ISuppliers> {
-    return this.suppliersRepository.deleteSupplier(id);
+  async delete(id: number): Promise<ISuppliers> {
+    const deletedSupplier = await this.suppliersRepository.deleteSupplier(id);
+
+    if (deletedSupplier.affected) {
+      throw new HttpException(this.NoutFoundExceptionMessage, HttpStatus.NOT_FOUND);
+    }
+
+    return deletedSupplier.raw[0];
   }
 }

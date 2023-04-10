@@ -1,5 +1,6 @@
-import { IsString, IsEnum, IsEmail, Length, IsOptional } from 'class-validator';
+import { IsString, IsEnum, Length, IsOptional } from 'class-validator';
 import { UserType } from '../../constants/enums/user-type.enum';
+import { IsCustomEmail } from '../../decorators/email-format.decorator';
 
 export class UpdateSupplierDto {
   @IsString()
@@ -51,8 +52,7 @@ export class UpdateSupplierDto {
   @IsOptional()
   fax_number?: string;
 
-  @IsEmail()
-  @Length(1, 100)
+  @IsCustomEmail()
   @IsOptional()
   email: string;
 }
