@@ -36,7 +36,7 @@ export function IsDateFormat(validationOptions?: ValidationOptions): PropertyDec
     registerDecorator({
       name: 'isDateFormat',
       target: object.constructor,
-      propertyName: propertyName,
+      propertyName,
       options: validationOptions,
       validator: DateFormatConstraint
     });
