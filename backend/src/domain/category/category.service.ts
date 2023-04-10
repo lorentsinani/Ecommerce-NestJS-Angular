@@ -1,34 +1,72 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateCategoryDto } from '../../common/dtos/category/create-category.dto';
 import { ICategory } from '../../common/interfaces/category.interface';
 import { UpdateCategoryDto } from '../../common/dtos/category/update-category.dto';
 import { CategoryRepository } from './category.repository';
 
+const createExceptionMessage = 'Category is not created';
+const findExceptionMessage = 'Category not found';
 @Injectable()
 export class CategoryService {
   constructor(private readonly categoryRepository: CategoryRepository) {}
 
-  async createCategory(categoryBody: CreateCategoryDto): Promise<ICategory> {
-    return this.categoryRepository.createCategory(categoryBody);
+  async create(categoryBody: CreateCategoryDto): Promise<ICategory> {
+    const createdCategory = await this.categoryRepository.createCategory(categoryBody);
+
+    if (!createdCategory) {
+      throw new HttpException(createExceptionMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    return createdCategory.raw;
   }
 
   async findAll(): Promise<ICategory[]> {
-    return this.categoryRepository.find();
+    const existCategory = await this.categoryRepository.findAllCategories();
+
+    if (!existCategory) {
+      throw new HttpException(findExceptionMessage, HttpStatus.NOT_FOUND);
+    }
+
+    return existCategory;
   }
 
-  async findCategoryById(id: number): Promise<ICategory> {
-    return this.categoryRepository.findCategoryById(id);
+  async findById(id: number): Promise<ICategory> {
+    const existCategory = await this.categoryRepository.findCategoryById(id);
+
+    if (!existCategory) {
+      throw new HttpException(findExceptionMessage, HttpStatus.NOT_FOUND);
+    }
+
+    return existCategory;
   }
 
-  async findCategoryByCategoryName(category_name: string): Promise<ICategory> {
-    return this.categoryRepository.findCategoryByCategoryName(category_name);
+  async findByCategoryName(category_name: string): Promise<ICategory> {
+    const existCategory = await this.categoryRepository.findCategoryByCategoryName(category_name);
+
+    if (!existCategory) {
+      throw new HttpException(findExceptionMessage, HttpStatus.NOT_FOUND);
+    }
+
+    return existCategory;
   }
 
-  async updateCategory(id: number, categoryBody: UpdateCategoryDto): Promise<ICategory> {
-    return this.categoryRepository.updateCategory(id, categoryBody);
+  async update(id: number, categoryBody: UpdateCategoryDto): Promise<ICategory> {
+    const updatedCateogry = await this.categoryRepository.updateCategory(id, categoryBody);
+
+    if (!updatedCateogry) {
+      throw new HttpException(findExceptionMessage, HttpStatus.NOT_FOUND);
+    }
+
+    return updatedCateogry.raw;
   }
 
-  async deleteCategory(id: number): Promise<ICategory> {
-    return this.categoryRepository.deleteCategory(id);
+  async delete(id: number): Promise<ICategory> {
+    const deletedCategory = await this.categoryRepository.deleteCategory(id);
+
+    if (!deletedCategory) {
+      throw new HttpException(findExceptionMessage, HttpStatus.NOT_FOUND);
+    }
+
+    return deletedCategory.raw;
   }
 }
