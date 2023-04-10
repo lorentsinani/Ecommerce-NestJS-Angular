@@ -1,4 +1,5 @@
-import { Length, IsString, IsOptional, IsEmail } from 'class-validator';
+import { Length, IsString, IsOptional } from 'class-validator';
+import { IsCustomEmail } from '../../decorators/email-format.decorator';
 
 export class UpdateAddressDto {
   @Length(1, 255)
@@ -32,7 +33,7 @@ export class UpdateAddressDto {
   country: string;
 
   @Length(1, 100)
-  @IsEmail()
+  @IsCustomEmail()
   @IsString()
   @IsOptional()
   email: string;

@@ -1,5 +1,6 @@
-import { IsEmail, IsEnum, IsNotEmpty, IsString, Length } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString, Length } from 'class-validator';
 import { UserType } from '../../constants/enums/user-type.enum';
+import { IsCustomEmail } from '../../decorators/email-format.decorator';
 export class CreateSupplierDto {
   @IsString()
   @IsNotEmpty()
@@ -47,7 +48,7 @@ export class CreateSupplierDto {
   @Length(1, 20)
   fax_number?: string;
 
-  @IsEmail()
+  @IsCustomEmail()
   @IsNotEmpty()
   @Length(1, 100)
   email: string;
