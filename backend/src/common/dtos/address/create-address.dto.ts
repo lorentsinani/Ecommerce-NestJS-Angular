@@ -26,9 +26,7 @@ export class CreateAddressDto {
   @IsString()
   country: string;
 
-  @Length(1, 100)
   @IsCustomEmail()
-  @IsString()
   email: string;
 
   @Length(1, 20)

@@ -32,9 +32,7 @@ export class UpdateAddressDto {
   @IsOptional()
   country: string;
 
-  @Length(1, 100)
   @IsCustomEmail()
-  @IsString()
   @IsOptional()
   email: string;
 

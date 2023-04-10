@@ -49,7 +49,5 @@ export class CreateSupplierDto {
   fax_number?: string;
 
   @IsCustomEmail()
-  @IsNotEmpty()
-  @Length(1, 100)
   email: string;
 }
