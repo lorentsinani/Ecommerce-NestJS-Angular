@@ -6,8 +6,8 @@ import { SuppliersRepository } from './suppliers.repository';
 
 @Injectable()
 export class SuppliersService {
-  private static CreateExceptionMessage = 'Supplier is not created';
-  private static FindExceptionMessage = 'Supplier not found';
+  private NotCreatedExceptionMessage = 'Supplier is not created';
+  private NoutFoundExceptionMessage = 'Supplier not found';
 
   constructor(private readonly suppliersRepository: SuppliersRepository) {}
 
@@ -15,7 +15,7 @@ export class SuppliersService {
     const createdSupplier = await this.suppliersRepository.createSupplier(supplierBody);
 
     if (!createdSupplier) {
-      throw new HttpException(SuppliersService.CreateExceptionMessage, HttpStatus.BAD_REQUEST);
+      throw new HttpException(this.NotCreatedExceptionMessage, HttpStatus.BAD_REQUEST);
     }
 
     return createdSupplier.raw[0];
@@ -29,7 +29,7 @@ export class SuppliersService {
     const supplierExist = await this.suppliersRepository.findSupplierById(id);
 
     if (!supplierExist) {
-      throw new HttpException(SuppliersService.FindExceptionMessage, HttpStatus.NOT_FOUND);
+      throw new HttpException(this.NoutFoundExceptionMessage, HttpStatus.NOT_FOUND);
     }
 
     return supplierExist;
@@ -39,7 +39,7 @@ export class SuppliersService {
     const supplierExist = await this.suppliersRepository.findSupplierByEmail(email);
 
     if (!supplierExist) {
-      throw new HttpException(SuppliersService.FindExceptionMessage, HttpStatus.NOT_FOUND);
+      throw new HttpException(this.NoutFoundExceptionMessage, HttpStatus.NOT_FOUND);
     }
 
     return supplierExist;
@@ -49,7 +49,7 @@ export class SuppliersService {
     const updatedSupplier = await this.suppliersRepository.updateSupplier(id, supplierBody);
 
     if (!updatedSupplier.affected) {
-      throw new HttpException(SuppliersService.FindExceptionMessage, HttpStatus.NOT_FOUND);
+      throw new HttpException(this.NoutFoundExceptionMessage, HttpStatus.NOT_FOUND);
     }
 
     return updatedSupplier.raw[0];
@@ -59,7 +59,7 @@ export class SuppliersService {
     const deletedSupplier = await this.suppliersRepository.deleteSupplier(id);
 
     if (deletedSupplier.affected) {
-      throw new HttpException(SuppliersService.FindExceptionMessage, HttpStatus.NOT_FOUND);
+      throw new HttpException(this.NoutFoundExceptionMessage, HttpStatus.NOT_FOUND);
     }
 
     return deletedSupplier.raw[0];
