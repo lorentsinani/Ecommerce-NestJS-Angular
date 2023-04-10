@@ -1,16 +1,5 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Patch,
-  Post,
-  UseFilters,
-  UsePipes,
-  ValidationPipe
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param } from '@nestjs/common';
+import { ParseIntPipe, Patch, Post, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CurrencyService } from './currency.service';
 import { CreateCurrencyDto } from '../../common/dtos/currency/create-currency.dto';
 import { ICurrency } from '../../common/interfaces/currency.interface';
@@ -25,8 +14,8 @@ export class CurrencyController {
   @Post()
   @UsePipes(new ValidationPipe())
   @UseFilters(new DuplicateKeyExceptionFilter())
-  async createCurrency(@Body() currencyBody: CreateCurrencyDto): Promise<ICurrency> {
-    return this.currencyService.createCurrency(currencyBody);
+  async create(@Body() currencyBody: CreateCurrencyDto): Promise<ICurrency> {
+    return this.currencyService.create(currencyBody);
   }
 
   @Get()
@@ -35,22 +24,19 @@ export class CurrencyController {
   }
 
   @Get(':id')
-  async findCurrencyById(@Param('id', ParseIntPipe) id: number): Promise<ICurrency> {
-    return this.currencyService.findCurrencyById(id);
+  async findById(@Param('id', ParseIntPipe) id: number): Promise<ICurrency> {
+    return this.currencyService.findById(id);
   }
 
   @Patch(':id')
   @UsePipes(new ValidationPipe(), new NullDtoValidationPipe())
   @UseFilters(new DuplicateKeyExceptionFilter())
-  async updateCurrency(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() currencyBody: UpdateCurrencyDto
-  ): Promise<ICurrency> {
-    return this.currencyService.updateCurrency(id, currencyBody);
+  async update(@Param('id', ParseIntPipe) id: number, @Body() currencyBody: UpdateCurrencyDto): Promise<ICurrency> {
+    return this.currencyService.update(id, currencyBody);
   }
 
   @Delete(':id')
   async deleteCurrency(@Param('id', ParseIntPipe) id: number): Promise<ICurrency> {
-    return this.currencyService.deleteCurrency(id);
+    return this.currencyService.delete(id);
   }
 }
