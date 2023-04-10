@@ -14,7 +14,7 @@ export class AdminService {
     if (!createdAdmin) {
       throw new HttpException('Admin is not created', HttpStatus.BAD_REQUEST);
     }
-    return createdAdmin.raw;
+    return createdAdmin.raw[0];
   }
 
   async findAll(): Promise<IAdmin[]> {
@@ -47,7 +47,7 @@ export class AdminService {
       throw new HttpException('Admin not found', HttpStatus.NOT_FOUND);
     }
 
-    return updatedAdmin.raw;
+    return updatedAdmin.raw[0];
   }
 
   async delete(user_id: number): Promise<IAdmin> {
@@ -57,6 +57,6 @@ export class AdminService {
       throw new HttpException('Admin not found', HttpStatus.NOT_FOUND);
     }
 
-    return deletedAdmin.raw;
+    return deletedAdmin.raw[0];
   }
 }

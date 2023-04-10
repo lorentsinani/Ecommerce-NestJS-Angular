@@ -290,19 +290,6 @@ CREATE TABLE delivery_methods
 
 
 
-
-CREATE TABLE payments (
-  payment_id SERIAL PRIMARY KEY,
-  order_id INT NOT NULL,
-  payment_amount DECIMAL(10, 2) NOT NULL,
-  payment_method VARCHAR(255) NOT NULL,
-  payment_status VARCHAR(255) NOT NULL,
-  payment_date TIMESTAMP NOT NULL,
-  CONSTRAINT fk_order_id FOREIGN KEY (order_id) REFERENCES orders(id)
-);
-
-
-
 CREATE TABLE payments (
   payment_id SERIAL PRIMARY KEY,
   order_id INT NOT NULL,

@@ -5,7 +5,7 @@ export class UpdateAdminDto {
   @IsOptional()
   @IsEnum(PermissionLevel)
   @IsNotEmpty()
-  permission_level?: PermissionLevel;
+  permission_level: PermissionLevel;
 
   @IsOptional()
   @IsNotEmpty()

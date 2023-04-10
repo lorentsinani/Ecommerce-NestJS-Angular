@@ -15,7 +15,7 @@ export class UsersService {
       throw new HttpException('User is not created', HttpStatus.BAD_REQUEST);
     }
 
-    return createUser.raw;
+    return createUser.raw[0];
   }
 
   async findAll(): Promise<IUser[]> {
@@ -49,7 +49,7 @@ export class UsersService {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
 
-    return updatedUser.raw;
+    return updatedUser.raw[0];
   }
 
   async delete(id: number): Promise<IUser> {
@@ -59,6 +59,6 @@ export class UsersService {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
 
-    return deletedUser.raw;
+    return deletedUser.raw[0];
   }
 }

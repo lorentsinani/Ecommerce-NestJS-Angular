@@ -7,7 +7,7 @@ import { SignInDto } from '../../common/dtos/application/auth/sing-in.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Post('login')
   async login(@Body() body: SignInDto) {

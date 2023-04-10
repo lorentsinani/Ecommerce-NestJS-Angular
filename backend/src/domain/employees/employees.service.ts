@@ -14,7 +14,7 @@ export class EmployeesService {
     if (!createdEmployee) {
       throw new HttpException('Employee is not created', HttpStatus.BAD_REQUEST);
     }
-    return createdEmployee.raw;
+    return createdEmployee.raw[0];
   }
 
   async findAll(): Promise<IEmployee[]> {
@@ -44,7 +44,7 @@ export class EmployeesService {
       throw new HttpException('Employee not found', HttpStatus.NOT_FOUND);
     }
 
-    return updatedEmployee.raw;
+    return updatedEmployee.raw[0];
   }
 
   async delete(user_id: number): Promise<IEmployee> {
@@ -54,6 +54,6 @@ export class EmployeesService {
       throw new HttpException('Employee not found', HttpStatus.NOT_FOUND);
     }
 
-    return deletedEmployee.raw;
+    return deletedEmployee.raw[0];
   }
 }

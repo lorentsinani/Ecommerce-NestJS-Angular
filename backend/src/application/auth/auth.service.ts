@@ -12,7 +12,7 @@ export class AuthService {
 
     const passwordMatched = await PasswordUtil.comparePassword(password, user?.password);
     if (!passwordMatched) {
-      throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
+      throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST);
     }
 
     const payload = { sub: user.id, username: user.email, role: user.user_type };
