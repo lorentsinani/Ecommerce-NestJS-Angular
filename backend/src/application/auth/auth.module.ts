@@ -2,8 +2,8 @@ import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UsersModule } from '../../domain/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
-import { AuthController } from './auth.controller';
 import { JwtTokenVerifierMiddleware } from '../../common/middlewares/jwt-token-verifier.middleware';
+import { AuthController } from './auth.controller';
 
 @Module({
   imports: [

@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
-import { AdminAppModule } from './admin-app/admin-app.module';
-import { EmployeesAppModule } from './employees-app/employees-app.module';
+import { AppEmployeeModule } from './app-employee/app-employee.module';
+import { ProfileModule } from './profile/profile.module';
+import { AppAdminModule } from './app-admin/app-admin.module';
 
 @Module({
-  imports: [AuthModule, EmployeesAppModule, AdminAppModule]
+  imports: [AuthModule, AppEmployeeModule, AppAdminModule, ProfileModule]
 })
 export class ApplicationServicesModule {}

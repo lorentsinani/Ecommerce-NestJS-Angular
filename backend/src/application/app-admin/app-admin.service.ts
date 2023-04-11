@@ -1,6 +1,6 @@
-import { CreateUserDto } from './../../common/dtos/users/create-user.dto';
-import { IAdmin } from './../../common/interfaces/admin.interface';
-import { IUser } from './../../common/interfaces/user.interface';
+import { CreateUserDto } from '../../common/dtos/users/create-user.dto';
+import { IAdmin } from '../../common/interfaces/admin.interface';
+import { IUser } from '../../common/interfaces/user.interface';
 import { Injectable } from '@nestjs/common';
 import { CreateAdminDto } from '../../common/dtos/admin/create-admin.dto';
 import { AdminService } from '../../domain/admin/admin.service';
@@ -14,7 +14,7 @@ import { UpdateEmployeeDto } from '../../common/dtos/employees/update-employee';
 import { UserAdminData, UserEmployeeData } from '../../common/constants/types/combined-user.types';
 
 @Injectable()
-export class AdminAppService {
+export class AppAdminService {
   constructor(
     private readonly usersService: UsersService,
     private readonly adminService: AdminService,

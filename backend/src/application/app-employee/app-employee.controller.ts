@@ -1,9 +1,9 @@
 import { Controller, UseGuards } from '@nestjs/common';
-import { EmployeesAppService } from './employees-app.service';
 import { EmployeeGuard } from '../../common/guards/emp.guard';
+import { AppEmployeeService } from './app-employee.service';
 
 @Controller('employees-app')
 @UseGuards(EmployeeGuard)
-export class EmployeesAppController {
-  constructor(private readonly employeeService: EmployeesAppService) {}
+export class AppEmployeeController {
+  constructor(private readonly employeeService: AppEmployeeService) {}
 }

@@ -25,7 +25,7 @@ export class AuthService {
     };
   }
 
-  async registerUser(createUserDto: CreateUserDto): Promise<IUser> {
+  async singUp(createUserDto: CreateUserDto): Promise<IUser> {
     const { email }: { email: string } = createUserDto;
     const userExist = await this.usersService.findByEmail(email);
 
@@ -35,4 +35,6 @@ export class AuthService {
 
     return this.usersService.create({ ...createUserDto, user_type: UserType.Customer });
   }
+
+  async singOut() {}
 }
