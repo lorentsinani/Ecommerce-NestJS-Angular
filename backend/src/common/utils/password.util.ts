@@ -21,8 +21,7 @@ export class PasswordUtil {
 
     // Check for strong password criteria: at least one uppercase letter,
     // one lowercase letter, one digit, and one special character
-    const strongPasswordRegex =
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+=\-[\]{}|;':",.<>?/~`])\S{8,}$/;
+    const strongPasswordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/;
     return strongPasswordRegex.test(password);
   }
 }

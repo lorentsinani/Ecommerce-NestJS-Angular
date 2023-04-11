@@ -16,35 +16,22 @@ export class EmployeesRepository extends Repository<Employee> {
   }
 
   async findAllEmployees(): Promise<IEmployee[]> {
-    return this.find();
+    return this.find({ relations: ['user'] });
   }
 
   async findEmployeeById(id: number): Promise<IEmployee | null> {
-    return this.findOne({ where: { user_id: id } });
+    return this.findOne({ where: { user_id: id }, relations: ['user'] });
   }
 
   async findEmployeeByEmail(email: string): Promise<IEmployee | null> {
-    return this.createQueryBuilder('employee')
-      .innerJoinAndSelect('employee.user', 'user', 'user.email = :email', { email })
-      .getOne();
+    return this.createQueryBuilder('employee').innerJoinAndSelect('employee.user', 'user', 'user.email = :email', { email }).getOne();
   }
 
   async updateEmployee(user_id: number, updateEmployeeDto: UpdateEmployeeDto): Promise<UpdateResult> {
-    return this.createQueryBuilder()
-      .update(Employee)
-      .set(updateEmployeeDto)
-      .where('user_id = :user_id', { user_id })
-      .execute();
+    return this.createQueryBuilder().update(Employee).set(updateEmployeeDto).where('user_id = :user_id', { user_id }).execute();
   }
 
   async deleteEmployee(user_id: number): Promise<DeleteResult> {
-    return this.manager
-      .getRepository(User)
-      .createQueryBuilder()
-      .delete()
-      .from(User)
-      .where('id = :id', { id: user_id })
-      .returning('*')
-      .execute();
+    return this.manager.getRepository(User).createQueryBuilder().delete().from(User).where('id = :id', { id: user_id }).returning('*').execute();
   }
 }

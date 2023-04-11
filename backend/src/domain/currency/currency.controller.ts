@@ -1,3 +1,4 @@
+import { Currency } from './../entities/currency.entity';
 import { Body, Controller, Delete, Get, Param } from '@nestjs/common';
 import { ParseIntPipe, Patch, Post, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CurrencyService } from './currency.service';
@@ -8,12 +9,12 @@ import { DuplicateKeyExceptionFilter } from '../../common/filters/duplicate-key-
 import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
 
 @Controller('currency')
+@UsePipes(new ValidationPipe())
 export class CurrencyController {
   constructor(private currencyService: CurrencyService) {}
 
   @Post()
-  @UsePipes(new ValidationPipe())
-  @UseFilters(new DuplicateKeyExceptionFilter())
+  @UseFilters(new DuplicateKeyExceptionFilter('Currency'))
   async create(@Body() currencyBody: CreateCurrencyDto): Promise<ICurrency> {
     return this.currencyService.create(currencyBody);
   }
@@ -29,8 +30,8 @@ export class CurrencyController {
   }
 
   @Patch(':id')
-  @UsePipes(new ValidationPipe(), new NullDtoValidationPipe())
-  @UseFilters(new DuplicateKeyExceptionFilter())
+  @UsePipes(new NullDtoValidationPipe())
+  @UseFilters(new DuplicateKeyExceptionFilter('Currency'))
   async update(@Param('id', ParseIntPipe) id: number, @Body() currencyBody: UpdateCurrencyDto): Promise<ICurrency> {
     return this.currencyService.update(id, currencyBody);
   }

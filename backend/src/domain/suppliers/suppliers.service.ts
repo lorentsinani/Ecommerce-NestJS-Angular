@@ -7,7 +7,7 @@ import { SuppliersRepository } from './suppliers.repository';
 @Injectable()
 export class SuppliersService {
   private NotCreatedExceptionMessage = 'Supplier is not created';
-  private NoutFoundExceptionMessage = 'Supplier not found';
+  private NotFoundExceptionMessage = 'Supplier not found';
 
   constructor(private readonly suppliersRepository: SuppliersRepository) {}
 
@@ -22,14 +22,14 @@ export class SuppliersService {
   }
 
   async findAll(): Promise<ISuppliers[]> {
-    return this.suppliersRepository.findAllSupliers();
+    return this.suppliersRepository.findAllSuppliers();
   }
 
   async findById(id: number): Promise<ISuppliers> {
     const supplierExist = await this.suppliersRepository.findSupplierById(id);
 
     if (!supplierExist) {
-      throw new HttpException(this.NoutFoundExceptionMessage, HttpStatus.NOT_FOUND);
+      throw new HttpException(this.NotFoundExceptionMessage, HttpStatus.NOT_FOUND);
     }
 
     return supplierExist;
@@ -39,7 +39,7 @@ export class SuppliersService {
     const supplierExist = await this.suppliersRepository.findSupplierByEmail(email);
 
     if (!supplierExist) {
-      throw new HttpException(this.NoutFoundExceptionMessage, HttpStatus.NOT_FOUND);
+      throw new HttpException(this.NotFoundExceptionMessage, HttpStatus.NOT_FOUND);
     }
 
     return supplierExist;
@@ -49,7 +49,7 @@ export class SuppliersService {
     const updatedSupplier = await this.suppliersRepository.updateSupplier(id, supplierBody);
 
     if (!updatedSupplier.affected) {
-      throw new HttpException(this.NoutFoundExceptionMessage, HttpStatus.NOT_FOUND);
+      throw new HttpException(this.NotFoundExceptionMessage, HttpStatus.NOT_FOUND);
     }
 
     return updatedSupplier.raw[0];
@@ -59,7 +59,7 @@ export class SuppliersService {
     const deletedSupplier = await this.suppliersRepository.deleteSupplier(id);
 
     if (deletedSupplier.affected) {
-      throw new HttpException(this.NoutFoundExceptionMessage, HttpStatus.NOT_FOUND);
+      throw new HttpException(this.NotFoundExceptionMessage, HttpStatus.NOT_FOUND);
     }
 
     return deletedSupplier.raw[0];

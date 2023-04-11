@@ -8,12 +8,13 @@ import { DuplicateKeyExceptionFilter } from '../../common/filters/duplicate-key-
 import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
 
 @Controller('suppliers')
+@UsePipes(new ValidationPipe())
 export class SuppliersController {
   constructor(private suppliersService: SuppliersService) {}
 
   @Post()
   @UsePipes(new ValidationPipe())
-  @UseFilters(new DuplicateKeyExceptionFilter())
+  @UseFilters(new DuplicateKeyExceptionFilter('Suppliers'))
   async create(@Body() supplierBody: CreateSupplierDto): Promise<ISuppliers> {
     return this.suppliersService.create(supplierBody);
   }
@@ -29,8 +30,8 @@ export class SuppliersController {
   }
 
   @Patch(':id')
-  @UsePipes(new ValidationPipe(), new NullDtoValidationPipe())
-  @UseFilters(new DuplicateKeyExceptionFilter())
+  @UsePipes(new NullDtoValidationPipe())
+  @UseFilters(new DuplicateKeyExceptionFilter('Suppliers'))
   async update(@Param('id', ParseIntPipe) id: number, @Body() supplierBody: UpdateSupplierDto): Promise<ISuppliers> {
     return this.suppliersService.update(id, supplierBody);
   }

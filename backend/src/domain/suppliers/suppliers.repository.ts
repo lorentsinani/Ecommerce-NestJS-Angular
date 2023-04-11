@@ -15,7 +15,7 @@ export class SuppliersRepository extends Repository<Suppliers> {
     return this.createQueryBuilder().insert().into(Suppliers).values(createSupplierDto).returning('*').execute();
   }
 
-  async findAllSupliers(): Promise<ISuppliers[]> {
+  async findAllSuppliers(): Promise<ISuppliers[]> {
     return this.find();
   }
 
@@ -28,12 +28,7 @@ export class SuppliersRepository extends Repository<Suppliers> {
   }
 
   async updateSupplier(id: number, updateSupplierDto: UpdateSupplierDto): Promise<UpdateResult> {
-    return this.createQueryBuilder()
-      .update(Suppliers)
-      .set(updateSupplierDto)
-      .where('id = :id', { id })
-      .returning('*')
-      .execute();
+    return this.createQueryBuilder().update(Suppliers).set(updateSupplierDto).where('id = :id', { id }).returning('*').execute();
   }
 
   async deleteSupplier(id: number): Promise<DeleteResult> {

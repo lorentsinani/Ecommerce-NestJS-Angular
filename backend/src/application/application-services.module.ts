@@ -4,6 +4,6 @@ import { AdminAppModule } from './admin-app/admin-app.module';
 import { EmployeesAppModule } from './employees-app/employees-app.module';
 
 @Module({
-  imports: [AuthModule, EmployeesAppModule, AdminAppModule],
+  imports: [AuthModule, EmployeesAppModule, AdminAppModule]
 })
 export class ApplicationServicesModule {}

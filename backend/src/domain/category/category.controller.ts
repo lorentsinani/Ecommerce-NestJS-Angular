@@ -8,12 +8,12 @@ import { DuplicateKeyExceptionFilter } from '../../common/filters/duplicate-key-
 import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
 
 @Controller('category')
+@UsePipes(new ValidationPipe())
 export class CategoryController {
   constructor(private categoryService: CategoryService) {}
 
   @Post()
-  @UsePipes(new ValidationPipe())
-  @UseFilters(new DuplicateKeyExceptionFilter())
+  @UseFilters(new DuplicateKeyExceptionFilter('Category'))
   async create(@Body() categoryBody: CreateCategoryDto): Promise<ICategory> {
     return this.categoryService.create(categoryBody);
   }
@@ -29,8 +29,8 @@ export class CategoryController {
   }
 
   @Patch(':id')
-  @UsePipes(new ValidationPipe(), new NullDtoValidationPipe())
-  @UseFilters(new DuplicateKeyExceptionFilter())
+  @UsePipes(new NullDtoValidationPipe())
+  @UseFilters(new DuplicateKeyExceptionFilter('Category'))
   async update(@Param('id', ParseIntPipe) id: number, @Body() categoryBody: UpdateCategoryDto): Promise<ICategory> {
     return this.categoryService.update(id, categoryBody);
   }

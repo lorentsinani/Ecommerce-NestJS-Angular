@@ -4,10 +4,12 @@ import { Response } from 'express';
 
 @Catch(QueryFailedError)
 export class DuplicateKeyExceptionFilter implements ExceptionFilter {
+  constructor(private readonly entityName: string) {}
+
   catch(exception: QueryFailedError, host: ArgumentsHost) {
     const response: Response = host.switchToHttp().getResponse();
     const statusCode = HttpStatus.CONFLICT;
-    const message = exception.message || 'Duplicate key error';
+    const message = `${this.entityName} with these data already exists`;
 
     const errorResponse = {
       statusCode,
