@@ -22,7 +22,8 @@ export class AuthModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(JwtTokenVerifierMiddleware)
-      .exclude({ path: 'auth/login', method: RequestMethod.POST }) // Exclude /auth/login route
-      .forRoutes('*'); // Apply to all routes
+      .exclude({ path: 'auth/login', method: RequestMethod.POST })
+      .exclude({ path: 'auth/register', method: RequestMethod.POST })
+      .forRoutes('auth/logout');
   }
 }
