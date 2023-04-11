@@ -1,5 +1,5 @@
 import { Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseFilters, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
-import { AdminAppService } from './admin-app.service';
+import { AppAdminService } from './app-admin.service';
 import { CreateUserDto } from '../../common/dtos/users/create-user.dto';
 import { CreateAdminDto } from '../../common/dtos/admin/create-admin.dto';
 import { Body } from '@nestjs/common';
@@ -13,8 +13,8 @@ import { DuplicateKeyExceptionFilter } from '../../common/filters/duplicate-key-
 @Controller('admin-app')
 // @UseGuards(AdminGuard)
 @UsePipes(new ValidationPipe())
-export class AdminAppController {
-  constructor(private readonly adminAppService: AdminAppService) {}
+export class AppAdminController {
+  constructor(private readonly adminAppService: AppAdminService) {}
 
   @Post('admin')
   @UseFilters(new DuplicateKeyExceptionFilter('Admin'))
