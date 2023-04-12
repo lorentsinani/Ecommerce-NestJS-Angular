@@ -314,4 +314,11 @@ CREATE TABLE payment_info (
     CONSTRAINT fk_confirmed_by FOREIGN KEY (confirmed_by) REFERENCES employees(employee_id)
 );
 
+-- Newsletter subscribers
+
+CREATE TABLE Newsletter (
+    id SERIAL PRIMARY KEY,
+    email varchar(100) NOT NULL UNIQUE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+)
 
