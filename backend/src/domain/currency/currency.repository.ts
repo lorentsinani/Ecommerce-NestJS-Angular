@@ -20,20 +20,15 @@ export class CurrencyRepository extends Repository<Currency> {
   }
 
   async findCurrencyById(id: number): Promise<ICurrency | null> {
-    return this.findOne({ where: { id } });
+    return this.createQueryBuilder('currency').where('currency.id = :id', { id }).getOne();
   }
 
   async findCurrencyByCode(code: string): Promise<ICurrency | null> {
-    return this.findOne({ where: { code } });
+    return this.createQueryBuilder('currency').where('currency.code = :code', { code }).getOne();
   }
 
   async updateCurrency(id: number, updateCurrencyDto: UpdateCurrencyDto): Promise<UpdateResult> {
-    return this.createQueryBuilder()
-      .update(Currency)
-      .set(updateCurrencyDto)
-      .where('id = :id', { id })
-      .returning('*')
-      .execute();
+    return this.createQueryBuilder().update(Currency).set(updateCurrencyDto).where('id = :id', { id }).returning('*').execute();
   }
 
   async deleteCurrency(id: number): Promise<DeleteResult> {

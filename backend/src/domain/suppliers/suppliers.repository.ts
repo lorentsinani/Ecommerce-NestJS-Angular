@@ -20,11 +20,11 @@ export class SuppliersRepository extends Repository<Suppliers> {
   }
 
   async findSupplierById(id: number): Promise<ISuppliers | null> {
-    return this.findOne({ where: { id } });
+    return this.createQueryBuilder('suppliers').where('suppliers.id = :id', { id }).getOne();
   }
 
   async findSupplierByEmail(email: string): Promise<ISuppliers | null> {
-    return this.findOne({ where: { email } });
+    return this.createQueryBuilder('suppliers').where('suppliers.email = :email', { email }).getOne();
   }
 
   async updateSupplier(id: number, updateSupplierDto: UpdateSupplierDto): Promise<UpdateResult> {
