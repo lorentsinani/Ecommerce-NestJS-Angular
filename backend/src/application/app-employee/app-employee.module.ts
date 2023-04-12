@@ -1,15 +1,15 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { UsersModule } from '../../domain/users/users.module';
 import { JwtTokenVerifierMiddleware } from '../../common/middlewares/jwt-token-verifier.middleware';
-import { EmployeesService } from '../../domain/employees/employees.service';
 import { EmployeesModule } from '../../domain/employees/employees.module';
 import { AppEmployeeController } from './app-employee.controller';
+import { AppEmployeeService } from './app-employee.service';
 
 @Module({
   imports: [UsersModule, EmployeesModule],
-  providers: [EmployeesService],
+  providers: [AppEmployeeService],
   controllers: [AppEmployeeController],
-  exports: [EmployeesService]
+  exports: [AppEmployeeService]
 })
 export class AppEmployeeModule {
   configure(consumer: MiddlewareConsumer) {

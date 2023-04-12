@@ -21,7 +21,7 @@ export class AdminRepository extends Repository<Admin> {
   }
 
   async findAdminById(id: number): Promise<IAdmin | null> {
-    return this.findOne({ where: { user_id: id }, relations: ['user'] });
+    return this.createQueryBuilder('admin').innerJoinAndSelect('admin.user', 'user', 'user.id = :id', { id }).getOne();
   }
 
   async findAdminByEmail(email: string): Promise<IAdmin | null> {
