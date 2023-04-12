@@ -7,8 +7,9 @@ import { CategoryModule } from './category/category.module';
 import { AddressModule } from './address/address.module';
 import { CurrencyModule } from './currency/currency.module';
 import { MailerModule } from './mailer/mailer.module';
+import { NewsletterModule } from './newsletter/newsletter.module';
 
 @Module({
-  imports: [UsersModule, EmployeesModule, AdminModule, SuppliersModule, CategoryModule, AddressModule, CurrencyModule, MailerModule]
+  imports: [UsersModule, EmployeesModule, AdminModule, SuppliersModule, CategoryModule, AddressModule, CurrencyModule, MailerModule, NewsletterModule]
 })
 export class DomainModule {}
