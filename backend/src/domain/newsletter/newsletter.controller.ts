@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Query, ParseIntPipe, Patch, Post, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { DuplicateKeyExceptionFilter } from '../../common/filters/duplicate-key-exception.filter';
 import { NewsletterService } from './newsletter.service';
 import { INewsletter } from '../../common/interfaces/newsletter.interface';
@@ -27,8 +27,8 @@ export class NewsletterController {
     return this.newsletterService.findById(id);
   }
 
-  @Get(':email')
-  async findByEmail(@Param() email: string): Promise<INewsletter> {
+  @Get()
+  async findByEmail(@Query('email') email: string): Promise<INewsletter> {
     return this.newsletterService.findByEmail(email);
   }
 
