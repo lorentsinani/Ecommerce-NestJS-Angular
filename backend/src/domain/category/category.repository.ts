@@ -20,20 +20,15 @@ export class CategoryRepository extends Repository<Category> {
   }
 
   async findCategoryById(id: number): Promise<ICategory | null> {
-    return this.findOne({ where: { id } });
+    return this.createQueryBuilder('category').where('category.id = :id', { id }).getOne();
   }
 
   async findCategoryByCategoryName(category_name: string): Promise<ICategory | null> {
-    return this.findOne({ where: { category_name } });
+    return this.createQueryBuilder('category').where('category.category_name = :category_name', { category_name }).getOne();
   }
 
   async updateCategory(id: number, updateCategoryDto: UpdateCategoryDto): Promise<UpdateResult> {
-    return this.createQueryBuilder()
-      .update(Category)
-      .set(updateCategoryDto)
-      .where('id = :id', { id })
-      .returning('*')
-      .execute();
+    return this.createQueryBuilder().update(Category).set(updateCategoryDto).where('id = :id', { id }).returning('*').execute();
   }
 
   async deleteCategory(id: number): Promise<DeleteResult> {

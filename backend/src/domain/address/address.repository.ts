@@ -20,20 +20,15 @@ export class AddressRepository extends Repository<Address> {
   }
 
   async findAddressById(id: number): Promise<IAddress | null> {
-    return this.findOne({ where: { id } });
+    return this.createQueryBuilder('address').where('address.id = :id', { id }).getOne();
   }
 
   async findAddressByFirstName(first_name: string): Promise<IAddress | null> {
-    return this.findOne({ where: { first_name } });
+    return this.createQueryBuilder('address').where('address.first_name = :first_name', { first_name }).getOne();
   }
 
   async updateAddress(id: number, updateAddressDto: UpdateAddressDto): Promise<UpdateResult> {
-    return this.createQueryBuilder()
-      .update(Address)
-      .set(updateAddressDto)
-      .where('id = :id', { id })
-      .returning('*')
-      .execute();
+    return this.createQueryBuilder().update(Address).set(updateAddressDto).where('id = :id', { id }).returning('*').execute();
   }
 
   async deleteAddress(id: number): Promise<DeleteResult> {
