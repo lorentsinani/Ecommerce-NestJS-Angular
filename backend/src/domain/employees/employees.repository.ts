@@ -20,7 +20,7 @@ export class EmployeesRepository extends Repository<Employee> {
   }
 
   async findEmployeeById(id: number): Promise<IEmployee | null> {
-    return this.findOne({ where: { user_id: id }, relations: ['user'] });
+    return this.createQueryBuilder('employee').innerJoinAndSelect('employee.user', 'user', 'user.id = :id', { id }).getOne();
   }
 
   async findEmployeeByEmail(email: string): Promise<IEmployee | null> {

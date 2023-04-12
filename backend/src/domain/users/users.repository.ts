@@ -19,11 +19,11 @@ export class UsersRepository extends Repository<User> {
   }
 
   async findUserById(id: number): Promise<IUser | null> {
-    return this.findOne({ where: { id } });
+    return this.createQueryBuilder('user').where('user.id = :id', { id }).getOne();
   }
 
   async findUserByEmail(email: string): Promise<IUser | null> {
-    return this.findOne({ where: { email } });
+    return this.createQueryBuilder('user').where('user.email = :email', { email }).getOne();
   }
 
   async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<UpdateResult> {
