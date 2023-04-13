@@ -1,1 +1,145 @@
-<p>product works!</p>
+<div class="main-container">
+  <div class="top-search-container">
+    <div class="column left"></div>
+    <div class="column content">
+      <div class="looking-for-text">
+        <h1>What are you looking for?</h1>
+      </div>
+      <div class="search-form">
+        <form class="search" action="">
+          <button type="menu" class="left-button-icon">
+            <i class="fa fa-search"></i>
+          </button>
+          <input type="text" placeholder="Search.." name="search2" />
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+      </div>
+      <div class="latest-search-paragraph">
+        <p>Your Latest Search</p>
+      </div>
+      <div class="latest-search-buttons">
+        <div class="latest-content" *ngFor="let content of latestSearch">
+          <button type="menu" class="latest-search-content-button">
+            {{ content }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="column right"></div>
+  </div>
+  <div class="filter-products-container">
+    <div class="filter-container">
+      <div class="all-categories">
+        <p>All Categories</p>
+      </div>
+      <div>
+        <ul>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+        </ul>
+      </div>
+    </div>
+    <div class="products-container">
+      <div class="products-information-filters">
+        <div class="text-information">Showing 20 of 20 matches</div>
+        <div class="icon-filter-information">
+          <div class="sort-icon">
+            <i class="fa fa-sort"></i>
+          </div>
+          <div class="view-icon">
+            <button><i class="fa fa-search"></i></button>
+          </div>
+          <div class="sort-dropdown">
+            <p>Sort by something TBD</p>
+          </div>
+        </div>
+      </div>
+      <div class="products-details-container" *ngFor="let details of products">
+        <div class="product-image"><img src="{{ details.image }}" /></div>
+        <div class="product-details">
+          <div class="product-infos">
+            <div class="product-rating">{{ details.rating }} ⭐⭐⭐⭐⭐</div>
+            <div class="product-name">{{details.name}}</div>
+            <div class="product-description">
+              {{ details.description }}
+            </div>
+            <div class="add-to-cart">
+              <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+          </div>
+          <div class="product-checkout">
+            <div class="product-price">{{details.originalPrice}}</div>
+            <div class="product-off-price">{{details.onSalePrice}}</div>
+            <div class="add-to-wishlist">❤ Add to wishlist</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

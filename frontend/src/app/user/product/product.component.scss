@@ -1,0 +1,215 @@
+.main-container{
+  padding: 15px;
+  margin-bottom: 100px;
+}
+
+.top-search-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column {
+  float: left;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+.left,
+.right {
+  width: 25%;
+}
+
+.content {
+  width: 45%;
+}
+
+.looking-for-text {
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.search-form {
+  width: 100%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.search {
+  margin: auto;
+  max-width: 70%;
+  box-shadow: 10px 10px 8px 10px whitesmoke;
+}
+
+form.search input[type="text"] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  float: left;
+  width: 74.5%;
+  height: 15px;
+  background: white;
+}
+
+form.search button {
+  float: left;
+  width: 10%;
+  height: 38px;
+  padding: 10px;
+  background: #f36b5a;
+  color: white;
+  font-size: 17px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  border-left: none;
+  cursor: pointer;
+}
+
+.left-button-icon {
+  margin-right: 10px;
+}
+
+form.search button:hover {
+  background: #0b7dda;
+}
+
+form.search::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.latest-search-paragraph {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.latest-search-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.latest-content {
+  margin-right: 5px;
+}
+
+.latest-search-content-button {
+  width: fit-content;
+  height: 40px;
+  border-color: #ccc;
+  background-color: #ccc;
+  border-radius: 2px;
+}
+
+.filter-products-container {
+  display: flex;
+  width: 100%;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.filter-container {
+  width: 12%;
+  padding: 10px;
+  margin-left: 20px;
+}
+
+.products-container {
+  width: 83%;
+}
+
+.products-information-filters {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-right: 30px;
+}
+
+.text-information {
+  margin-left: 15px;
+  float: left;
+}
+
+.icon-filter-information {
+  display: flex;
+  margin-right: 100px;
+  float: right;
+  text-align: right;
+}
+.products-details-container{
+  display: flex;
+  width: 100%;
+}
+
+.product-image {
+  float: left;
+  width: 25%;
+}
+
+.product-details{
+  display: flex;
+  float: right;
+  width: 70%;
+}
+
+.product-infos{
+  float: left;
+  width: 70%;
+}
+
+.product-checkout{
+  float: right;
+  width: 25%;
+}
+
+.product-name{
+  font-size: 24px;
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+.product-description{
+  font-size: 16px;
+  color: #ccc;
+  margin-bottom: 18px;
+}
+
+.add-to-cart-button{
+  background-color: #f36b5a;
+  width: 17%;
+  height: 40px;
+  border-radius: 5px;
+  border: #ccc
+}
+
+.product-checkout{
+  justify-content: center;
+  align-items: center;
+  text-align: end;
+  top: 50%;
+  padding: 70px 0;
+}
+
+.product-price{
+  font-size: 14px;
+  color: #ccc;
+}
+
+.product-off-price{
+  font-size: 20px;
+  color: #f36b5a;
+  margin-top: 5px;
+}
+
+.add-to-wishlist{
+  margin-top: 20px;
+}
