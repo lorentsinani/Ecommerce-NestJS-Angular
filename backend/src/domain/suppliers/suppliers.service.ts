@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { ISuppliers } from '../../common/interfaces/supplier.interface';
+import { ISupplier } from '../../common/interfaces/supplier.interface';
 import { CreateSupplierDto } from '../../common/dtos/suppliers/create-supplier.dto';
 import { UpdateSupplierDto } from '../../common/dtos/suppliers/update-supplier.dto';
 import { SuppliersRepository } from './suppliers.repository';
@@ -11,7 +11,7 @@ export class SuppliersService {
 
   constructor(private readonly suppliersRepository: SuppliersRepository) {}
 
-  async create(supplierBody: CreateSupplierDto): Promise<ISuppliers> {
+  async create(supplierBody: CreateSupplierDto): Promise<ISupplier> {
     const createdSupplier = await this.suppliersRepository.createSupplier(supplierBody);
 
     if (!createdSupplier) {
@@ -21,11 +21,11 @@ export class SuppliersService {
     return createdSupplier.raw[0];
   }
 
-  async findAll(): Promise<ISuppliers[]> {
+  async findAll(): Promise<ISupplier[]> {
     return this.suppliersRepository.findAllSuppliers();
   }
 
-  async findById(id: number): Promise<ISuppliers> {
+  async findById(id: number): Promise<ISupplier> {
     const supplierExist = await this.suppliersRepository.findSupplierById(id);
 
     if (!supplierExist) {
@@ -35,7 +35,7 @@ export class SuppliersService {
     return supplierExist;
   }
 
-  async findByEmail(email: string): Promise<ISuppliers> {
+  async findByEmail(email: string): Promise<ISupplier> {
     const supplierExist = await this.suppliersRepository.findSupplierByEmail(email);
 
     if (!supplierExist) {
@@ -45,7 +45,7 @@ export class SuppliersService {
     return supplierExist;
   }
 
-  async update(id: number, supplierBody: UpdateSupplierDto): Promise<ISuppliers> {
+  async update(id: number, supplierBody: UpdateSupplierDto): Promise<ISupplier> {
     const updatedSupplier = await this.suppliersRepository.updateSupplier(id, supplierBody);
 
     if (!updatedSupplier.affected) {
@@ -55,7 +55,7 @@ export class SuppliersService {
     return updatedSupplier.raw[0];
   }
 
-  async delete(id: number): Promise<ISuppliers> {
+  async delete(id: number): Promise<ISupplier> {
     const deletedSupplier = await this.suppliersRepository.deleteSupplier(id);
 
     if (deletedSupplier.affected) {
