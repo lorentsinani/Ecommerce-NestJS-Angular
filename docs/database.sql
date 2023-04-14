@@ -129,29 +129,6 @@ VALUES
     ('GBP', 1.378625, FALSE);
 
 
-
--- Finished ^ 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
--- Not finished
-
-
-
--- Product related 
 CREATE TABLE products (
   id SERIAL PRIMARY KEY,
   product_name VARCHAR(255) NOT NULL,
@@ -194,6 +171,24 @@ CREATE TABLE producer  (
     updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 )
 
+
+
+-- Finished ^ 
+
+
+
+
+
+
+
+
+
+
+-- Not finished
+
+
+
+-- Product related 
 
 
 CREATE TABLE product_images (
