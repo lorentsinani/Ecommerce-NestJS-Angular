@@ -1,4 +1,4 @@
-export interface ISuppliers {
+export interface ISupplier {
   id: number;
   company_name: string;
   contact_name: string;

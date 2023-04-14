@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, ParseIntPipe } from '@nestjs/comm
 import { Patch, Post, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { SuppliersService } from './suppliers.service';
 import { CreateSupplierDto } from '../../common/dtos/suppliers/create-supplier.dto';
-import { ISuppliers } from '../../common/interfaces/suppliers.interface';
+import { ISuppliers } from '../../common/interfaces/supplier.interface';
 import { UpdateSupplierDto } from '../../common/dtos/suppliers/update-supplier.dto';
 import { DuplicateKeyExceptionFilter } from '../../common/filters/duplicate-key-exception.filter';
 import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';

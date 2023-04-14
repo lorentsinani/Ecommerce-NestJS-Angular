@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { ISuppliers } from '../../common/interfaces/suppliers.interface';
+import { ISuppliers } from '../../common/interfaces/supplier.interface';
 import { CreateSupplierDto } from '../../common/dtos/suppliers/create-supplier.dto';
 import { UpdateSupplierDto } from '../../common/dtos/suppliers/update-supplier.dto';
 import { SuppliersRepository } from './suppliers.repository';

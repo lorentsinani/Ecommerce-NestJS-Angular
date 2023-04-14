@@ -1,9 +1,9 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { UserType } from 'src/common/constants/enums/user-type.enum';
-import { ISuppliers } from 'src/common/interfaces/suppliers.interface';
+import { ISupplier } from '../../common/interfaces/supplier.interface';
 
 @Entity()
-export class Suppliers implements ISuppliers {
+export class Supplier implements ISupplier  {
   @PrimaryGeneratedColumn()
   id: number;
 
