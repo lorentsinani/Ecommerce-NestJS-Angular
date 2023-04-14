@@ -1,12 +1,11 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpStatus } from '@nestjs/common';
-import { QueryFailedError } from 'typeorm';
 import { Response } from 'express';
 
-@Catch(QueryFailedError)
+@Catch(DuplicateKeyExceptionFilter)
 export class DuplicateKeyExceptionFilter implements ExceptionFilter {
   constructor(private readonly entityName: string) {}
 
-  catch(exception: QueryFailedError, host: ArgumentsHost) {
+  catch(exception: DuplicateKeyExceptionFilter, host: ArgumentsHost) {
     const response: Response = host.switchToHttp().getResponse();
     const statusCode = HttpStatus.CONFLICT;
     const message = `${this.entityName} with these data already exists`;

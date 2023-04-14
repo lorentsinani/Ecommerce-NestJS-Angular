@@ -1,6 +1,6 @@
-import { IsEnum, IsNotEmpty, IsString, Length } from 'class-validator';
-import { UserType } from '../../constants/enums/user-type.enum';
+import { IsNotEmpty, IsString, Length } from 'class-validator';
 import { IsCustomEmail } from '../../decorators/email-format.decorator';
+
 export class CreateSupplierDto {
   @IsString()
   @IsNotEmpty()
@@ -12,8 +12,8 @@ export class CreateSupplierDto {
   @Length(1, 100)
   contact_name: string;
 
-  @IsEnum(UserType)
-  contact_title?: UserType;
+  @IsString()
+  contact_title?: string;
 
   @IsString()
   @IsNotEmpty()

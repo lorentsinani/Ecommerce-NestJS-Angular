@@ -176,13 +176,25 @@ CREATE TABLE products (
 CREATE TABLE product_details (
   id SERIAL PRIMARY KEY,
   origin VARCHAR(255),
-  producer VARCHAR(255),
+  producer_id INTEGER NOT NULL REFERENCES producer(id),
   warranty VARCHAR(255),
   color VARCHAR(255),
   size VARCHAR(255),
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMP NOT NULL DEFAULT NOW()
-);
+);  
+
+CREATE TABLE producer  ( 
+    id serial primary key , 
+    name varchar() , 
+    country varchar() , 
+    established_year Year, 
+    contact_email: varchar(255), 
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+)
+
+
 
 CREATE TABLE product_images (
   id SERIAL PRIMARY KEY,

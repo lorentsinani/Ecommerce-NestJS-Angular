@@ -3,7 +3,9 @@ import { Newsletter } from '../entities/newsletter.entity';
 import { CreateNewsletterDto } from '../../common/dtos/newsletter/create-newsletter.dto';
 import { INewsletter } from '../../common/interfaces/newsletter.interface';
 import { UpdateNewsletterDto } from '../../common/dtos/newsletter/update-newsletter.dto';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class NewsletterRepository extends Repository<Newsletter> {
   constructor(dataSource: DataSource) {
     super(Newsletter, dataSource.createEntityManager());
