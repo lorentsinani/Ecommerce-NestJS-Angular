@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { UserType } from 'src/common/constants/enums/user-type.enum';
+
 import { ISuppliers } from 'src/common/interfaces/suppliers.interface';
 
 @Entity()
@@ -13,8 +13,8 @@ export class Suppliers implements ISuppliers {
   @Column({ length: 100 })
   contact_name: string;
 
-  @Column({ type: 'enum', enum: UserType, default: UserType.Customer })
-  contact_title: UserType;
+  @Column()
+  contact_title: string;
 
   @Column({ length: 100 })
   address: string;

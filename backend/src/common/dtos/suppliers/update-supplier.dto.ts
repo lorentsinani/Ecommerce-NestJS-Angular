@@ -1,4 +1,4 @@
-import { IsString, IsEnum, Length, IsOptional } from 'class-validator';
+import { IsString, Length, IsOptional } from 'class-validator';
 import { UserType } from '../../constants/enums/user-type.enum';
 import { IsCustomEmail } from '../../decorators/email-format.decorator';
 
@@ -13,7 +13,7 @@ export class UpdateSupplierDto {
   @IsOptional()
   contact_name: string;
 
-  @IsEnum(UserType)
+  @IsString()
   @IsOptional()
   contact_title?: UserType;
 
