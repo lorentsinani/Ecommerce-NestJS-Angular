@@ -173,6 +173,20 @@ CREATE TABLE producer  (
 
 
 
+
+
+-- Newsletter subscribers
+
+CREATE TABLE Newsletter (
+    id SERIAL PRIMARY KEY,
+    email varchar(100) NOT NULL UNIQUE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+)
+
+
+
+
+
 -- Finished ^ 
 
 
@@ -212,6 +226,7 @@ CREATE TABLE reviews
 );
 
 
+
 CREATE TABLE wishlists (
   id SERIAL PRIMARY KEY,
   customer_id INTEGER NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
@@ -220,6 +235,10 @@ CREATE TABLE wishlists (
   updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
   UNIQUE (customer_id, product_id),
 );
+
+
+
+
 
 
 
@@ -242,6 +261,15 @@ CREATE TABLE orders (
   CONSTRAINT fk_customer_id FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
   CONSTRAINT fk_employee_id FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
 );
+
+
+-- Newsletter subscribers
+
+CREATE TABLE Newsletter (
+    id SERIAL PRIMARY KEY,
+    email varchar(100) NOT NULL UNIQUE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+)
 
 
 -- Order Items represent the specific product in a particular order
@@ -297,6 +325,10 @@ CREATE TABLE delivery_methods
 
 
 
+
+
+
+
 CREATE TABLE payments (
   payment_id SERIAL PRIMARY KEY,
   order_id INT NOT NULL,
@@ -320,12 +352,3 @@ CREATE TABLE payment_info (
     CONSTRAINT fk_payment_id FOREIGN KEY (payment_id) REFERENCES payments(payment_id) ON DELETE CASCADE,
     CONSTRAINT fk_confirmed_by FOREIGN KEY (confirmed_by) REFERENCES employees(employee_id)
 );
-
--- Newsletter subscribers
-
-CREATE TABLE Newsletter (
-    id SERIAL PRIMARY KEY,
-    email varchar(100) NOT NULL UNIQUE,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-)
-
