@@ -12,6 +12,7 @@ import { ProductComponent } from './product/product.component';
 import { AboutComponent } from './about/about.component';
 import { CategoryComponent } from './category/category.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularPaginatorModule } from './product/paginator/paginator.module';
 
 import { UserRoutingModule } from './user-routing.module';
 import { ProductCarouselComponent } from './home/product-carousel/product-carousel.component';
@@ -30,6 +31,7 @@ import { HelpCenterComponent } from './help-center/help-center.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { ContactInfoComponent } from './contact/contact-info/contact-info.component';
 import { ContactFormComponent } from './contact/contact-form/contact-form.component';
+import { PaginationComponent } from './product/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,16 @@ import { ContactFormComponent } from './contact/contact-form/contact-form.compon
     PrivacyPolicyComponent,
     ContactInfoComponent,
     ContactFormComponent,
+    PaginationComponent,
   ],
-  imports: [CommonModule, UserRoutingModule, MatCardModule, BrowserAnimationsModule, FormsModule,ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    UserRoutingModule,
+    MatCardModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AngularPaginatorModule,
+  ],
 })
 export class UserModule {}
