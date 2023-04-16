@@ -27,7 +27,7 @@ export class ProductController {
   }
 
   @Patch(':id')
-  @UseFilters(new DuplicateKeyExceptionFilter('product'))
+  @UseFilters(new DuplicateKeyExceptionFilter('Product'))
   @UsePipes(new NullDtoValidationPipe())
   async update(@Param('id') id: number, @Body() updateProductDto: UpdateProductDto) {
     return this.productService.update(id, updateProductDto);

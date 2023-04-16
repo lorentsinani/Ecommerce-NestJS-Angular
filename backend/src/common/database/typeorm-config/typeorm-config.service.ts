@@ -13,6 +13,9 @@ import { Producer } from '../../../domain/entities/producer.entity';
 import { Newsletter } from '../../../domain/entities/newsletter.entity';
 import { Product } from '../../../domain/entities/product.entity';
 import { ProductDetails } from '../../../domain/entities/product-details.entity';
+import { Delivery } from '../../../domain/entities/delivery.entity';
+import { Orders } from '../../../domain/entities/orders.entity';
+import { DeliveryMethod } from '../../../domain/entities/delivery-method.entity';
 
 @Injectable()
 export class TypeormConfigService implements TypeOrmOptionsFactory {
@@ -28,7 +31,7 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
       username: databaseConfig.username,
       password: databaseConfig.password,
       database: databaseConfig.database,
-      entities: [Admin, User, Employee, Suppliers, Address, Category, Currency, Producer, Newsletter, Product, ProductDetails], // All the entities that you create should be added here
+      entities: [Admin, User, Employee, Suppliers, Address, Category, Currency, Producer, Newsletter, Product, ProductDetails, Delivery, DeliveryMethod, Orders], // All the entities that you create should be added here
       synchronize: true
     } as TypeOrmModuleOptions;
   }
