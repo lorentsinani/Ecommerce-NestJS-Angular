@@ -12,29 +12,29 @@ export class ProducerController {
 
   @Post()
   @UseFilters(new DuplicateKeyExceptionFilter('User'))
-  async create(@Body() createProducerDto: CreateProducerDto) {
+  create(@Body() createProducerDto: CreateProducerDto) {
     return this.producerService.create(createProducerDto);
   }
 
-  @Get(':id')
-  async findById(@Param('id', ParseIntPipe) id: number) {
-    return this.producerService.findById(id);
+  @Get()
+  findAll() {
+    return this.producerService.findAll();
   }
 
-  @Get()
-  async findAll() {
-    return this.producerService.findAll();
+  @Get(':id')
+  findById(@Param('id', ParseIntPipe) id: number) {
+    return this.producerService.findById(id);
   }
 
   @Patch(':id')
   @UseFilters(new DuplicateKeyExceptionFilter('User'))
   @UsePipes(new NullDtoValidationPipe())
-  async update(@Param('id') id: number, @Body() updateProducerDto: UpdateProducerDto) {
+  update(@Param('id') id: number, @Body() updateProducerDto: UpdateProducerDto) {
     return this.producerService.update(id, updateProducerDto);
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: number) {
+  delete(@Param('id') id: number) {
     return this.producerService.delete(id);
   }
 }

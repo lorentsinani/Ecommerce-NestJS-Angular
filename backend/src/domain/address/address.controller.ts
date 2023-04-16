@@ -3,16 +3,16 @@ import { IAddress } from 'src/common/interfaces/address.interface';
 import { AddressService } from './address.service';
 import { CreateAddressDto } from 'src/common/dtos/address/create-address.dto';
 import { UpdateAddressDto } from 'src/common/dtos/address/update-address.dto';
-import { DuplicateKeyExceptionFilter } from '../../common/filters/duplicate-key-exception.filter';
 import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
+import { QueryExceptionFilter } from '../../common/filters/query.exception.filter';
 
 @Controller('address')
 @UsePipes(new ValidationPipe())
+@UseFilters(new QueryExceptionFilter('Address'))
 export class AddressController {
   constructor(private addressService: AddressService) {}
 
   @Post()
-  @UseFilters(new DuplicateKeyExceptionFilter('Address'))
   async create(@Body() addressBody: CreateAddressDto): Promise<IAddress> {
     return this.addressService.create(addressBody);
   }
@@ -29,7 +29,6 @@ export class AddressController {
 
   @Patch(':id')
   @UsePipes(new NullDtoValidationPipe())
-  @UseFilters(new DuplicateKeyExceptionFilter('Address'))
   async update(@Param('id', ParseIntPipe) id: number, @Body() addressBody: UpdateAddressDto): Promise<IAddress> {
     return this.addressService.update(id, addressBody);
   }
