@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, DeleteResult, InsertResult, Repository, UpdateResult } from 'typeorm';
 import { Product } from '../entities/product.entity';
-import { IProduct } from '../../common/interfaces/product.interface';
 import { CreateProductDto } from '../../common/dtos/product/create-product.dto';
 import { UpdateProductDto } from '../../common/dtos/product/update-product.dto';
 
@@ -16,19 +15,19 @@ export class ProductRepository extends Repository<Product> {
     return this.createQueryBuilder().insert().into(Product).values(createProductDto).returning('*').execute();
   }
 
-  findProductById(id: number) {
+  findProductById(id: number): Promise<Product | null> {
     return this.createQueryBuilder('product').where('id = :id', { id }).getOne();
   }
 
-  async findAllProducts(): Promise<IProduct[]> {
+  findAllProducts(): Promise<Product[]> {
     return this.find();
   }
 
-  async updateProduct(id: number, updateProductDto: UpdateProductDto): Promise<UpdateResult> {
+  updateProduct(id: number, updateProductDto: UpdateProductDto): Promise<UpdateResult> {
     return this.createQueryBuilder().update(Product).set(updateProductDto).where('id = :id', { id }).returning('*').execute();
   }
 
-  async deleteProduct(id: number): Promise<DeleteResult> {
+  deleteProduct(id: number): Promise<DeleteResult> {
     return this.createQueryBuilder().delete().from(Product).where('id = :id', { id }).returning('*').execute();
   }
 }

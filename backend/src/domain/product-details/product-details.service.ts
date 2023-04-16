@@ -1,8 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { IProductDetails } from '../../common/interfaces/product-details.interface';
 import { ProductDetailsRepository } from './product-details.repository';
 import { CreateProductDetailsDto } from '../../common/dtos/product-details/create-product-details.dto';
 import { UpdateProductDetailsDto } from '../../common/dtos/product-details/update-product-details.dto';
+import { InsertResult } from 'typeorm';
+import { ProductDetails } from '../entities/product-details.entity';
 
 @Injectable()
 export class ProductDetailsService {
@@ -11,20 +12,20 @@ export class ProductDetailsService {
 
   constructor(private readonly productDetailsRepository: ProductDetailsRepository) {}
 
-  async create(createProductDetailsDto: CreateProductDetailsDto): Promise<IProductDetails> {
+  async create(createProductDetailsDto: CreateProductDetailsDto): Promise<ProductDetails> {
     const createdProductDetails = await this.productDetailsRepository.createProductDetails(createProductDetailsDto);
 
-    if (!createdProductDetails) {
+    if (!this.getIdentifierId(createdProductDetails)) {
       throw new HttpException(this.NotCreatedExceptionMessage, HttpStatus.BAD_REQUEST);
     }
     return createdProductDetails.raw[0];
   }
 
-  async findAll(): Promise<IProductDetails[]> {
+  findAll(): Promise<ProductDetails[]> {
     return this.productDetailsRepository.findAllProductDetails();
   }
 
-  async findById(id: number): Promise<IProductDetails> {
+  async findById(id: number): Promise<ProductDetails> {
     const productDetailsExist = await this.productDetailsRepository.findProductDetailsById(id);
 
     if (!productDetailsExist) {
@@ -33,7 +34,7 @@ export class ProductDetailsService {
     return productDetailsExist;
   }
 
-  async update(id: number, updateProductDetailsDto: UpdateProductDetailsDto): Promise<IProductDetails> {
+  async update(id: number, updateProductDetailsDto: UpdateProductDetailsDto): Promise<ProductDetails> {
     const updatedProductDetails = await this.productDetailsRepository.updateProductDetails(id, updateProductDetailsDto);
 
     if (!updatedProductDetails.affected) {
@@ -42,7 +43,7 @@ export class ProductDetailsService {
     return updatedProductDetails.raw[0];
   }
 
-  async delete(id: number): Promise<IProductDetails> {
+  async delete(id: number): Promise<ProductDetails> {
     const deletedProductDetails = await this.productDetailsRepository.deleteProductDetails(id);
 
     if (!deletedProductDetails.affected) {
@@ -50,5 +51,9 @@ export class ProductDetailsService {
     }
 
     return deletedProductDetails.raw[0];
+  }
+
+  getIdentifierId(result: InsertResult) {
+    return result.identifiers[0].id == -1 ? false : true;
   }
 }
