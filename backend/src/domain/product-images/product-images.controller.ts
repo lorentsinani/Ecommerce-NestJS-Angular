@@ -1,9 +1,13 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ProductImagesService } from './product-images.service';
 import { CreateProductImageDto } from '../../common/dtos/product-images/create-product-images.dto';
 import { UpdateProductImageDto } from '../../common/dtos/product-images/update-product-images.dto';
+import { QueryExceptionFilter } from '../../common/filters/query.exception.filter';
+import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
 
 @Controller('product-images')
+@UsePipes(new ValidationPipe())
+@UseFilters(new QueryExceptionFilter('Product Images'))
 export class ProductImagesController {
   constructor(private productImagesService: ProductImagesService) {}
 
@@ -27,7 +31,8 @@ export class ProductImagesController {
     return this.productImagesService.findByUrl(url);
   }
 
-  @Patch()
+  @Patch(':id')
+  @UsePipes(new NullDtoValidationPipe())
   update(@Param('id', ParseIntPipe) id: number, @Body() updateProductImageDto: UpdateProductImageDto) {
     return this.productImagesService.update(id, updateProductImageDto);
   }

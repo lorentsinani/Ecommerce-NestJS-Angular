@@ -3,6 +3,7 @@ import { ProductImagesRepository } from './product-images.repository';
 import { CreateProductImageDto } from '../../common/dtos/product-images/create-product-images.dto';
 import { ProductImages } from '../entities/product-images.entity';
 import { UpdateProductImageDto } from '../../common/dtos/product-images/update-product-images.dto';
+import { InsertResult } from 'typeorm';
 
 @Injectable()
 export class ProductImagesService {
@@ -13,7 +14,7 @@ export class ProductImagesService {
   async create(createProductImageDto: CreateProductImageDto) {
     const createdProductImage = await this.productImageRepostiory.createProductImages(createProductImageDto);
 
-    if (!createdProductImage) {
+    if (!this.getIdentifierId(createdProductImage)) {
       throw new HttpException(this.NotCreateExceptionMessage, HttpStatus.BAD_REQUEST);
     }
 
@@ -59,5 +60,9 @@ export class ProductImagesService {
     }
 
     return deletedProductImage.raw[0];
+  }
+
+  getIdentifierId(result: InsertResult) {
+    return result.identifiers[0].id == -1 ? false : true;
   }
 }
