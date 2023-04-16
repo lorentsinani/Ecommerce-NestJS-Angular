@@ -12,6 +12,7 @@ import { ProductModule } from './product/product.module';
 import { ProductDetailsService } from './product-details/product-details.service';
 import { ProductDetailsModule } from './product-details/product-details.module';
 import { ProducerModule } from './producer/producer.module';
+import { ReviewsModule } from './reviews/reviews.module';
 
 @Module({
   imports: [
@@ -26,7 +27,8 @@ import { ProducerModule } from './producer/producer.module';
     NewsletterModule,
     ProductModule,
     ProductDetailsModule,
-    ProducerModule
+    ProducerModule,
+    ReviewsModule
   ]
 })
 export class DomainModule {}
