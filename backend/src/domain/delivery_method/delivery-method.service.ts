@@ -21,7 +21,7 @@ export class DeliveryMethodService {
     return createdDeliveryMethod.raw[0];
   }
 
-  async findAll(): Promise<DeliveryMethod[]> {
+  findAll(): Promise<DeliveryMethod[]> {
     return this.deliveryMethodRepository.findAllDeliveryMethods();
   }
 
