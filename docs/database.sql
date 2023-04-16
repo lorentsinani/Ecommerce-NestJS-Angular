@@ -246,11 +246,12 @@ CREATE TABLE wishlists (
 -- Order Related
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY,
+  order_code VARCHAR(10),
   customer_id INT NOT NULL,
   order_comment VARCHAR(255),
   currency_id INT,
   employee_id INT,
-  order_status_id INT,
+  order_status ENUM ('pending', 'shipped', 'delivered', 'cancelled') NOT NULL,
   address_id INTEGER NOT NULL REFERENCES address(id),
   order_date DATE,
   total_amount_with_vat DECIMAL(10, 2),
@@ -261,15 +262,6 @@ CREATE TABLE orders (
   CONSTRAINT fk_customer_id FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
   CONSTRAINT fk_employee_id FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
 );
-
-
--- Newsletter subscribers
-
-CREATE TABLE Newsletter (
-    id SERIAL PRIMARY KEY,
-    email varchar(100) NOT NULL UNIQUE,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-)
 
 
 -- Order Items represent the specific product in a particular order
@@ -286,29 +278,27 @@ CREATE TABLE order_items (
   CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
-CREATE TABLE order_status
-(
-    id serial PRIMARY KEY,
-    status ENUM ('pending', 'shipped', 'delivered', 'cancelled') NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
-);
 
 
 
+
+-- Just the employees can se the deliveries table. 
+-- The tables is created to show more additional information for the order  
 CREATE TABLE deliveries (
     id SERIAL PRIMARY KEY,
     delivery_date DATE,
     delivery_comments VARCHAR(255),
     delivery_cost NUMERIC,
     delivery_method_id INTEGER REFERENCES delivery_method(id),
-    delivery_status_id ENUM ('pending', 'in_transit', 'delivered', 'failed'), 
+    delivery_status ENUM ('pending', 'in_transit', 'delivered', 'failed'), 
     delivery_order_id INTEGER,
     promised_delivery_date DATE,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW(),
     CONSTRAINT fk_delivery_order_id FOREIGN KEY (delivery_order_id) REFERENCES orders(id)
 );
+
+
 
 
 CREATE TABLE delivery_methods
