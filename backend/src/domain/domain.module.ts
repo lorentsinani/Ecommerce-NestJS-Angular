@@ -14,6 +14,7 @@ import { ProducerModule } from './producer/producer.module';
 import { DeliveryModule } from './delivery/delivery.module';
 import { DeliveryMethodsModule } from './delivery_method/delivery-method.module';
 import { OrdersModule } from './orders/orders.module';
+import { ProductImagesModule } from './product-images/product-images.module';
 
 @Module({
   imports: [
@@ -31,7 +32,8 @@ import { OrdersModule } from './orders/orders.module';
     ProducerModule,
     DeliveryModule,
     DeliveryMethodsModule,
-    OrdersModule
+    OrdersModule,
+    ProductImagesModule
   ]
 })
 export class DomainModule {}
