@@ -1,15 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, Check } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, Check, JoinColumn } from 'typeorm';
 import { Product } from './product.entity';
 import { IReviews } from '../../common/interfaces/reviews.interface';
-import { IUser } from '../../common/interfaces/user.interface';
 
 @Entity()
 export class Reviews implements IReviews {
-  customer: IUser;
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Product, { onDelete: 'CASCADE' })
+  product_id: number;
+
+  @ManyToOne(() => Product, { nullable: false, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'product_id', referenceColumnName: 'id' })
   product: Product;
 
   @Column({ default: -1 })

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, DeleteResult, InsertResult, Repository, UpdateResult } from 'typeorm';
 import { Reviews } from '../entities/reviews.entity';
-import { CreateProductReviewDto } from '../../common/dtos/reviews/create-reviews.dto';
-import { UpdateProductReviewDto } from '../../common/dtos/reviews/update-reviews.dto';
+import { CreateReviewDto } from '../../common/dtos/reviews/create-reviews.dto';
+import { UpdateReviewDto } from '../../common/dtos/reviews/update-reviews.dto';
 
 @Injectable()
 export class ReviewsRepository extends Repository<Reviews> {
@@ -10,7 +10,7 @@ export class ReviewsRepository extends Repository<Reviews> {
     super(Reviews, dataSource.createEntityManager());
   }
 
-  async createReview(createProductReviewDto: CreateProductReviewDto): Promise<InsertResult> {
+  createReview(createProductReviewDto: CreateReviewDto): Promise<InsertResult> {
     return this.createQueryBuilder().insert().into(Reviews).values(createProductReviewDto).returning('*').execute();
   }
 
@@ -22,7 +22,7 @@ export class ReviewsRepository extends Repository<Reviews> {
     return this.find();
   }
 
-  updateReview(id: number, updateProductReview: UpdateProductReviewDto): Promise<UpdateResult> {
+  updateReview(id: number, updateProductReview: UpdateReviewDto): Promise<UpdateResult> {
     return this.createQueryBuilder().update(Reviews).set(updateProductReview).where('id = :id', { id }).returning('*').execute();
   }
 

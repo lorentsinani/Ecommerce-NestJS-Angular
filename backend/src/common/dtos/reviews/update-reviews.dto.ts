@@ -1,32 +1,32 @@
-import { IsInt, IsOptional, IsString, MaxLength, IsNumber, Min, Max } from 'class-validator';
+import { IsInt, IsString, MaxLength, IsNumber, Min, Max, IsNotEmpty } from 'class-validator';
 import { IsDateFormat } from '../../decorators/date-format.decorator';
 
-export class UpdateProductReviewDto {
-  @IsOptional()
+export class UpdateReviewDto {
+  @IsNotEmpty()
   @IsInt()
   product_id?: number;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsInt()
   customer_id?: number;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   @MaxLength(50)
   guest_name?: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsInt()
   @Min(1)
   @IsNumber()
   @Max(5)
   rating?: number;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   review_text?: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsDateFormat()
   review_date?: Date;
 }

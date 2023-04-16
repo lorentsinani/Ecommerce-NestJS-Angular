@@ -1,19 +1,19 @@
 import { IsNotEmpty, IsInt, IsOptional, IsString, MaxLength, IsNumber, Min, Max } from 'class-validator';
 import { IsDateFormat } from '../../decorators/date-format.decorator';
 
-export class CreateProductReviewDto {
+export class CreateReviewDto {
   @IsNotEmpty()
   @IsInt()
   product_id: number;
 
   @IsOptional()
   @IsInt()
-  customer_id?: number;
+  customer_id: number;
 
   @IsOptional()
   @IsString()
   @MaxLength(50)
-  guest_name?: string;
+  guest_name: string;
 
   @IsNotEmpty()
   @IsInt()
@@ -28,5 +28,5 @@ export class CreateProductReviewDto {
 
   @IsOptional()
   @IsDateFormat()
-  review_date?: Date;
+  review_date: Date;
 }
