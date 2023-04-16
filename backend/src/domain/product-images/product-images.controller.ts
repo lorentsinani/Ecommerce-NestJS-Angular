@@ -38,7 +38,7 @@ export class ProductImagesController {
   }
 
   @Delete(':id')
-  delete(@Param('id ', ParseIntPipe) id: number) {
+  delete(@Param('id', ParseIntPipe) id: number) {
     return this.productImagesService.delete(id);
   }
 }
