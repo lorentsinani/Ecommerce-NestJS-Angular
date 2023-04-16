@@ -7,18 +7,22 @@ export class UpdateEmployeeDto {
   hire_date: Date;
 
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
   job_title: string;
 
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  address?: string;
+  address: string;
 
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  photo_url?: string;
+  photo_url: string;
 
   @IsOptional()
+  @IsNotEmpty()
   @IsNumber()
-  salary?: number;
+  salary: number;
 }

@@ -9,5 +9,5 @@ export class UpdateAdminDto {
 
   @IsOptional()
   @IsNotEmpty()
-  user_id?: number;
+  user_id: number;
 }

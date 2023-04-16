@@ -1,8 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ProducerRepository } from './producer.repository';
-import { IProducer } from '../../common/interfaces/producer.interface';
 import { CreateProducerDto } from '../../common/dtos/producer/create-producer.dto';
 import { UpdateProducerDto } from '../../common/dtos/producer/update-producer.dto';
+import { InsertResult } from 'typeorm';
+import { Producer } from '../entities/producer.entity';
 
 @Injectable()
 export class ProducerService {
@@ -11,21 +12,21 @@ export class ProducerService {
 
   constructor(private readonly producerRepository: ProducerRepository) {}
 
-  async create(createProducerDto: CreateProducerDto): Promise<IProducer> {
+  async create(createProducerDto: CreateProducerDto): Promise<Producer> {
     const createdProducer = await this.producerRepository.createProducer(createProducerDto);
 
-    if (!createdProducer) {
+    if (!this.getIdentifierId(createdProducer)) {
       throw new HttpException(this.NotCreatedExceptionMessage, HttpStatus.BAD_REQUEST);
     }
 
     return createdProducer.raw[0];
   }
 
-  async findAll(): Promise<IProducer[]> {
+  findAll(): Promise<Producer[]> {
     return this.producerRepository.findAllProducer();
   }
 
-  async findById(id: number): Promise<IProducer> {
+  async findById(id: number): Promise<Producer> {
     const producerExist = await this.producerRepository.findProducerById(id);
 
     if (!producerExist) {
@@ -35,7 +36,7 @@ export class ProducerService {
     return producerExist;
   }
 
-  async update(id: number, updateProducerDto: UpdateProducerDto): Promise<IProducer> {
+  async update(id: number, updateProducerDto: UpdateProducerDto): Promise<Producer> {
     const updatedProducer = await this.producerRepository.updateProducer(id, updateProducerDto);
 
     if (!updatedProducer.affected) {
@@ -45,7 +46,7 @@ export class ProducerService {
     return updatedProducer.raw[0];
   }
 
-  async delete(id: number): Promise<IProducer> {
+  async delete(id: number): Promise<Producer> {
     const deletedProducer = await this.producerRepository.deleteProducer(id);
 
     if (!deletedProducer.affected) {
@@ -53,5 +54,9 @@ export class ProducerService {
     }
 
     return deletedProducer.raw[0];
+  }
+
+  getIdentifierId(result: InsertResult) {
+    return result.identifiers[0].id == -1 ? false : true;
   }
 }

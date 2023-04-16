@@ -1,8 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { IAddress } from '../../common/interfaces/address.interface';
 import { CreateAddressDto } from '../../common/dtos/address/create-address.dto';
 import { UpdateAddressDto } from '../../common/dtos/address/update-address.dto';
 import { AddressRepository } from './address.repository';
+import { Address } from '../entities/address.entity';
+import { InsertResult } from 'typeorm';
 
 @Injectable()
 export class AddressService {
@@ -11,27 +12,21 @@ export class AddressService {
 
   constructor(private readonly addressRepository: AddressRepository) {}
 
-  async create(addressBody: CreateAddressDto): Promise<IAddress> {
+  async create(addressBody: CreateAddressDto): Promise<Address> {
     const createdAddress = await this.addressRepository.createAddress(addressBody);
 
-    if (!createdAddress) {
+    if (!this.getIdentifierId(createdAddress)) {
       throw new HttpException(this.NotCreatedExceptionMessage, HttpStatus.BAD_REQUEST);
     }
 
     return createdAddress.raw[0];
   }
 
-  async findAll(): Promise<IAddress[]> {
-    const addressExist = await this.addressRepository.findAllAddresses();
-
-    if (!addressExist) {
-      throw new HttpException(this.NotFoundExceptionMessage, HttpStatus.NOT_FOUND);
-    }
-
-    return addressExist;
+  findAll(): Promise<Address[]> {
+    return this.addressRepository.findAllAddresses();
   }
 
-  async findById(id: number): Promise<IAddress> {
+  async findById(id: number): Promise<Address> {
     const addressExist = await this.addressRepository.findAddressById(id);
 
     if (!addressExist) {
@@ -41,7 +36,7 @@ export class AddressService {
     return addressExist;
   }
 
-  async update(id: number, addressBody: UpdateAddressDto): Promise<IAddress> {
+  async update(id: number, addressBody: UpdateAddressDto): Promise<Address> {
     const updatedAddress = await this.addressRepository.updateAddress(id, addressBody);
 
     if (!updatedAddress) {
@@ -51,7 +46,7 @@ export class AddressService {
     return updatedAddress.raw[0];
   }
 
-  async delete(id: number): Promise<IAddress> {
+  async delete(id: number): Promise<Address> {
     const deletedUser = await this.addressRepository.deleteAddress(id);
 
     if (!deletedUser) {
@@ -59,5 +54,9 @@ export class AddressService {
     }
 
     return deletedUser.raw[0];
+  }
+
+  getIdentifierId(result: InsertResult) {
+    return result.identifiers[0].id == -1 ? false : true;
   }
 }

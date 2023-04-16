@@ -1,8 +1,9 @@
 import { Entity, Column, OneToOne, JoinColumn, Check, PrimaryColumn } from 'typeorm';
 import { User } from './user.entity';
+import { IEmployee } from '../../common/interfaces/employee.interface';
 
 @Entity()
-export class Employee {
+export class Employee implements IEmployee {
   @PrimaryColumn()
   user_id: number;
 

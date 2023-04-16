@@ -7,11 +7,11 @@ import { QueryExceptionFilter } from '../../common/filters/query.exception.filte
 
 @Controller('delivery')
 @UsePipes(new ValidationPipe())
+@UseFilters(new QueryExceptionFilter('Delivery'))
 export class DeliveryController {
   constructor(private readonly deliveryService: DeliveryService) {}
 
   @Post()
-  @UseFilters(new QueryExceptionFilter('Delivery'))
   create(@Body() createDeliveryDto: CreateDeliveryDto) {
     return this.deliveryService.create(createDeliveryDto);
   }
@@ -28,7 +28,6 @@ export class DeliveryController {
 
   @Patch(':id')
   @UsePipes(new NullDtoValidationPipe())
-  @UseFilters(new QueryExceptionFilter('Delivery'))
   update(@Param('id', ParseIntPipe) id: number, @Body() updateDeliveryDto: UpdateDeliveryDto) {
     return this.deliveryService.update(id, updateDeliveryDto);
   }

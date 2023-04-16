@@ -1,9 +1,10 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, UpdateDateColumn, CreateDateColumn } from 'typeorm';
 import { DeliveryMethod } from './delivery-method.entity';
 import { Orders } from './orders.entity';
+import { IDelivery } from '../../common/interfaces/delivery.interface';
 
 @Entity()
-export class Delivery {
+export class Delivery implements IDelivery{
   @PrimaryGeneratedColumn()
   id: number;
 
