@@ -1,0 +1,43 @@
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  background-color: white;
+  color: black;
+  font-size: 14px;
+  padding: 0 20px;
+}
+
+.top-bar .left-side {
+  display: flex;
+}
+
+.top-bar .left-side a {
+  margin-right: 10px;
+}
+
+.top-bar .left-side a i {
+  font-size: 16px;
+  color: grey;
+}
+
+.top-bar .right-side {
+  display: flex;
+  align-items: center;
+}
+
+.top-bar .right-side .contact-info {
+  margin-right: 20px;
+  font-weight: bold;
+}
+
+.top-bar .right-side .contact-info .phone,
+.top-bar .right-side .contact-info .email {
+  margin-right: 5px;
+}
+
+.top-bar .right-side .account i {
+  font-size: 16px;
+  color: #f36b5a;
+}
