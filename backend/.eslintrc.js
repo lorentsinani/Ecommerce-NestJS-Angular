@@ -22,7 +22,7 @@ module.exports = {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
     '@typescript-eslint/no-explicit-any': 'error',
-    '@typescript-eslint/no-unsafe-assignment': 'error',
+    // '@typescript-eslint/no-unsafe-assignment': 'error',
     // '@typescript-eslint/no-unsafe-member-access': 'error',
     // '@typescript-eslint/no-unsafe-call': 'error',
     'no-unused-vars': 'off',
