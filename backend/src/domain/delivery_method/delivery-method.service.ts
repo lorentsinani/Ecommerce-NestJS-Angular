@@ -3,6 +3,7 @@ import { CreateDeliveryMethodDto } from './../../common/dtos/delivery-method/cre
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { DeliveryMethodRepository } from './delivery-method.repository';
 import { DeliveryMethod } from '../entities/delivery-method.entity';
+import { InsertResult } from 'typeorm';
 
 @Injectable()
 export class DeliveryMethodService {
@@ -13,7 +14,7 @@ export class DeliveryMethodService {
   async create(createDeliveryMethodDto: CreateDeliveryMethodDto) {
     const createdDeliveryMethod = await this.deliveryMethodRepository.createDeliveryMethod(createDeliveryMethodDto);
 
-    if (!createdDeliveryMethod) {
+    if (!this.getIdentifierId(createdDeliveryMethod)) {
       throw new HttpException(this.NotCreateExceptionMessage, HttpStatus.BAD_REQUEST);
     }
 
@@ -50,5 +51,9 @@ export class DeliveryMethodService {
     }
 
     return deletedDeliveryMethod.raw[0];
+  }
+
+  getIdentifierId(result: InsertResult) {
+    return result.identifiers[0].id == -1 ? false : true;
   }
 }

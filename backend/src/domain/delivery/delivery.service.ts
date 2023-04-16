@@ -3,19 +3,19 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { DeliveryRepository } from './delivery.repository';
 import { Delivery } from '../entities/delivery.entity';
 import { UpdateDeliveryDto } from '../../common/dtos/delivery/update-delivery.dto';
+import { InsertResult } from 'typeorm';
 
 @Injectable()
 export class DeliveryService {
-  private NotCreatedExceptionMessage = '';
-  private NotFoundExceptionMessage = '';
+  private NotCreatedExceptionMessage = 'Delivery is not created';
+  private NotFoundExceptionMessage = 'Delivery is not found';
 
   constructor(private readonly deliveryRepository: DeliveryRepository) {}
 
   async create(createDeliveryDto: CreateDeliveryDto): Promise<Delivery> {
     const createdDelivery = await this.deliveryRepository.createDelivery(createDeliveryDto);
-    console.log(createdDelivery.identifiers);
 
-    if (!createdDelivery) {
+    if (!this.getIdentifierId(createdDelivery)) {
       throw new HttpException(this.NotCreatedExceptionMessage, HttpStatus.BAD_REQUEST);
     }
 
@@ -54,5 +54,9 @@ export class DeliveryService {
     }
 
     return deletedDelivery.raw[0];
+  }
+
+  getIdentifierId(result: InsertResult) {
+    return result.identifiers[0].id == -1 ? false : true;
   }
 }

@@ -1,13 +1,17 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { DeliveryMethodService } from './delivery-method.service';
 import { CreateDeliveryMethodDto } from '../../common/dtos/delivery-method/create-delivery-method.dto';
 import { UpdateDeliveryMethodDto } from '../../common/dtos/delivery-method/update-delivery-method.dto';
+import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
+import { QueryExceptionFilter } from '../../common/filters/query.exception.filter';
 
 @Controller('delivery-method')
+@UsePipes(new ValidationPipe())
 export class DeliveryMethodController {
   constructor(private deliveryMethodService: DeliveryMethodService) {}
 
   @Post()
+  @UseFilters(new QueryExceptionFilter('Delivery Method'))
   create(@Body() createDeliveryMethodDto: CreateDeliveryMethodDto) {
     return this.deliveryMethodService.create(createDeliveryMethodDto);
   }
@@ -23,6 +27,8 @@ export class DeliveryMethodController {
   }
 
   @Patch()
+  @UsePipes(new NullDtoValidationPipe())
+  @UseFilters(new QueryExceptionFilter('Delivery Method'))
   update(@Param('id', ParseIntPipe) id: number, @Body() updateDeliveryMethodDto: UpdateDeliveryMethodDto) {
     return this.deliveryMethodService.update(id, updateDeliveryMethodDto);
   }
