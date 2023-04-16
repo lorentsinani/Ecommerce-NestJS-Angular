@@ -7,10 +7,6 @@ export class CreateProductImageDto {
   product_id: number;
 
   @IsNotEmpty()
-  @IsObject()
-  product: Product;
-
-  @IsNotEmpty()
   @IsString()
   image_url: string;
 }
