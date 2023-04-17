@@ -1,5 +1,4 @@
 import { Injectable, EventEmitter } from '@angular/core';
-
 import { AngularPaginatorInstance } from '../interface/paginator.interface';
 
 @Injectable()
@@ -44,9 +43,9 @@ export class AngularPaginatorService {
       const key = k as keyof AngularPaginatorInstance;
 
       if (
-        key !== 'id'
-        && currentInstance[k as keyof AngularPaginatorInstance] !== v
-        && !updated
+        key !== 'id' &&
+        currentInstance[k as keyof AngularPaginatorInstance] !== v &&
+        !updated
       ) {
         this.instances[instance.id] = {
           ...instance,

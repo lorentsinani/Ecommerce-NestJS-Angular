@@ -1,7 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 import { AngularPaginatorService } from '../services/paginator.service';
-import { AngularPaginatorInstance, PaginatorPipeArgs } from '../interface/paginator.interface';
+import {
+  AngularPaginatorInstance,
+  PaginatorPipeArgs,
+} from '../interface/paginator.interface';
 
 /**
  * Pagination Pipe which paginates the array for the provided arguments such as `itemsPerPage` and `currentPage`
@@ -9,13 +12,12 @@ import { AngularPaginatorInstance, PaginatorPipeArgs } from '../interface/pagina
 @Pipe({
   name: 'angularPaginator',
 })
-
 export class AngularPaginatorPipe implements PipeTransform {
   /**
    *
    * @param angularPaginatorService service for angular pagiantor
    */
-  constructor(private angularPaginatorService: AngularPaginatorService) { }
+  constructor(private angularPaginatorService: AngularPaginatorService) {}
 
   /**
    * this pipes paginates the array for the provided arguments such as `itemsPerPage` and `currentPage`
@@ -42,7 +44,10 @@ export class AngularPaginatorPipe implements PipeTransform {
    * @param array input array for which the manipulation happens
    * @param args input arguments for the paginator pipe
    */
-  private createInstance(array: unknown[], args?: PaginatorPipeArgs): AngularPaginatorInstance {
+  private createInstance(
+    array: unknown[],
+    args?: PaginatorPipeArgs
+  ): AngularPaginatorInstance {
     return {
       id: args?.id ? args.id : AngularPaginatorService.id,
       currentPage: args?.currentPage ? args.currentPage : 1,

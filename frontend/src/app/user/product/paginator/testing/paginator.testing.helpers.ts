@@ -8,7 +8,7 @@ export class AngularPaginatorMockService {
   instances: Record<string, AngularPaginatorInstance> = {
     [DEFAULT_ID]: {
       id: DEFAULT_ID,
-      itemsPerPage: 10,
+      itemsPerPage: 6,
       currentPage: 1,
       totalItems: 100,
     },
