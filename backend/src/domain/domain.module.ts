@@ -13,8 +13,8 @@ import { ProductDetailsModule } from './product-details/product-details.module';
 import { ProducerModule } from './producer/producer.module';
 import { DeliveryModule } from './delivery/delivery.module';
 import { DeliveryMethodsModule } from './delivery_method/delivery-method.module';
-import { OrdersModule } from './orders/orders.module';
 import { ProductImagesModule } from './product-images/product-images.module';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
