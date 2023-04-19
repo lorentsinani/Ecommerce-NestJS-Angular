@@ -15,6 +15,7 @@ import { DeliveryModule } from './delivery/delivery.module';
 import { DeliveryMethodsModule } from './delivery_method/delivery-method.module';
 import { ProductImagesModule } from './product-images/product-images.module';
 import { OrdersModule } from './orders/orders.module';
+import { OrderItemsModule } from './order-items/order-items.module';
 import { OrdersStatusModule } from './orders-status/orders-status.module';
 
 @Module({
@@ -35,6 +36,7 @@ import { OrdersStatusModule } from './orders-status/orders-status.module';
     DeliveryMethodsModule,
     OrdersModule,
     ProductImagesModule,
+    OrderItemsModule,
     OrdersStatusModule
   ]
 })
