@@ -17,7 +17,7 @@ import { Delivery } from '../../../domain/entities/delivery.entity';
 import { Orders } from '../../../domain/entities/orders.entity';
 import { DeliveryMethod } from '../../../domain/entities/delivery-method.entity';
 import { Conversation } from '../../../domain/entities/conversation.entity';
-import { Message } from '../../../domain/entities/messages.entity';
+import { Message } from '../../../domain/entities/message.entity';
 import { Notifications } from '../../../domain/entities/notifications.entity';
 
 @Injectable()

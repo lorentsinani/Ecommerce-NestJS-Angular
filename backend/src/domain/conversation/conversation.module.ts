@@ -1,8 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConversationService } from './conversation.service';
-import { ConversationGateway } from './conversation.gateway';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Conversation } from '../entities/conversation.entity';
+import { ConversationRepository } from './conversation.repository';
 
 @Module({
-  providers: [ConversationGateway, ConversationService]
+  imports: [TypeOrmModule.forFeature([Conversation])],
+  providers: [ConversationService, ConversationRepository],
+  exports: [ConversationService]
 })
 export class ConversationModule {}

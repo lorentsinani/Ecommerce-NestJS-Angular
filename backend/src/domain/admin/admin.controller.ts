@@ -10,7 +10,7 @@ import { Admin } from '../entities/admin.entity';
 
 @Controller('admin')
 @UsePipes(new ValidationPipe())
-@UseGuards(AdminGuard)
+// @UseGuards(AdminGuard)
 @UseFilters(new QueryExceptionFilter('Admin'))
 export class AdminController {
   constructor(private adminService: AdminService) {}

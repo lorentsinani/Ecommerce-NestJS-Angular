@@ -4,7 +4,7 @@ import { Conversation } from './conversation.entity';
 import { User } from './user.entity';
 
 @Entity()
-export class Messages implements IMessage {
+export class Message implements IMessage {
   @PrimaryGeneratedColumn()
   id: number;
 

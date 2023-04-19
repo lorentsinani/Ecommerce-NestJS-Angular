@@ -15,7 +15,6 @@ import { DeliveryModule } from './delivery/delivery.module';
 import { DeliveryMethodsModule } from './delivery_method/delivery-method.module';
 import { OrdersModule } from './orders/orders.module';
 import { ProductImagesModule } from './product-images/product-images.module';
-import { ConvModule } from './conv/conv.module';
 import { ConversationModule } from './conversation/conversation.module';
 import { MessagesModule } from './messages/messages.module';
 import { NotificationsModule } from './notifications/notifications.module';
@@ -38,7 +37,6 @@ import { NotificationsModule } from './notifications/notifications.module';
     DeliveryMethodsModule,
     OrdersModule,
     ProductImagesModule,
-    ConvModule,
     ConversationModule,
     MessagesModule,
     NotificationsModule

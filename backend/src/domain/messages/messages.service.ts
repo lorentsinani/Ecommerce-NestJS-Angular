@@ -1,24 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InsertResult } from 'typeorm';
+import { CreateMessageDto } from '../../common/dtos/chat/messages/create-message.dto';
+import { MessagesRepository } from './messages.repository';
+import { Message } from '../entities/message.entity';
 
 @Injectable()
 export class MessagesService {
-  create(createMessageDto: any) {
-    return 'This action adds a new message';
+  private NotCreatedMessageException = 'Message is not created';
+
+  constructor(private messagesRepository: MessagesRepository) {}
+
+  async create(createMessageDto: CreateMessageDto): Promise<Message> {
+    const createdMessage = await this.messagesRepository.createMessage(createMessageDto);
+
+    if (this.getIdentifierId(createdMessage)) {
+      throw new HttpException(this.NotCreatedMessageException, HttpStatus.BAD_GATEWAY);
+    }
+
+    return createdMessage.raw[0];
   }
 
-  findAll() {
-    return `This action returns all messages`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} message`;
-  }
-
-  update(id: number, updateMessageDto: any) {
-    return `This action updates a #${id} message`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} message`;
+  getIdentifierId(result: InsertResult) {
+    return result.identifiers[0].id === -1 ? false : true;
   }
 }

@@ -1,24 +1,32 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { CreateConversationDto } from '../../common/dtos/chat/conversation/create-conversation.dto';
+import { Conversation } from '../entities/conversation.entity';
+import { ConversationRepository } from './conversation.repository';
+import { InsertResult } from 'typeorm';
+import { ConversationPayload } from '../../common/constants/types/conversation-payload.type';
 
 @Injectable()
 export class ConversationService {
-  create(createConversationDto: any) {
-    return 'This action adds a new conversation';
+  private NotCreatedExceptionMessage = 'Conversation is not created';
+  constructor(private readonly conversationRepository: ConversationRepository) {}
+  async create(createConversationDto: CreateConversationDto): Promise<Conversation> {
+    const createdConversation = await this.conversationRepository.createConversation(createConversationDto);
+
+    if (this.getIdentifierById(createdConversation)) {
+      throw new HttpException(this.NotCreatedExceptionMessage, HttpStatus.BAD_GATEWAY);
+    }
+    return createdConversation.raw[0];
   }
 
-  findAll() {
-    return `This action returns all conversation`;
+  find(payload: ConversationPayload): Promise<Conversation | null> {
+    return this.conversationRepository.findConversation(payload.customer_id, payload.employee_id);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} conversation`;
+  findConversationMessages(conversation_id: number): Promise<Conversation | null> {
+    return this.conversationRepository.findConversationMessages(conversation_id);
   }
 
-  update(id: number, updateConversationDto: any) {
-    return `This action updates a #${id} conversation`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} conversation`;
+  getIdentifierById(result: InsertResult) {
+    return result.identifiers[0].id === -1 ? false : true;
   }
 }
