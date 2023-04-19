@@ -27,7 +27,7 @@ export class OrdersController {
   }
 
   @Get()
-  findByEmail(@Query('code') code: string) {
+  findByCode(@Query('code') code: string) {
     return this.ordersService.findByCode(code);
   }
 

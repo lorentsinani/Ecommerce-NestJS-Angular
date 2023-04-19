@@ -11,7 +11,7 @@ export class OrdersService {
   private NotFoundExceptionMessage = 'Order is not found';
   constructor(private readonly ordersRepostiory: OrdersRepository) {}
 
-  async create(creatOrderDto: CreateOrdersDto) {
+  async create(creatOrderDto: CreateOrdersDto): Promise<Orders> {
     const createdOrder = await this.ordersRepostiory.createOrders(creatOrderDto);
 
     if (!this.getIdentifierId(createdOrder)) {
@@ -43,7 +43,7 @@ export class OrdersService {
     return orderExist;
   }
 
-  async update(id: number, updateOrderDto: UpdateOrdersDto) {
+  async update(id: number, updateOrderDto: UpdateOrdersDto): Promise<Orders> {
     const updatedOrder = await this.ordersRepostiory.updateOrders(id, updateOrderDto);
 
     if (!updatedOrder.affected) {
@@ -52,7 +52,7 @@ export class OrdersService {
     return updatedOrder.raw[0];
   }
 
-  async delete(id: number) {
+  async delete(id: number): Promise<Orders> {
     const deletedOrder = await this.ordersRepostiory.deleteOrders(id);
 
     if (!deletedOrder.affected) {
@@ -62,7 +62,7 @@ export class OrdersService {
     return deletedOrder.raw[0];
   }
 
-  getIdentifierId(result: InsertResult) {
+  getIdentifierId(result: InsertResult): Boolean {
     return result.identifiers[0].id == -1 ? false : true;
   }
 }
