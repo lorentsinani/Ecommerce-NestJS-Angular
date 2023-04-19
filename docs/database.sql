@@ -280,6 +280,14 @@ CREATE TABLE order_items (
 );
 
 
+-- Orders status represent status of orders  
+CREATE TABLE orders_status (
+  id SERIAL PRIMARY KEY,
+  status_name ENUM('Pending', 'Processing', 'Shipped', 'Delivered') NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  UNIQUE(status_name)
+);
+
 
 
 
