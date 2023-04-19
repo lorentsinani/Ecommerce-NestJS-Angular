@@ -3,7 +3,7 @@ import { Currency } from '../../domain/entities/currency.entity';
 import { Employee } from '../../domain/entities/employee.entity';
 import { User } from '../../domain/entities/user.entity';
 
-export interface IOrders {
+export interface IOrder {
   id: number;
   order_code: string;
   customer_id: number;

@@ -2,12 +2,12 @@ import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToOne, Prim
 import { Address } from './address.entity';
 import { Currency } from './currency.entity';
 import { Employee } from './employee.entity';
-import { IOrders } from '../../common/interfaces/orders.interface';
+import { IOrder } from '../../common/interfaces/orders.interface';
 import { User } from './user.entity';
 import { OrderStatus } from '../../common/constants/enums/orders-status.enum';
 
 @Entity()
-export class Orders implements IOrders {
+export class Order implements IOrder {
   @PrimaryGeneratedColumn()
   id: number;
 
