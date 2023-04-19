@@ -251,6 +251,7 @@ CREATE TABLE orders (
   order_comment VARCHAR(255),
   currency_id INT,
   employee_id INT,
+  order_status_id INT,
   order_status ENUM ('pending', 'shipped', 'delivered', 'cancelled') NOT NULL,
   address_id INTEGER NOT NULL REFERENCES address(id),
   order_date DATE,

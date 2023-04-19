@@ -1,5 +1,5 @@
 import { IDeliveryMethod } from './delivery-method.interface';
-import { IOrder } from './order.interface';
+import { IOrders } from './orders.interface';
 
 export interface IDelivery {
   id: number;
@@ -11,7 +11,7 @@ export interface IDelivery {
   delivery_status: string;
   promised_delivery_date: Date;
   delivery_order_id: number;
-  order: IOrder;
+  order: IOrders;
   created_at: Date;
   updated_at: Date;
 }

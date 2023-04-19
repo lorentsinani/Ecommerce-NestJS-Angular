@@ -40,7 +40,6 @@ export class UpdateProductDto {
   price_without_vat: number;
 
   @IsOptional()
-  @IsOptional()
   @IsDecimal()
   vat?: number;
 
