@@ -1,4 +1,4 @@
-import { Orders } from '../../domain/entities/orders.entity';
+import { Order } from '../../domain/entities/orders.entity';
 import { Product } from '../../domain/entities/product.entity';
 
 export interface IOrderItems {
@@ -10,6 +10,6 @@ export interface IOrderItems {
   price_without_vat: number;
   vat: number;
   total_amount: number;
-  orders: Orders;
+  orders: Order;
   product: Product;
 }

@@ -26,10 +26,6 @@ export class CreateOrdersDto {
   employee_id: number;
 
   @IsNotEmpty()
-  @IsEnum(OrderStatus)
-  order_status: OrderStatus;
-
-  @IsNotEmpty()
   @IsNumber()
   order_status_id: number;
 

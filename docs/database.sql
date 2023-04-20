@@ -252,13 +252,12 @@ CREATE TABLE orders (
   currency_id INT,
   employee_id INT,
   order_status_id INT,
-  order_status ENUM ('pending', 'shipped', 'delivered', 'cancelled') NOT NULL,
   address_id INTEGER NOT NULL REFERENCES address(id),
   order_date DATE,
   total_amount_with_vat DECIMAL(10, 2),
   total_amount_without_vat DECIMAL(10, 2),
   vat DECIMAL(10, 2),
-  CONSTRAINT fk_order_status_id FOREIGN KEY (order_status_id) REFERENCES order_status(id),
+  CONSTRAINT fk_order_status_id FOREIGN KEY (order_status_id) REFERENCES orders_status(id),
   CONSTRAINT fk_currency_id FOREIGN KEY (currency_id) REFERENCES currency(id),
   CONSTRAINT fk_customer_id FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
   CONSTRAINT fk_employee_id FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
@@ -283,7 +282,7 @@ CREATE TABLE order_items (
 -- Orders status represent status of orders  
 CREATE TABLE orders_status (
   id SERIAL PRIMARY KEY,
-  status_name ENUM('Pending', 'Processing', 'Shipped', 'Delivered') NOT NULL,
+  status_name ENUM ('pending', 'shipped', 'delivered', 'cancelled') NOT NULL,
   description VARCHAR(255) NOT NULL,
   UNIQUE(status_name)
 );

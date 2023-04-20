@@ -2,7 +2,9 @@ import { Repository, DataSource, InsertResult, UpdateResult, DeleteResult } from
 import { CreateOrderItemDto } from '../../common/dtos/order-items/create-order-items.dto';
 import { UpdateOrderItemDto } from '../../common/dtos/order-items/update-order-items.dto';
 import { OrderItems } from '../entities/order-items.entity';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class OrderItemsRepository extends Repository<OrderItems> {
   constructor(dataSource: DataSource) {
     super(OrderItems, dataSource.createEntityManager());
