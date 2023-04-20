@@ -1,10 +1,10 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, UpdateDateColumn, CreateDateColumn } from 'typeorm';
 import { DeliveryMethod } from './delivery-method.entity';
-import { Orders } from './orders.entity';
+import { Order } from './orders.entity';
 import { IDelivery } from '../../common/interfaces/delivery.interface';
 
 @Entity()
-export class Delivery implements IDelivery{
+export class Delivery implements IDelivery {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -33,9 +33,9 @@ export class Delivery implements IDelivery{
   @Column({ type: 'integer' })
   delivery_order_id: number;
 
-  @ManyToOne(() => Orders)
+  @ManyToOne(() => Order)
   @JoinColumn({ name: 'delivery_order_id', referencedColumnName: 'id' })
-  order: Orders;
+  order: Order;
 
   @CreateDateColumn()
   created_at: Date;

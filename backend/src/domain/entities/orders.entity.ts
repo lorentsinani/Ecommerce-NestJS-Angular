@@ -2,12 +2,12 @@ import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToOne, Prim
 import { Address } from './address.entity';
 import { Currency } from './currency.entity';
 import { Employee } from './employee.entity';
-import { IOrders } from '../../common/interfaces/orders.interface';
+import { IOrder } from '../../common/interfaces/orders.interface';
 import { User } from './user.entity';
-import { OrderStatus } from '../../common/constants/enums/orders-status.enum';
+import { OrdersStatus } from './orders-status.entity';
 
 @Entity()
-export class Orders implements IOrders {
+export class Order implements IOrder {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -26,16 +26,8 @@ export class Orders implements IOrders {
   @Column({ type: 'integer' })
   employee_id: number;
 
-  @Column({ enum: OrderStatus })
-  order_status: OrderStatus;
-
   @Column({ type: 'integer' })
   order_status_id: number;
-
-  // Reference to OrdersStatus
-  // @ManyToOne(() => OrdersStatus)
-  // @JoinColumn({name: 'order_status_id', referencedColumnName: 'id'})
-  // orders_status: OrdersStatus
 
   @Column({ type: 'integer' })
   address_id: number;
@@ -61,12 +53,16 @@ export class Orders implements IOrders {
   currency: Currency;
 
   @ManyToOne(() => Employee)
-  @JoinColumn({ name: 'employee_id', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'employee_id', referencedColumnName: 'user_id' })
   employee: Employee;
 
   @ManyToOne(() => Address)
   @JoinColumn({ name: 'address_id', referencedColumnName: 'id' })
   address: Address;
+
+  @ManyToOne(() => OrdersStatus)
+  @JoinColumn({ name: 'order_status_id', referencedColumnName: 'id' })
+  orders_status: OrdersStatus;
 
   @BeforeInsert()
   @BeforeUpdate()

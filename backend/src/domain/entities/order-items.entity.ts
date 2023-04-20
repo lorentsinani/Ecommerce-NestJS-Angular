@@ -1,5 +1,5 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Orders } from './orders.entity';
+import { Order } from './orders.entity';
 import { Product } from './product.entity';
 
 @Entity()
@@ -28,9 +28,9 @@ export class OrderItems {
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   total_amount: number;
 
-  @ManyToOne(() => Orders)
+  @ManyToOne(() => Order)
   @JoinColumn({ name: 'order_id', referencedColumnName: 'id' })
-  orders: Orders;
+  orders: Order;
 
   @ManyToOne(() => Product)
   @JoinColumn({ name: 'product_id', referencedColumnName: 'id' })
