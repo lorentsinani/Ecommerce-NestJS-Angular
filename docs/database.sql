@@ -172,6 +172,13 @@ CREATE TABLE producer  (
 )
 
 
+CREATE TABLE product_images (
+  id SERIAL PRIMARY KEY,
+  product_id INTEGER NOT NULL REFERENCES product(id) ON DELETE CASCADE,
+  image_url VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
 
 
 
@@ -184,63 +191,33 @@ CREATE TABLE Newsletter (
 )
 
 
-
-
-
--- Finished ^ 
-
-
-
-
-
-
-
-
-
-
--- Not finished
-
-
-
--- Product related 
-
-
-CREATE TABLE product_images (
-  id SERIAL PRIMARY KEY,
-  product_id INTEGER NOT NULL REFERENCES product(id) ON DELETE CASCADE,
-  image_url VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+-- Just the employees can se the deliveries table. 
+-- The tables is created to show more additional information for the order  
+CREATE TABLE deliveries (
+    id SERIAL PRIMARY KEY,
+    delivery_date DATE,
+    delivery_comments VARCHAR(255),
+    delivery_cost NUMERIC,
+    delivery_method_id INTEGER REFERENCES delivery_method(id),
+    delivery_status ENUM ('pending', 'in_transit', 'delivered', 'failed'), 
+    delivery_order_id INTEGER,
+    promised_delivery_date DATE,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW(),
+    CONSTRAINT fk_delivery_order_id FOREIGN KEY (delivery_order_id) REFERENCES orders(id)
 );
 
 
-CREATE TABLE reviews
+CREATE TABLE delivery_methods
 (
-    id              SERIAL PRIMARY KEY,
-    product_id      INTEGER REFERENCES products(id),
-    customer_id     INTEGER DEFAULT -1, -- Use -1 as a default value for guest users
-    guest_name      varchar(50) default null,
-    rating          INTEGER CHECK (rating >= 1 AND rating <= 5),
-    review_text     TEXT,
-    review_date     TIMESTAMP DEFAULT NOW()
+    id SERIAL PRIMARY KEY,
+    delivery_method_name VARCHAR(50) NOT NULL,
+    phone_number VARCHAR(50) NOT NULL,
+    delivery_time INTERVAL NOT NULL,
+    delivery_method ENUM ('pickup', 'courier', 'shipping') NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
-
-
-
-CREATE TABLE wishlists (
-  id SERIAL PRIMARY KEY,
-  customer_id INTEGER NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
-  product_id INTEGER NOT NULL REFERENCES products(id) ON DELETE CASCADE,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  UNIQUE (customer_id, product_id),
-);
-
-
-
-
-
-
 
 
 -- Order Related
@@ -290,39 +267,47 @@ CREATE TABLE orders_status (
 
 
 
--- Just the employees can se the deliveries table. 
--- The tables is created to show more additional information for the order  
-CREATE TABLE deliveries (
-    id SERIAL PRIMARY KEY,
-    delivery_date DATE,
-    delivery_comments VARCHAR(255),
-    delivery_cost NUMERIC,
-    delivery_method_id INTEGER REFERENCES delivery_method(id),
-    delivery_status ENUM ('pending', 'in_transit', 'delivered', 'failed'), 
-    delivery_order_id INTEGER,
-    promised_delivery_date DATE,
-    created_at TIMESTAMP DEFAULT NOW(),
-    updated_at TIMESTAMP DEFAULT NOW(),
-    CONSTRAINT fk_delivery_order_id FOREIGN KEY (delivery_order_id) REFERENCES orders(id)
-);
+-- Finished ^ 
 
 
 
 
-CREATE TABLE delivery_methods
+
+
+
+
+
+
+-- Not finished
+
+
+
+-- Product related 
+
+
+
+
+CREATE TABLE reviews
 (
-    id SERIAL PRIMARY KEY,
-    delivery_method_name VARCHAR(50) NOT NULL,
-    phone_number VARCHAR(50) NOT NULL,
-    delivery_time INTERVAL NOT NULL,
-    delivery_method ENUM ('pickup', 'courier', 'shipping') NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+    id              SERIAL PRIMARY KEY,
+    product_id      INTEGER REFERENCES products(id),
+    customer_id     INTEGER DEFAULT -1, -- Use -1 as a default value for guest users
+    guest_name      varchar(50) default null,
+    rating          INTEGER CHECK (rating >= 1 AND rating <= 5),
+    review_text     TEXT,
+    review_date     TIMESTAMP DEFAULT NOW()
 );
 
 
 
-
+CREATE TABLE wishlists (
+  id SERIAL PRIMARY KEY,
+  customer_id INTEGER NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
+  product_id INTEGER NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  UNIQUE (customer_id, product_id),
+);
 
 
 
