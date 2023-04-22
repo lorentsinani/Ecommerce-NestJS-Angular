@@ -9,49 +9,50 @@ import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BlogComponent } from './blog/blog.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   {
     path: 'product-details/:id',
-    component: ProductdetailsComponent,
+    component: ProductdetailsComponent
   },
   {
     path: 'about',
-    component: AboutComponent,
+    component: AboutComponent
   },
   {
     path: 'account',
-    component: AccountComponent,
+    component: AccountComponent
   },
   {
     path: 'blog',
-    component: BlogComponent,
+    component: BlogComponent
   },
   {
     path: 'cart',
-    component: CartComponent,
+    component: CartComponent
   },
   {
     path: 'category',
-    component: CategoryComponent,
+    component: CategoryComponent
   },
   {
     path: 'contact',
-    component: ContactComponent,
+    component: ContactComponent
   },
   {
     path: 'product',
-    component: ProductComponent,
+    component: ProductComponent
   },
   {
-    path: 'product-details',
-    component: ProductdetailsComponent,
-  },
+    path: 'chat',
+    component: ChatComponent
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class UserRoutingModule {}
