@@ -1,41 +1,26 @@
 import { SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { ChatService } from './chat.service';
-import { ConversationPayload } from '../../common/constants/types/conversation-payload.type';
-import { MessagePayload } from '../../common/constants/types/message-payload.type';
+import { Socket } from 'socket.io';
+import { MessagePayload } from '../../common/interfaces/message-payload.interface';
 
-@WebSocketGateway()
+@WebSocketGateway({
+  cors: {
+    origin: '*'
+  }
+})
 export class ChatGateway {
   constructor(private readonly chatService: ChatService) {}
 
   @WebSocketServer()
   server: Server;
 
-  @SubscribeMessage('startConversation')
-  async handleStartConversation(client: any, payload: ConversationPayload) {
-    try {
-      const response = await this.chatService.startConversation(payload);
-      client.emit('startConversationResponse', response);
-    } catch (error) {
-      client.emit('error', error.message);
-    }
-  }
-
   @SubscribeMessage('sendMessage')
-  async handleMessage(client: any, payload: MessagePayload) {
+  async handleSendMessage(client: Socket, messagePayload: MessagePayload) {
     try {
-      await this.chatService.sendMessage(payload);
-      client.broadcast.emit('newMessage', payload);
-    } catch (error) {
-      client.emit('error', error.message);
-    }
-  }
-
-  @SubscribeMessage('getConversationMessages')
-  async handleFindConversationMessages(client: any, conversation_id: number) {
-    try {
-      const conversationMessages = await this.chatService.findConversationMessages(conversation_id);
-      client.emit('conversationMessages', conversationMessages);
+      const newMessage = await this.chatService.sendMessage(messagePayload);
+      const room = `conversation_${newMessage.conversation_id}_sender_${newMessage.sender_id}_receiver_${newMessage.receiver_id}`;
+      client.to(room).emit('message', newMessage.content); /* maybe i should emit the entire message */
     } catch (error) {
       client.emit('error', error.message);
     }

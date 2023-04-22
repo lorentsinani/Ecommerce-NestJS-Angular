@@ -14,6 +14,9 @@ export class Message implements IMessage {
   @Column({ type: 'integer' })
   sender_id: number;
 
+  @Column({ type: 'integer' })
+  receiver_id: number;
+
   @Column({ type: 'text', nullable: false })
   content: string;
 
@@ -24,9 +27,14 @@ export class Message implements IMessage {
   updated_at: Date;
 
   @ManyToOne(() => Conversation, conversation => conversation.messages)
+  @JoinColumn({ name: 'conversation_id', referencedColumnName: 'id' })
   conversation: Conversation;
 
   @ManyToOne(() => User, { nullable: false })
   @JoinColumn({ name: 'sender_id', referencedColumnName: 'id' })
   sender: User;
+
+  @ManyToOne(() => User, { nullable: false })
+  @JoinColumn({ name: 'receiver_id', referencedColumnName: 'id' })
+  receiver: User;
 }

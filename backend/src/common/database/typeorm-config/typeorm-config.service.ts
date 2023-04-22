@@ -34,7 +34,25 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
       username: databaseConfig.username,
       password: databaseConfig.password,
       database: databaseConfig.database,
-      entities: [Admin, User, Employee, Suppliers, Address, Category, Currency, Producer, Newsletter, Product, ProductDetails, Delivery, DeliveryMethod, Orders, Conversation, Message, Notifications], // All the entities that you create should be added here
+      entities: [
+        Admin,
+        User,
+        Employee,
+        Suppliers,
+        Address,
+        Category,
+        Currency,
+        Producer,
+        Newsletter,
+        Product,
+        ProductDetails,
+        Delivery,
+        DeliveryMethod,
+        Orders,
+        Conversation,
+        Message,
+        Notifications
+      ], // All the entities that you create should be added here
       synchronize: true
     } as TypeOrmModuleOptions;
   }

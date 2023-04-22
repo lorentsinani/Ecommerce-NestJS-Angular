@@ -14,5 +14,10 @@ export class CreateMessageDto {
   @IsNotEmpty()
   @IsNumber()
   @IsInt()
+  receiver_id: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
   content: string;
 }

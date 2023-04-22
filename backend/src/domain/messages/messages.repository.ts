@@ -12,4 +12,8 @@ export class MessagesRepository extends Repository<Message> {
   createMessage(createMessageDto: CreateMessageDto): Promise<InsertResult> {
     return this.createQueryBuilder().insert().into(Message).values(createMessageDto).returning('*').execute();
   }
+
+  getMessagesBySenderId(sender_id: number): Promise<Message[] | null> {
+    return this.createQueryBuilder('message').where('sender_id = :sender_id', { sender_id }).getMany();
+  }
 }

@@ -1,29 +1,47 @@
+import { CreateMessageDto } from './../../common/dtos/chat/messages/create-message.dto';
 import { Injectable } from '@nestjs/common';
 import { ConversationService } from '../../domain/conversation/conversation.service';
 import { MessagesService } from '../../domain/messages/messages.service';
-import { NotificationsService } from '../../domain/notifications/notifications.service';
-import { ConversationPayload } from '../../common/constants/types/conversation-payload.type';
-import { MessagePayload } from '../../common/constants/types/message-payload.type';
+import { Message } from '../../domain/entities/message.entity';
+import { Conversation } from '../../domain/entities/conversation.entity';
+import { EmployeesService } from '../../domain/employees/employees.service';
+import { Employee } from '../../domain/entities/employee.entity';
+import { ConversationPayload } from '../../common/interfaces/conversation-payload.interface';
 
 @Injectable()
 export class ChatService {
-  constructor(private readonly conversationService: ConversationService, private readonly messagesService: MessagesService) {}
+  constructor(
+    private readonly conversationService: ConversationService,
+    private readonly messagesService: MessagesService,
+    private readonly employeeService: EmployeesService
+  ) {}
 
-  async startConversation(payload: ConversationPayload) {
-    const conversation = await this.conversationService.find(payload);
-    if (conversation) {
-      return { conversationExist: { conversation_id: conversation.id } };
-    } else {
-      const newConversation = await this.conversationService.create(payload);
-      return { conversationStarted: { conversation_id: newConversation.id } };
+  async startConversation(conversationPayload: ConversationPayload): Promise<Conversation | null> {
+    const availableEmployee = await this.findAvailableEmployee();
+
+    const updatedConversationDto = { ...conversationPayload, employee_id: availableEmployee.user_id };
+
+    const conversationExist = await this.conversationService.findByCustomerId(conversationPayload.customer_id);
+
+    if (conversationExist) {
+      const { id } = conversationExist;
+      await this.conversationService.update(id, updatedConversationDto);
+      return this.findConversationMessages(id);
     }
+
+    return this.conversationService.create(updatedConversationDto);
   }
 
-  sendMessage(payload: MessagePayload) {
-    return this.messagesService.create(payload);
+  async findAvailableEmployee(): Promise<Employee> {
+    const employees = await this.employeeService.findAvailableEmployees();
+    return employees[Math.floor(Math.random() * employees.length)];
   }
 
-  findConversationMessages(conversation_id: number) {
+  sendMessage(createMessageDto: CreateMessageDto): Promise<Message> {
+    return this.messagesService.create(createMessageDto);
+  }
+
+  findConversationMessages(conversation_id: number): Promise<Conversation | null> {
     return this.conversationService.findConversationMessages(conversation_id);
   }
 }

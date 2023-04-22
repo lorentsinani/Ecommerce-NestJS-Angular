@@ -13,14 +13,18 @@ export class MessagesService {
   async create(createMessageDto: CreateMessageDto): Promise<Message> {
     const createdMessage = await this.messagesRepository.createMessage(createMessageDto);
 
-    if (this.getIdentifierId(createdMessage)) {
+    if (!this.getIdentifierId(createdMessage)) {
       throw new HttpException(this.NotCreatedMessageException, HttpStatus.BAD_GATEWAY);
     }
 
     return createdMessage.raw[0];
   }
 
+  findMessagesBySenderId(sender_id: number): Promise<Message[] | null> {
+    return this.messagesRepository.getMessagesBySenderId(sender_id);
+  }
+
   getIdentifierId(result: InsertResult) {
-    return result.identifiers[0].id === -1 ? false : true;
+    return result.identifiers[0].id == -1 ? false : true;
   }
 }
