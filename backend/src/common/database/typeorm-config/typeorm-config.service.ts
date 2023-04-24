@@ -19,6 +19,7 @@ import { DeliveryMethod } from '../../../domain/entities/delivery-method.entity'
 import { ProductImages } from '../../../domain/entities/product-images.entity';
 import { OrderItems } from '../../../domain/entities/order-items.entity';
 import { OrdersStatus } from '../../../domain/entities/orders-status.entity';
+import { Wishlist } from 'src/domain/entities/wishlist.entity';
 
 @Injectable()
 export class TypeormConfigService implements TypeOrmOptionsFactory {
@@ -51,7 +52,8 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
         DeliveryMethod,
         Order,
         OrderItems,
-        OrdersStatus
+        OrdersStatus,
+        Wishlist
       ], // All the entities that you create should be added here
       synchronize: true
     } as TypeOrmModuleOptions;

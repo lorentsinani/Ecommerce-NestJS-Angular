@@ -17,6 +17,7 @@ import { ProductImagesModule } from './product-images/product-images.module';
 import { OrdersModule } from './orders/orders.module';
 import { OrderItemsModule } from './order-items/order-items.module';
 import { OrdersStatusModule } from './orders-status/orders-status.module';
+import { WishlistsModule } from './wishlists/wishlists.module';
 
 @Module({
   imports: [
@@ -37,7 +38,8 @@ import { OrdersStatusModule } from './orders-status/orders-status.module';
     OrdersModule,
     ProductImagesModule,
     OrderItemsModule,
-    OrdersStatusModule
+    OrdersStatusModule,
+    WishlistsModule
   ]
 })
 export class DomainModule {}

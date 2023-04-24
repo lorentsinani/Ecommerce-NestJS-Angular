@@ -3,6 +3,7 @@ import { Product } from './product.entity';
 import { User } from './user.entity';
 
 @Entity()
+@Index(['customer_id', 'product_id'], { unique: true })
 export class Wishlist {
   @PrimaryGeneratedColumn()
   id: number;
@@ -26,7 +27,4 @@ export class Wishlist {
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updated_at: Date;
-
-  @Index(['customer_id', 'product_id'], { unique: true })
-  unique_customer_product: { customer_id: number, product_id: number };
 }
