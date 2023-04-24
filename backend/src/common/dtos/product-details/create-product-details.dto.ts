@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsNumber, IsString, MaxLength } from 'class-validator'; // Added import
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator'; // Added import
+import { IsNumberFormat } from '../../decorators/number-format.decorator';
 
 export class CreateProductDetailsDto {
   @IsNotEmpty()
@@ -7,7 +8,7 @@ export class CreateProductDetailsDto {
   origin: string;
 
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   warranty: number;
 
   @IsNotEmpty()
@@ -20,6 +21,6 @@ export class CreateProductDetailsDto {
   size: string;
 
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   producer_id: number;
 }

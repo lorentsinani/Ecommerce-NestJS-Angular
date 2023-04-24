@@ -1,6 +1,7 @@
-import { IsNotEmpty, IsEnum, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsEnum, IsString } from 'class-validator';
 import { IsDateFormat } from '../../decorators/date-format.decorator';
 import { DeliveryStatus } from '../../constants/enums/delivery-status.enum';
+import { IsNumberFormat } from '../../decorators/number-format.decorator';
 
 export class CreateDeliveryDto {
   @IsNotEmpty()
@@ -12,11 +13,11 @@ export class CreateDeliveryDto {
   delivery_comments: string;
 
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   delivery_cost: number;
 
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   delivery_method_id: number;
 
   @IsNotEmpty()
@@ -28,6 +29,6 @@ export class CreateDeliveryDto {
   promised_delivery_date: Date;
 
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   delivery_order_id: number;
 }

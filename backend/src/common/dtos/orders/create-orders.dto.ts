@@ -1,6 +1,6 @@
-import { IsString, IsNotEmpty, Length, IsNumber, IsDecimal, IsOptional, IsEnum } from 'class-validator';
+import { IsString, IsNotEmpty, Length, IsDecimal, IsOptional } from 'class-validator';
 import { IsDateFormat } from '../../decorators/date-format.decorator';
-import { OrderStatus } from '../../constants/enums/orders-status.enum';
+import { IsNumberFormat } from '../../decorators/number-format.decorator';
 
 export class CreateOrdersDto {
   @IsString()
@@ -9,7 +9,7 @@ export class CreateOrdersDto {
   order_code: string;
 
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   customer_id: number;
 
   @IsString()
@@ -18,19 +18,19 @@ export class CreateOrdersDto {
   order_comment: string;
 
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   currency_id: number;
 
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   employee_id: number;
 
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   order_status_id: number;
 
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   address_id: number;
 
   @IsDateFormat()
