@@ -5,6 +5,7 @@ import { TokenVerifierCustomRequest } from '../interfaces/jwt-payload.interface'
 @Injectable()
 export class CustomerGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
+    console.log('Guard being executed');
     const request = context.switchToHttp().getRequest() as TokenVerifierCustomRequest;
     const user = request.jwtPayload;
     return (user && user.role === UserType.Customer) as boolean;
