@@ -1,10 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { settings } from '../../../config/enviroment';
+import { environment } from '../../../environments/environment-dev';
 
 export abstract class BaseService<T> {
-  apiUrl = settings.apiUrl;
+  apiUrl = environment.apiUrl;
 
   protected httpOptions = {
     headers: new HttpHeaders({
