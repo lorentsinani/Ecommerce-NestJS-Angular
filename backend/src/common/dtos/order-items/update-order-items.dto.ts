@@ -1,19 +1,20 @@
-import { IsOptional, IsNotEmpty, IsNumber, IsDecimal } from 'class-validator';
+import { IsOptional, IsNotEmpty, IsDecimal } from 'class-validator';
+import { IsNumberFormat } from '../../decorators/number-format.decorator';
 
 export class UpdateOrderItemDto {
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   order_id: number;
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   product_id: number;
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   quantity: number;
 
   @IsOptional()

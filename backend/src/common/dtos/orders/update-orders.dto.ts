@@ -1,6 +1,6 @@
-import { IsString, IsNotEmpty, IsNumber, IsDecimal, IsOptional, MaxLength, IsEnum } from 'class-validator';
+import { IsString, IsNotEmpty, IsDecimal, IsOptional, MaxLength } from 'class-validator';
 import { IsDateFormat } from '../../decorators/date-format.decorator';
-import { OrderStatus } from '../../constants/enums/orders-status.enum';
+import { IsNumberFormat } from '../../decorators/number-format.decorator';
 
 export class UpdateOrdersDto {
   @IsOptional()
@@ -11,7 +11,7 @@ export class UpdateOrdersDto {
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   customer_id: number;
 
   @IsOptional()
@@ -22,22 +22,22 @@ export class UpdateOrdersDto {
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   currency_id: number;
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   employee_id: number;
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   order_status_id: number;
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   address_id: number;
 
   @IsOptional()

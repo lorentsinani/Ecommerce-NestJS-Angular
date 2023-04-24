@@ -1,5 +1,6 @@
-import { IsNotEmpty, IsDecimal, IsInt, IsOptional, MaxLength, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsDecimal, IsInt, IsOptional, MaxLength, IsString } from 'class-validator';
 import { IsDateFormat } from '../../decorators/date-format.decorator';
+import { IsNumberFormat } from '../../decorators/number-format.decorator';
 
 export class UpdateProductDto {
   @IsOptional()
@@ -16,12 +17,12 @@ export class UpdateProductDto {
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   supplier_id: number;
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   category_id: number;
 
   @IsOptional()
@@ -55,6 +56,6 @@ export class UpdateProductDto {
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   product_details_id: number;
 }

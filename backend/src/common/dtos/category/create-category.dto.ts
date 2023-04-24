@@ -1,4 +1,5 @@
-import { Length, IsString, IsNotEmpty, IsNumber } from 'class-validator';
+import { Length, IsString, IsNotEmpty } from 'class-validator';
+import { IsNumberFormat } from '../../decorators/number-format.decorator';
 
 export class CreateCategoryDto {
   @Length(1, 100)
@@ -13,6 +14,6 @@ export class CreateCategoryDto {
   @IsString()
   category_image_url: string;
 
-  @IsNumber()
+  @IsNumberFormat()
   parent_category_id: number;
 }

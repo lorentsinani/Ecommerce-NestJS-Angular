@@ -1,9 +1,10 @@
-import { IsNotEmpty, IsString, IsNumber, IsDate, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, IsDate, IsOptional } from 'class-validator';
+import { IsNumberFormat } from '../../decorators/number-format.decorator';
 
 export class CreateEmployeeDto {
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   user_id: number;
 
   @IsNotEmpty()
@@ -22,6 +23,6 @@ export class CreateEmployeeDto {
   photo_url: string;
 
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   salary: number;
 }
