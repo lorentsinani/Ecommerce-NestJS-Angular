@@ -13,15 +13,15 @@ export class ChatComponent {
   messages: IMessage[] = [];
   currentUser: IUser = { id: 1, name: 'a' };
   chatStarted = false;
-  newMessage = '';
+  newMessage: string = '';
 
   constructor(private chatService: ChatService) {}
 
   ngOnInit() {
     this.socket = io('http://localhost:3000');
+
     this.socket.on('message', (message: string) => {
-      console.log('Received message:', message);
-      this.messages.push({ content: message }); // add the new message to the list of messages
+      this.messages.push({ content: message });
     });
   }
 
@@ -35,10 +35,10 @@ export class ChatComponent {
       sender_id: this.currentUser.id as number,
       receiver_id: 11,
       content: this.newMessage
-    };  
+    };
 
     this.messages.push(newMessage);
-    
+
     this.socket.emit('sendMessage', newMessage); // send the message payload to the server
 
     this.newMessage = '';
