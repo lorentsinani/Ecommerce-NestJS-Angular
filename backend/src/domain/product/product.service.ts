@@ -34,6 +34,16 @@ export class ProductService {
     return productExist;
   }
 
+  async countProductsByCategory(category_id: number): Promise<number> {
+    const numberOfProducts = await this.productRepository.countProductsByCategory(category_id);
+
+    if (!numberOfProducts) {
+      throw new HttpException(this.NotFoundExceptionMessage, HttpStatus.NOT_FOUND);
+    }
+
+    return numberOfProducts[0];
+  }
+
   async update(id: number, updateProductDto: UpdateProductDto): Promise<Product> {
     const updatedProduct = await this.productRepository.updateProduct(id, updateProductDto);
 

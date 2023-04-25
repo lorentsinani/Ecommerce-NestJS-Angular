@@ -30,4 +30,17 @@ export class ProductRepository extends Repository<Product> {
   deleteProduct(id: number): Promise<DeleteResult> {
     return this.createQueryBuilder().delete().from(Product).where('id = :id', { id }).returning('*').execute();
   }
+
+  countProductsByCategory(category_id: number): Promise<number[]> {
+    return this.createQueryBuilder('product')
+      .select('MAX(categoryCount.count)', 'maxCount')
+      .where('product.category_id = :category_id', { category_id })
+      .leftJoin(
+        qb => qb.from(Product, 'p').select('p.category_id, COUNT(*)', 'count').groupBy('p.category_id'),
+        'categoryCount',
+        'product.category_id = categoryCount.category_id'
+      )
+      .addGroupBy('product.category_id')
+      .getRawMany();
+  }
 }

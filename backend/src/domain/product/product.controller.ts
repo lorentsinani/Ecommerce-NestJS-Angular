@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
 import { UpdateProductDto } from '../../common/dtos/product/update-product.dto';
 import { ProductService } from './product.service';
@@ -25,6 +25,11 @@ export class ProductController {
   @Get(':id')
   async findById(@Param('id', ParseIntPipe) id: number): Promise<Product> {
     return this.productService.findById(id);
+  }
+
+  @Get('/categories/max-product-count')
+  async getMaxProductCountPerCategory(@Query('category_id', ParseIntPipe) category_id: number): Promise<number> {
+    return this.productService.countProductsByCategory(category_id);
   }
 
   @Patch(':id')
