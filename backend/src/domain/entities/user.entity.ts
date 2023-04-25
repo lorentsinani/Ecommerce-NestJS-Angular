@@ -1,15 +1,12 @@
 import { IUser } from './../../common/interfaces/user.interface';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { UserType } from '../../common/constants/enums/user-type.enum';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { UserGender } from '../../common/constants/enums/user-gender.enum';
+import { Role } from './role.entity';
 
 @Entity()
 export class User implements IUser {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column({ type: 'enum', enum: UserType, default: UserType.Customer })
-  user_type: UserType;
 
   @Column({ length: 50 })
   first_name: string;
@@ -34,6 +31,13 @@ export class User implements IUser {
 
   @Column()
   gender: UserGender;
+
+  @Column()
+  role_id: number;
+
+  @ManyToOne(() => Role)
+  @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
+  role: Role;
 
   @CreateDateColumn()
   created_at: Date;
