@@ -3,6 +3,7 @@ import { DataSource, DeleteResult, InsertResult, Repository, UpdateResult } from
 import { Product } from '../entities/product.entity';
 import { CreateProductDto } from '../../common/dtos/product/create-product.dto';
 import { UpdateProductDto } from '../../common/dtos/product/update-product.dto';
+import { Category } from '../entities/category.entity';
 
 @Injectable()
 export class ProductRepository extends Repository<Product> {
@@ -31,16 +32,11 @@ export class ProductRepository extends Repository<Product> {
     return this.createQueryBuilder().delete().from(Product).where('id = :id', { id }).returning('*').execute();
   }
 
-  countProductsByCategory(category_id: number): Promise<number[]> {
+  countProductsByCategory(category_id: number): Promise<string[]> {
     return this.createQueryBuilder('product')
-      .select('MAX(categoryCount.count)', 'maxCount')
-      .where('product.category_id = :category_id', { category_id })
-      .leftJoin(
-        qb => qb.from(Product, 'p').select('p.category_id, COUNT(*)', 'count').groupBy('p.category_id'),
-        'categoryCount',
-        'product.category_id = categoryCount.category_id'
-      )
-      .addGroupBy('product.category_id')
+      .innerJoin(Category, 'category', 'product.category_id = category.id')
+      .select(['category.id', 'category.category_name', 'COUNT(*) as "number of products"'])
+      .groupBy('category.id')
       .getRawMany();
   }
 }

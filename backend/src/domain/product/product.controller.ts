@@ -13,33 +13,33 @@ export class ProductController {
   constructor(private productService: ProductService) {}
 
   @Post()
-  async create(@Body() createProductDto: CreateProductDto): Promise<Product> {
+  create(@Body() createProductDto: CreateProductDto): Promise<Product> {
     return this.productService.create(createProductDto);
   }
 
   @Get()
-  async findAll(): Promise<Product[]> {
+  findAll(): Promise<Product[]> {
     return this.productService.findAll();
   }
 
   @Get(':id')
-  async findById(@Param('id', ParseIntPipe) id: number): Promise<Product> {
+  findById(@Param('id', ParseIntPipe) id: number): Promise<Product> {
     return this.productService.findById(id);
   }
 
   @Get('/categories/max-product-count')
-  async getMaxProductCountPerCategory(@Query('category_id', ParseIntPipe) category_id: number): Promise<number> {
+  getNumberOfProductsByCategory(@Query('category_id', ParseIntPipe) category_id: number): Promise<any> {
     return this.productService.countProductsByCategory(category_id);
   }
 
   @Patch(':id')
   @UsePipes(new NullDtoValidationPipe())
-  async update(@Param('id') id: number, @Body() updateProductDto: UpdateProductDto): Promise<Product> {
+  update(@Param('id') id: number, @Body() updateProductDto: UpdateProductDto): Promise<Product> {
     return this.productService.update(id, updateProductDto);
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: number): Promise<Product> {
+  delete(@Param('id') id: number): Promise<Product> {
     return this.productService.delete(id);
   }
 }
