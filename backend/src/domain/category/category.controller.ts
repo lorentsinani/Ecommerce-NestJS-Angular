@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, UseGuards } from '@nestjs/common';
 import { ParseIntPipe, Patch, Post, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from '../../common/dtos/category/create-category.dto';
@@ -6,6 +6,10 @@ import { UpdateCategoryDto } from '../../common/dtos/category/update-category.dt
 import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
 import { Category } from '../entities/category.entity';
 import { QueryExceptionFilter } from '../../common/filters/query.exception.filter';
+import { CheckPermissions } from '../../common/decorators/check-permission.decorator';
+import { PermissionsGuard } from '../../common/guards/permissions.guard';
+import { PermissionAction } from '../../common/constants/enums/permission-action.enum';
+import { PermissionObject } from '../../common/constants/enums/permission-object.enum';
 
 @Controller('category')
 @UsePipes(new ValidationPipe())
@@ -13,7 +17,11 @@ import { QueryExceptionFilter } from '../../common/filters/query.exception.filte
 export class CategoryController {
   constructor(private categoryService: CategoryService) {}
 
+
+  // This line shows how you can use the Authorization based on permissions
   @Post()
+  @UseGuards(PermissionsGuard)
+  @CheckPermissions([PermissionAction.Create, PermissionObject.Category])
   create(@Body() categoryBody: CreateCategoryDto): Promise<Category> {
     return this.categoryService.create(categoryBody);
   }

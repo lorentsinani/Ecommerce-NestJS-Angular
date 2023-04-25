@@ -39,6 +39,31 @@ CREATE TABLE admins
     permission_level PermissionLevel NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+ 
+
+
+CREATE TABLE role (
+    id SERIAL PRIMARY KEY , 
+    name varchar(50)
+);
+
+CREATE TABLE role_permissions (
+    id SERIAL PRIMARY KEY, 
+    role_id integer REFERENCES role(id) not null, 
+    permission_id integer REFERENCES permission(id) not null
+); 
+
+create table permission (
+    id serial primary key, 
+    action varchar(50),
+    object_id integer REFERENCES object(id) not null
+); 
+
+create table objects(
+    id serial primary key, 
+    name varchar(50)
+)
+
 
 
 

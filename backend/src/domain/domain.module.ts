@@ -18,6 +18,7 @@ import { ProductImagesModule } from './product-images/product-images.module';
 import { ConversationModule } from './conversation/conversation.module';
 import { MessagesModule } from './messages/messages.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { PermissionsModule } from './permissions/permissions.module';
 
 @Module({
   imports: [
@@ -39,7 +40,8 @@ import { NotificationsModule } from './notifications/notifications.module';
     ProductImagesModule,
     ConversationModule,
     MessagesModule,
-    NotificationsModule
+    NotificationsModule,
+    PermissionsModule
   ]
 })
 export class DomainModule {}

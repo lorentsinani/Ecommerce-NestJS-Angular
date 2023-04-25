@@ -3,8 +3,7 @@ import { PasswordUtil } from '../utils/password.util';
 import { Request, Response, NextFunction } from 'express';
 
 export class PasswordHasherMiddleware implements NestMiddleware {
-  async use(request: Request, response: Response, next: NextFunction) { 
-    console.log('This first')
+  async use(request: Request, response: Response, next: NextFunction) {
     if (request.body && request.body.password && PasswordUtil.checkPasswordStrength(request.body.password)) {
       request.body.password = await PasswordUtil.hashPassword(request.body.password);
       next();

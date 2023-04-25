@@ -1,4 +1,4 @@
-export enum PermissionObjectType {
+export enum PermissionObject {
   Category = 'category',
   User = 'user'
 }
