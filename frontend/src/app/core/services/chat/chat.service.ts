@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Socket } from 'socket.io-client';
-import { IConversation } from '../../../user/chat/chat.component';
+import { IConversation } from '../../../shared/chat/chat.component';
 
 export interface ConversationPayload {
   customer_id: number;
