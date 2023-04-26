@@ -11,7 +11,7 @@ export class ProductImagesService {
   private NotFoundExceptionMessage = 'Product image is not found';
   constructor(private readonly productImageRepostiory: ProductImagesRepository) {}
 
-  async create(createProductImageDto: CreateProductImageDto) {
+  async create(createProductImageDto: CreateProductImageDto): Promise<ProductImages> {
     const createdProductImage = await this.productImageRepostiory.createProductImages(createProductImageDto);
 
     if (!this.getIdentifierId(createdProductImage)) {
@@ -43,7 +43,7 @@ export class ProductImagesService {
     return productImageExist;
   }
 
-  async update(id: number, updateProductImageDto: UpdateProductImageDto) {
+  async update(id: number, updateProductImageDto: UpdateProductImageDto): Promise<ProductImages> {
     const updatedProductImage = await this.productImageRepostiory.updateProductImages(id, updateProductImageDto);
 
     if (!updatedProductImage.affected) {
@@ -52,7 +52,7 @@ export class ProductImagesService {
     return updatedProductImage.raw[0];
   }
 
-  async delete(id: number) {
+  async delete(id: number): Promise<ProductImages> {
     const deletedProductImage = await this.productImageRepostiory.deleteProductImages(id);
 
     if (!deletedProductImage.affected) {
@@ -62,7 +62,7 @@ export class ProductImagesService {
     return deletedProductImage.raw[0];
   }
 
-  getIdentifierId(result: InsertResult) {
+  getIdentifierId(result: InsertResult): Boolean {
     return result.identifiers[0].id == -1 ? false : true;
   }
 }

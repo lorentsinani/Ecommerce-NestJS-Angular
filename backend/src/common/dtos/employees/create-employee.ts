@@ -1,10 +1,12 @@
 import { IsNotEmpty, IsString, IsNumber, IsOptional } from 'class-validator';
 import { IsDateFormat } from '../../decorators/date-format.decorator';
+import { IsNotEmpty, IsString, IsDate, IsOptional } from 'class-validator';
+import { IsNumberFormat } from '../../decorators/number-format.decorator';
 
 export class CreateEmployeeDto {
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   user_id: number;
 
   @IsNotEmpty()
@@ -24,6 +26,6 @@ export class CreateEmployeeDto {
   photo_url: string;
 
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   salary: number;
 }

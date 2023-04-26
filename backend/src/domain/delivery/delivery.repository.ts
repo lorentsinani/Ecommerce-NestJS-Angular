@@ -15,7 +15,7 @@ export class DeliveryRepository extends Repository<Delivery> {
     return this.createQueryBuilder().insert().into(Delivery).values(createDeliveryDto).returning('*').execute();
   }
 
-  findAllDeliveries(): Promise<IDelivery[]> {
+  findAllDeliveries(): Promise<Delivery[]> {
     return this.find();
   }
 

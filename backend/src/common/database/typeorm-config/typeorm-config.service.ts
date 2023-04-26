@@ -14,11 +14,14 @@ import { Newsletter } from '../../../domain/entities/newsletter.entity';
 import { Product } from '../../../domain/entities/product.entity';
 import { ProductDetails } from '../../../domain/entities/product-details.entity';
 import { Delivery } from '../../../domain/entities/delivery.entity';
-import { Orders } from '../../../domain/entities/orders.entity';
+import { Order } from '../../../domain/entities/orders.entity';
 import { DeliveryMethod } from '../../../domain/entities/delivery-method.entity';
 import { Conversation } from '../../../domain/entities/conversation.entity';
 import { Message } from '../../../domain/entities/message.entity';
 import { Notifications } from '../../../domain/entities/notifications.entity';
+import { ProductImages } from '../../../domain/entities/product-images.entity';
+import { OrderItems } from '../../../domain/entities/order-items.entity';
+import { OrdersStatus } from '../../../domain/entities/orders-status.entity';
 
 @Injectable()
 export class TypeormConfigService implements TypeOrmOptionsFactory {
@@ -52,6 +55,12 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
         Conversation,
         Message,
         Notifications
+        ProductImages,
+        Delivery,
+        DeliveryMethod,
+        Order,
+        OrderItems,
+        OrdersStatus
       ], // All the entities that you create should be added here
       synchronize: true
     } as TypeOrmModuleOptions;

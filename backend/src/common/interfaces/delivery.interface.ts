@@ -1,5 +1,5 @@
 import { IDeliveryMethod } from './delivery-method.interface';
-import { IOrder } from './order.interface';
+import { IOrder } from './orders.interface';
 
 export interface IDelivery {
   id: number;

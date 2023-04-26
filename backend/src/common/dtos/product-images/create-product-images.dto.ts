@@ -1,9 +1,9 @@
-import { IsNotEmpty, IsNumber, IsObject, IsString } from 'class-validator';
-import { Product } from '../../../domain/entities/product.entity';
+import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNumberFormat } from '../../decorators/number-format.decorator';
 
 export class CreateProductImageDto {
   @IsNotEmpty()
-  @IsNumber()
+  @IsNumberFormat()
   product_id: number;
 
   @IsNotEmpty()
