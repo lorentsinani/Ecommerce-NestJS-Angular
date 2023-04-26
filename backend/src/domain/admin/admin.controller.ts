@@ -1,45 +1,41 @@
 import { Body, Controller, Get, Param, Post, Patch, UseGuards } from '@nestjs/common';
 import { ParseIntPipe, UseFilters, UsePipes, ValidationPipe, Delete } from '@nestjs/common';
 import { AdminService } from './admin.service';
-import { IAdmin } from '../../common/interfaces/admin.interface';
-import { ValidationExceptionFilter } from '../../common/filters/validation-exception.filter';
 import { CreateAdminDto } from '../../common/dtos/admin/create-admin.dto';
 import { UpdateAdminDto } from '../../common/dtos/admin/update-admin.dto';
 import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
-import { AdminGuard } from '../../common/guards/admin.guard';
+import { QueryExceptionFilter } from '../../common/filters/query.exception.filter';
+import { Admin } from '../entities/admin.entity';
 
 @Controller('admin')
-@UseGuards(AdminGuard)
+@UsePipes(new ValidationPipe())
+// @UseGuards(AdminGuard)
+@UseFilters(new QueryExceptionFilter('Admin'))
 export class AdminController {
   constructor(private adminService: AdminService) {}
 
   @Post()
-  @UsePipes(new ValidationPipe())
-  @UseFilters(new ValidationExceptionFilter())
-  async create(@Body() createAdminDto: CreateAdminDto): Promise<IAdmin> {
+  create(@Body() createAdminDto: CreateAdminDto): Promise<Admin> {
     return this.adminService.create(createAdminDto);
   }
 
   @Get()
-  async findAll(): Promise<IAdmin[]> {
+  findAll(): Promise<Admin[]> {
     return this.adminService.findAll();
   }
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number): Promise<IAdmin> {
+  findOne(@Param('id', ParseIntPipe) id: number): Promise<Admin> {
     return this.adminService.findById(id);
   }
 
   @Patch(':id')
-  @UsePipes(new ValidationPipe(), new NullDtoValidationPipe())
-  @UseFilters(new ValidationExceptionFilter())
-  async update(@Param('id', ParseIntPipe) id: number, @Body() updateAdminDto: UpdateAdminDto): Promise<IAdmin> {
+  @UsePipes(new NullDtoValidationPipe())
+  update(@Param('id', ParseIntPipe) id: number, @Body() updateAdminDto: UpdateAdminDto): Promise<Admin> {
     return this.adminService.update(id, updateAdminDto);
   }
 
   @Delete(':id')
-  @UsePipes(new ValidationPipe())
-  @UseFilters(new ValidationExceptionFilter())
-  async delete(@Param('id', ParseIntPipe) user_id: number): Promise<IAdmin> {
+  delete(@Param('id', ParseIntPipe) user_id: number): Promise<Admin> {
     return this.adminService.delete(user_id);
   }
 }

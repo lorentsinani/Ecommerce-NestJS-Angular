@@ -1,27 +1,28 @@
 import { UsersRepository } from './users.repository';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { IUser } from '../../common/interfaces/user.interface';
 import { UpdateUserDto } from '../../common/dtos/users/update-user.dto';
 import { CreateUserDto } from '../../common/dtos/users/create-user.dto';
+import { User } from '../entities/user.entity';
+import { InsertResult } from 'typeorm';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
-  async create(createUserDto: CreateUserDto): Promise<IUser> {
+  async create(createUserDto: CreateUserDto): Promise<User> {
     const createUser = await this.usersRepository.createUser(createUserDto);
 
-    if (!createUser) {
+    if (!this.getIdentifierId(createUser)) {
       throw new HttpException('User is not created', HttpStatus.BAD_REQUEST);
     }
 
     return createUser.raw[0];
   }
 
-  async findAll(): Promise<IUser[]> {
+  findAll(): Promise<User[]> {
     return this.usersRepository.findAllUsers();
   }
 
-  async findById(id: number): Promise<IUser> {
+  async findById(id: number): Promise<User> {
     const userExist = await this.usersRepository.findUserById(id);
 
     if (!userExist) {
@@ -31,7 +32,7 @@ export class UsersService {
     return userExist;
   }
 
-  async findByEmail(email: string): Promise<IUser> {
+  async findByEmail(email: string): Promise<User> {
     const userExist = await this.usersRepository.findUserByEmail(email);
 
     if (!userExist) {
@@ -41,7 +42,11 @@ export class UsersService {
     return userExist;
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<IUser> {
+  async userExist(email: string): Promise<User | null> {
+    return this.usersRepository.findUserByEmail(email);
+  }
+
+  async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     const updatedUser = await this.usersRepository.updateUser(id, updateUserDto);
 
     if (!updatedUser.affected) {
@@ -51,7 +56,7 @@ export class UsersService {
     return updatedUser.raw[0];
   }
 
-  async delete(id: number): Promise<IUser> {
+  async delete(id: number): Promise<User> {
     const deletedUser = await this.usersRepository.deleteUser(id);
 
     if (!deletedUser.affected) {
@@ -59,5 +64,9 @@ export class UsersService {
     }
 
     return deletedUser.raw[0];
+  }
+
+  getIdentifierId(result: InsertResult) {
+    return result.identifiers[0].id == -1 ? false : true;
   }
 }

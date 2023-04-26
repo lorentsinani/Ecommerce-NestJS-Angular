@@ -102,12 +102,26 @@
           <div>TBD</div>
           <div>TBD</div>
           <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
+          <div>TBD</div>
         </ul>
       </div>
     </div>
     <div class="products-container">
       <div class="products-information-filters">
-        <div class="text-information">Showing 20 of 20 matches</div>
+        <div class="text-information">Showing 6 of 6 matches</div>
         <div class="icon-filter-information">
           <div class="sort-icon">
             <i class="fa fa-sort"></i>
@@ -120,26 +134,7 @@
           </div>
         </div>
       </div>
-      <div class="products-details-container" *ngFor="let details of products">
-        <div class="product-image"><img src="{{ details.image }}" /></div>
-        <div class="product-details">
-          <div class="product-infos">
-            <div class="product-rating">{{ details.rating }} ⭐⭐⭐⭐⭐</div>
-            <div class="product-name">{{details.name}}</div>
-            <div class="product-description">
-              {{ details.description }}
-            </div>
-            <div class="add-to-cart">
-              <button class="add-to-cart-button">Add to Cart</button>
-            </div>
-          </div>
-          <div class="product-checkout">
-            <div class="product-price">{{details.originalPrice}}</div>
-            <div class="product-off-price">{{details.onSalePrice}}</div>
-            <div class="add-to-wishlist">❤ Add to wishlist</div>
-          </div>
-        </div>
-      </div>
+      <app-pagination></app-pagination>
     </div>
   </div>
 </div>

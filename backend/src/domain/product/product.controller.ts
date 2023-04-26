@@ -1,40 +1,40 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
-import { DuplicateKeyExceptionFilter } from '../../common/filters/duplicate-key-exception.filter';
 import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
 import { UpdateProductDto } from '../../common/dtos/product/update-product.dto';
 import { ProductService } from './product.service';
 import { CreateProductDto } from '../../common/dtos/product/create-product.dto';
+import { QueryExceptionFilter } from '../../common/filters/query.exception.filter';
+import { Product } from '../entities/product.entity';
 
 @Controller('product')
 @UsePipes(new ValidationPipe())
+@UseFilters(new QueryExceptionFilter('Product'))
 export class ProductController {
   constructor(private productService: ProductService) {}
 
   @Post()
-  @UseFilters(new DuplicateKeyExceptionFilter('Product'))
-  async create(@Body() createProductDto: CreateProductDto) {
+  async create(@Body() createProductDto: CreateProductDto): Promise<Product> {
     return this.productService.create(createProductDto);
   }
 
-  @Get(':id')
-  async findById(@Param('id', ParseIntPipe) id: number) {
-    return this.productService.findById(id);
-  }
-
   @Get()
-  async findAll() {
+  async findAll(): Promise<Product[]> {
     return this.productService.findAll();
   }
 
+  @Get(':id')
+  async findById(@Param('id', ParseIntPipe) id: number): Promise<Product> {
+    return this.productService.findById(id);
+  }
+
   @Patch(':id')
-  @UseFilters(new DuplicateKeyExceptionFilter('product'))
   @UsePipes(new NullDtoValidationPipe())
-  async update(@Param('id') id: number, @Body() updateProductDto: UpdateProductDto) {
+  async update(@Param('id') id: number, @Body() updateProductDto: UpdateProductDto): Promise<Product> {
     return this.productService.update(id, updateProductDto);
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: number) {
+  async delete(@Param('id') id: number): Promise<Product> {
     return this.productService.delete(id);
   }
 }

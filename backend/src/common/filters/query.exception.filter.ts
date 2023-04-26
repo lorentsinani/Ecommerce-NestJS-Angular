@@ -8,19 +8,10 @@ export class QueryExceptionFilter implements ExceptionFilter {
 
   catch(exception: QueryFailedError, host: ArgumentsHost) {
     const response: Response = host.switchToHttp().getResponse();
-    let statusCode = HttpStatus.CONFLICT;
-    let message = `${this.entityName} with these data already exists`;
-    let error = 'Query failed';
 
-    if (exception.message.includes('FOREIGN KEY constraint')) {
-      statusCode = HttpStatus.BAD_REQUEST;
-      message = 'Foreign key constraint violation. The referred foreign key does not exist.';
-      error = 'Foreign key does not exist';
-    } else if (exception.message.includes('duplicate key value violates unique constraint')) {
-      statusCode = HttpStatus.CONFLICT;
-      message = `${this.entityName} with these data already exists`;
-      error = 'Conflict';
-    }
+    const statusCode = HttpStatus.UNPROCESSABLE_ENTITY;
+    const message = `"EntityName": "${this.entityName}", "Message": "${exception.message}"`;
+    const error = 'Query failed error';
 
     const errorResponse = {
       statusCode,

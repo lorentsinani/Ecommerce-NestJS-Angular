@@ -1,11 +1,11 @@
-import { IsString, Length, IsOptional } from 'class-validator';
-import { UserType } from '../../constants/enums/user-type.enum';
+import { IsString, Length, IsOptional, IsNotEmpty } from 'class-validator';
 import { IsCustomEmail } from '../../decorators/email-format.decorator';
 
 export class UpdateSupplierDto {
   @IsString()
   @Length(1, 100)
   @IsOptional()
+  @IsNotEmpty()
   company_name: string;
 
   @IsString()
@@ -15,42 +15,50 @@ export class UpdateSupplierDto {
 
   @IsString()
   @IsOptional()
-  contact_title?: UserType;
+  @IsNotEmpty()
+  contact_title: string;
 
   @IsString()
   @Length(1, 100)
   @IsOptional()
+  @IsNotEmpty()
   address: string;
 
   @IsString()
   @Length(1, 50)
   @IsOptional()
+  @IsNotEmpty()
   city: string;
 
   @IsString()
   @Length(1, 50)
   @IsOptional()
-  region?: string;
+  @IsNotEmpty()
+  region: string;
 
   @IsString()
   @Length(1, 20)
   @IsOptional()
+  @IsNotEmpty()
   postal_code: string;
 
   @IsString()
   @Length(1, 50)
   @IsOptional()
+  @IsNotEmpty()
   country: string;
 
   @IsString()
   @Length(1, 20)
   @IsOptional()
+  @IsNotEmpty()
   phone_number: string;
 
   @IsString()
   @Length(1, 20)
   @IsOptional()
-  fax_number?: string;
+  @IsNotEmpty()
+  fax_number: string;
 
   @IsCustomEmail()
   @IsOptional()

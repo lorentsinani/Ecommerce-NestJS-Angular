@@ -1,8 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { ICategory } from '../../common/interfaces/category.interface';
 import { CreateCategoryDto } from '../../common/dtos/category/create-category.dto';
 import { UpdateCategoryDto } from '../../common/dtos/category/update-category.dto';
 import { CategoryRepository } from './category.repository';
+import { Category } from '../entities/category.entity';
+import { InsertResult } from 'typeorm';
 
 @Injectable()
 export class CategoryService {
@@ -11,27 +12,21 @@ export class CategoryService {
 
   constructor(private readonly categoryRepository: CategoryRepository) {}
 
-  async create(categoryBody: CreateCategoryDto): Promise<ICategory> {
+  async create(categoryBody: CreateCategoryDto): Promise<Category> {
     const createdCategory = await this.categoryRepository.createCategory(categoryBody);
 
-    if (!createdCategory) {
+    if (!this.getIdentifierId(createdCategory)) {
       throw new HttpException(this.NotCreatedExceptionMessage, HttpStatus.BAD_REQUEST);
     }
 
     return createdCategory.raw[0];
   }
 
-  async findAll(): Promise<ICategory[]> {
-    const categoryExist = await this.categoryRepository.findAllCategories();
-
-    if (!categoryExist) {
-      throw new HttpException(this.NotFoundExceptionMessage, HttpStatus.NOT_FOUND);
-    }
-
-    return categoryExist;
+  findAll(): Promise<Category[]> {
+    return this.categoryRepository.findAllCategories();
   }
 
-  async findById(id: number): Promise<ICategory> {
+  async findById(id: number): Promise<Category> {
     const categoryExist = await this.categoryRepository.findCategoryById(id);
 
     if (!categoryExist) {
@@ -41,7 +36,7 @@ export class CategoryService {
     return categoryExist;
   }
 
-  async findByCategoryName(category_name: string): Promise<ICategory> {
+  async findByCategoryName(category_name: string): Promise<Category> {
     const categoryExist = await this.categoryRepository.findCategoryByCategoryName(category_name);
 
     if (!categoryExist) {
@@ -51,7 +46,7 @@ export class CategoryService {
     return categoryExist;
   }
 
-  async update(id: number, categoryBody: UpdateCategoryDto): Promise<ICategory> {
+  async update(id: number, categoryBody: UpdateCategoryDto): Promise<Category> {
     const updatedCateogry = await this.categoryRepository.updateCategory(id, categoryBody);
 
     if (!updatedCateogry) {
@@ -61,7 +56,7 @@ export class CategoryService {
     return updatedCateogry.raw[0];
   }
 
-  async delete(id: number): Promise<ICategory> {
+  async delete(id: number): Promise<Category> {
     const deletedCategory = await this.categoryRepository.deleteCategory(id);
 
     if (!deletedCategory) {
@@ -69,5 +64,9 @@ export class CategoryService {
     }
 
     return deletedCategory.raw[0];
+  }
+
+  getIdentifierId(result: InsertResult) {
+    return result.identifiers[0].id == -1 ? false : true;
   }
 }

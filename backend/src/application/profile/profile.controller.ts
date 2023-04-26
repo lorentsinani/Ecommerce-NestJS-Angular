@@ -1,6 +1,5 @@
-import { Controller, Get, UseGuards, Request, Patch, Body, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Request, Patch, Body, UsePipes, ValidationPipe } from '@nestjs/common';
 import { TokenVerifierCustomRequest } from '../../common/interfaces/jwt-payload.interface';
-import { CustomerGuard } from '../../common/guards/user.guard';
 import { UsersService } from '../../domain/users/users.service';
 import { UpdateUserDto } from '../../common/dtos/users/update-user.dto';
 import { IUser } from '../../common/interfaces/user.interface';
@@ -12,14 +11,14 @@ export class ProfileController {
 
   @Get()
   findUserDetails(@Request() request: TokenVerifierCustomRequest): Promise<IUser> {
-    const userId = request.jwtPayload?.sub as number;
+    const userId = request.jwtPayload?.user.id as number;
     return this.usersService.findById(userId);
   }
 
   @Patch()
   @UsePipes(new ValidationPipe())
   updateUserDetails(@Request() request: TokenVerifierCustomRequest, @Body() updateUserDto: UpdateUserDto): Promise<IUser> {
-    const userId = request.jwtPayload?.sub as number;
+    const userId = request.jwtPayload?.user.id as number;
     return this.usersService.update(userId, updateUserDto);
   }
 }
