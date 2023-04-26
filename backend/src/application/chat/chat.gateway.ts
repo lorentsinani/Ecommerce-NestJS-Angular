@@ -77,7 +77,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   private getParticipantId(socket: CustomSocket): number {
-    return socket.jwtPayload?.sub as number;
+    return socket.jwtPayload?.user.id as number;
   }
 
   private generateMessageRoom(message: Message): string {

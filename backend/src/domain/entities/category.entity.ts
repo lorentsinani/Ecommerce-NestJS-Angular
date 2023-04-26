@@ -15,9 +15,6 @@ export class Category implements ICategory {
   @Column({ length: 255 })
   category_image_url: string;
 
-  @Column()
-  parent_category_id: number;
-
   @CreateDateColumn()
   created_at: Date;
 

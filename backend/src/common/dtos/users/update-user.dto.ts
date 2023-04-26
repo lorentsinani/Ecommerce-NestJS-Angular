@@ -1,14 +1,13 @@
 import { UserGender } from '../../constants/enums/user-gender.enum';
 import { IsDateFormat } from '../../decorators/date-format.decorator';
 import { IsCustomEmail } from '../../decorators/email-format.decorator';
-import { UserType } from './../../constants/enums/user-type.enum';
-import { IsEnum, IsNotEmpty, IsOptional, IsString, Length } from 'class-validator';
+import { IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, Length } from 'class-validator';
 
 export class UpdateUserDto {
   @IsOptional()
   @IsNotEmpty()
-  @IsEnum(UserType)
-  user_type: UserType;
+  @IsInt()
+  role_id: number;
 
   @IsOptional()
   @IsNotEmpty()

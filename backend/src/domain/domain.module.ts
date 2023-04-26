@@ -17,9 +17,11 @@ import { ProductImagesModule } from './product-images/product-images.module';
 import { ConversationModule } from './conversation/conversation.module';
 import { MessagesModule } from './messages/messages.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { PermissionsModule } from './permissions/permissions.module';
 import { OrdersModule } from './orders/orders.module';
 import { OrderItemsModule } from './order-items/order-items.module';
 import { OrdersStatusModule } from './orders-status/orders-status.module';
+
 
 @Module({
   imports: [
@@ -41,6 +43,8 @@ import { OrdersStatusModule } from './orders-status/orders-status.module';
     ProductImagesModule,
     ConversationModule,
     MessagesModule,
+    NotificationsModule,
+    PermissionsModule,
     NotificationsModule
     OrderItemsModule,
     OrdersStatusModule

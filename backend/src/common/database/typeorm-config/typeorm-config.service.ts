@@ -19,6 +19,10 @@ import { DeliveryMethod } from '../../../domain/entities/delivery-method.entity'
 import { Conversation } from '../../../domain/entities/conversation.entity';
 import { Message } from '../../../domain/entities/message.entity';
 import { Notifications } from '../../../domain/entities/notifications.entity';
+import { Role } from '../../../domain/entities/role.entity';
+import { RolePermissions } from '../../../domain/entities/role-permissions.entity';
+import { Permission } from '../../../domain/entities/permission.entity';
+import { Objects } from '../../../domain/entities/objects.entity';
 import { ProductImages } from '../../../domain/entities/product-images.entity';
 import { OrderItems } from '../../../domain/entities/order-items.entity';
 import { OrdersStatus } from '../../../domain/entities/orders-status.entity';
@@ -54,6 +58,11 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
         Orders,
         Conversation,
         Message,
+        Notifications,
+        Role,
+        RolePermissions,
+        Permission,
+        Objects,
         Notifications
         ProductImages,
         Delivery,
