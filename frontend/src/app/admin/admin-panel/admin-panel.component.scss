@@ -1,0 +1,17 @@
+.admin-panel {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.admin-panel__sidebar {
+  background-color: #f5f5f5;
+  border-right: 1px solid #ddd;
+  width: 250px;
+  flex: 0 0 auto;
+}
+
+.admin-panel__dashboard {
+  flex: 1 1 auto;
+  padding: 20px;
+}
