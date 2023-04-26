@@ -1,4 +1,5 @@
-import { Length, IsString, IsOptional, IsNumber, IsNotEmpty } from 'class-validator';
+import { Length, IsString, IsOptional, IsNotEmpty } from 'class-validator';
+import { IsNumberFormat } from '../../decorators/number-format.decorator';
 
 export class UpdateCategoryDto {
   @Length(1, 100)
@@ -18,7 +19,7 @@ export class UpdateCategoryDto {
   @IsNotEmpty()
   category_image_url: string;
 
-  @IsNumber()
+  @IsNumberFormat()
   @IsOptional()
   @IsNotEmpty()
   parent_category_id: number;

@@ -4,6 +4,7 @@ import { CreateProductImageDto } from '../../common/dtos/product-images/create-p
 import { UpdateProductImageDto } from '../../common/dtos/product-images/update-product-images.dto';
 import { QueryExceptionFilter } from '../../common/filters/query.exception.filter';
 import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
+import { ProductImages } from '../entities/product-images.entity';
 
 @Controller('product-images')
 @UsePipes(new ValidationPipe())
@@ -12,33 +13,33 @@ export class ProductImagesController {
   constructor(private productImagesService: ProductImagesService) {}
 
   @Post()
-  create(@Body() createPrudctImageDto: CreateProductImageDto) {
+  create(@Body() createPrudctImageDto: CreateProductImageDto): Promise<ProductImages> {
     return this.productImagesService.create(createPrudctImageDto);
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<ProductImages[]> {
     return this.productImagesService.findAll();
   }
 
   @Get(':id')
-  findById(@Param('id', ParseIntPipe) id: number) {
+  findById(@Param('id', ParseIntPipe) id: number): Promise<ProductImages> {
     return this.productImagesService.findById(id);
   }
 
   @Get()
-  findByEmail(@Query('url') url: string) {
+  findByUrl(@Query('url') url: string): Promise<ProductImages> {
     return this.productImagesService.findByUrl(url);
   }
 
   @Patch(':id')
   @UsePipes(new NullDtoValidationPipe())
-  update(@Param('id', ParseIntPipe) id: number, @Body() updateProductImageDto: UpdateProductImageDto) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() updateProductImageDto: UpdateProductImageDto): Promise<ProductImages> {
     return this.productImagesService.update(id, updateProductImageDto);
   }
 
   @Delete(':id')
-  delete(@Param('id', ParseIntPipe) id: number) {
+  delete(@Param('id', ParseIntPipe) id: number): Promise<ProductImages> {
     return this.productImagesService.delete(id);
   }
 }
