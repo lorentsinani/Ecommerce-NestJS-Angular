@@ -55,7 +55,6 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
         ProductDetails,
         Delivery,
         DeliveryMethod,
-        Orders,
         Conversation,
         Message,
         Notifications,
@@ -63,7 +62,7 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
         RolePermissions,
         Permission,
         Objects,
-        Notifications
+        Notifications,
         ProductImages,
         Delivery,
         DeliveryMethod,

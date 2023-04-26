@@ -45,7 +45,7 @@ import { OrdersStatusModule } from './orders-status/orders-status.module';
     MessagesModule,
     NotificationsModule,
     PermissionsModule,
-    NotificationsModule
+    NotificationsModule,
     OrderItemsModule,
     OrdersStatusModule
   ]
