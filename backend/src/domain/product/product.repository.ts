@@ -4,6 +4,7 @@ import { Product } from '../entities/product.entity';
 import { CreateProductDto } from '../../common/dtos/product/create-product.dto';
 import { UpdateProductDto } from '../../common/dtos/product/update-product.dto';
 import { Category } from '../entities/category.entity';
+import { INumberOfProducts } from '../../common/interfaces/number-of-products.interface';
 
 @Injectable()
 export class ProductRepository extends Repository<Product> {
@@ -32,7 +33,7 @@ export class ProductRepository extends Repository<Product> {
     return this.createQueryBuilder().delete().from(Product).where('id = :id', { id }).returning('*').execute();
   }
 
-  countProductsByCategory(category_id: number): Promise<string[]> {
+  countProductsByCategory(category_id: number): Promise<INumberOfProducts[]> {
     return this.createQueryBuilder('product')
       .innerJoin(Category, 'category', 'product.category_id = category.id')
       .select(['category.id', 'category.category_name', 'COUNT(*) as "number of products"'])
