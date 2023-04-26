@@ -4,13 +4,12 @@ import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from '../../common/dtos/employees/create-employee';
 import { UpdateEmployeeDto } from '../../common/dtos/employees/update-employee';
 import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
-import { EmployeeGuard } from '../../common/guards/emp.guard';
 import { QueryExceptionFilter } from '../../common/filters/query.exception.filter';
 import { Employee } from '../entities/employee.entity';
 
 @Controller('employees')
 @UsePipes(new ValidationPipe())
-@UseGuards(EmployeeGuard)
+// @UseGuards(EmployeeGuard)
 @UseFilters(new QueryExceptionFilter('Employees'))
 export class EmployeesController {
   constructor(private employeesService: EmployeesService) {}

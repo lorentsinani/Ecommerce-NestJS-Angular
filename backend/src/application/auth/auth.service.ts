@@ -5,6 +5,14 @@ import { PasswordUtil } from '../../common/utils/password.util';
 import { CreateUserDto } from '../../common/dtos/users/create-user.dto';
 import { UserType } from '../../common/constants/enums/user-type.enum';
 import { IUser } from '../../common/interfaces/user.interface';
+import { JwtPayload } from '../../common/interfaces/jwt-payload.interface';
+import { JwtUtil } from '../../common/utils/jwt-util';
+import { Socket } from 'socket.io';
+import { WsException } from '@nestjs/websockets';
+
+interface CustomSocket extends Socket {
+  jwtPayload?: JwtPayload;
+}
 
 @Injectable()
 export class AuthService {
@@ -36,5 +44,24 @@ export class AuthService {
     return this.usersService.create({ ...createUserDto, user_type: UserType.Customer });
   }
 
-  async singOut() {}
+  verifySocketJwtToken(socket: CustomSocket): boolean {
+    try {
+      const token = JwtUtil.extractTokenFromSocketHeader(socket);
+
+      if (!token) {
+        throw new WsException('Missing JWT token');
+      }
+
+      const payload: JwtPayload = this.jwtService.verify(token, { secret: 'secret' });
+
+      if (payload.role == UserType.Customer || payload.role == UserType.Employee) {
+        socket.jwtPayload = payload;
+        return true;
+      }
+
+      return false;
+    } catch (error) {
+      throw new WsException(`Invalid JWT Token ErrorMessage: ${error}`);
+    }
+  }
 }

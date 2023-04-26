@@ -14,6 +14,6 @@ import { JwtTokenVerifierMiddleware } from '../../common/middlewares/jwt-token-v
 })
 export class AppAdminModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(JwtTokenVerifierMiddleware).forRoutes('admin-app/*');
+    // consumer.apply(JwtTokenVerifierMiddleware).forRoutes('admin-app/*');
   }
 }

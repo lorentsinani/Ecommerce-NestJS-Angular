@@ -1,0 +1,16 @@
+<div class="chat-container">
+  <div *ngIf="!chatStarted" class="start-chat">
+    <button (click)="onStartChatAction()">Start Chat</button>
+  </div>
+  <div *ngIf="chatStarted" class="messages" #messageContainer>
+    <div *ngFor="let message of messages" class="message"
+      [ngClass]="{'sent': message.sender_id === currentUser.id, 'received': message.sender_id !== currentUser.id}">
+      <div class="message-text">{{ message.content }}</div>
+      <div class="message-sender">{{ message.sender_id === currentUser.id ? 'You' : 'Other User' }}</div>
+    </div>
+  </div>
+  <div *ngIf="chatStarted" class="input-container">
+    <input [(ngModel)]="newMessage" placeholder="Type your message here">
+    <button (click)="sendMessage()">Send</button>
+  </div>
+</div>

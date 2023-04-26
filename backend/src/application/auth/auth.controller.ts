@@ -26,7 +26,7 @@ export class AuthController {
 
   @Post('singOut')
   async logout() {
-    return this.authService.singOut();
+    // return this.authService.singOut();
   }
 
   @UseGuards(AdminGuard)

@@ -26,6 +26,10 @@ export class EmployeesRepository extends Repository<Employee> {
     return this.createQueryBuilder('employee').innerJoinAndSelect('employee.user', 'user', 'user.email = :email', { email }).getOne();
   }
 
+  findAvailableEmployees(): Promise<Employee[]> {
+    return this.find({ relations: ['user'] }); // This one just for testing now
+  }
+
   updateEmployee(user_id: number, updateEmployeeDto: UpdateEmployeeDto): Promise<UpdateResult> {
     return this.createQueryBuilder().update(Employee).set(updateEmployeeDto).where('user_id = :user_id', { user_id }).execute();
   }

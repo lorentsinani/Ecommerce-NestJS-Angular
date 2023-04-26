@@ -16,6 +16,9 @@ import { ProductDetails } from '../../../domain/entities/product-details.entity'
 import { Delivery } from '../../../domain/entities/delivery.entity';
 import { Order } from '../../../domain/entities/orders.entity';
 import { DeliveryMethod } from '../../../domain/entities/delivery-method.entity';
+import { Conversation } from '../../../domain/entities/conversation.entity';
+import { Message } from '../../../domain/entities/message.entity';
+import { Notifications } from '../../../domain/entities/notifications.entity';
 import { ProductImages } from '../../../domain/entities/product-images.entity';
 import { OrderItems } from '../../../domain/entities/order-items.entity';
 import { OrdersStatus } from '../../../domain/entities/orders-status.entity';
@@ -46,6 +49,12 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
         Newsletter,
         Product,
         ProductDetails,
+        Delivery,
+        DeliveryMethod,
+        Orders,
+        Conversation,
+        Message,
+        Notifications
         ProductImages,
         Delivery,
         DeliveryMethod,

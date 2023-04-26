@@ -14,6 +14,9 @@ import { ProducerModule } from './producer/producer.module';
 import { DeliveryModule } from './delivery/delivery.module';
 import { DeliveryMethodsModule } from './delivery_method/delivery-method.module';
 import { ProductImagesModule } from './product-images/product-images.module';
+import { ConversationModule } from './conversation/conversation.module';
+import { MessagesModule } from './messages/messages.module';
+import { NotificationsModule } from './notifications/notifications.module';
 import { OrdersModule } from './orders/orders.module';
 import { OrderItemsModule } from './order-items/order-items.module';
 import { OrdersStatusModule } from './orders-status/orders-status.module';
@@ -36,6 +39,9 @@ import { OrdersStatusModule } from './orders-status/orders-status.module';
     DeliveryMethodsModule,
     OrdersModule,
     ProductImagesModule,
+    ConversationModule,
+    MessagesModule,
+    NotificationsModule
     OrderItemsModule,
     OrdersStatusModule
   ]
