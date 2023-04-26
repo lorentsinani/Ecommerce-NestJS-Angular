@@ -1,5 +1,5 @@
-export interface INumberOfProducts {
-    category_id: number;
-    category_name: string;
-    count: number;
+export interface NumberOfProducts {
+  category_id: number;
+  category_name: string;
+  number_of_products: number;
 }

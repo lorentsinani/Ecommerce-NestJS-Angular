@@ -5,7 +5,7 @@ import { ProductService } from './product.service';
 import { CreateProductDto } from '../../common/dtos/product/create-product.dto';
 import { QueryExceptionFilter } from '../../common/filters/query.exception.filter';
 import { Product } from '../entities/product.entity';
-import { INumberOfProducts } from '../../common/interfaces/number-of-products.interface';
+import { NumberOfProducts } from '../../common/interfaces/number-of-products.interface';
 
 @Controller('product')
 @UsePipes(new ValidationPipe())
@@ -29,7 +29,7 @@ export class ProductController {
   }
 
   @Get('/categories/max-product-count')
-  getNumberOfProductsByCategory(@Query('category_id', ParseIntPipe) category_id: number): Promise<INumberOfProducts> {
+  getNumberOfProductsByCategory(@Query('category_id', ParseIntPipe) category_id: number): Promise<NumberOfProducts> {
     return this.productService.countProductsByCategory(category_id);
   }
 

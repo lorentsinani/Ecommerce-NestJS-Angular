@@ -4,7 +4,7 @@ import { CreateProductDto } from '../../common/dtos/product/create-product.dto';
 import { UpdateProductDto } from '../../common/dtos/product/update-product.dto';
 import { Product } from '../entities/product.entity';
 import { InsertResult } from 'typeorm';
-import { INumberOfProducts } from '../../common/interfaces/number-of-products.interface';
+import { NumberOfProducts } from '../../common/interfaces/number-of-products.interface';
 
 @Injectable()
 export class ProductService {
@@ -36,7 +36,7 @@ export class ProductService {
     return productExist;
   }
 
-  async countProductsByCategory(category_id: number): Promise<INumberOfProducts> {
+  async countProductsByCategory(category_id: number): Promise<NumberOfProducts> {
     const numberOfProducts = await this.productRepository.countProductsByCategory(category_id);
 
     return numberOfProducts[0];
