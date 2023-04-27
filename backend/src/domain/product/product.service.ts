@@ -4,6 +4,7 @@ import { CreateProductDto } from '../../common/dtos/product/create-product.dto';
 import { UpdateProductDto } from '../../common/dtos/product/update-product.dto';
 import { Product } from '../entities/product.entity';
 import { InsertResult } from 'typeorm';
+import { NumberOfProducts } from '../../common/interfaces/number-of-products.interface';
 
 @Injectable()
 export class ProductService {
@@ -18,6 +19,7 @@ export class ProductService {
     if (!this.getIdentifierId(createdProduct)) {
       throw new HttpException(this.NotCreatedExceptionMessage, HttpStatus.BAD_REQUEST);
     }
+
     return createdProduct.raw[0];
   }
 
@@ -34,12 +36,19 @@ export class ProductService {
     return productExist;
   }
 
+  async countProductsByCategory(category_id: number): Promise<NumberOfProducts> {
+    const numberOfProducts = await this.productRepository.countProductsByCategory(category_id);
+
+    return numberOfProducts[0];
+  }
+
   async update(id: number, updateProductDto: UpdateProductDto): Promise<Product> {
     const updatedProduct = await this.productRepository.updateProduct(id, updateProductDto);
 
     if (!updatedProduct.affected) {
       throw new HttpException(this.NotFoundExceptionMessage, HttpStatus.NOT_FOUND);
     }
+
     return updatedProduct.raw[0];
   }
 
