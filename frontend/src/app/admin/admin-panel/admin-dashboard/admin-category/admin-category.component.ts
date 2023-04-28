@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin-category.component.scss']
 })
 export class AdminCategoryComponent {
-  entities: { id?: number; name?: string; description?: string }[] = [{ id: 1, name: 'computers', description: 'i mire' }];
+  title = 'Category';
 }

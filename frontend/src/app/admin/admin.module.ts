@@ -26,6 +26,8 @@ import { AdminProductComponent } from './admin-panel/admin-dashboard/admin-produ
 import { AdminProductDetailsComponent } from './admin-panel/admin-dashboard/admin-product-details/admin-product-details.component';
 import { AdminProductImagesComponent } from './admin-panel/admin-dashboard/admin-product-images/admin-product-images.component';
 import { AdminUsersComponent } from './admin-panel/admin-dashboard/admin-users/admin-users.component';
+import { AdminCategoryFormComponent } from './admin-panel/admin-dashboard/admin-category/admin-category-form/admin-category-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -51,8 +53,9 @@ import { AdminUsersComponent } from './admin-panel/admin-dashboard/admin-users/a
     AdminProductComponent,
     AdminProductDetailsComponent,
     AdminProductImagesComponent,
-    AdminUsersComponent
+    AdminUsersComponent,
+    AdminCategoryFormComponent
   ],
-  imports: [CommonModule, AdminRoutingModule]
+  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule]
 })
 export class AdminModule {}

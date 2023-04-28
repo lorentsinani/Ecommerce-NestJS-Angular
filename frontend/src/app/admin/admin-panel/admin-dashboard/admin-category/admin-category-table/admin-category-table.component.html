@@ -5,7 +5,7 @@
       <input type="text" placeholder="Search">
     </form>
 
-    <button class="entity-table__button entity-table__button--new">New</button>
+    <button class="entity-table__button entity-table__button--new" routerLink="../form">New</button>
     <button class="entity-table__button entity-table__button--filter">Add Filter</button>
   </div>
   <table class="entity-table__table">
@@ -24,7 +24,8 @@
         <td>{{entity.description}}</td>
 
         <td class="entity-table__actions">
-          <button class="entity-table__button entity-table__button--edit">Edit</button>
+          <button class="entity-table__button entity-table__button--edit"
+            routerLink="../form/{{ entity.id }}">Edit</button>
           <button class="entity-table__button entity-table__button--delete">Delete</button>
         </td>
       </tr>

@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent {
-
+  title = 'category';
 }
