@@ -20,14 +20,14 @@ export class ProductDetails implements IProductDetails {
   @Column({ length: 100 })
   size: string;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 
-  @Column()
-  producer_id: number;
+  @Column({ name: 'producer_id' })
+  producerId: number;
 
   @ManyToOne(() => Producer, { nullable: false })
   @JoinColumn({ name: 'producer_id', referencedColumnName: 'id' })

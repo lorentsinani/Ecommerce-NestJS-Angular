@@ -8,38 +8,38 @@ export class Delivery implements IDelivery {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'date' })
-  delivery_date: Date;
+  @Column({ name: 'delivery_date', type: 'date' })
+  deliveryDate: Date;
 
-  @Column({ type: 'varchar', length: 255 })
-  delivery_comments: string;
+  @Column({ name: 'delivery_comments', type: 'varchar', length: 255 })
+  deliveryComments: string;
 
-  @Column({ type: 'numeric' })
-  delivery_cost: number;
+  @Column({ name: 'delivery_cost', type: 'numeric' })
+  deliveryCost: number;
 
-  @Column({ type: 'integer' })
-  delivery_method_id: number;
+  @Column({ name: 'delivery_method_id', type: 'integer' })
+  deliveryMethodId: number;
 
   @ManyToOne(() => DeliveryMethod)
   @JoinColumn({ name: 'delivery_method_id', referencedColumnName: 'id' })
-  delivery_method: DeliveryMethod;
+  deliveryMethod: DeliveryMethod;
 
-  @Column({ enum: ['pending', 'in_transit', 'delivered', 'failed'] })
-  delivery_status: string;
+  @Column({ name: 'delivery_status', enum: ['pending', 'in_transit', 'delivered', 'failed'] })
+  deliveryStatus: string;
 
-  @Column({ type: 'date' })
-  promised_delivery_date: Date;
+  @Column({ name: 'promised_delivery_date', type: 'date' })
+  promisedDeliveryDate: Date;
 
-  @Column({ type: 'integer' })
-  delivery_order_id: number;
+  @Column({ name: 'delivery_order_id', type: 'integer' })
+  deliveryOrderId: number;
 
   @ManyToOne(() => Order)
   @JoinColumn({ name: 'delivery_order_id', referencedColumnName: 'id' })
   order: Order;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

@@ -4,17 +4,17 @@ import { DeliveryMethod } from '../../constants/enums/delivery-method.enum';
 export class CreateDeliveryMethodDto {
   @IsNotEmpty()
   @IsString()
-  delivery_method_name: string;
+  deliveryMethodName: string;
 
   @IsNotEmpty() // add a custom decorator that accepts just numbers, regex
   @IsString()
-  phone_number: string;
+  phoneNumber: string;
 
   @IsNotEmpty()
   @IsString()
-  delivery_time: string;
+  deliveryTime: string;
 
   @IsNotEmpty()
   @IsEnum(DeliveryMethod)
-  delivery_method: DeliveryMethod;
+  deliveryMethod: DeliveryMethod;
 }

@@ -15,23 +15,19 @@ import { UserAdminData, UserEmployeeData } from '../../common/constants/types/co
 
 @Injectable()
 export class AppAdminService {
-  constructor(
-    private readonly usersService: UsersService,
-    private readonly adminService: AdminService,
-    private readonly employeeService: EmployeesService
-  ) {}
+  constructor(private readonly usersService: UsersService, private readonly adminService: AdminService, private readonly employeeService: EmployeesService) {}
 
   async createAdmin(userDto: CreateUserDto, adminDto: CreateAdminDto): Promise<UserAdminData> {
     await this.usersService.findByEmail(userDto.email);
     const userData = await this.usersService.create(userDto);
-    const adminData = await this.adminService.create({ ...adminDto, user_id: userData.id });
+    const adminData = await this.adminService.create({ ...adminDto, userId: userData.id });
 
     return this.getAdminCombinedData(userData, adminData);
   }
 
   async createEmployee(userDto: CreateUserDto, employeeDto: CreateEmployeeDto): Promise<UserEmployeeData> {
     const userData = await this.usersService.create(userDto);
-    const employeeData = await this.employeeService.create({ ...employeeDto, user_id: userData.id });
+    const employeeData = await this.employeeService.create({ ...employeeDto, userId: userData.id });
 
     return this.getEmployeeCombinedData(userData, employeeData);
   }

@@ -15,10 +15,10 @@ export class UpdateProducerDto {
   @IsOptional()
   @IsNotEmpty()
   @IsNumberFormat()
-  established_year: number;
+  establishedYear: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsEmail()
-  contact_email: string;
+  contactEmail: string;
 }

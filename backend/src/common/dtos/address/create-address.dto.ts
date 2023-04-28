@@ -4,11 +4,11 @@ import { IsCustomEmail } from '../../decorators/email-format.decorator';
 export class CreateAddressDto {
   @Length(1, 255)
   @IsString()
-  address_line1: string;
+  addressLine1: string;
 
   @Length(1, 255)
   @IsString()
-  address_line2: string;
+  addressLine2: string;
 
   @Length(1, 100)
   @IsString()
@@ -20,7 +20,7 @@ export class CreateAddressDto {
 
   @Length(1, 50)
   @IsString()
-  postal_code: string;
+  postalCode: string;
 
   @Length(1, 15)
   @IsString()
@@ -36,10 +36,10 @@ export class CreateAddressDto {
   @Length(1, 50)
   @IsString()
   @IsNotEmpty()
-  first_name: string;
+  firstName: string;
 
   @Length(1, 50)
   @IsString()
   @IsNotEmpty()
-  last_name: string;
+  lastName: string;
 }

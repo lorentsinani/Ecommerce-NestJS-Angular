@@ -7,14 +7,14 @@ export class Suppliers implements ISuppliers {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 100 })
-  company_name: string;
+  @Column({ name: 'company_name' })
+  companyName: string;
 
-  @Column({ length: 100 })
-  contact_name: string;
+  @Column({ name: 'contact_name', length: 100 })
+  contactName: string;
 
-  @Column()
-  contact_title: string;
+  @Column({ name: 'contact_title' })
+  contactTitle: string;
 
   @Column({ length: 100 })
   address: string;
@@ -25,24 +25,24 @@ export class Suppliers implements ISuppliers {
   @Column({ length: 50 })
   region: string;
 
-  @Column({ length: 20 })
-  postal_code: string;
+  @Column({ name: 'postal_code', length: 20 })
+  postalCode: string;
 
   @Column({ length: 50 })
   country: string;
 
-  @Column({ length: 20 })
-  phone_number: string;
+  @Column({ name: 'phone_number', length: 20 })
+  phoneNumber: string;
 
-  @Column({ length: 20 })
-  fax_number: string;
+  @Column({ name: 'fax_number', length: 20 })
+  faxNumber: string;
 
   @Column({ unique: true, length: 100 })
   email: string;
 
-  @CreateDateColumn()
-  created_At: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_At: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

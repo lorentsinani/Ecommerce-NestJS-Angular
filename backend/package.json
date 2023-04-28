@@ -38,10 +38,11 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
     "socket.io": "^4.6.1",
-    "typeorm": "^0.3.12"
+    "typeorm": "^0.3.15",
+    "typeorm-naming-strategies": "^4.1.0"
   },
   "devDependencies": {
-    "@nestjs/cli": "^7.2.0",
+    "@nestjs/cli": "^9.4.2",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
     "@types/bcrypt": "^5.0.0",

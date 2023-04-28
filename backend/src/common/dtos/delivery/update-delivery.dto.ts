@@ -7,35 +7,35 @@ export class UpdateDeliveryDto {
   @IsOptional()
   @IsNotEmpty()
   @IsDateFormat()
-  delivery_date: Date;
+  deliveryDate: Date;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  delivery_comments: string;
+  deliveryComments: string;
 
   @IsOptional()
   @IsNotEmpty()
   @IsNumberFormat()
-  delivery_cost: number;
+  deliveryCost: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsNumberFormat()
-  delivery_method_id: number;
+  deliveryMethodId: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsEnum(DeliveryStatus)
-  delivery_status: DeliveryStatus;
+  deliveryStatus: DeliveryStatus;
 
   @IsOptional()
   @IsNotEmpty()
   @IsDateFormat()
-  promised_delivery_date: Date;
+  promisedDeliveryDate: Date;
 
   @IsOptional()
   @IsNotEmpty()
   @IsNumberFormat()
-  delivery_order_id: number;
+  deliveryOrderId: number;
 }

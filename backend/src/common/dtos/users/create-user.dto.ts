@@ -6,17 +6,17 @@ import { IsCustomEmail } from '../../decorators/email-format.decorator';
 export class CreateUserDto {
   @IsNotEmpty()
   @IsInt()
-  role_id: number;
+  roleId: number;
 
   @IsNotEmpty()
   @IsString()
   @Length(1, 50)
-  first_name: string;
+  firstName: string;
 
   @IsNotEmpty()
   @IsString()
   @Length(1, 50)
-  last_name: string;
+  lastName: string;
 
   @IsCustomEmail() // custom decorator
   email: string;

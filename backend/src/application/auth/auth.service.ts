@@ -20,7 +20,8 @@ export class AuthService {
   async login(email: string, password: string) {
     const user = await this.usersService.findByEmail(email);
 
-    const passwordMatched = await PasswordUtil.comparePassword(password, user?.password);
+    const passwordMatched = await PasswordUtil.comparePassword(password, user?.password); 
+    
     if (!passwordMatched) {
       throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST);
     }

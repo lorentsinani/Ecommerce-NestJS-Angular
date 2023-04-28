@@ -1,12 +1,11 @@
-import { IsNotEmpty, IsString } from 'class-validator';
-import { IsNumberFormat } from '../../decorators/number-format.decorator';
+import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateProductImageDto {
   @IsNotEmpty()
-  @IsNumberFormat()
-  product_id: number;
+  @IsInt()
+  productId: number;
 
   @IsNotEmpty()
   @IsString()
-  image_url: string;
+  imageUrl: string;
 }

@@ -1,8 +1,8 @@
 export interface IMessage {
 id: number;
-conversation_id: number;
-sender_id: number;
+conversationId: number;
+senderId: number;
 content: string;
-updated_at: Date;
-created_at: Date;
+updatedAt: Date;
+createdAt: Date;
 }

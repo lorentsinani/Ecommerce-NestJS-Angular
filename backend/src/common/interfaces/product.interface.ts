@@ -4,17 +4,17 @@ import { ISuppliers } from './suppliers.interface';
 
 export interface IProduct {
   id: number;
-  product_name: string;
-  product_code: string;
+  productName: string;
+  productCode: string;
   supplier: ISuppliers;
   category: ICategory;
-  released_date: Date;
-  price_with_vat: number;
-  price_without_vat: number;
+  releasedDate: Date;
+  priceWithVat: number;
+  priceWithoutVat: number;
   vat: number;
-  availability_in_stock: number;
+  availabilityInStock: number;
   discount: number;
-  product_details: IProductDetails;
-  created_at: Date;
-  updated_at: Date;
+  productDetails: IProductDetails;
+  createdAt: Date;
+  updatedAt: Date;
 }

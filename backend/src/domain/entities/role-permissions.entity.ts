@@ -8,15 +8,15 @@ export class RolePermissions {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'int' })
-  role_id: number;
+  @Column({ name: 'role_id', type: 'int' })
+  roleId: number;
 
   @ManyToOne(() => Role)
   @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
   role: Role;
 
-  @Column({ type: 'int' })
-  permission_id: number;
+  @Column({ name: 'permission_id', type: 'int' })
+  permissionId: number;
 
   @ManyToOne(() => Permission)
   @JoinColumn({ name: 'permission_id', referencedColumnName: 'id' })
