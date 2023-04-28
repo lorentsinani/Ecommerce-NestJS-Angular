@@ -8,7 +8,7 @@ export class PermissionsRepository extends Repository<Permission> {
     super(Permission, dataSource.createEntityManager());
   }
 
-  async findAllPermissionsOfRole(role_id: number): Promise<Permission[]> {
+  findAllPermissionsOfRole(role_id: number): Promise<Permission[]> {
     return this.createQueryBuilder('permission')
       .select(['permission.id', 'permission.action', 'object.name'])
       .innerJoin('permission.object', 'object')
