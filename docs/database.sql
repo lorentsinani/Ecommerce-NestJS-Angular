@@ -39,6 +39,31 @@ CREATE TABLE admins
     permission_level PermissionLevel NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+ 
+
+
+CREATE TABLE role (
+    id SERIAL PRIMARY KEY , 
+    name varchar(50)
+);
+
+CREATE TABLE role_permissions (
+    id SERIAL PRIMARY KEY, 
+    role_id integer REFERENCES role(id) not null, 
+    permission_id integer REFERENCES permission(id) not null
+); 
+
+create table permission (
+    id serial primary key, 
+    action varchar(50),
+    object_id integer REFERENCES object(id) not null
+); 
+
+create table objects(
+    id serial primary key, 
+    name varchar(50)
+)
+
 
 
 
@@ -334,4 +359,38 @@ CREATE TABLE payment_info (
     confirmed_at TIMESTAMP,
     CONSTRAINT fk_payment_id FOREIGN KEY (payment_id) REFERENCES payments(payment_id) ON DELETE CASCADE,
     CONSTRAINT fk_confirmed_by FOREIGN KEY (confirmed_by) REFERENCES employees(employee_id)
+);
+
+
+
+
+
+
+-- CHAT IMPLEMENTATION 
+
+
+CREATE TABLE conversation( 
+    id SERIAL PRIMARY KEY, 
+    customer_id INTEGER REFERENCES users(id) NOT NULL, 
+    employee_id INTEGER REFERENCES users(id) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW NOT NULL , 
+    updated_at TIMESTAMP DEFAULT NOW  NOT NULL
+); 
+
+CREATE TABLE message ( 
+    id SERIAL PRIMARY KEY , 
+    conversation_id INTEGER REFERENCES conversation(id), 
+    sender_id INTEGER  REFERENCES users(id), 
+    content TEXT,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(), 
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+
+CREATE TABLE notifications ( 
+    id SERIAL PRIMARY KEY, 
+    recipient_id INTEGER REFERENCES users(id), 
+    message_content TEXT, 
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(), 
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );

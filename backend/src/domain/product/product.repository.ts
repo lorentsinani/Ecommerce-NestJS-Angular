@@ -3,6 +3,8 @@ import { DataSource, DeleteResult, InsertResult, Repository, UpdateResult } from
 import { Product } from '../entities/product.entity';
 import { CreateProductDto } from '../../common/dtos/product/create-product.dto';
 import { UpdateProductDto } from '../../common/dtos/product/update-product.dto';
+import { Category } from '../entities/category.entity';
+import { NumberOfProducts } from '../../common/interfaces/number-of-products.interface';
 import { DynamicProductFilterDto } from 'src/common/dtos/product/dynamic-product-filter.dto';
 
 @Injectable()
@@ -30,6 +32,14 @@ export class ProductRepository extends Repository<Product> {
 
   deleteProduct(id: number): Promise<DeleteResult> {
     return this.createQueryBuilder().delete().from(Product).where('id = :id', { id }).returning('*').execute();
+  }
+
+  countProductsByCategory(category_id: number): Promise<NumberOfProducts[]> {
+    return this.createQueryBuilder('product')
+      .innerJoin(Category, 'category', 'product.category_id = category.id')
+      .select(['category.id', 'category.category_name', 'COUNT(*) as "number_of_products"'])
+      .groupBy('category.id')
+      .getRawMany();
   }
 
   findProductsFilter(filterDto: DynamicProductFilterDto): Promise<Product[]> {

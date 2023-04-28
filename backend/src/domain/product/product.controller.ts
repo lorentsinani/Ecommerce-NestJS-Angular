@@ -5,6 +5,7 @@ import { ProductService } from './product.service';
 import { CreateProductDto } from '../../common/dtos/product/create-product.dto';
 import { QueryExceptionFilter } from '../../common/filters/query.exception.filter';
 import { Product } from '../entities/product.entity';
+import { NumberOfProducts } from '../../common/interfaces/number-of-products.interface';
 import { DynamicProductFilterDto } from 'src/common/dtos/product/dynamic-product-filter.dto';
 
 @Controller('product')
@@ -14,12 +15,12 @@ export class ProductController {
   constructor(private productService: ProductService) {}
 
   @Post()
-  async create(@Body() createProductDto: CreateProductDto): Promise<Product> {
+  create(@Body() createProductDto: CreateProductDto): Promise<Product> {
     return this.productService.create(createProductDto);
   }
 
   @Get()
-  async findAll(): Promise<Product[]> {
+  findAll(): Promise<Product[]> {
     return this.productService.findAll();
   }
 
@@ -29,18 +30,23 @@ export class ProductController {
   }
 
   @Get(':id')
-  async findById(@Param('id', ParseIntPipe) id: number): Promise<Product> {
+  findById(@Param('id', ParseIntPipe) id: number): Promise<Product> {
     return this.productService.findById(id);
+  }
+
+  @Get('/categories/max-product-count')
+  getNumberOfProductsByCategory(@Query('category_id', ParseIntPipe) category_id: number): Promise<NumberOfProducts> {
+    return this.productService.countProductsByCategory(category_id);
   }
 
   @Patch(':id')
   @UsePipes(new NullDtoValidationPipe())
-  async update(@Param('id') id: number, @Body() updateProductDto: UpdateProductDto): Promise<Product> {
+  update(@Param('id') id: number, @Body() updateProductDto: UpdateProductDto): Promise<Product> {
     return this.productService.update(id, updateProductDto);
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: number): Promise<Product> {
+  delete(@Param('id') id: number): Promise<Product> {
     return this.productService.delete(id);
   }
 }

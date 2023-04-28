@@ -8,11 +8,12 @@ import { UserModule } from './user/user.module';
 import { CoreModule } from './core/core.module';
 import { AuthModule } from './auth/auth.module';
 import { AdminModule } from './admin/admin.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, UserModule, CoreModule, AuthModule, AdminModule],
+  imports: [BrowserModule, AppRoutingModule, UserModule, AuthModule, SharedModule, AdminModule],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

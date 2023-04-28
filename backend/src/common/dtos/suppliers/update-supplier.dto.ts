@@ -1,5 +1,4 @@
 import { IsString, Length, IsOptional, IsNotEmpty } from 'class-validator';
-import { UserType } from '../../constants/enums/user-type.enum';
 import { IsCustomEmail } from '../../decorators/email-format.decorator';
 
 export class UpdateSupplierDto {
@@ -17,7 +16,7 @@ export class UpdateSupplierDto {
   @IsString()
   @IsOptional()
   @IsNotEmpty()
-  contact_title: UserType;
+  contact_title: string;
 
   @IsString()
   @Length(1, 100)
