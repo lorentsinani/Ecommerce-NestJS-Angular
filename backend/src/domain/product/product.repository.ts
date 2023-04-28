@@ -3,6 +3,7 @@ import { DataSource, DeleteResult, InsertResult, Repository, UpdateResult } from
 import { Product } from '../entities/product.entity';
 import { CreateProductDto } from '../../common/dtos/product/create-product.dto';
 import { UpdateProductDto } from '../../common/dtos/product/update-product.dto';
+import { DynamicProductFilterDto } from 'src/common/dtos/product/dynamic-product-filter.dto';
 
 @Injectable()
 export class ProductRepository extends Repository<Product> {
@@ -29,5 +30,46 @@ export class ProductRepository extends Repository<Product> {
 
   deleteProduct(id: number): Promise<DeleteResult> {
     return this.createQueryBuilder().delete().from(Product).where('id = :id', { id }).returning('*').execute();
+  }
+
+  findProductsFilter(filterDto: DynamicProductFilterDto): Promise<Product[]> {
+    const query = this.createQueryBuilder('product');
+
+    if (filterDto.producer_id) {
+      query.innerJoin('product.product_details', 'product_details').andWhere('product_details.producer_id = :producer_id', { producer_id: filterDto.producer_id });
+    }
+
+    if (filterDto.price?.min && filterDto.price?.max) {
+      query.andWhere('product.price_with_vat BETWEEN :min AND :max', {
+        min: filterDto.price.min,
+        max: filterDto.price.max
+      });
+    } else if (filterDto.price?.min) {
+      query.andWhere('product.price_with_vat >= :min', { min: filterDto.price.min });
+    } else if (filterDto.price?.max) {
+      query.andWhere('product.price_with_vat <= :max', { max: filterDto.price.max });
+    }
+
+    if (filterDto.supplier_id) {
+      query.andWhere('product.supplier_id = :supplier_id', {
+        supplier_id: filterDto.supplier_id
+      });
+    }
+
+    if (filterDto.category_id) {
+      query.andWhere('product.category_id = :category_id', {
+        category_id: filterDto.category_id
+      });
+    }
+
+    if (filterDto.discount) {
+      query.andWhere('product.discount > 0.00');
+    }
+
+    if (filterDto.availability_in_stock) {
+      query.andWhere('product.availability_in_stock >= 1');
+    }
+
+    return query.getMany();
   }
 }

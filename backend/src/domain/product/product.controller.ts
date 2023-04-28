@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
 import { UpdateProductDto } from '../../common/dtos/product/update-product.dto';
 import { ProductService } from './product.service';
 import { CreateProductDto } from '../../common/dtos/product/create-product.dto';
 import { QueryExceptionFilter } from '../../common/filters/query.exception.filter';
 import { Product } from '../entities/product.entity';
+import { DynamicProductFilterDto } from 'src/common/dtos/product/dynamic-product-filter.dto';
 
 @Controller('product')
 @UsePipes(new ValidationPipe())
@@ -20,6 +21,11 @@ export class ProductController {
   @Get()
   async findAll(): Promise<Product[]> {
     return this.productService.findAll();
+  }
+
+  @Get('/filter')
+  async getProducts(@Query() filterDto: DynamicProductFilterDto): Promise<Product[]> {
+    return this.productService.findProductsFilter(filterDto);
   }
 
   @Get(':id')

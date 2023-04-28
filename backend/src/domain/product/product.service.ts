@@ -4,6 +4,7 @@ import { CreateProductDto } from '../../common/dtos/product/create-product.dto';
 import { UpdateProductDto } from '../../common/dtos/product/update-product.dto';
 import { Product } from '../entities/product.entity';
 import { InsertResult } from 'typeorm';
+import { DynamicProductFilterDto } from 'src/common/dtos/product/dynamic-product-filter.dto';
 
 @Injectable()
 export class ProductService {
@@ -32,6 +33,10 @@ export class ProductService {
       throw new HttpException(this.NotFoundExceptionMessage, HttpStatus.NOT_FOUND);
     }
     return productExist;
+  }
+
+  async findProductsFilter(filterDto: DynamicProductFilterDto): Promise<Product[]> {
+    return await this.productRepository.findProductsFilter(filterDto);
   }
 
   async update(id: number, updateProductDto: UpdateProductDto): Promise<Product> {
