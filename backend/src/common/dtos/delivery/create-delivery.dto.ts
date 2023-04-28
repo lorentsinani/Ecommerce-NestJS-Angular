@@ -6,29 +6,29 @@ import { IsNumberFormat } from '../../decorators/number-format.decorator';
 export class CreateDeliveryDto {
   @IsNotEmpty()
   @IsDateFormat()
-  delivery_date: Date;
+  deliveryDate: Date;
 
   @IsNotEmpty()
   @IsString()
-  delivery_comments: string;
+  deliveryComments: string;
 
   @IsNotEmpty()
   @IsNumberFormat()
-  delivery_cost: number;
+  deliveryCost: number;
 
   @IsNotEmpty()
   @IsNumberFormat()
-  delivery_method_id: number;
+  deliveryMethodId: number;
 
   @IsNotEmpty()
   @IsEnum(DeliveryStatus)
-  delivery_status: DeliveryStatus;
+  deliveryStatus: DeliveryStatus;
 
   @IsNotEmpty()
   @IsDateFormat()
-  promised_delivery_date: Date;
+  promisedDeliveryDate: Date;
 
   @IsNotEmpty()
   @IsNumberFormat()
-  delivery_order_id: number;
+  deliveryOrderId: number;
 }

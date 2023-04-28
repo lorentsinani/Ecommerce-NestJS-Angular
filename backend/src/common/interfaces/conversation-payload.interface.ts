@@ -1,3 +1,3 @@
 export interface ConversationPayload {
-  customer_id: number;
+  customerId: number;
 }

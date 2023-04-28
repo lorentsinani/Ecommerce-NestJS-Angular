@@ -4,10 +4,10 @@ export class CreateConversationDto {
   @IsNotEmpty()
   @IsNumber()
   @IsInt()
-  customer_id: number;
+  customerId: number;
 
   @IsNotEmpty()
   @IsNumber()
   @IsInt()
-  employee_id: number;
+  employeeId: number;
 }

@@ -12,9 +12,9 @@ export class CreateProducerDto {
 
   @IsNotEmpty()
   @IsNumberFormat()
-  established_year: number;
+  establishedYear: number;
 
   @IsNotEmpty()
   @IsEmail()
-  contact_email: string;
+  contactEmail: string;
 }

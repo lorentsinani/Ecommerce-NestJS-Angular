@@ -5,20 +5,20 @@ export class UpdateDeliveryMethodDto {
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  delivery_method_name: string;
+  deliveryMethodName: string;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  phone_number: string;
+  phoneNumber: string;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  delivery_time: string;
+  deliveryTime: string;
 
   @IsOptional()
   @IsNotEmpty()
   @IsEnum(DeliveryMethod)
-  delivery_method: DeliveryMethod;
+  deliveryMethod: DeliveryMethod;
 }

@@ -69,7 +69,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   */
 
   private sendMessageToRecipient(message: Message, messageRoom: string): void {
-    const recipientSocket = this.getRecipientSocketById(message.receiver_id);
+    const recipientSocket = this.getRecipientSocketById(message.receiverId);
     if (recipientSocket) {
       recipientSocket.join(messageRoom);
       recipientSocket.to(messageRoom).emit('message', message.content);
@@ -81,7 +81,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   private generateMessageRoom(message: Message): string {
-    return `conversation_${message.conversation_id}_sender_${message.sender_id}_receiver_${message.receiver_id}`;
+    return `conversation_${message.conversationId}_sender_${message.senderId}_receiver_${message.receiverId}`;
   }
 
   private getRecipientSocketById(recipientId: number): Socket | undefined {

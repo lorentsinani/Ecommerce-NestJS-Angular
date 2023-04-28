@@ -6,11 +6,11 @@ export class Address implements IAddress {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 255 })
-  address_line1: string;
+  @Column({ name: 'address_line1', length: 255 })
+  addressLine1: string;
 
-  @Column({ length: 255 })
-  address_line2: string;
+  @Column({ name: 'address_line2', length: 255 })
+  addressLine2: string;
 
   @Column({ length: 100 })
   city: string;
@@ -18,8 +18,8 @@ export class Address implements IAddress {
   @Column({ length: 50 })
   state: string;
 
-  @Column({ length: 50 })
-  postal_code: string;
+  @Column({ name: 'postal_code', length: 50 })
+  postalCode: string;
 
   @Column({ length: 15 })
   country: string;
@@ -30,15 +30,15 @@ export class Address implements IAddress {
   @Column({ length: 20 })
   phone: string;
 
-  @Column({ length: 50 })
-  first_name: string;
+  @Column({ name: 'first_name', length: 50 })
+  firstName: string;
 
-  @Column({ length: 50 })
-  last_name: string;
+  @Column({ name: 'last_name', length: 50 })
+  lastName: string;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

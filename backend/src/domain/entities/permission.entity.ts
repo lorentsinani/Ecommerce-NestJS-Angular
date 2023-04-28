@@ -11,13 +11,13 @@ export class Permission {
   @Column({ type: 'varchar' })
   action: string;
 
-  @Column({ type: 'int' })
-  object_id: number;
+  @Column({ name: 'object_id', type: 'int' })
+  objectId: number;
 
   @ManyToOne(() => Objects)
   @JoinColumn({ name: 'object_id', referencedColumnName: 'id' })
   object: Objects;
 
   @OneToMany(() => RolePermissions, role_permission => role_permission.permission)
-  role_permissions: RolePermissions[];
+  rolePermissions: RolePermissions[];
 }

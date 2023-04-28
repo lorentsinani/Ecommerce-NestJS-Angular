@@ -12,15 +12,15 @@ export class Producer implements IProducer {
   @Column({ length: 255 })
   country: string;
 
-  @Column()
-  established_year: number;
+  @Column({ name: 'established_year' })
+  establishedYear: number;
 
-  @Column({ length: 255 })
-  contact_email: string;
+  @Column({ name: 'contact_email', length: 255 })
+  contactEmail: string;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

@@ -1,32 +1,31 @@
-import { IsDecimal, IsNotEmpty, IsOptional } from 'class-validator';
-import { IsNumberFormat } from '../../decorators/number-format.decorator';
+import { IsDecimal, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateOrderItemDto {
   @IsNotEmpty()
-  @IsNumberFormat()
-  order_id: number;
+  @IsNumber()
+  orderId: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  productId: number;
 
   @IsNotEmpty()
-  @IsNumberFormat()
-  product_id: number;
-
-  @IsNotEmpty()
-  @IsNumberFormat()
+  @IsNumber()
   quantity: number;
 
   @IsNotEmpty()
   @IsDecimal()
-  price_with_vat: number;
+  priceWithVat: number;
 
   @IsNotEmpty()
   @IsDecimal()
-  price_without_vat: number;
-
-  @IsOptional()
-  @IsDecimal()
-  vat: number;
+  priceWithoutVat: number;
 
   @IsNotEmpty()
   @IsDecimal()
-  total_amount: number;
+  vat?: number;
+
+  @IsNotEmpty()
+  @IsDecimal()
+  totalAmount: number;
 }

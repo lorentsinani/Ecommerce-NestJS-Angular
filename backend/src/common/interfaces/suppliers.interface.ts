@@ -1,16 +1,16 @@
 export interface ISuppliers {
   id: number;
-  company_name: string;
-  contact_name: string;
-  contact_title?: string;
+  companyName: string;
+  contactName: string;
+  contactTitle: string;
   address: string;
   city: string;
   region?: string;
-  postal_code: string;
+  postalCode: string;
   country: string;
-  phone_number: string;
-  fax_number?: string;
+  phoneNumber: string;
+  faxNumber?: string;
   email: string;
-  created_At: Date;
-  updated_At: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }

@@ -5,9 +5,9 @@ import { IsNumberFormat } from '../../decorators/number-format.decorator';
 export class CreateAdminDto {
   @IsNotEmpty()
   @IsEnum(PermissionLevel)
-  permission_level: PermissionLevel;
+  permissionLevel: PermissionLevel;
 
   @IsNotEmpty()
   @IsNumberFormat()
-  user_id: number;
+  userId: number;
 }

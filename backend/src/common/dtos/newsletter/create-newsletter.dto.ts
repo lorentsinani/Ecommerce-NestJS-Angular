@@ -1,6 +1,6 @@
-import { IsCustomEmail } from "../../decorators/email-format.decorator";
+import { IsCustomEmail } from '../../decorators/email-format.decorator';
 
 export class CreateNewsletterDto {
-    @IsCustomEmail()
-    email: string;
+  @IsCustomEmail()
+  email: string;
 }
