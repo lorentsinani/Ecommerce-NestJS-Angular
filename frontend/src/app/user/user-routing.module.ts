@@ -10,44 +10,52 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BlogComponent } from './blog/blog.component';
 import { ChatComponent } from '../shared/chat/chat.component';
+import { UserComponent } from './user.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
   {
-    path: 'product-details/:id',
-    component: ProductdetailsComponent
-  },
-  {
-    path: 'about',
-    component: AboutComponent
-  },
-  {
-    path: 'account',
-    component: AccountComponent
-  },
-  {
-    path: 'blog',
-    component: BlogComponent
-  },
-  {
-    path: 'cart',
-    component: CartComponent
-  },
-  {
-    path: 'category',
-    component: CategoryComponent
-  },
-  {
-    path: 'contact',
-    component: ContactComponent
-  },
-  {
-    path: 'product',
-    component: ProductComponent
-  },
-  {
-    path: 'chat',
-    component: ChatComponent
+    path: '',
+    component: UserComponent, // use the UserLayoutComponent as the layout component
+    // canActivate: [UserGuard],
+    children: [
+      { path: '', component: HomeComponent },
+      {
+        path: 'product-details/:id',
+        component: ProductdetailsComponent
+      },
+      {
+        path: 'about',
+        component: AboutComponent
+      },
+      {
+        path: 'account',
+        component: AccountComponent
+      },
+      {
+        path: 'blog',
+        component: BlogComponent
+      },
+      {
+        path: 'cart',
+        component: CartComponent
+      },
+      {
+        path: 'category',
+        component: CategoryComponent
+      },
+      {
+        path: 'contact',
+        component: ContactComponent
+      },
+      {
+        path: 'product',
+        component: ProductComponent
+      },
+      {
+        path: 'chat',
+        component: ChatComponent
+      }
+    ]
   }
 ];
 

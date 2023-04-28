@@ -33,6 +33,8 @@ import { ContactInfoComponent } from './contact/contact-info/contact-info.compon
 import { ContactFormComponent } from './contact/contact-form/contact-form.component';
 import { PaginationComponent } from './product/pagination/pagination.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CoreModule } from '../core/core.module';
+import { UserComponent } from './user.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,8 @@ import { HttpClientModule } from '@angular/common/http';
     PrivacyPolicyComponent,
     ContactInfoComponent,
     ContactFormComponent,
-    PaginationComponent
+    PaginationComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,
@@ -71,7 +74,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     AngularPaginatorModule,
-    HttpClientModule
+    HttpClientModule,
+    CoreModule
   ]
 })
 export class UserModule {}

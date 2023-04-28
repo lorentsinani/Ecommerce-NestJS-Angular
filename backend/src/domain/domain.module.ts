@@ -21,6 +21,8 @@ import { PermissionsModule } from './permissions/permissions.module';
 import { OrdersModule } from './orders/orders.module';
 import { OrderItemsModule } from './order-items/order-items.module';
 import { OrdersStatusModule } from './orders-status/orders-status.module';
+import { RoleModule } from './role/role.module';
+import { ServiceModule } from './service/service.module';
 
 
 @Module({
@@ -47,7 +49,9 @@ import { OrdersStatusModule } from './orders-status/orders-status.module';
     PermissionsModule,
     NotificationsModule,
     OrderItemsModule,
-    OrdersStatusModule
+    OrdersStatusModule,
+    RoleModule,
+    ServiceModule
   ]
 })
 export class DomainModule {}

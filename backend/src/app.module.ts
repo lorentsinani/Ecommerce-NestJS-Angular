@@ -8,12 +8,7 @@ import { DomainModule } from './domain/domain.module';
 import { DatabaseModule } from './common/database/database.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({ load: [appConfig, databaseConfig, jwtConfig], isGlobal: true }),
-    DatabaseModule,
-    ApplicationServicesModule,
-    DomainModule
-  ],
+  imports: [ConfigModule.forRoot({ load: [appConfig, databaseConfig, jwtConfig], isGlobal: true }), DatabaseModule, ApplicationServicesModule, DomainModule],
   providers: []
 })
 export class AppModule {}
