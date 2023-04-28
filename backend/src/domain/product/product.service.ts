@@ -43,7 +43,7 @@ export class ProductService {
     return numberOfProducts[0];
   }
 
-  async findProductsFilter(filterDto: DynamicProductFilterDto): Promise<Product[]> {
+  async findFilteredProducts(filterDto: DynamicProductFilterDto): Promise<Product[]> {
     return await this.productRepository.findProductsFilter(filterDto);
   }
 
