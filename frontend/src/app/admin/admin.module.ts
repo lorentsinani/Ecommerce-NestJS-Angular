@@ -28,6 +28,13 @@ import { AdminProductImagesComponent } from './admin-panel/admin-dashboard/admin
 import { AdminUsersComponent } from './admin-panel/admin-dashboard/admin-users/admin-users.component';
 import { AdminCategoryFormComponent } from './admin-panel/admin-dashboard/admin-category/admin-category-form/admin-category-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AdminCurrencyFormComponent } from './admin-panel/admin-dashboard/admin-currency/admin-currency-form/admin-currency-form.component';
+import { AdminCurrencyTableComponent } from './admin-panel/admin-dashboard/admin-currency/admin-currency-table/admin-currency-table.component';
+import { AdminProducerFormComponent } from './admin-panel/admin-dashboard/admin-producer/admin-producer-form/admin-producer-form.component';
+import { AdminProducerTableComponent } from './admin-panel/admin-dashboard/admin-producer/admin-producer-table/admin-producer-table.component';
+import { AdminSuppliersComponent } from './admin-panel/admin-dashboard/admin-suppliers/admin-suppliers.component';
+import { AdminSuppliersFormComponent } from './admin-panel/admin-dashboard/admin-suppliers/admin-suppliers-form/admin-suppliers-form.component';
+import { AdminSuppliersTableComponent } from './admin-panel/admin-dashboard/admin-suppliers/admin-suppliers-table/admin-suppliers-table.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +61,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AdminProductDetailsComponent,
     AdminProductImagesComponent,
     AdminUsersComponent,
-    AdminCategoryFormComponent
+    AdminCategoryFormComponent,
+    AdminCurrencyFormComponent,
+    AdminCurrencyTableComponent,
+    AdminProducerFormComponent,
+    AdminProducerTableComponent,
+    AdminSuppliersComponent,
+    AdminSuppliersFormComponent,
+    AdminSuppliersTableComponent
   ],
   imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule]
 })
