@@ -9,8 +9,8 @@ export class AdminCurrencyTableComponent {
   entities: any = [
     {
       id: 1,
-      code: '2839AB8',
-      exchangeRate: '1.01',
+      code: 'EUR',
+      exchangeRate: '1.10',
       isBase: 'true'
     }
   ];
