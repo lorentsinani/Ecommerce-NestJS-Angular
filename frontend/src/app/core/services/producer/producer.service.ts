@@ -22,7 +22,7 @@ export class ProducerService extends BaseService<Producer> {
     return this.post(`producer`, data);
   }
 
-  getAllCurrencies(): Observable<Producer[]> {
+  getAllProducers(): Observable<Producer[]> {
     return this.getAll(`producer`);
   }
 

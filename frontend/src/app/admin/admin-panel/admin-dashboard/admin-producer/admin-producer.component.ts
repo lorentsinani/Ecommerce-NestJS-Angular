@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin-producer.component.scss'],
 })
 export class AdminProducerComponent {
-  title = 'Producer';
+  title = 'Producers';
 }
