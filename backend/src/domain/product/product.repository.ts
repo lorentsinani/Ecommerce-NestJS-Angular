@@ -47,6 +47,11 @@ export class ProductRepository extends Repository<Product> {
       .getMany();
   }
 
+  async getNewArrivalProducts(): Promise<Product[]> {
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    return this.createQueryBuilder('product').where('product.created_at >= :date', { date: oneWeekAgo }).getMany();
+  }
   updateProduct(id: number, updateProductDto: UpdateProductDto): Promise<UpdateResult> {
     return this.createQueryBuilder().update(Product).set(updateProductDto).where('id = :id', { id }).returning('*').execute();
   }

@@ -51,7 +51,9 @@ export class ProductService {
 
     return productFound;
   }
-
+  async getNewArrivalProducts(): Promise<Product[]> {
+    return this.productRepository.getNewArrivalProducts();
+  }
   async update(id: number, updateProductDto: UpdateProductDto): Promise<Product> {
     const updatedProduct = await this.productRepository.updateProduct(id, updateProductDto);
 
