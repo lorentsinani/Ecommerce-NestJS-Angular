@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, EmailValidator } from '@angular/forms';
 import { ProducerService } from '../../../../../core/services/producer/producer.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class AdminProducerFormComponent {
       name: ['', Validators.required],
       country: ['', Validators.required],
       establishedYear: [Number, Validators.required],
-      contactEmail: ['', Validators.required],
+      contactEmail: [EmailValidator, Validators.required],
     });
   }
 
