@@ -6,12 +6,15 @@ import { Category } from '../../../../../core/interfaces/category-interface';
 @Component({
   selector: 'app-admin-category-form',
   templateUrl: './admin-category-form.component.html',
-  styleUrls: ['./admin-category-form.component.scss']
+  styleUrls: ['./admin-category-form.component.scss'],
 })
 export class AdminCategoryFormComponent {
   categoryForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private categoryService: CategoryService) {}
+  constructor(
+    private fb: FormBuilder,
+    private categoryService: CategoryService
+  ) {}
 
   ngOnInit() {
     this.initForm();
@@ -21,12 +24,13 @@ export class AdminCategoryFormComponent {
     this.categoryForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      image: [null, Validators.required]
+      image: [null, Validators.required],
     });
   }
 
   onSubmit() {
     const formData = this.toFormData(this.categoryForm);
+
     if (this.categoryForm.valid) {
       // this.categoryService.createCategory({}).subscribe(
       // res => console.log('Created'),

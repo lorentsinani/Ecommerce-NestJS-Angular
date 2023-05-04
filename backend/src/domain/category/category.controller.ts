@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ParseIntPipe, Patch, Post, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from '../../common/dtos/category/create-category.dto';
@@ -10,6 +10,8 @@ import { CheckPermissions } from '../../common/decorators/check-permission.decor
 import { PermissionsGuard } from '../../common/guards/permissions.guard';
 import { PermissionAction } from '../../common/constants/enums/permission-action.enum';
 import { PermissionObject } from '../../common/constants/enums/permission-object.enum';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { uploadImage } from 'src/common/utils/upload-util';
 
 @Controller('category')
 @UsePipes(new ValidationPipe())
@@ -17,13 +19,15 @@ import { PermissionObject } from '../../common/constants/enums/permission-object
 export class CategoryController {
   constructor(private categoryService: CategoryService) {}
 
-
-  // This line shows how you can use the Authorization based on permissions
   @Post()
   @UseGuards(PermissionsGuard)
   @CheckPermissions([PermissionAction.Create, PermissionObject.Category])
-  create(@Body() categoryBody: CreateCategoryDto): Promise<Category> {
-    return this.categoryService.create(categoryBody);
+  @UseInterceptors(FileInterceptor('image'))
+  async create(@UploadedFile() category_image: Express.Multer.File, @Body() categoryBody: CreateCategoryDto): Promise<Category> {
+    const category_image_url = await uploadImage(category_image, 'categories');
+
+    const category = { ...categoryBody, category_image_url };
+    return this.categoryService.create(category);
   }
 
   @Get()
