@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource, DeleteResult, InsertResult, Repository, UpdateResult } from 'typeorm';
+import { DataSource, DeleteResult, InsertResult, Repository, Timestamp, UpdateResult } from 'typeorm';
 import { Product } from '../entities/product.entity';
 import { CreateProductDto } from '../../common/dtos/product/create-product.dto';
 import { UpdateProductDto } from '../../common/dtos/product/update-product.dto';
@@ -47,9 +47,7 @@ export class ProductRepository extends Repository<Product> {
       .getMany();
   }
 
-  async getNewArrivalProducts(): Promise<Product[]> {
-    const oneWeekAgo = this.dateUtil.getTimestampOneWeekAgo();
-
+  async getNewArrivalProducts(oneWeekAgo: Date): Promise<Product[]> {
     return this.createQueryBuilder('product').where('product.created_at >= :date', { date: oneWeekAgo }).getMany();
   }
   updateProduct(id: number, updateProductDto: UpdateProductDto): Promise<UpdateResult> {
