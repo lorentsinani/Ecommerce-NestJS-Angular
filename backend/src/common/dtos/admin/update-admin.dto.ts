@@ -6,10 +6,10 @@ export class UpdateAdminDto {
   @IsOptional()
   @IsEnum(PermissionLevel)
   @IsNotEmpty()
-  permission_level: PermissionLevel;
+  permissionLevel: PermissionLevel;
 
   @IsOptional()
   @IsNotEmpty()
   @IsNumberFormat()
-  user_id: number;
+  userId: number;
 }

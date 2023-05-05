@@ -7,17 +7,17 @@ export class Notifications implements INotification {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'number' })
-  recipient_id: number;
+  @Column({ name: 'recipient_id', type: 'number' })
+  recipientId: number;
 
-  @Column()
-  message_content: string;
+  @Column({ name: 'message_content' })
+  messageContent: string;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'recipient_id', referencedColumnName: 'id' })

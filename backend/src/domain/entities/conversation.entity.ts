@@ -8,20 +8,20 @@ export class Conversation implements IConversation {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  customer_id: number;
+  @Column({ name: "customer_id"})
+  customerId: number;
 
-  @Column()
-  employee_id: number;
+  @Column({ name: 'employee_id'})
+  employeeId: number;
 
   @OneToMany(() => Message, messages => messages.conversation)
   messages: Message[];
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'employee_id', referencedColumnName: 'id' })

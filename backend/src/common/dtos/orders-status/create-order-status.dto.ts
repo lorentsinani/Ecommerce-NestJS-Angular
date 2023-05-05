@@ -4,7 +4,7 @@ import { OrderStatus } from '../../constants/enums/orders-status.enum';
 export class CreateOrderStatusDto {
   @IsNotEmpty()
   @IsEnum(OrderStatus)
-  status_name: OrderStatus;
+  statusName: OrderStatus;
 
   @IsNotEmpty()
   @IsString()

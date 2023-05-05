@@ -2,9 +2,9 @@ import { IUser } from './user.interface';
 
 export interface IEmployee {
   user: IUser;
-  hire_date: Date;
-  job_title: string;
+  hireDate: Date;
+  jobTitle: string;
   address: string;
-  photo_url: string;
+  photoUrl: string;
   salary: number;
 }

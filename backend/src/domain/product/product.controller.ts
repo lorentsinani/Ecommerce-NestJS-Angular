@@ -6,6 +6,7 @@ import { CreateProductDto } from '../../common/dtos/product/create-product.dto';
 import { QueryExceptionFilter } from '../../common/filters/query.exception.filter';
 import { Product } from '../entities/product.entity';
 import { NumberOfProducts } from '../../common/interfaces/number-of-products.interface';
+import { ProductSearchDto } from '../../common/dtos/product/product-search.dto';
 import { DynamicProductFilterDto } from 'src/common/dtos/product/dynamic-product-filter.dto';
 
 @Controller('product')
@@ -37,6 +38,11 @@ export class ProductController {
   @Get('/categories/max-product-count')
   getNumberOfProductsByCategory(@Query('category_id', ParseIntPipe) category_id: number): Promise<NumberOfProducts> {
     return this.productService.countProductsByCategory(category_id);
+  }
+
+  @Get('/search')
+  search(@Query('q') productSearchDto: ProductSearchDto): Promise<Product[]> {
+    return this.productService.search(productSearchDto.q);
   }
 
   @Patch(':id')

@@ -11,35 +11,35 @@ export class Order implements IOrder {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', length: 10 })
-  order_code: string;
+  @Column({ name: 'order_code', type: 'varchar', length: 10 })
+  orderCode: string;
 
-  @Column({ type: 'integer' })
-  customer_id: number;
+  @Column({ name: 'customer_id', type: 'integer' })
+  customerId: number;
 
-  @Column({ type: 'varchar', length: 255 })
-  order_comment: string;
+  @Column({ name: 'order_comment', type: 'varchar', length: 255 })
+  orderComment: string;
 
-  @Column({ type: 'integer' })
-  currency_id: number;
+  @Column({ name: 'currency_id', type: 'integer' })
+  currencyId: number;
 
-  @Column({ type: 'integer' })
-  employee_id: number;
+  @Column({ name: 'employee_id', type: 'integer' })
+  employeeId: number;
 
-  @Column({ type: 'integer' })
-  order_status_id: number;
+  @Column({ name: 'order_status_id', type: 'integer' })
+  orderStatusId: number;
 
-  @Column({ type: 'integer' })
-  address_id: number;
+  @Column({ name: 'address_id', type: 'integer' })
+  addressId: number;
 
-  @Column({ type: 'date' })
-  order_date: Date;
+  @Column({ name: 'order_date', type: 'date' })
+  orderDate: Date;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
-  total_amount_with_vat: number;
+  @Column({ name: 'total_amount_with_vat', type: 'decimal', precision: 10, scale: 2 })
+  totalAmountWithVat: number;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
-  total_amount_without_vat: number;
+  @Column({ name: 'total_amount_without_vat', type: 'decimal', precision: 10, scale: 2 })
+  totalAmountWithoutVat: number;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   vat: number;
@@ -53,7 +53,7 @@ export class Order implements IOrder {
   currency: Currency;
 
   @ManyToOne(() => Employee)
-  @JoinColumn({ name: 'employee_id', referencedColumnName: 'user_id' })
+  @JoinColumn({ name: 'employee_id', referencedColumnName: 'userId' })
   employee: Employee;
 
   @ManyToOne(() => Address)
@@ -62,13 +62,13 @@ export class Order implements IOrder {
 
   @ManyToOne(() => OrdersStatus)
   @JoinColumn({ name: 'order_status_id', referencedColumnName: 'id' })
-  orders_status: OrdersStatus;
+  ordersStatus: OrdersStatus;
 
   @BeforeInsert()
   @BeforeUpdate()
   calculatePriceWithVat() {
-    if (this.vat && this.total_amount_without_vat) {
-      this.total_amount_with_vat = this.total_amount_without_vat * (1 + this.vat / 100);
+    if (this.vat && this.totalAmountWithoutVat) {
+      this.totalAmountWithVat = this.totalAmountWithoutVat * (1 + this.vat / 100);
     }
   }
 }

@@ -43,6 +43,16 @@ export class ProductService {
     return numberOfProducts[0];
   }
 
+  async search(searchTerm: string): Promise<Product[]> {
+    const productFound = this.productRepository.searchProduct(searchTerm);
+
+    if (!productFound) {
+      throw new HttpException(this.NotFoundExceptionMessage, HttpStatus.NOT_FOUND);
+    }
+
+    return productFound;
+  }
+
   async findFilteredProducts(filterDto: DynamicProductFilterDto): Promise<Product[]> {
     return await this.productRepository.findProductsFilter(filterDto);
   }

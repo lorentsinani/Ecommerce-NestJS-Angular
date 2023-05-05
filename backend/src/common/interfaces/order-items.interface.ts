@@ -2,14 +2,14 @@ import { Order } from '../../domain/entities/orders.entity';
 import { Product } from '../../domain/entities/product.entity';
 
 export interface IOrderItems {
-  order_item_id: number;
-  order_id: number;
-  product_id: number;
+  orderItemId: number;
+  orderId: number;
+  productId: number;
   quantity: number;
-  price_with_vat: number;
-  price_without_vat: number;
+  priceWithVat: number;
+  priceWithoutVat: number;
   vat: number;
-  total_amount: number;
+  totalAmount: number;
   orders: Order;
   product: Product;
 }

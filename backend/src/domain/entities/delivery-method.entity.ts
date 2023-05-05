@@ -7,21 +7,21 @@ export class DeliveryMethod implements IDeliveryMethod {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', length: 50 })
-  delivery_method_name: string;
+  @Column({ name: 'delivery_method_name', type: 'varchar', length: 50 })
+  deliveryMethodName: string;
 
-  @Column({ type: 'varchar', length: 50 })
-  phone_number: string;
+  @Column({ name: 'phone_number', type: 'varchar', length: 50 })
+  phoneNumber: string;
 
-  @Column({ type: 'interval' })
-  delivery_time: string;
+  @Column({ name: 'delivery_time', type: 'interval' })
+  deliveryTime: string;
 
-  @Column({ enum: DeliveryMethodEnum })
-  delivery_method: DeliveryMethodEnum;
+  @Column({ name: 'delivery_method', enum: DeliveryMethodEnum })
+  deliveryMethod: DeliveryMethodEnum;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

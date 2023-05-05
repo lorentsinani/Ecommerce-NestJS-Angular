@@ -5,12 +5,12 @@ export class UpdateEmployeeDto {
   @IsOptional()
   @IsNotEmpty()
   @IsDate()
-  hire_date: Date;
+  hireDate: Date;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  job_title: string;
+  jobTitle: string;
 
   @IsOptional()
   @IsNotEmpty()
@@ -20,7 +20,7 @@ export class UpdateEmployeeDto {
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  photo_url: string;
+  photoUrl: string;
 
   @IsOptional()
   @IsNotEmpty()

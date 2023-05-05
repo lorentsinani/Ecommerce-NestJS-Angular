@@ -5,11 +5,11 @@ export class UpdateConversationDto {
   @IsNotEmpty()
   @IsNumber()
   @IsInt()
-  customer_id: number;
+  customerId: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsNumber()
   @IsInt()
-  employee_id: number;
+  employeeId: number;
 }

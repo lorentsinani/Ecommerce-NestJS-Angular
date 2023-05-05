@@ -5,11 +5,11 @@ import { IAdmin } from '../../common/interfaces/admin.interface';
 
 @Entity()
 export class Admin implements IAdmin {
-  @PrimaryColumn()
-  user_id: number;
+  @PrimaryColumn({ name: 'user_id' })
+  userId: number;
 
-  @Column({ type: 'enum', enum: PermissionLevel })
-  permission_level: PermissionLevel;
+  @Column({ name: 'permission_level', type: 'enum', enum: PermissionLevel })
+  permissionLevel: PermissionLevel;
 
   @OneToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })

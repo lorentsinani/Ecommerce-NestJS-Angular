@@ -8,18 +8,18 @@ export class ProductImages implements IProductImages {
   id: number;
 
   @Column({ type: 'integer' })
-  product_id: number;
+  productId: number;
 
   @ManyToOne(() => Product, { nullable: false })
   @JoinColumn({ name: 'product_id', referencedColumnName: 'id' })
   product: Product;
 
-  @Column({ type: 'varchar', length: 255 })
-  image_url: string;
+  @Column({ name: 'image_url', type: 'varchar', length: 255 })
+  imageUrl: string;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

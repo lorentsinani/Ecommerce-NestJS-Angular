@@ -8,11 +8,11 @@ export class User implements IUser {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 50 })
-  first_name: string;
+  @Column({ name: 'first_name', length: 50 })
+  firstName: string;
 
-  @Column({ length: 50 })
-  last_name: string;
+  @Column({ name: 'last_name', length: 50 })
+  lastName: string;
 
   @Column({ unique: true, length: 100 })
   email: string;
@@ -33,15 +33,15 @@ export class User implements IUser {
   gender: UserGender;
 
   @Column()
-  role_id: number;
+  roleId: number;
 
   @ManyToOne(() => Role)
   @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
   role: Role;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

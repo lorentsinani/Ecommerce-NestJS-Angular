@@ -6,15 +6,15 @@ export class CreateEmployeeDto {
   @IsOptional()
   @IsNotEmpty()
   @IsNumberFormat()
-  user_id: number;
+  userId: number;
 
   @IsNotEmpty()
   @IsDateFormat()
-  hire_date: Date;
+  hireDate: Date;
 
   @IsNotEmpty()
   @IsString()
-  job_title: string;
+  jobTitle: string;
 
   @IsNotEmpty()
   @IsString()
@@ -22,7 +22,7 @@ export class CreateEmployeeDto {
 
   @IsNotEmpty()
   @IsString()
-  photo_url: string;
+  photoUrl: string;
 
   @IsNotEmpty()
   @IsNumberFormat()

@@ -7,19 +7,19 @@ export class UpdateUserDto {
   @IsOptional()
   @IsNotEmpty()
   @IsInt()
-  role_id: number;
+  roleId: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
   @Length(1, 50)
-  first_name: string;
+  firstName: string;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
   @Length(1, 50)
-  last_name: string;
+  lastName: string;
 
   @IsCustomEmail() // custom decorator
   email: string;

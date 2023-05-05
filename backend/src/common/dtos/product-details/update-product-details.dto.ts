@@ -1,5 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
-import { IsNumberFormat } from '../../decorators/number-format.decorator';
+import { IsInt, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class UpdateProductDetailsDto {
   @IsOptional()
@@ -10,7 +9,7 @@ export class UpdateProductDetailsDto {
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumberFormat()
+  @IsInt()
   warranty: number;
 
   @IsOptional()
@@ -27,6 +26,6 @@ export class UpdateProductDetailsDto {
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumberFormat()
-  producer_id: number;
+  @IsInt()
+  producerId: number;
 }

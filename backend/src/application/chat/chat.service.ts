@@ -19,9 +19,9 @@ export class ChatService {
   async startConversation(conversationPayload: ConversationPayload): Promise<Conversation | null> {
     const availableEmployee = await this.findAvailableEmployee();
 
-    const updatedConversationDto = { ...conversationPayload, employee_id: availableEmployee.user_id };
+    const updatedConversationDto = { ...conversationPayload, employeeId: availableEmployee.userId };
 
-    const conversationExist = await this.conversationService.findByCustomerId(conversationPayload.customer_id);
+    const conversationExist = await this.conversationService.findByCustomerId(conversationPayload.customerId);
 
     if (conversationExist) {
       const { id } = conversationExist;

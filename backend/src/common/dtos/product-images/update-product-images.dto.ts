@@ -1,14 +1,13 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { IsNumberFormat } from '../../decorators/number-format.decorator';
+import { IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class UpdateProductImageDto {
   @IsOptional()
   @IsNotEmpty()
-  @IsNumberFormat()
-  product_id: number;
+  @IsInt()
+  productId: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  image_url: string;
+  imageUrl: string;
 }

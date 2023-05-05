@@ -1,5 +1,4 @@
-import { IsString, IsNotEmpty, Length, IsBoolean } from 'class-validator';
-import { IsNumberFormat } from '../../decorators/number-format.decorator';
+import { IsString, IsNotEmpty, Length, IsBoolean, IsNumber } from 'class-validator';
 
 export class CreateCurrencyDto {
   @IsString()
@@ -7,11 +6,11 @@ export class CreateCurrencyDto {
   @Length(1, 3)
   code: string;
 
-  @IsNumberFormat()
   @IsNotEmpty()
-  exchange_rate: number;
+  @IsNumber()
+  exchangeRate: number;
 
   @IsBoolean()
   @IsNotEmpty()
-  is_base: boolean;
+  isBase: boolean;
 }

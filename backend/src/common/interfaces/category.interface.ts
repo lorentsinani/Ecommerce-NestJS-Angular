@@ -1,9 +1,8 @@
 export interface ICategory {
   id: number;
-  category_name: string;
-  category_desc?: string;
-  category_image_url?: string;
-  parent_category_id?: number;
-  created_at: Date;
-  updated_at: Date;
+  categoryName: string;
+  categoryDesc?: string;
+  categoryImageUrl?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
