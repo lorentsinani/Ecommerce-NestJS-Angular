@@ -11,6 +11,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { BlogComponent } from './blog/blog.component';
 import { ChatComponent } from '../shared/chat/chat.component';
 import { UserComponent } from './user.component';
+import { HelpCenterComponent } from './help-center/help-center.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { PaymentMethodComponent } from './payment-method/payment-method.component';
 
 const routes: Routes = [
   {
@@ -52,9 +55,18 @@ const routes: Routes = [
         component: ProductComponent
       },
       {
-        path: 'chat',
-        component: ChatComponent
-      }
+        path: 'policy',
+        component: PrivacyPolicyComponent
+      },
+      {
+        path: 'helpcenter',
+        component: HelpCenterComponent
+      },
+      {
+        path: 'payment',
+        component: PaymentMethodComponent
+      },
+
     ]
   }
 ];
@@ -63,4 +75,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class UserRoutingModule {}
+export class UserRoutingModule { }
