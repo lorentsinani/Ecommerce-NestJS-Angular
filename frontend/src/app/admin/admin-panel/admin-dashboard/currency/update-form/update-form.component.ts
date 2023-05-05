@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CurrencyService } from '../../../../../core/services/currency/currency.service';
-import { Currency } from '../../../../../core/interfaces/currency-interface';
+import { Currency } from '../../../../../core/interfaces/currency.interface';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class UpdateFormComponent implements OnInit {
   form: FormGroup;
-  @Output() onUpdateCurrency: EventEmitter<Currency> = new EventEmitter();
+
   constructor(
     private currencyService: CurrencyService,
     private fb: FormBuilder

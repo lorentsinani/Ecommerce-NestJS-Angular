@@ -1,12 +1,12 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment-dev';
 
 export abstract class BaseService<T> {
-  apiUrl = environment.apiUrl;
+  private apiUrl = environment.apiUrl;
 
-  protected httpOptions = {
+  private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
@@ -14,12 +14,18 @@ export abstract class BaseService<T> {
 
   constructor(protected http: HttpClient) {}
 
-  protected handleError(error: any) {
-    console.error('API Error:', error);
-    return throwError(error);
+  private handleError(response: HttpErrorResponse): Observable<never> {
+    const errorResponse = {
+      statusCode: response.status,
+      apiUrl: response.url,
+      message: response.error.message,
+      error: response
+    };
+
+    return throwError(() => errorResponse);
   }
 
-  protected extractData(res: any) {
+  private extractData(res: any) {
     const body = res;
     return body || {};
   }
