@@ -29,6 +29,11 @@ export class EmployeesRepository extends Repository<Employee> {
   findAvailableEmployees(): Promise<Employee[]> {
     return this.find({ relations: ['user'] }); // This one just for testing now
   }
+  fetchEmployees(searchTerm: string): Promise<Employee[]> {
+    return this.createQueryBuilder('employee')
+      .where(`job_title`, { searchTerm: `%${searchTerm}` })
+      .getMany();
+  }
 
   updateEmployee(user_id: number, updateEmployeeDto: UpdateEmployeeDto): Promise<UpdateResult> {
     return this.createQueryBuilder().update(Employee).set(updateEmployeeDto).where('user_id = :user_id', { user_id }).execute();
