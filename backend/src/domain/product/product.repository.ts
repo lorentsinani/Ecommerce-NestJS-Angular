@@ -5,10 +5,10 @@ import { CreateProductDto } from '../../common/dtos/product/create-product.dto';
 import { UpdateProductDto } from '../../common/dtos/product/update-product.dto';
 import { Category } from '../entities/category.entity';
 import { NumberOfProducts } from '../../common/interfaces/number-of-products.interface';
-
+import { DateUtil } from '../../common/utils/date-util';
 @Injectable()
 export class ProductRepository extends Repository<Product> {
-  constructor(dataSource: DataSource) {
+  constructor(dataSource: DataSource, private readonly dateUtil: DateUtil) {
     // The createEntityManager() method is typically called on a DataSource instance, which represents the database connection and configuration.
     super(Product, dataSource.createEntityManager());
   }
@@ -48,8 +48,8 @@ export class ProductRepository extends Repository<Product> {
   }
 
   async getNewArrivalProducts(): Promise<Product[]> {
-    const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    const oneWeekAgo = this.dateUtil.getTimestampOneWeekAgo();
+
     return this.createQueryBuilder('product').where('product.created_at >= :date', { date: oneWeekAgo }).getMany();
   }
   updateProduct(id: number, updateProductDto: UpdateProductDto): Promise<UpdateResult> {
