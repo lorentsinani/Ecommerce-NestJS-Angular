@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Currency } from './../../interfaces/currency-interface';
+import { Currency } from '../../interfaces/currency.interface';
 import { HttpClient } from '@angular/common/http';
 import { BaseService } from '../base/base.service';
 import { Observable } from 'rxjs';

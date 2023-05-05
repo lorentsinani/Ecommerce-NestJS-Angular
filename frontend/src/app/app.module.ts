@@ -5,14 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { UserModule } from './user/user.module';
-import { CoreModule } from './core/core.module';
-import { AuthModule } from './auth/auth.module';
 import { AdminModule } from './admin/admin.module';
 import { SharedModule } from './shared/shared.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, UserModule, AuthModule, SharedModule, AdminModule],
+  imports: [BrowserModule, AppRoutingModule, UserModule, SharedModule, AdminModule, AuthModule],
   providers: [],
   bootstrap: [AppComponent]
 })

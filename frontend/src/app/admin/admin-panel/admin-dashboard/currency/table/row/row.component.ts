@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Currency } from '../../../../../../core/interfaces/currency-interface';
+import { Currency } from '../../../../../../core/interfaces/currency.interface';
 
 @Component({
   selector: 'app-currency-table-row',

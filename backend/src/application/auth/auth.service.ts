@@ -20,8 +20,8 @@ export class AuthService {
   async login(email: string, password: string) {
     const user = await this.usersService.findByEmail(email);
 
-    const passwordMatched = await PasswordUtil.comparePassword(password, user?.password); 
-    
+    const passwordMatched = await PasswordUtil.comparePassword(password, user?.password);
+
     if (!passwordMatched) {
       throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST);
     }
@@ -42,6 +42,18 @@ export class AuthService {
     }
 
     return this.usersService.create({ ...createUserDto });
+  }
+
+  async logout() {}
+
+  findAllPermissionsOfRole(role_id: number): Promise<Permission[]> {
+    return this.permissionsService.findAllPermissionsOfRole(role_id);
+  }
+
+  private generateTokenPayload(user: User) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, id, ...userDataWithoutPassword } = user;
+    return { sub: id, user: { ...userDataWithoutPassword } };
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -65,15 +77,5 @@ export class AuthService {
     //   throw new WsException(`Invalid JWT Token ErrorMessage: ${error}`);
     // }
     return true;
-  }
-
-  findAllPermissionsOfRole(role_id: number): Promise<Permission[]> {
-    return this.permissionsService.findAllPermissionsOfRole(role_id);
-  }
-
-  private generateTokenPayload(user: User) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, id, ...userDataWithoutPassword } = user;
-    return { sub: id, user: { ...userDataWithoutPassword } };
   }
 }

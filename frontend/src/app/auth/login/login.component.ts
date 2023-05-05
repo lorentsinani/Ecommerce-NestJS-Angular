@@ -1,35 +1,17 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { trigger, transition, style, animate } from '@angular/animations';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../core/services/auth/auth.service';
+import { LoginCredentials } from '../../core/interfaces/login-credentials.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate(300, style({ opacity: 1 }))
-      ]),
-      transition(':leave', [
-        animate(300, style({ opacity: 0 }))
-      ])
-    ])
-  ]
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  loginForm: FormGroup;
+  constructor(private authService: AuthService, private router: Router) {}
 
-  constructor(private fb: FormBuilder) {
-    this.loginForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
-    });
-  }
-
-  onSubmit() {
-    // Submit logic
+  loginUser(loginCredentials: LoginCredentials) {
+    this.authService.login(loginCredentials).subscribe(response => {});
   }
 }

@@ -1,0 +1,42 @@
+<form [formGroup]="registerForm" (submit)="onSubmit()">
+
+  <label for="firstName">FirstName </label>
+  <input type="text" formControlName="firstName" placeholder="FirstName" required>
+  <br>
+
+  <label for="lastName">LastName </label>
+  <input type="text" formControlName="lastName" placeholder="LastName" required>
+  <br>
+
+  <label for="email">Email </label>
+  <input type="text" formControlName="email" placeholder="Email" required>
+  <br>
+
+  <label for="password">Password </label>
+  <input type="password" formControlName="password" placeholder="password" required>
+  <br>
+
+  <label for="country">Country </label>
+  <input type="text" formControlName="country" placeholder="Country" required>
+  <br>
+
+  <label for="city">City </label>
+  <input type="text" formControlName="city" placeholder="City" required>
+  <br>
+
+
+  <label for="birthdate">BirthDate </label>
+  <input type="date" formControlName="birthdate" required>
+  <br>
+
+
+  <label for="gender">Gender </label>
+  <input type="radio" name="gender" formControlName="gender" value="male">
+  <label for="male">Male </label>
+  <input type="radio" name="gender" formControlName="gender" value="female">
+  <label for="female">Female </label>
+  <br>
+
+
+  <button type="submit">Register</button>
+</form>

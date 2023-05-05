@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseService } from '../../../core/services/base/base.service';
 import { CategoryService } from '../../../core/services/category/category.service';
-import { Category } from '../../../core/interfaces/category-interface';
+import { Category } from '../../../core/interfaces/category.interface';
 
 @Component({
   selector: 'app-product-category',
@@ -9,7 +9,6 @@ import { Category } from '../../../core/interfaces/category-interface';
   styleUrls: ['./product-category.component.scss']
 })
 export class ProductCategoryComponent implements OnInit {
-
   categories: Category[] = [];
   category: Category;
 
@@ -20,9 +19,11 @@ export class ProductCategoryComponent implements OnInit {
   }
 
   getCategories() {
-    this.categoryService.getAllCategories().subscribe((categories: Category[]) => {
-      this.categories = categories;
-    });
+    this.categoryService
+      .getAllCategories()
+      .subscribe((categories: Category[]) => {
+        this.categories = categories;
+      });
   }
 
   getCategoryById(id: number) {
@@ -33,15 +34,23 @@ export class ProductCategoryComponent implements OnInit {
 
   updateCategory(id: number, data: Partial<Category>) {
     // use reactive forms to validate the data
-    this.categoryService.updateCategory(id, data).subscribe((updatedCategory: Category) => {
-      this.categories = this.categories.map(category => (category.id === id ? updatedCategory : category));
-    });
+    this.categoryService
+      .updateCategory(id, data)
+      .subscribe((updatedCategory: Category) => {
+        this.categories = this.categories.map(category =>
+          category.id === id ? updatedCategory : category
+        );
+      });
   }
 
   deleteCategory(id: number) {
-    this.categoryService.deleteCategory(id).subscribe((deletedCategory: Category) => {
-      // do something with the deletedCategory
-      this.categories = this.categories.filter(category => category.id !== deletedCategory.id);
-    });
+    this.categoryService
+      .deleteCategory(id)
+      .subscribe((deletedCategory: Category) => {
+        // do something with the deletedCategory
+        this.categories = this.categories.filter(
+          category => category.id !== deletedCategory.id
+        );
+      });
   }
 }

@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { CurrencyService } from "../../../../../core/services/currency/currency.service";
-import { Currency } from "../../../../../core/interfaces/currency-interface";
-import { capitalize } from "../../../../../core/utilities/capitalize-props.unit";
+import { Component, OnInit } from '@angular/core';
+import { CurrencyService } from '../../../../../core/services/currency/currency.service';
+import { Currency } from '../../../../../core/interfaces/currency.interface';
+import { capitalize } from '../../../../../core/utilities/capitalize-props.unit';
 
 @Component({
-  selector: "app-table",
-  templateUrl: "./table.component.html",
-  styleUrls: ["./table.component.scss"],
+  selector: 'app-table',
+  templateUrl: './table.component.html',
+  styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
   currencies: Currency[] = [];
@@ -18,22 +18,22 @@ export class TableComponent implements OnInit {
   }
 
   getAllCurrencies() {
-    this.currencyService.getAllCurrencies().subscribe((currencies) => {
+    this.currencyService.getAllCurrencies().subscribe(currencies => {
       this.currencies = currencies;
       this.getColumns();
     });
   }
 
   getColumns() {
-    this.columns = Object.keys(this.currencies[0]).map((prop) =>
+    this.columns = Object.keys(this.currencies[0]).map(prop =>
       capitalize(prop)
     );
   }
 
   deleteCurrency(id: number) {
-    this.currencyService.deleteCurrency(id).subscribe((currency) => {
+    this.currencyService.deleteCurrency(id).subscribe(currency => {
       // do something with the deleted currencies
-      this.currencies = this.currencies.filter((el) => el.id !== id);
+      this.currencies = this.currencies.filter(el => el.id !== id);
     });
   }
 }

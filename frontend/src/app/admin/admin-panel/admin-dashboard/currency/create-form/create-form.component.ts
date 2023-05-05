@@ -1,7 +1,7 @@
 import { CurrencyService } from './../../../../../core/services/currency/currency.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Currency } from '../../../../../core/interfaces/currency-interface';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Currency } from '../../../../../core/interfaces/currency.interface';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-create-form',
@@ -10,7 +10,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class CreateFormComponent implements OnInit {
   form: FormGroup;
-  @Output() onCreateCurrency = new EventEmitter<Currency>();
 
   constructor(
     private currencyService: CurrencyService,
