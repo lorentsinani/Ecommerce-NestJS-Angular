@@ -42,6 +42,16 @@ export class ProductService {
     return numberOfProducts[0];
   }
 
+  async search(searchTerm: string): Promise<Product[]> {
+    const productFound = this.productRepository.searchProduct(searchTerm);
+
+    if (!productFound) {
+      throw new HttpException(this.NotFoundExceptionMessage, HttpStatus.NOT_FOUND);
+    }
+
+    return productFound;
+  }
+
   async update(id: number, updateProductDto: UpdateProductDto): Promise<Product> {
     const updatedProduct = await this.productRepository.updateProduct(id, updateProductDto);
 
