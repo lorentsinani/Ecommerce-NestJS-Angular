@@ -4,12 +4,6 @@ import { Observable } from 'rxjs';
 import { BaseService } from '../base/base.service';
 import { Category } from './../../interfaces/category-interface';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
-};
-
 @Injectable({
   providedIn: 'root'
 })

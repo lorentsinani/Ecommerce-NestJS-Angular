@@ -25,19 +25,33 @@ export class ProductRepository extends Repository<Product> {
     return this.find();
   }
 
-  updateProduct(id: number, updateProductDto: UpdateProductDto): Promise<UpdateResult> {
-    return this.createQueryBuilder().update(Product).set(updateProductDto).where('id = :id', { id }).returning('*').execute();
-  }
-
-  deleteProduct(id: number): Promise<DeleteResult> {
-    return this.createQueryBuilder().delete().from(Product).where('id = :id', { id }).returning('*').execute();
-  }
-
   countProductsByCategory(category_id: number): Promise<NumberOfProducts[]> {
     return this.createQueryBuilder('product')
       .innerJoin(Category, 'category', 'product.category_id = category.id')
       .select(['category.id', 'category.category_name', 'COUNT(*) as "number_of_products"'])
       .groupBy('category.id')
       .getRawMany();
+  }
+
+  searchProduct(searchTerm: string): Promise<Product[]> {
+    return this.createQueryBuilder('product')
+      .innerJoin('product.productDetails', 'product_details')
+      .leftJoinAndSelect('product.category', 'category')
+      .where(
+        `product.product_name LIKE :searchTerm 
+          OR product.product_code LIKE :searchTerm 
+          OR product_details.color LIKE :searchTerm 
+          OR category.category_name LIKE :searchTerm`,
+        { searchTerm: `%${searchTerm}%` }
+      )
+      .getMany();
+  }
+
+  updateProduct(id: number, updateProductDto: UpdateProductDto): Promise<UpdateResult> {
+    return this.createQueryBuilder().update(Product).set(updateProductDto).where('id = :id', { id }).returning('*').execute();
+  }
+
+  deleteProduct(id: number): Promise<DeleteResult> {
+    return this.createQueryBuilder().delete().from(Product).where('id = :id', { id }).returning('*').execute();
   }
 }
