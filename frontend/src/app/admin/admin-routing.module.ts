@@ -1,10 +1,8 @@
+import { CurrencyRoutes } from './admin-panel/admin-dashboard/currency/currency.route';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
-import { AdminCategoryComponent } from './admin-panel/admin-dashboard/admin-category/admin-category.component';
-import { AdminCategoryFormComponent } from './admin-panel/admin-dashboard/admin-category/admin-category-form/admin-category-form.component';
-import { AdminCategoryTableComponent } from './admin-panel/admin-dashboard/admin-category/admin-category-table/admin-category-table.component';
+import { AdminCategoryRoute } from './admin-panel/admin-dashboard/admin-category/admin-category.route';
 import { AdminCurrencyComponent } from './admin-panel/admin-dashboard/admin-currency/admin-currency.component';
 import { AdminCurrencyFormComponent } from './admin-panel/admin-dashboard/admin-currency/admin-currency-form/admin-currency-form.component';
 import { AdminCurrencyTableComponent } from './admin-panel/admin-dashboard/admin-currency/admin-currency-table/admin-currency-table.component';

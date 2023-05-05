@@ -10,7 +10,7 @@ export class QueryExceptionFilter implements ExceptionFilter {
     const response: Response = host.switchToHttp().getResponse();
 
     const statusCode = HttpStatus.UNPROCESSABLE_ENTITY;
-    const message = `"EntityName": "${this.entityName}", "Message": "${exception.message}"`;
+    const message = `${this.entityName} ${exception.message}"`;
     const error = 'Query failed error';
 
     const errorResponse = {

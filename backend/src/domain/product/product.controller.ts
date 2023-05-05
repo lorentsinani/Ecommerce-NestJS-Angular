@@ -7,6 +7,7 @@ import { QueryExceptionFilter } from '../../common/filters/query.exception.filte
 import { Product } from '../entities/product.entity';
 import { NumberOfProducts } from '../../common/interfaces/number-of-products.interface';
 import { ProductSearchDto } from '../../common/dtos/product/product-search.dto';
+import { DynamicProductFilterDto } from 'src/common/dtos/product/dynamic-product-filter.dto';
 
 @Controller('product')
 @UsePipes(new ValidationPipe())
@@ -22,6 +23,11 @@ export class ProductController {
   @Get()
   findAll(): Promise<Product[]> {
     return this.productService.findAll();
+  }
+
+  @Get('/filter')
+  async findFilteredProducts(@Query() filterDto: DynamicProductFilterDto): Promise<Product[]> {
+    return this.productService.findProductsFilter(filterDto);
   }
 
   @Get(':id')

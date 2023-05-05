@@ -20,4 +20,7 @@ export class AuthController {
   async singUp(@Body() createUserDto: CreateUserDto): Promise<IUser> {
     return this.authService.register(createUserDto);
   }
+
+  @Post('logout')
+  async logout(@Body() body: any) {}
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Query, UseGuards } from '@nestjs/common';
 import { Post, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from '../../common/dtos/employees/create-employee';
@@ -28,7 +28,10 @@ export class EmployeesController {
   findOne(@Param('id', ParseIntPipe) user_id: number): Promise<Employee> {
     return this.employeesService.findById(user_id);
   }
-
+  @Get('/team')
+  fetchEmployees(fetchEmployee: string): Promise<Employee[]> {
+    return this.employeesService.fetchEmployee(fetchEmployee);
+  }
   @Patch(':id')
   @UsePipes(new NullDtoValidationPipe())
   update(@Param('id', ParseIntPipe) user_id: number, @Body() updateEmployeeDto: UpdateEmployeeDto): Promise<Employee> {
