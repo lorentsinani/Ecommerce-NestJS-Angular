@@ -1,0 +1,65 @@
+.entity-table {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.entity-table__header {
+  padding: 10px;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.entity-table__button {
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.entity-table__button--filter {
+  background-color: #ccc;
+}
+
+.entity-table__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.entity-table__table th,
+.entity-table__table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.entity-table__table th:last-child,
+.entity-table__table td:last-child {
+  text-align: center;
+  width: 100px;
+}
+
+.entity-table__actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.entity-table__actions button {
+  margin-left: 5px;
+}
+
+.entity-table__actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap; /* Prevents the buttons from wrapping to the next line */
+}
+
+.entity-table__actions button {
+  margin-left: 5px;
+  flex-shrink: 0; /* Prevents the buttons from shrinking to fit the container */
+}

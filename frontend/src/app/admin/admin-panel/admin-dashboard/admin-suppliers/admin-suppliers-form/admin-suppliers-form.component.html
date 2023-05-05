@@ -1,0 +1,179 @@
+<form [formGroup]="supplierForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="companyName">Supplier Company Name </label>
+    <input type="text" id="companyName" formControlName="companyName" />
+    <div
+      *ngIf="
+        supplierForm.get('companyName').invalid &&
+        (supplierForm.get('companyName').dirty ||
+          supplierForm.get('companyName').touched)
+      "
+    >
+      <p *ngIf="supplierForm.get('companyName').errors['required']">
+        Company Name is required
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <label for="contactName">Supplier Contact Name </label>
+    <input type="text" id="contactName" formControlName="contactName" />
+    <div
+      *ngIf="
+        supplierForm.get('contactName').invalid &&
+        (supplierForm.get('contactName').dirty ||
+          supplierForm.get('contactName').touched)
+      "
+    >
+      <p *ngIf="supplierForm.get('contactName').errors['required']">
+        Contact Name is required
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <label for="contactTitle">Supplier Contact Title </label>
+    <input type="text" id="contactTitle" formControlName="contactTitle" />
+    <div
+      *ngIf="
+        supplierForm.get('contactTitle').invalid &&
+        (supplierForm.get('contactTitle').dirty ||
+          supplierForm.get('contactTitle').touched)
+      "
+    >
+      <p *ngIf="supplierForm.get('contactTitle').errors['required']">
+        Contact Title is required
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <label for="address">Supplier Address </label>
+    <input type="text" id="address" formControlName="address" />
+    <div
+      *ngIf="
+        supplierForm.get('address').invalid &&
+        (supplierForm.get('address').dirty ||
+          supplierForm.get('address').touched)
+      "
+    >
+      <p *ngIf="supplierForm.get('address').errors['required']">
+        Address is required
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <label for="city">Supplier City </label>
+    <input type="text" id="city" formControlName="city" />
+    <div
+      *ngIf="
+        supplierForm.get('city').invalid &&
+        (supplierForm.get('city').dirty || supplierForm.get('city').touched)
+      "
+    >
+      <p *ngIf="supplierForm.get('city').errors['required']">
+        City is required
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <label for="region">Supplier Region</label>
+    <input type="text" id="region" formControlName="region" />
+    <div
+      *ngIf="
+        supplierForm.get('region').invalid &&
+        (supplierForm.get('region').dirty || supplierForm.get('region').touched)
+      "
+    >
+      <p *ngIf="supplierForm.get('region').errors['required']">
+        Region is required
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <label for="postalCode">Supplier Postal Code </label>
+    <input type="text" id="postalCode" formControlName="postalCode" />
+    <div
+      *ngIf="
+        supplierForm.get('postalCode').invalid &&
+        (supplierForm.get('postalCode').dirty ||
+          supplierForm.get('postalCode').touched)
+      "
+    >
+      <p *ngIf="supplierForm.get('postalCode').errors['required']">
+        Postal Code is required
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <label for="country">Supplier Country </label>
+    <input type="text" id="country" formControlName="country" />
+    <div
+      *ngIf="
+        supplierForm.get('country').invalid &&
+        (supplierForm.get('country').dirty ||
+          supplierForm.get('country').touched)
+      "
+    >
+      <p *ngIf="supplierForm.get('country').errors['required']">
+        Country is required
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <label for="phoneNumber">Supplier Phone Number </label>
+    <input type="tel" id="phoneNumber" formControlName="phoneNumber" />
+    <div
+      *ngIf="
+        supplierForm.get('phoneNumber').invalid &&
+        (supplierForm.get('phoneNumber').dirty ||
+          supplierForm.get('phoneNumber').touched)
+      "
+    >
+      <p *ngIf="supplierForm.get('phoneNumber').errors['required']">
+        Phone Number is required
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <label for="faxNumber">Supplier Fax Number </label>
+    <input type="text" id="faxNumber" formControlName="faxNumber" />
+    <div
+      *ngIf="
+        supplierForm.get('faxNumber').invalid &&
+        (supplierForm.get('faxNumber').dirty ||
+          supplierForm.get('faxNumber').touched)
+      "
+    >
+      <p *ngIf="supplierForm.get('faxNumber').errors['required']">
+        Fax Number is required
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <label for="email">Supplier Email </label>
+    <input type="email" id="email" formControlName="email" />
+    <div
+      *ngIf="
+        supplierForm.get('email').invalid &&
+        (supplierForm.get('email').dirty || supplierForm.get('email').touched)
+      "
+    >
+      <p *ngIf="supplierForm.get('email').errors['required']">
+        Email is required
+      </p>
+    </div>
+  </div>
+
+  <div class="btns">
+    <button type="submit">Submit</button>
+    <button id="btn-show-all" routerLink="../table">Show All</button>
+  </div>
+</form>

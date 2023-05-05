@@ -1,34 +1,40 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Currency } from '../../interfaces/currency.interface';
-import { HttpClient } from '@angular/common/http';
-import { BaseService } from '../base/base.service';
 import { Observable } from 'rxjs';
+import { BaseService } from '../base/base.service';
+import { Currency } from '../../interfaces/currency-interface';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+  }),
+};
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CurrencyService extends BaseService<Currency> {
   constructor(http: HttpClient) {
     super(http);
   }
 
-  createCurrency(currency: Currency): Observable<Currency> {
-    return this.post(`currency`, currency);
-  }
-
-  getCurrencyById(id: number): Observable<Currency> {
-    return this.get(`currency${id}`);
+  createCurrency(data: Currency): Observable<Currency> {
+    return this.post(`currency`, data);
   }
 
   getAllCurrencies(): Observable<Currency[]> {
     return this.getAll(`currency`);
   }
 
-  updateCurrency(id: number, currency: Currency) {
-    return this.put(`currency/${id}`, currency);
+  getCurrencyById(id: number): Observable<Currency> {
+    return this.get(`currency/${id}`);
   }
 
-  deleteCurrency(id: number) {
+  updateCurrency(id: number, data: Partial<Currency>): Observable<Currency> {
+    return this.put(`currency/${id}`, data);
+  }
+
+  deleteCurrency(id: number): Observable<Currency> {
     return this.delete(`currency/${id}`);
   }
 }

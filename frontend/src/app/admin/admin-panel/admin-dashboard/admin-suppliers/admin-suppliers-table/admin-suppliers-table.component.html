@@ -1,0 +1,64 @@
+<div class="entity-table">
+  <div class="entity-table__header">
+    <form action="">
+      <input type="text" placeholder="Search" />
+    </form>
+
+    <button
+      class="entity-table__button entity-table__button--new"
+      routerLink="../form"
+    >
+      New
+    </button>
+    <button class="entity-table__button entity-table__button--filter">
+      Add Filter
+    </button>
+  </div>
+  <table class="entity-table__table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Company Name</th>
+        <th>Contact Name</th>
+        <th>Contact Title</th>
+        <th>Contact Email</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>Region</th>
+        <th>Postal Code</th>
+        <th>Country</th>
+        <th>Fax Number</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entity of entities">
+        <td>{{ entity.id }}</td>
+        <td>{{ entity.companyName }}</td>
+        <td>{{ entity.contactName }}</td>
+        <td>{{ entity.contactTitle }}</td>
+        <td>{{ entity.address }}</td>
+        <td>{{ entity.city }}</td>
+        <td>{{ entity.region }}</td>
+        <td>{{ entity.postalCode }}</td>
+        <td>{{ entity.country }}</td>
+        <td>{{ entity.phoneNumber }}</td>
+        <td>{{ entity.faxNumber }}</td>
+        <td>{{ entity.email }}</td>
+
+        <td class="entity-table__actions">
+          <button
+            class="entity-table__button entity-table__button--edit"
+            routerLink="../form/{{ entity.id }}"
+          >
+            Edit
+          </button>
+          <button class="entity-table__button entity-table__button--delete">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

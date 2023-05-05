@@ -1,0 +1,50 @@
+<div class="entity-table">
+  <div class="entity-table__header">
+    <form action="">
+      <input type="text" placeholder="Search" />
+    </form>
+
+    <button
+      class="entity-table__button entity-table__button--new"
+      routerLink="../form"
+    >
+      New
+    </button>
+    <button class="entity-table__button entity-table__button--filter">
+      Add Filter
+    </button>
+  </div>
+  <table class="entity-table__table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Country</th>
+        <th>Established Year</th>
+        <th>Contact Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entity of entities">
+        <td>{{ entity.id }}</td>
+        <td>{{ entity.name }}</td>
+        <td>{{ entity.country }}</td>
+        <td>{{ entity.establishedYear }}</td>
+        <td>{{ entity.contactEmail }}</td>
+
+        <td class="entity-table__actions">
+          <button
+            class="entity-table__button entity-table__button--edit"
+            routerLink="../form/{{ entity.id }}"
+          >
+            Edit
+          </button>
+          <button class="entity-table__button entity-table__button--delete">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
