@@ -23,10 +23,8 @@ export class CategoryController {
   @UseGuards(PermissionsGuard)
   @CheckPermissions([PermissionAction.Create, PermissionObject.Category])
   @UseInterceptors(FileInterceptor('image'))
-  async create(@UploadedFile() category_image: Express.Multer.File, @Body() categoryBody: CreateCategoryDto): Promise<Category> {
-    const category_image_url = await uploadImage(category_image, 'categories');
-
-    const category = { ...categoryBody, category_image_url };
+  async create(@UploadedFile() categoryImage: Express.Multer.File, @Body() categoryBody: CreateCategoryDto): Promise<Category> {
+    const category = { ...categoryBody, categoryImage };
     return this.categoryService.create(category);
   }
 

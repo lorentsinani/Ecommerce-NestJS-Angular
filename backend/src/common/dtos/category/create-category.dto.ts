@@ -11,5 +11,5 @@ export class CreateCategoryDto {
 
   @Length(1, 255)
   @IsString()
-  categoryImageUrl: string;
+  categoryImage: string | Express.Multer.File;
 }
