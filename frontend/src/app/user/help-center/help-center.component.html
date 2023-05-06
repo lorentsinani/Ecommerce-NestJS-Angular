@@ -1,1 +1,22 @@
-<p>help-center works!</p>
+<div class="container">
+    <h1 class="title">How can we help you?</h1>
+    <div class="search-container">
+        <input type="text" class="search-field" placeholder="Search..." [(ngModel)]="searchTerm">
+    </div>
+    <div class="faq-section">
+        <h2 class="subtitle">Frequently Asked Questions</h2>
+        <ng-container *ngIf="filteredFaqs.length > 0">
+            <mat-accordion>
+                <mat-expansion-panel *ngFor="let faq of filteredFaqs">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>{{ faq.question }}</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p class="answer">{{ faq.answer }}</p>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </ng-container>
+        <div *ngIf="filteredFaqs.length === 0 && searchTerm">
+            <p>No FAQs found for "{{ searchTerm }}"</p>
+        </div>
+    </div>
+</div>

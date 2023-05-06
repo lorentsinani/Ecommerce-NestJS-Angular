@@ -1,0 +1,35 @@
+<form [formGroup]="form">
+  <div>
+    <label for="code">Currency Code</label>
+    <input type="text" id="code" formControlName="code">
+    <div *ngIf="form.get('code').invalid && (form.get('code').dirty || form.get('code').touched)">
+      <p *ngIf="form.get('code').errors['required']">Currency code is required</p>
+      <div *ngIf="form.get('code').errors['minlength']">Code must be at least 1 character</div>
+      <div *ngIf="form.get('code').errors['maxlength']">Code can only be 1 character</div>
+    </div>
+  </div>
+
+  <div>
+    <label for="EchangeRate">Exchange Rate</label>
+    <input type="number" step="0.01" formControlName="exchangeRate">
+    <div
+      *ngIf="form.get('exchangeRate').invalid && (form.get('exchangeRate').dirty || form.get('exchangeRate').touched)">
+      <p *ngIf="form.get('exchangeRate').errors['required']">Exchange Rate is required</p>
+    </div>
+  </div>
+
+  <br>
+  <div>
+    <label for="IsBase">Is Base</label>
+    <input type="checkbox" formControlName="isBase">
+    <div *ngIf="form.get('isBase').invalid && (form.get('isBase').dirty || form.get('isBase').touched)">
+      <p *ngIf="form.get('isBase').errors['required']">Is Base is required</p>
+    </div>
+  </div>
+
+  <div class="btns">
+    <button (click)="onCreate()">Create</button>
+    <button id="btn-show-all" routerLink="../">Show All</button>
+  </div>
+
+</form>

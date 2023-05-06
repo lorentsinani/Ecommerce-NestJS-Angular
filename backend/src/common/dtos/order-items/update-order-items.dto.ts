@@ -1,15 +1,15 @@
-import { IsOptional, IsNotEmpty, IsNumber, IsDecimal } from 'class-validator';
+import { IsOptional, IsNotEmpty, IsDecimal, IsNumber } from 'class-validator';
 
 export class UpdateOrderItemDto {
   @IsOptional()
   @IsNotEmpty()
   @IsNumber()
-  order_id: number;
+  orderId: number;
 
   @IsOptional()
-  @IsNotEmpty()
   @IsNumber()
-  product_id: number;
+  @IsNotEmpty()
+  productId: number;
 
   @IsOptional()
   @IsNotEmpty()
@@ -19,12 +19,12 @@ export class UpdateOrderItemDto {
   @IsOptional()
   @IsNotEmpty()
   @IsDecimal()
-  price_with_vat: number;
+  priceWithVat: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsDecimal()
-  price_without_vat: number;
+  priceWithoutVat: number;
 
   @IsOptional()
   @IsDecimal()
@@ -33,5 +33,5 @@ export class UpdateOrderItemDto {
   @IsOptional()
   @IsNotEmpty()
   @IsDecimal()
-  total_amount: number;
+  totalAmount: number;
 }

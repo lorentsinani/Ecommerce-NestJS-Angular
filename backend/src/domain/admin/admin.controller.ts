@@ -4,13 +4,12 @@ import { AdminService } from './admin.service';
 import { CreateAdminDto } from '../../common/dtos/admin/create-admin.dto';
 import { UpdateAdminDto } from '../../common/dtos/admin/update-admin.dto';
 import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
-import { AdminGuard } from '../../common/guards/admin.guard';
 import { QueryExceptionFilter } from '../../common/filters/query.exception.filter';
 import { Admin } from '../entities/admin.entity';
 
 @Controller('admin')
 @UsePipes(new ValidationPipe())
-@UseGuards(AdminGuard)
+// @UseGuards(AdminGuard)
 @UseFilters(new QueryExceptionFilter('Admin'))
 export class AdminController {
   constructor(private adminService: AdminService) {}

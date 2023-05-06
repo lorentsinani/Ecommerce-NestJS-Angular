@@ -9,6 +9,6 @@ export class Newsletter implements INewsletter {
   @Column({ unique: true, length: 100 })
   email: string;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 }

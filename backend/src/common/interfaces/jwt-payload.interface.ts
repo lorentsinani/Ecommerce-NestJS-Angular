@@ -1,7 +1,7 @@
+import { IUser } from './user.interface';
+
 export interface JwtPayload {
-  sub: number;
-  username: string;
-  role: string;
+  user: IUser;
   iat: number;
   exp: number;
 }

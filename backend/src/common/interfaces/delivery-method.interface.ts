@@ -2,15 +2,15 @@ import { DeliveryMethod } from '../constants/enums/delivery-method.enum';
 
 export interface IDeliveryMethod {
   id: number;
-  delivery_method_name: string;
+  deliveryMethodName: string;
 
-  phone_number: string;
+  phoneNumber: string;
 
-  delivery_time: string;
+  deliveryTime: string;
 
-  delivery_method: DeliveryMethod;
+  deliveryMethod: DeliveryMethod;
 
-  created_at: Date;
+  createdAt: Date;
 
-  updated_at: Date;
+  updatedAt: Date;
 }

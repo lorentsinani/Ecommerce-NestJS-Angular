@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength } from 'class-validator';
+import { IsInt, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class UpdateProductDetailsDto {
   @IsOptional()
@@ -9,7 +9,7 @@ export class UpdateProductDetailsDto {
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
+  @IsInt()
   warranty: number;
 
   @IsOptional()
@@ -26,6 +26,6 @@ export class UpdateProductDetailsDto {
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
-  producer_id: number;
+  @IsInt()
+  producerId: number;
 }

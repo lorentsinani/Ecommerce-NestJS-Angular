@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsString, IsNumber, IsEmail } from 'class-validator';
+import { IsNotEmpty, IsString, IsEmail } from 'class-validator';
+import { IsNumberFormat } from '../../decorators/number-format.decorator';
 
 export class CreateProducerDto {
   @IsNotEmpty()
@@ -10,10 +11,10 @@ export class CreateProducerDto {
   country: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  established_year: number;
+  @IsNumberFormat()
+  establishedYear: number;
 
   @IsNotEmpty()
   @IsEmail()
-  contact_email: string;
+  contactEmail: string;
 }

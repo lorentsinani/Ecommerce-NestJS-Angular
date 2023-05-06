@@ -1,36 +1,36 @@
-import { IsNotEmpty, IsDecimal, IsInt, IsOptional, MaxLength, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsDecimal, IsInt, IsOptional, MaxLength, IsString } from 'class-validator';
 import { IsDateFormat } from '../../decorators/date-format.decorator';
 
 export class CreateProductDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(255)
-  product_name: string;
+  productName: string;
 
   @IsNotEmpty()
   @IsString()
   @MaxLength(50)
-  product_code: string;
+  productCode: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  supplier_id: number;
+  @IsInt()
+  supplierId: number;
 
   @IsNotEmpty()
-  @IsNumber()
-  category_id: number;
+  @IsInt()
+  categoryId: number;
 
   @IsNotEmpty()
   @IsDateFormat()
-  released_date: Date;
+  releasedDate: Date;
 
   @IsNotEmpty()
   @IsDecimal()
-  price_with_vat: number;
+  priceWithVat: number;
 
   @IsNotEmpty()
   @IsDecimal()
-  price_without_vat: number;
+  priceWithoutVat: number;
 
   @IsOptional()
   @IsDecimal()
@@ -38,13 +38,13 @@ export class CreateProductDto {
 
   @IsNotEmpty()
   @IsInt()
-  availability_in_stock: number;
+  availabilityInStock: number;
 
   @IsOptional()
   @IsDecimal()
   discount?: number;
 
   @IsNotEmpty()
-  @IsNumber()
-  product_details_id: number;
+  @IsInt()
+  productDetailsId: number;
 }

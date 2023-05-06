@@ -7,8 +7,8 @@ export class OrdersStatus implements IOrdersStatus {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'enum', enum: OrderStatus, unique: true })
-  status_name: OrderStatus;
+  @Column({ name: 'status_name', type: 'enum', enum: OrderStatus, unique: true })
+  statusName: OrderStatus;
 
   @Column({ type: 'varchar', length: 255 })
   description: string;

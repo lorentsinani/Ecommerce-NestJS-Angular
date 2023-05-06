@@ -6,13 +6,13 @@ export class UpdateAddressDto {
   @IsString()
   @IsOptional()
   @IsNotEmpty()
-  address_line1: string;
+  addressLine1: string;
 
   @Length(1, 255)
   @IsString()
   @IsOptional()
   @IsNotEmpty()
-  address_line2: string;
+  addressLine2: string;
 
   @Length(1, 100)
   @IsString()
@@ -30,7 +30,7 @@ export class UpdateAddressDto {
   @IsString()
   @IsOptional()
   @IsNotEmpty()
-  postal_code: string;
+  postalCode: string;
 
   @Length(1, 15)
   @IsString()
@@ -53,11 +53,11 @@ export class UpdateAddressDto {
   @IsString()
   @IsOptional()
   @IsNotEmpty()
-  first_name: string;
+  firstName: string;
 
   @Length(1, 50)
   @IsString()
   @IsOptional()
   @IsNotEmpty()
-  last_name: string;
+  lastName: string;
 }

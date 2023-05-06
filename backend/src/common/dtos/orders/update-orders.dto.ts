@@ -1,59 +1,58 @@
-import { IsString, IsNotEmpty, IsNumber, IsDecimal, IsOptional, MaxLength, IsEnum } from 'class-validator';
+import { IsString, IsNotEmpty, IsDecimal, IsOptional, MaxLength, IsInt } from 'class-validator';
 import { IsDateFormat } from '../../decorators/date-format.decorator';
-import { OrderStatus } from '../../constants/enums/orders-status.enum';
 
 export class UpdateOrdersDto {
   @IsOptional()
   @IsNotEmpty()
   @IsString()
   @MaxLength(10)
-  order_code: string;
+  orderCode: string;
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
-  customer_id: number;
+  @IsInt()
+  customerId: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
   @MaxLength(255)
-  order_comment: string;
+  orderComment: string;
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
-  currency_id: number;
+  @IsInt()
+  currencyId: number;
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
-  employee_id: number;
+  @IsInt()
+  employeeId: number;
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
-  order_status_id: number;
+  @IsInt()
+  orderStatusId: number;
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
-  address_id: number;
+  @IsInt()
+  addressId: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsDateFormat()
-  order_date: Date;
+  orderDate: Date;
 
   @IsOptional()
   @IsNotEmpty()
   @IsDecimal()
-  total_amount_with_vat: number;
+  totalAmountWithVat: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsDecimal()
-  total_amount_without_vat: number;
+  totalAmountWithoutVat: number;
 
   @IsOptional()
   @IsDecimal()

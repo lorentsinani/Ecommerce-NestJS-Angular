@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, Length, IsNumber, IsBoolean, IsOptional } from 'class-validator';
+import { IsString, IsNotEmpty, Length, IsBoolean, IsOptional } from 'class-validator';
 
 export class UpdateCurrencyDto {
   @IsString()
@@ -7,13 +7,12 @@ export class UpdateCurrencyDto {
   @IsNotEmpty()
   code: string;
 
-  @IsNumber()
   @IsOptional()
   @IsNotEmpty()
-  exchange_rate: number;
+  exchangeRate: number;
 
   @IsBoolean()
   @IsOptional()
   @IsNotEmpty()
-  is_base: boolean;
+  isBase: boolean;
 }

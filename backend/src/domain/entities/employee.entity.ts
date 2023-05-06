@@ -4,26 +4,26 @@ import { IEmployee } from '../../common/interfaces/employee.interface';
 
 @Entity()
 export class Employee implements IEmployee {
-  @PrimaryColumn()
-  user_id: number;
+  @PrimaryColumn({ name: 'user_id' })
+  userId: number;
 
   @Column({ type: 'date' })
-  hire_date: Date;
+  hireDate: Date;
 
   @Column({ type: 'varchar', length: 50 })
-  job_title: string;
+  jobTitle: string;
 
   @Column({ type: 'varchar', length: 100, nullable: true })
   address: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  photo_url: string;
+  photoUrl: string;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   @Check('salary > 250')
   salary: number;
 
   @OneToOne(() => User, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user: User;
 }

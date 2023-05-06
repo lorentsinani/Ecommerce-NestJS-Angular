@@ -1,0 +1,73 @@
+<form [formGroup]="producerForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Producer Name </label>
+    <input type="text" id="name" formControlName="name" />
+    <div
+      *ngIf="
+        producerForm.get('name').invalid &&
+        (producerForm.get('name').dirty || producerForm.get('name').touched)
+      "
+    >
+      <p *ngIf="producerForm.get('name').errors['required']">
+        Name is required
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <label for="country">Producer Country </label>
+    <input type="text" id="country" formControlName="country" />
+    <div
+      *ngIf="
+        producerForm.get('country').invalid &&
+        (producerForm.get('country').dirty ||
+          producerForm.get('country').touched)
+      "
+    >
+      <p *ngIf="producerForm.get('country').errors['required']">
+        Country is required
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <label for="establishedYear">Producer Established Year</label>
+    <input
+      type="number"
+      id="establishedYear"
+      formControlName="establishedYear"
+    />
+    <div
+      *ngIf="
+        producerForm.get('establishedYear').invalid &&
+        (producerForm.get('establishedYear').dirty ||
+          producerForm.get('establishedYear').touched)
+      "
+    >
+      <p *ngIf="producerForm.get('establishedYear').errors['required']">
+        Established Year is required
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <label for="contactEmail">Producer Contact Email </label>
+    <input type="email" id="contactEmail" formControlName="contactEmail" />
+    <div
+      *ngIf="
+        producerForm.get('contactEmail').invalid &&
+        (producerForm.get('contactEmail').dirty ||
+          producerForm.get('contactEmail').touched)
+      "
+    >
+      <p *ngIf="producerForm.get('contactEmail').errors['required']">
+        Contact Email is required
+      </p>
+    </div>
+  </div>
+
+  <div class="btns">
+    <button type="submit">Submit</button>
+    <button id="btn-show-all" routerLink="../table">Show All</button>
+  </div>
+</form>

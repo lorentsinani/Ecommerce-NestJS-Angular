@@ -1,13 +1,13 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class UpdateProductImageDto {
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
-  product_id: number;
+  @IsInt()
+  productId: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  image_url: string;
+  imageUrl: string;
 }

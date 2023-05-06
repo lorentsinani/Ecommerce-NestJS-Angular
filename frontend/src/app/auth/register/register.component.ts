@@ -1,41 +1,29 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { trigger, transition, style, animate } from '@angular/animations';
+import { User } from '../../core/interfaces/user.interface';
+import { AuthService } from '../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate(300, style({ opacity: 1 }))
-      ]),
-      transition(':leave', [
-        animate(300, style({ opacity: 0 }))
-      ])
-    ]),
-      // trigger('slideInFromTop', [
-      //   transition(':enter', [
-      //     style({ transform: 'translateY(-100%)' }),
-      //     animate('0.3s ease-out', style({ transform: 'translateY(0)' }))
-      //   ])
-      // ])
-    ]
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  registerForm: FormGroup;
+  isCreated: boolean = false;
+  badRequest: boolean = false;
+  message: string = '';
 
-  constructor(private fb: FormBuilder) {
-    this.registerForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+  constructor(private authService: AuthService) {}
+
+  registerUser(event: User) {
+    this.authService.register(event).subscribe({
+      next: response => {
+        this.isCreated = true;
+      },
+      error: error => {
+        this.badRequest = true;
+        this.message = error.message;
+      }
     });
-  }
-
-  onSubmit() {
-    // Submit logic
   }
 }

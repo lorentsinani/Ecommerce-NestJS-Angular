@@ -1,12 +1,11 @@
-import { IsNotEmpty, IsNumber, IsObject, IsString } from 'class-validator';
-import { Product } from '../../../domain/entities/product.entity';
+import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateProductImageDto {
   @IsNotEmpty()
-  @IsNumber()
-  product_id: number;
+  @IsInt()
+  productId: number;
 
   @IsNotEmpty()
   @IsString()
-  image_url: string;
+  imageUrl: string;
 }

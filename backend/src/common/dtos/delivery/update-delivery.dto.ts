@@ -1,40 +1,41 @@
-import { IsNotEmpty, IsEnum, IsNumber, IsString, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsEnum, IsString, IsOptional } from 'class-validator';
 import { IsDateFormat } from '../../decorators/date-format.decorator';
 import { DeliveryStatus } from '../../constants/enums/delivery-status.enum';
+import { IsNumberFormat } from '../../decorators/number-format.decorator';
 
 export class UpdateDeliveryDto {
   @IsOptional()
   @IsNotEmpty()
   @IsDateFormat()
-  delivery_date: Date;
+  deliveryDate: Date;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  delivery_comments: string;
+  deliveryComments: string;
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
-  delivery_cost: number;
+  @IsNumberFormat()
+  deliveryCost: number;
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
-  delivery_method_id: number;
+  @IsNumberFormat()
+  deliveryMethodId: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsEnum(DeliveryStatus)
-  delivery_status: DeliveryStatus;
+  deliveryStatus: DeliveryStatus;
 
   @IsOptional()
   @IsNotEmpty()
   @IsDateFormat()
-  promised_delivery_date: Date;
+  promisedDeliveryDate: Date;
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
-  delivery_order_id: number;
+  @IsNumberFormat()
+  deliveryOrderId: number;
 }

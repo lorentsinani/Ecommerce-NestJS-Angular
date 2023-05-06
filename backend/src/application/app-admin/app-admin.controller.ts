@@ -1,9 +1,8 @@
-import { Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseFilters, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AppAdminService } from './app-admin.service';
 import { CreateUserDto } from '../../common/dtos/users/create-user.dto';
 import { CreateAdminDto } from '../../common/dtos/admin/create-admin.dto';
 import { Body } from '@nestjs/common';
-import { AdminGuard } from '../../common/guards/admin.guard';
 import { CreateEmployeeDto } from '../../common/dtos/employees/create-employee';
 import { UpdateUserDto } from '../../common/dtos/users/update-user.dto';
 import { UpdateAdminDto } from '../../common/dtos/admin/update-admin.dto';

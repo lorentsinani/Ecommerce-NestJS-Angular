@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString, MaxLength } from 'class-validator'; // Added import
+import { IsInt, IsNotEmpty, IsNumber, IsString, MaxLength } from 'class-validator'; // Added import
 
 export class CreateProductDetailsDto {
   @IsNotEmpty()
@@ -20,6 +20,6 @@ export class CreateProductDetailsDto {
   size: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  producer_id: number;
+  @IsInt()
+  producerId: number;
 }

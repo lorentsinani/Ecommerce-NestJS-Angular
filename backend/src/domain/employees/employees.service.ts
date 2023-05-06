@@ -32,6 +32,12 @@ export class EmployeesService {
     return employee;
   }
 
+  async findAvailableEmployees(): Promise<Employee[]> {
+    return this.employeesRepository.findAvailableEmployees();
+  }
+  async fetchEmployee(searchTerm: string): Promise<Employee[]> {
+    return this.employeesRepository.fetchEmployees(searchTerm);
+  }
   async update(user_id: number, updateUserDto: UpdateEmployeeDto): Promise<Employee> {
     const updatedEmployee = await this.employeesRepository.updateEmployee(user_id, updateUserDto);
 

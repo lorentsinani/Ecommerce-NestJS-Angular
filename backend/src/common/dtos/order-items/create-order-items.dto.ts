@@ -1,13 +1,13 @@
-import { IsDecimal, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
+import { IsDecimal, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateOrderItemDto {
   @IsNotEmpty()
   @IsNumber()
-  order_id: number;
+  orderId: number;
 
-  @IsNotEmpty()
   @IsNumber()
-  product_id: number;
+  @IsNotEmpty()
+  productId: number;
 
   @IsNotEmpty()
   @IsNumber()
@@ -15,17 +15,17 @@ export class CreateOrderItemDto {
 
   @IsNotEmpty()
   @IsDecimal()
-  price_with_vat: number;
+  priceWithVat: number;
 
   @IsNotEmpty()
   @IsDecimal()
-  price_without_vat: number;
-
-  @IsOptional()
-  @IsDecimal()
-  vat: number;
+  priceWithoutVat: number;
 
   @IsNotEmpty()
   @IsDecimal()
-  total_amount: number;
+  vat?: number;
+
+  @IsNotEmpty()
+  @IsDecimal()
+  totalAmount: number;
 }
