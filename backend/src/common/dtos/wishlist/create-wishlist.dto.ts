@@ -3,9 +3,9 @@ import { IsNotEmpty, IsNumber } from 'class-validator';
 export class CreateWishlistDto {
   @IsNotEmpty()
   @IsNumber()
-  customer_id: number;
+  customerId: number;
 
   @IsNotEmpty()
   @IsNumber()
-  product_id: number;
+  productId: number;
 }

@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateWishlistDto } from 'src/common/dtos/wishlist/create-wishlist.dto';
 import { UpdateWishlistDto } from 'src/common/dtos/wishlist/update-wishlist.dto';
 
-@Injectable()   
+@Injectable()
 export class WishlistsRepository extends Repository<Wishlist> {
   constructor(dataSource: DataSource) {
     super(Wishlist, dataSource.createEntityManager());

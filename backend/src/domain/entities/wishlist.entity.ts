@@ -3,23 +3,23 @@ import { Product } from './product.entity';
 import { User } from './user.entity';
 
 @Entity()
-@Index(['customer_id', 'product_id'], { unique: true })
+@Index(['customerId', 'productId'], { unique: true })
 export class Wishlist {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'integer' })
-  customer_id: number;
+  @Column({ name: 'customer_id', type: 'integer' })
+  customerId: number;
 
-  @Column({ type: 'integer' })
-  product_id: number;
+  @Column({ name: 'product_id', type: 'integer' })
+  productId: number;
 
   @ManyToOne(() => User)
-  @JoinColumn({ name: 'customer_id', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'customerId', referencedColumnName: 'id' })
   customer: User;
 
   @ManyToOne(() => Product)
-  @JoinColumn({ name: 'product_id', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'productId', referencedColumnName: 'id' })
   product: Product;
 
   @CreateDateColumn()
