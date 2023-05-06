@@ -56,6 +56,15 @@ export class ProductRepository extends Repository<Product> {
     return this.createQueryBuilder().delete().from(Product).where('id = :id', { id }).returning('*').execute();
   }
 
+  findProductsOnDiscount(): Promise<Product[]> {
+    const query = this.createQueryBuilder('product')
+      .addSelect('ROUND((product.price_with_vat - (product.price_with_vat * product.discount / 100))::numeric, 2)', 'product_price_after_discount')
+      .andWhere('product.discount > 0.00')
+      .andWhere('product.discountExpirationDate IS NOT NULL');
+
+    return query.getMany();
+  }
+
   findProductsFilter(filterDto: DynamicProductFilterDto): Promise<Product[]> {
     const query = this.createQueryBuilder('product');
 

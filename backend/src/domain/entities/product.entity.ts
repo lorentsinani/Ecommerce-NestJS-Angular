@@ -47,6 +47,12 @@ export class Product implements IProduct {
   @Column({ type: 'decimal', precision: 5, scale: 2, nullable: true })
   discount: number;
 
+  @Column({ select: false, type: 'decimal', precision: 10, scale: 2, nullable: true })
+  priceAfterDiscount: number;
+
+  @Column({ name: 'discount_expiration_date', type: 'date', nullable: true })
+  discountExpirationDate: Date;
+
   @Column({ name: 'product_details_id' })
   productDetailsId: number;
 
