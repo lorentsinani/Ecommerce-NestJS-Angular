@@ -8,15 +8,17 @@ export async function uploadImage(file: Express.Multer.File, entity: string): Pr
     throw new BadRequestException('File not provided');
   }
 
-  const filename = `${uuidv4()}-${file.originalname}`;
-  await fs.writeFile(`./uploads/${entity}/${filename}`, file.buffer);
-  return filename;
+  const filename = `${uuidv4()}-${file.originalname.replace(/\s+/g, '_')}`;
+  const path = `/images/${entity}/${filename}`;
+
+  await fs.writeFile(`.${path}`, file.buffer);
+  return path;
 }
 
 export const multerOptions = {
   storage: multer.memoryStorage(),
   limits: {
-    fileSize: 1024 * 1024 * 5 // 5 MB
+    fileSize: 1024 * 1024 * 5
   },
   fileFilter: (req: any, file: Express.Multer.File, cb: any) => {
     const allowedMimes = ['image/jpeg', 'image/png'];

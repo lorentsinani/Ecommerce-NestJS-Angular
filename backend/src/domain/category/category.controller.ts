@@ -11,7 +11,7 @@ import { PermissionsGuard } from '../../common/guards/permissions.guard';
 import { PermissionAction } from '../../common/constants/enums/permission-action.enum';
 import { PermissionObject } from '../../common/constants/enums/permission-object.enum';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { uploadImage } from 'src/common/utils/upload-util';
+import { multerOptions } from 'src/common/utils/upload-util';
 
 @Controller('category')
 @UsePipes(new ValidationPipe())
@@ -20,9 +20,9 @@ export class CategoryController {
   constructor(private categoryService: CategoryService) {}
 
   @Post()
-  @UseGuards(PermissionsGuard)
-  @CheckPermissions([PermissionAction.Create, PermissionObject.Category])
-  @UseInterceptors(FileInterceptor('image'))
+  // @UseGuards(PermissionsGuard)
+  // @CheckPermissions([PermissionAction.Create, PermissionObject.Category])
+  @UseInterceptors(FileInterceptor('categoryImage', multerOptions))
   async create(@UploadedFile() categoryImage: Express.Multer.File, @Body() categoryBody: CreateCategoryDto): Promise<Category> {
     const category = { ...categoryBody, categoryImage };
     return this.categoryService.create(category);
