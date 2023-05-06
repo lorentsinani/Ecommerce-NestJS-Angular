@@ -16,8 +16,6 @@ import { HeadComponent } from './admin-panel/admin-dashboard/currency/table/head
 import { RowComponent } from './admin-panel/admin-dashboard/currency/table/row/row.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SidebarComponent } from './admin-panel/sidebar/sidebar.component';
-import { AdminCurrencyFormComponent } from './admin-panel/admin-dashboard/admin-currency/admin-currency-form/admin-currency-form.component';
-import { AdminCurrencyTableComponent } from './admin-panel/admin-dashboard/admin-currency/admin-currency-table/admin-currency-table.component';
 import { AdminProducerFormComponent } from './admin-panel/admin-dashboard/admin-producer/admin-producer-form/admin-producer-form.component';
 import { AdminProducerTableComponent } from './admin-panel/admin-dashboard/admin-producer/admin-producer-table/admin-producer-table.component';
 import { AdminSuppliersComponent } from './admin-panel/admin-dashboard/admin-suppliers/admin-suppliers.component';
@@ -38,8 +36,6 @@ import { AdminSuppliersTableComponent } from './admin-panel/admin-dashboard/admi
     HeadComponent,
     RowComponent,
     SidebarComponent,
-    AdminCurrencyFormComponent,
-    AdminCurrencyTableComponent,
     AdminProducerFormComponent,
     AdminProducerTableComponent,
     AdminSuppliersComponent,

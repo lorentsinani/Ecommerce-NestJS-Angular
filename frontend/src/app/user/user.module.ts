@@ -40,7 +40,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 
-
 @NgModule({
   declarations: [
     CartComponent,
@@ -85,7 +84,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatFormFieldModule,
     MatIconModule,
     MatExpansionModule
-
   ]
 })
-export class UserModule { }
+export class UserModule {}

@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { User } from '../../../core/interfaces/user.interface';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { stringPatternValidator } from '../../../core/validators/pattern-string.validator';
+import { passwordValidator } from '../../../core/validators/password.validator';
+import { emailValidator } from '../../../core/validators/email.validator';
 
 @Component({
   selector: 'app-register-form',
@@ -19,12 +22,12 @@ export class RegisterFormComponent {
 
   createForm() {
     this.registerForm = this.formBuilder.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      country: ['', [Validators.required]],
-      city: ['', [Validators.required]],
+      firstName: ['', [Validators.required, stringPatternValidator]],
+      lastName: ['', [Validators.required, stringPatternValidator]],
+      email: ['', [Validators.required, emailValidator]],
+      password: ['', [Validators.required, passwordValidator]],
+      country: ['', [Validators.required, stringPatternValidator]],
+      city: ['', [Validators.required, stringPatternValidator]],
       birthdate: [Date, [Validators.required]],
       gender: ['', [Validators.required]]
     });

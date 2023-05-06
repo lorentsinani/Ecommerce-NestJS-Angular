@@ -4,8 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { AdminCategoryRoute } from './admin-panel/admin-dashboard/admin-category/admin-category.route';
 import { AdminCurrencyComponent } from './admin-panel/admin-dashboard/admin-currency/admin-currency.component';
-import { AdminCurrencyFormComponent } from './admin-panel/admin-dashboard/admin-currency/admin-currency-form/admin-currency-form.component';
-import { AdminCurrencyTableComponent } from './admin-panel/admin-dashboard/admin-currency/admin-currency-table/admin-currency-table.component';
 import { AdminProducerFormComponent } from './admin-panel/admin-dashboard/admin-producer/admin-producer-form/admin-producer-form.component';
 import { AdminProducerTableComponent } from './admin-panel/admin-dashboard/admin-producer/admin-producer-table/admin-producer-table.component';
 import { AdminProducerComponent } from './admin-panel/admin-dashboard/admin-producer/admin-producer.component';
@@ -20,34 +18,10 @@ const routes: Routes = [
     // canActivate: [AdminGuard]
     children: [
       {
-        path: 'admin-category',
-        component: AdminCategoryComponent,
-
-        children: [
-          {
-            path: 'form',
-            component: AdminCategoryFormComponent,
-          },
-          {
-            path: 'table',
-            component: AdminCategoryTableComponent,
-          },
-        ],
-      },
-      {
         path: 'admin-currency',
         component: AdminCurrencyComponent,
 
-        children: [
-          {
-            path: 'form',
-            component: AdminCurrencyFormComponent,
-          },
-          {
-            path: 'table',
-            component: AdminCurrencyTableComponent,
-          },
-        ],
+        children: []
       },
       {
         path: 'admin-producer',
@@ -56,13 +30,13 @@ const routes: Routes = [
         children: [
           {
             path: 'form',
-            component: AdminProducerFormComponent,
+            component: AdminProducerFormComponent
           },
           {
             path: 'table',
-            component: AdminProducerTableComponent,
-          },
-        ],
+            component: AdminProducerTableComponent
+          }
+        ]
       },
       {
         path: 'admin-supplier',
@@ -71,19 +45,19 @@ const routes: Routes = [
         children: [
           {
             path: 'form',
-            component: AdminSuppliersFormComponent,
+            component: AdminSuppliersFormComponent
           },
           {
             path: 'table',
-            component: AdminSuppliersTableComponent,
-          },
-        ],
-      },
-    ],
-  },
+            component: AdminSuppliersTableComponent
+          }
+        ]
+      }
+    ]
+  }
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AdminRoutingModule {}

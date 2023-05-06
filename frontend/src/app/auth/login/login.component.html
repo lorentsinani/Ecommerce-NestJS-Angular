@@ -1,3 +1,6 @@
 <app-login-form (onLoginUser)="loginUser($event)">
 
 </app-login-form>
+
+
+<p *ngIf="loggedInFailed"> Invalid credentials </p>
