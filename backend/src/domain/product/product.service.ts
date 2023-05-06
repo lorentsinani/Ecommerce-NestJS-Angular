@@ -80,4 +80,8 @@ export class ProductService {
   getIdentifierId(result: InsertResult) {
     return result.identifiers[0].id == -1 ? false : true;
   }
+
+  async findProductsOnDiscount(): Promise<Product[]> {
+    return await this.productRepository.findProductsOnDiscount();
+  }
 }

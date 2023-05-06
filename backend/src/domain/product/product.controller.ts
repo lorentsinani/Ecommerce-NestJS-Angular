@@ -27,7 +27,12 @@ export class ProductController {
 
   @Get('/filter')
   async findFilteredProducts(@Query() filterDto: DynamicProductFilterDto): Promise<Product[]> {
-    return this.productService.findProductsFilter(filterDto);
+    return this.productService.findFilteredProducts(filterDto);
+  }
+
+  @Get('/discount')
+  async findProductsOnDiscount(): Promise<Product[]> {
+    return this.productService.findProductsOnDiscount();
   }
 
   @Get(':id')
