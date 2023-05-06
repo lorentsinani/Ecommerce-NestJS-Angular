@@ -26,14 +26,14 @@ export class WishlistsController {
     return this.wishlistsService.findById(id);
   }
 
-  @Get()
-  findByCustomerId(@Query('customer_id') customerId: number) {
-    return this.wishlistsService.findByCustomerId(customerId);
+  @Get('user/:id')
+  findByCustomerId(@Param('id', ParseIntPipe) id: number) {
+    return this.wishlistsService.findByCustomerId(id);
   }
 
-  @Get()
-  findByProductId(@Query('product_id') productId: number) {
-    return this.wishlistsService.findByProductId(productId);
+  @Get('product/:id')
+  findByProductId(@Param('id', ParseIntPipe) id: number) {
+    return this.wishlistsService.findByProductId(id);
   }
 
   @Patch(':id')
