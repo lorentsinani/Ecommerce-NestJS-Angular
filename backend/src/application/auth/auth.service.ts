@@ -8,6 +8,11 @@ import { Socket } from 'socket.io';
 import { PermissionsService } from '../../domain/permissions/permissions.service';
 import { Permission } from '../../domain/entities/permission.entity';
 import { User } from '../../domain/entities/user.entity';
+import { MailerService } from '../../domain/mailer/mailer.service';
+import { ResetPasswordDto } from '../../common/dtos/password-reset/password-reset.dto';
+import { UsersRepository } from '../../domain/users/users.repository';
+import { IJwtConfig } from '../../config/jwt-config';
+import { ConfigService } from '@nestjs/config';
 
 interface CustomSocket extends Socket {
   jwtPayload?: JwtPayload;
@@ -15,7 +20,17 @@ interface CustomSocket extends Socket {
 
 @Injectable()
 export class AuthService {
-  constructor(private usersService: UsersService, private jwtService: JwtService, private permissionsService: PermissionsService) {}
+  jwtConfig: IJwtConfig;
+  constructor(
+    private usersService: UsersService,
+    private jwtService: JwtService,
+    private permissionsService: PermissionsService,
+    private mailService: MailerService,
+    private userRepository: UsersRepository,
+    private configService: ConfigService
+  ) {
+    this.jwtConfig = this.configService.get('jwt') as IJwtConfig;
+  }
 
   async login(email: string, password: string) {
     const user = await this.usersService.findByEmail(email);
@@ -54,6 +69,49 @@ export class AuthService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, id, ...userDataWithoutPassword } = user;
     return { sub: id, user: { ...userDataWithoutPassword } };
+  }
+
+  async sendVerificationEmail(email: string): Promise<void> {
+    const verificationToken = this.jwtService.sign({ email }, { expiresIn: `${this.jwtConfig.jwt_expires_in}` });
+
+    await this.mailService.sendVerificationEmail(email, verificationToken);
+  }
+
+  async verifyEmail(verificationToken: string): Promise<User> {
+    try {
+      const { email } = this.jwtService.verify(verificationToken) as { email: string };
+      const user = await this.usersService.userExist(email);
+
+      if (!user) {
+        throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
+      }
+
+      user.verified = true;
+      return this.userRepository.save(user);
+    } catch (error) {
+      throw new HttpException('Invalid verification token', HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async sendResetPasswordEmail(resetPasswordDto: ResetPasswordDto): Promise<void> {
+    const email = resetPasswordDto.email;
+    const user = await this.usersService.userExist(email);
+
+    if (user) {
+      const resetPasswordToken = this.jwtService.sign({ sub: user.id }, { expiresIn: `${this.jwtConfig.jwt_expires_in}` });
+
+      await this.mailService.sendResetPasswordEmail(user.email, resetPasswordToken);
+    }
+  }
+
+  async resetPassword(resetPasswordToken: string, password: string): Promise<User> {
+    try {
+      const decodedToken = this.jwtService.verify(resetPasswordToken) as { sub: number };
+
+      return this.usersService.update(decodedToken.sub, { password } as User);
+    } catch (error) {
+      throw new HttpException('Invalid reset password token', HttpStatus.BAD_REQUEST);
+    }
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

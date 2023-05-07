@@ -1,7 +1,7 @@
 import { UserGender } from '../../constants/enums/user-gender.enum';
 import { IsDateFormat } from '../../decorators/date-format.decorator';
 import { IsCustomEmail } from '../../decorators/email-format.decorator';
-import { IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, Length } from 'class-validator';
+import { IsBoolean, IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, Length } from 'class-validator';
 
 export class UpdateUserDto {
   @IsOptional()
@@ -23,6 +23,9 @@ export class UpdateUserDto {
 
   @IsCustomEmail() // custom decorator
   email: string;
+
+  @IsBoolean()
+  verified: boolean;
 
   password: string; // No decorator needed because of the middleware check
 
