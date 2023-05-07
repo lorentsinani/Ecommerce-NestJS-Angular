@@ -25,6 +25,7 @@ export class UpdateUserDto {
   email: string;
 
   @IsBoolean()
+  @IsOptional()
   verified: boolean;
 
   password: string; // No decorator needed because of the middleware check

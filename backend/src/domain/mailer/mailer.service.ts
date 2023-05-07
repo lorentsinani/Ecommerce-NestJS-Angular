@@ -33,7 +33,7 @@ export class MailerService {
     await this.sendMail(email, subject, template, { verificationLink });
   }
 
-  async sendResetPasswordEmail(email: string, resetPasswordToken: string): Promise<void> {
+  async sendResetPasswordLinkToEmail(email: string, resetPasswordToken: string): Promise<void> {
     await this.transporter.sendMail({
       to: email,
       subject: 'Reset Password',

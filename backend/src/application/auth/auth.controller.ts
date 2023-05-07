@@ -27,22 +27,22 @@ export class AuthController {
   async logout(@Body() body: any) {}
 
   @Post('account-verification-link')
-  async sendLinkToVerifyAccount(@Body() email: string): Promise<void> {
-    await this.authService.sendVerificationEmail(email);
+  sendAccountVerificationLinkToEmail(@Body() email: string): Promise<{ message: string }> {
+    return this.authService.sendAccountVerificationLinkToEmail(email);
   }
 
   @Patch('verify-account')
-  verifyAccount(@Query('verify_token') verifyToken: string): Promise<User> {
-    return this.authService.verifyEmail(verifyToken);
+  verifyUserAccount(@Query('verify_token') verifyToken: string): Promise<User> {
+    return this.authService.verifyUserAccount(verifyToken);
   }
 
   @Post('reset-password-link')
-  async sendResetPasswordEmail(@Body() resetPasswordDto: ResetPasswordDto): Promise<void> {
-    await this.authService.sendResetPasswordEmail(resetPasswordDto);
+  sendResetPasswordLinkToEmail(@Body() resetPasswordDto: ResetPasswordDto): Promise<{ message: string }> {
+    return this.authService.sendResetPasswordLinkToEmail(resetPasswordDto);
   }
 
   @Patch('reset-password')
-  resetPassword(@Query('reset_token') resetToken: string, password: string): Promise<User> {
-    return this.authService.resetPassword(resetToken, password);
+  resetUserPassword(@Query('reset_token') resetToken: string, password: string): Promise<User> {
+    return this.authService.resetUserPassword(resetToken, password);
   }
 }

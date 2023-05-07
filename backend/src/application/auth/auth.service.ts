@@ -10,7 +10,6 @@ import { Permission } from '../../domain/entities/permission.entity';
 import { User } from '../../domain/entities/user.entity';
 import { MailerService } from '../../domain/mailer/mailer.service';
 import { ResetPasswordDto } from '../../common/dtos/password-reset/password-reset.dto';
-import { UsersRepository } from '../../domain/users/users.repository';
 import { IJwtConfig } from '../../config/jwt-config';
 import { ConfigService } from '@nestjs/config';
 
@@ -20,13 +19,12 @@ interface CustomSocket extends Socket {
 
 @Injectable()
 export class AuthService {
-  jwtConfig: IJwtConfig;
+  private jwtConfig: IJwtConfig;
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
     private permissionsService: PermissionsService,
     private mailService: MailerService,
-    private userRepository: UsersRepository,
     private configService: ConfigService
   ) {
     this.jwtConfig = this.configService.get('jwt') as IJwtConfig;
@@ -71,13 +69,19 @@ export class AuthService {
     return { sub: id, user: { ...userDataWithoutPassword } };
   }
 
-  async sendVerificationEmail(email: string): Promise<void> {
-    const verificationToken = this.jwtService.sign({ email }, { expiresIn: `${this.jwtConfig.jwt_expires_in}` });
+  async sendAccountVerificationLinkToEmail(email: string): Promise<{ message: string }> {
+    try {
+      const verificationToken = this.jwtService.sign({ email }, { expiresIn: `${this.jwtConfig.jwt_expires_in}` });
 
-    await this.mailService.sendVerificationEmail(email, verificationToken);
+      await this.mailService.sendVerificationEmail(email, verificationToken);
+
+      return { message: `Verification link sent successfully to: ${email}` };
+    } catch (error) {
+      throw new HttpException('Unable to send verification link', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
-  async verifyEmail(verificationToken: string): Promise<User> {
+  async verifyUserAccount(verificationToken: string): Promise<User> {
     try {
       const { email } = this.jwtService.verify(verificationToken) as { email: string };
       const user = await this.usersService.userExist(email);
@@ -86,25 +90,31 @@ export class AuthService {
         throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
       }
 
-      user.verified = true;
-      return this.userRepository.save(user);
+      const verified = true;
+      return this.usersService.update(user.id, { verified } as User);
     } catch (error) {
       throw new HttpException('Invalid verification token', HttpStatus.BAD_REQUEST);
     }
   }
 
-  async sendResetPasswordEmail(resetPasswordDto: ResetPasswordDto): Promise<void> {
-    const email = resetPasswordDto.email;
-    const user = await this.usersService.userExist(email);
+  async sendResetPasswordLinkToEmail(resetPasswordDto: ResetPasswordDto): Promise<{ message: string }> {
+    try {
+      const email = resetPasswordDto.email;
+      const user = await this.usersService.userExist(email);
 
-    if (user) {
+      if (!user) {
+        throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
+      }
       const resetPasswordToken = this.jwtService.sign({ sub: user.id }, { expiresIn: `${this.jwtConfig.jwt_expires_in}` });
+      await this.mailService.sendResetPasswordLinkToEmail(user.email, resetPasswordToken);
 
-      await this.mailService.sendResetPasswordEmail(user.email, resetPasswordToken);
+      return { message: `Link to reset password was sent successfully to ${user.email}. You have 1 day before the link expires.` };
+    } catch (error) {
+      throw new HttpException('Unable to send link to reset password.', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async resetPassword(resetPasswordToken: string, password: string): Promise<User> {
+  async resetUserPassword(resetPasswordToken: string, password: string): Promise<User> {
     try {
       const decodedToken = this.jwtService.verify(resetPasswordToken) as { sub: number };
 
