@@ -41,7 +41,7 @@ export class AuthService {
       throw new HttpException('User already exist', HttpStatus.BAD_REQUEST);
     }
 
-    return this.usersService.create({ ...createUserDto });
+    return this.usersService.create(createUserDto);
   }
 
   async logout() {}
@@ -53,6 +53,7 @@ export class AuthService {
   private generateTokenPayload(user: User) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, id, ...userDataWithoutPassword } = user;
+    console.log(user);
     return { sub: id, user: { ...userDataWithoutPassword } };
   }
 
