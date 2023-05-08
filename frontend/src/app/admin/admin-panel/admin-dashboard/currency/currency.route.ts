@@ -4,23 +4,21 @@ import { Route } from '@angular/router';
 import { CurrencyComponent } from './currency.component';
 import { UpdateFormComponent } from './update-form/update-form.component';
 
-export const CurrencyRoutes: Route[] = [
-  {
-    path: 'currency',
-    component: CurrencyComponent,
-    children: [
-      {
-        path: '',
-        component: TableComponent
-      },
-      {
-        path: 'create',
-        component: CreateFormComponent
-      },
-      {
-        path: 'update/:id',
-        component: UpdateFormComponent
-      }
-    ]
-  }
-];
+export const CurrencyRoute: Route = {
+  path: 'currency',
+  component: CurrencyComponent,
+  children: [
+    {
+      path: '',
+      component: TableComponent
+    },
+    {
+      path: 'create',
+      component: CreateFormComponent
+    },
+    {
+      path: 'update/:id',
+      component: UpdateFormComponent
+    }
+  ]
+};
