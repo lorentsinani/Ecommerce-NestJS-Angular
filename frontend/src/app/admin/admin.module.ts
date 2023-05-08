@@ -1,5 +1,4 @@
 import { AdminCategoryComponent } from './admin-panel/admin-dashboard/admin-category/admin-category.component';
-// admin.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -22,15 +21,10 @@ import { AdminSuppliersComponent } from './admin-panel/admin-dashboard/admin-sup
 import { AdminSuppliersFormComponent } from './admin-panel/admin-dashboard/admin-suppliers/admin-suppliers-form/admin-suppliers-form.component';
 import { AdminSuppliersTableComponent } from './admin-panel/admin-dashboard/admin-suppliers/admin-suppliers-table/admin-suppliers-table.component';
 import { UsersAccessControlComponent } from './admin-panel/admin-dashboard/users-access-control/users-access-control.component';
-import { RolesComponent } from './admin-panel/admin-dashboard/users-access-control/roles/roles.component';
 import { PermissionsComponent } from './admin-panel/admin-dashboard/users-access-control/permissions/permissions.component';
 import { ObjectsComponent } from './admin-panel/admin-dashboard/users-access-control/objects/objects.component';
-import { RolePermissionsComponent } from './admin-panel/admin-dashboard/users-access-control/role-permissions/role-permissions.component';
-import { AddRoleComponent } from './admin-panel/admin-dashboard/users-access-control/roles/add-role/add-role.component';
-import { EditRoleComponent } from './admin-panel/admin-dashboard/users-access-control/roles/edit-role/edit-role.component';
-import { ListRolesComponent } from './admin-panel/admin-dashboard/users-access-control/roles/list-roles/list-roles.component';
-import { ListRolesHeadComponent } from './admin-panel/admin-dashboard/users-access-control/roles/list-roles/head/head.component';
-import { ListRolesRowComponent } from './admin-panel/admin-dashboard/users-access-control/roles/list-roles/row/row.component';
+import { RolesDeclarations } from './admin-panel/admin-dashboard/users-access-control/roles/roles.declarations';
+import { RolePermissionDeclarations } from './admin-panel/admin-dashboard/users-access-control/role-permissions/role-permissions.declarations';
 
 @NgModule({
   declarations: [
@@ -52,15 +46,10 @@ import { ListRolesRowComponent } from './admin-panel/admin-dashboard/users-acces
     AdminSuppliersFormComponent,
     AdminSuppliersTableComponent,
     UsersAccessControlComponent,
-    RolesComponent,
     PermissionsComponent,
     ObjectsComponent,
-    RolePermissionsComponent,
-    AddRoleComponent,
-    EditRoleComponent,
-    ListRolesComponent,
-    ListRolesHeadComponent,
-    ListRolesRowComponent
+    ...RolesDeclarations,
+    ...RolePermissionDeclarations
   ],
   imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule]
 })
