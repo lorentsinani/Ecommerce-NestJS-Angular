@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Permission } from '../entities/permission.entity';
 import { PermissionsRepository } from './permissions.repository';
 import { Role } from '../entities/role.entity';
-import { RolePermissions } from '../entities/role-permissions.entity';
+import { RolePermissions } from '../entities/role-permission.entity';
 import { Objects } from '../entities/objects.entity';
 
 @Module({
