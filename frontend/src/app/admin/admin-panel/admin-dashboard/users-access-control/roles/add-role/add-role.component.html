@@ -1,0 +1,13 @@
+<form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+
+  <label for="Role Name">Role Name: </label>
+  <input type="text" formControlName="name" id="name" placeholder="admin, employee, customer">
+
+  <button type="submit">Add Role</button>
+
+</form>
+
+<p *ngIf="isCreated"> Role is created </p>
+<p *ngIf="isNotCreated"> Role is not created </p>
+
+<button routerLink="/admin/users-access-control">Show List</button>

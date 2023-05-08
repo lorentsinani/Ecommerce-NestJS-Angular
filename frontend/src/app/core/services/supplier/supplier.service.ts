@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { BaseService } from '../base/base.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class SupplierService extends BaseService<Suppliers> {
   constructor(http: HttpClient) {

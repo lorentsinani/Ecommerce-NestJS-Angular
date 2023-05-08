@@ -1,0 +1,10 @@
+<form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+  <label for="name">Role Name:</label>
+  <input type="text" id="name" formControlName="name" placeholder="admin, employee, customer">
+  <button type="submit">Edit Role</button>
+</form>
+
+<p *ngIf="isUpdated">Role is updated</p>
+<p *ngIf="isNotUpdated">Role is not updated</p>
+
+<button routerLink="/admin/users-access-control">Show List</button>
