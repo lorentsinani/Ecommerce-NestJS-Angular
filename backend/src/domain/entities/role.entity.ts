@@ -7,6 +7,6 @@ export class Role {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ enum: UserRole })
+  @Column({ enum: UserRole, unique: true })
   name: UserRole;
 }

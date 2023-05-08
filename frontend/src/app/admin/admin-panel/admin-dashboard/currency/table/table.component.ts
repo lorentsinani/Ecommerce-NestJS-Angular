@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrencyService } from '../../../../../core/services/currency/currency.service';
 import { Currency } from '../../../../../core/interfaces/currency.interface';
-import { capitalize } from '../../../../../core/utilities/capitalize-props.unit';
+import { capitalize } from '../../../../../core/utilities/capitalize-props.util';
+import { getObjectColumns } from '../../../../../core/utilities/object-columns.util';
 
 @Component({
   selector: 'app-table',
@@ -9,6 +10,7 @@ import { capitalize } from '../../../../../core/utilities/capitalize-props.unit'
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
+  emptyData: boolean = false;
   currencies: Currency[] = [];
   columns: string[] = [];
   constructor(private currencyService: CurrencyService) {}
@@ -19,15 +21,12 @@ export class TableComponent implements OnInit {
 
   getAllCurrencies() {
     this.currencyService.getAllCurrencies().subscribe(currencies => {
-      this.currencies = currencies;
-      this.getColumns();
+      if (currencies.length) {
+        this.currencies = currencies;
+        this.columns = getObjectColumns(this.currencies);
+      }
+      this.emptyData = true;
     });
-  }
-
-  getColumns() {
-    this.columns = Object.keys(this.currencies[0]).map(prop =>
-      capitalize(prop)
-    );
   }
 
   deleteCurrency(id: number) {

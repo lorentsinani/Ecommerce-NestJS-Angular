@@ -15,7 +15,7 @@ export class RoleService {
   async create(createRoleDto: CreateRoleDto): Promise<Role> {
     const createdRole = await this.roleRepository.createRole(createRoleDto);
 
-    if (this.getIdentifierId(createdRole)) {
+    if (!this.getIdentifierId(createdRole)) {
       throw new HttpException(this.NotCreatedExceptionMessage, HttpStatus.BAD_REQUEST);
     }
 

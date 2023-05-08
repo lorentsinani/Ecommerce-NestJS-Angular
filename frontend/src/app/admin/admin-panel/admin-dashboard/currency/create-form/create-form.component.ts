@@ -11,10 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class CreateFormComponent implements OnInit {
   form: FormGroup;
 
-  constructor(
-    private currencyService: CurrencyService,
-    private fb: FormBuilder
-  ) {}
+  constructor(private currencyService: CurrencyService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.createForm();
@@ -38,12 +35,7 @@ export class CreateFormComponent implements OnInit {
   }
 
   getCodeValidators() {
-    return [
-      Validators.required,
-      Validators.minLength(1),
-      Validators.maxLength(1),
-      Validators.pattern(/^[A-Za-z]$/)
-    ];
+    return [Validators.required, Validators.minLength(1), Validators.maxLength(1), Validators.pattern(/^[A-Za-z]$/)];
   }
 
   getExchangeRateValidators() {

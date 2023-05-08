@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, DeleteResult, InsertResult, Repository, UpdateResult } from 'typeorm';
 import { Objects } from '../entities/objects.entity';
+import { CreateObjectDto } from '../../common/dtos/objects/create-object.dto';
+import { UpdateObjectDto } from '../../common/dtos/objects/update-object.dto';
 
 @Injectable()
 export class ObjectsRepository extends Repository<Objects> {
