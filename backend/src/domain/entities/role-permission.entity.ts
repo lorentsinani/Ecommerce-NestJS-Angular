@@ -12,13 +12,13 @@ export class RolePermissions {
   roleId: number;
 
   @ManyToOne(() => Role)
-  @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'roleId', referencedColumnName: 'id' })
   role: Role;
 
   @Column({ name: 'permission_id', type: 'int' })
   permissionId: number;
 
   @ManyToOne(() => Permission)
-  @JoinColumn({ name: 'permission_id', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'permissionId', referencedColumnName: 'id' })
   permission: Permission;
 }

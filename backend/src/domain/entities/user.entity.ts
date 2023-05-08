@@ -36,7 +36,7 @@ export class User implements IUser {
   roleId: number;
 
   @ManyToOne(() => Role)
-  @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'roleId', referencedColumnName: 'id' })
   role: Role;
 
   @CreateDateColumn({ name: 'created_at' })

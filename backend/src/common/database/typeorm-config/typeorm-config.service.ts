@@ -20,7 +20,7 @@ import { Conversation } from '../../../domain/entities/conversation.entity';
 import { Message } from '../../../domain/entities/message.entity';
 import { Notifications } from '../../../domain/entities/notifications.entity';
 import { Role } from '../../../domain/entities/role.entity';
-import { RolePermissions } from '../../../domain/entities/role-permissions.entity';
+import { RolePermissions } from '../../../domain/entities/role-permission.entity';
 import { Permission } from '../../../domain/entities/permission.entity';
 import { Objects } from '../../../domain/entities/objects.entity';
 import { ProductImages } from '../../../domain/entities/product-images.entity';

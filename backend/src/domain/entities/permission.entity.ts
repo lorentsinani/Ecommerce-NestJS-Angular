@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Objects } from './objects.entity';
-import { RolePermissions } from './role-permissions.entity';
+import { RolePermissions } from './role-permission.entity';
 
 // store permissions that have pattern like 'can action a object"
 @Entity()
