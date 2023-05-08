@@ -1,10 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Permission } from './permission.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Index } from 'typeorm';
 import { Role } from './role.entity';
+import { Permission } from './permission.entity';
+import { IRolePermissions } from '../../common/interfaces/role-permissions.interface';
 
-// role permissions assign permissions to roles
 @Entity()
-export class RolePermissions {
+@Index(['roleId', 'permissionId'], { unique: true }) // @Index is used to make roleId and permissionId unique, because you don't want to attach a permission that role already has. 
+export class RolePermissions implements IRolePermissions{
   @PrimaryGeneratedColumn()
   id: number;
 
