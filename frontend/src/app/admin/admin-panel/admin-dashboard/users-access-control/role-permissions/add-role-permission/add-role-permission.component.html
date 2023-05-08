@@ -1,0 +1,36 @@
+<form [formGroup]="rolePermissionForm" (ngSubmit)="onSubmit()">
+
+  <label for="role">Role: </label>
+  <select id="role" formControlName="role">
+    <option *ngFor="let role of roles " value="{{ role.id }}">{{ role.name | titlecase }} </option>
+  </select>
+
+  <br>
+
+
+  <label for="permission">Resource: </label>
+  <select id="permission" formControlName="permission">
+    <option *ngFor="let object of objects" [value]="object.id">
+      {{ object.name | titlecase }}
+    </option>
+  </select>
+
+
+
+  <legend>Permission Actions:</legend>
+  <div *ngFor="let a of permissionActions">
+    <label>
+      <input type="checkbox" name="permissionAction" [value]="a.action" />
+      {{ a.action | titlecase }}
+    </label>
+  </div>
+
+
+  <button type="submit">Add Role Permission</button>
+
+</form>
+
+<p *ngIf="isCreated"> Role is created </p>
+<p *ngIf="isNotCreated"> Role is not created </p>
+
+<button routerLink="/admin/users-access-control/role-permissions">Show List</button>
