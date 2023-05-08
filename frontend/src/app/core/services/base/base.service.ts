@@ -4,9 +4,9 @@ import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment-dev';
 
 export abstract class BaseService<T> {
-  private apiUrl = environment.apiUrl;
+  protected apiUrl = environment.apiUrl;
 
-  private httpOptions = {
+  protected httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
@@ -14,7 +14,7 @@ export abstract class BaseService<T> {
 
   constructor(protected http: HttpClient) {}
 
-  private handleError(response: HttpErrorResponse): Observable<never> {
+  protected handleError(response: HttpErrorResponse): Observable<never> {
     const errorResponse = {
       statusCode: response.status,
       apiUrl: response.url,
@@ -25,7 +25,7 @@ export abstract class BaseService<T> {
     return throwError(() => errorResponse);
   }
 
-  private extractData(res: any) {
+  protected extractData(res: any) {
     const body = res;
     return body || {};
   }

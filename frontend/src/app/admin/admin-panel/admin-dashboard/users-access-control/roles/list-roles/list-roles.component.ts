@@ -9,7 +9,7 @@ import { getObjectColumns } from '../../../../../../core/utilities/object-column
   styleUrls: ['./list-roles.component.scss']
 })
 export class ListRolesComponent implements OnInit {
-  emptyData: boolean = false;
+  emptyData: boolean;
   roles: Role[];
   columns: string[];
   constructor(private roleService: RoleService) {}
@@ -23,8 +23,9 @@ export class ListRolesComponent implements OnInit {
       if (roles.length) {
         this.roles = roles;
         this.columns = getObjectColumns(this.roles);
+      } else {
+        this.emptyData = true;
       }
-      this.emptyData = true;
     });
   }
 

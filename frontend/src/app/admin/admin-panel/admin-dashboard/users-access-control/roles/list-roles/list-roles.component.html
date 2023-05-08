@@ -14,7 +14,7 @@
 
   <tbody>
 
-    <app-list-roles-row *ngFor="let role of roles" [role]="role">
+    <app-list-roles-row *ngFor="let role of roles" [role]="role" (onDeleteRole)="deleteRole($event)">
 
     </app-list-roles-row>
 
