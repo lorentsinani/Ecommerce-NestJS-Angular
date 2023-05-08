@@ -8,6 +8,7 @@ import { AuthController } from './auth.controller';
 import { PermissionsModule } from '../../domain/permissions/permissions.module';
 import { PermissionsGuard } from '../../common/guards/permissions.guard';
 import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.factory';
+import { MailerModule } from '../../domain/mailer/mailer.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.fa
       global: true,
       secret: 'secret',
       signOptions: { expiresIn: '1d' }
-    })
+    }),
+    MailerModule
   ],
   providers: [AuthService],
   controllers: [AuthController],
