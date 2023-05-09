@@ -26,7 +26,7 @@ export class PermissionsRepository extends Repository<Permission> {
   }
 
   findPermissionById(id: number): Promise<Permission | null> {
-    return this.createQueryBuilder('permission').where('id = :id', { id }).getOne();
+    return this.createQueryBuilder('permission').leftJoinAndSelect('permission.object', 'object').where('permission.id = :id', { id }).getOne();
   }
 
   findAllPermissionActions(): Promise<Partial<Permission>[]> {
