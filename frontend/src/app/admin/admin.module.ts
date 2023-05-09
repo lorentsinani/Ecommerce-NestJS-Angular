@@ -21,10 +21,10 @@ import { AdminSuppliersComponent } from './admin-panel/admin-dashboard/admin-sup
 import { AdminSuppliersFormComponent } from './admin-panel/admin-dashboard/admin-suppliers/admin-suppliers-form/admin-suppliers-form.component';
 import { AdminSuppliersTableComponent } from './admin-panel/admin-dashboard/admin-suppliers/admin-suppliers-table/admin-suppliers-table.component';
 import { UsersAccessControlComponent } from './admin-panel/admin-dashboard/users-access-control/users-access-control.component';
-import { PermissionsComponent } from './admin-panel/admin-dashboard/users-access-control/permissions/permissions.component';
-import { ObjectsComponent } from './admin-panel/admin-dashboard/users-access-control/objects/objects.component';
 import { RolesDeclarations } from './admin-panel/admin-dashboard/users-access-control/roles/roles.declarations';
 import { RolePermissionDeclarations } from './admin-panel/admin-dashboard/users-access-control/role-permissions/role-permissions.declarations';
+import { PermissionDeclarations } from './admin-panel/admin-dashboard/users-access-control/permissions/permission.declaration';
+import { ObjectsDeclarations } from './admin-panel/admin-dashboard/users-access-control/objects/objects.declarations';
 
 @NgModule({
   declarations: [
@@ -46,10 +46,10 @@ import { RolePermissionDeclarations } from './admin-panel/admin-dashboard/users-
     AdminSuppliersFormComponent,
     AdminSuppliersTableComponent,
     UsersAccessControlComponent,
-    PermissionsComponent,
-    ObjectsComponent,
     ...RolesDeclarations,
-    ...RolePermissionDeclarations
+    ...RolePermissionDeclarations,
+    ...PermissionDeclarations,
+    ...ObjectsDeclarations
   ],
   imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule]
 })
