@@ -30,6 +30,11 @@ export class ProductController {
     return this.productService.findFilteredProducts(filterDto);
   }
 
+  @Get('/discount')
+  async findProductsOnDiscount(): Promise<Product[]> {
+    return this.productService.findProductsOnDiscount();
+  }
+
   @Get(':id')
   findById(@Param('id', ParseIntPipe) id: number): Promise<Product> {
     return this.productService.findById(id);
