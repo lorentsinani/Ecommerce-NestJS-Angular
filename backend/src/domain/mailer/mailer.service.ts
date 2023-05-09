@@ -1,14 +1,18 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { createTransport, Transporter } from 'nodemailer';
+import { Transporter } from 'nodemailer';
 import * as handlebars from 'handlebars';
 import * as fs from 'fs';
+import { ConfigService } from '@nestjs/config';
+import { IAppConfig, appConfig } from '../../config/app-config';
 
 @Injectable()
 export class MailerService {
   private readonly transporter: Transporter;
+  private appConfig: IAppConfig;
 
-  constructor(@Inject('MAILER_PROVIDER') transporter: Transporter) {
+  constructor(@Inject('MAILER_PROVIDER') transporter: Transporter, private configService: ConfigService) {
     this.transporter = transporter;
+    this.appConfig = this.configService.get('app') as IAppConfig;
   }
 
   async sendMail(to: string, subject: string, template: string, context: Record<string, any>): Promise<void> {
@@ -18,6 +22,22 @@ export class MailerService {
       to,
       subject,
       html
+    });
+  }
+
+  async sendVerificationEmail(email: string, verificationToken: string): Promise<void> {
+    const subject = 'Verify your account';
+    const template = 'verification-email';
+    const verificationLink = `http://localhost:${this.appConfig.port}/auth/verify-account?verify_token=${verificationToken}`;
+
+    await this.sendMail(email, subject, template, { verificationLink });
+  }
+
+  async sendResetPasswordLinkToEmail(email: string, resetPasswordToken: string): Promise<void> {
+    await this.transporter.sendMail({
+      to: email,
+      subject: 'Reset Password',
+      text: `Please click on the following link to reset your password: http://localhost:${this.appConfig.port}/auth/reset-password?reset_token=${resetPasswordToken}`
     });
   }
 
