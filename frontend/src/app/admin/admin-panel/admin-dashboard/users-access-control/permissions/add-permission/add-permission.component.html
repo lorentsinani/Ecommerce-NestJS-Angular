@@ -1,0 +1,34 @@
+<form [formGroup]="permissionForm" (ngSubmit)="onSubmit()">
+
+  <label for="permission">Select a Permission Action:</label>
+  <select id="permission" name="permission" formControlName="action">
+    <option value="manage">Manage</option>
+    <option value="create">Create</option>
+    <option value="read">Read</option>
+    <option value="write">Write</option>
+    <option value="update">Update</option>
+    <option value="delete">Delete</option>
+  </select>
+
+
+  <div *ngIf="!emptyObjectData">
+
+    <label for="objectId"> Select a Object: </label>
+    <select name="objectId" formControlName="objectId">
+      <option *ngFor="let object of objects" [value]="object.id">{{ object.name | titlecase }} </option>
+    </select>
+
+  </div>
+
+  <div *ngIf="emptyObjectData">
+    No data for objects resource
+  </div>
+
+  <button type="submit" [disabled]="permissionForm.invalid">Add Permission</button>
+
+</form>
+
+<p *ngIf="isCreated"> Permission is created </p>
+<p *ngIf="isNotCreated"> Permission is not created </p>
+
+<button routerLink="/admin/users-access-control/">Show List</button>
