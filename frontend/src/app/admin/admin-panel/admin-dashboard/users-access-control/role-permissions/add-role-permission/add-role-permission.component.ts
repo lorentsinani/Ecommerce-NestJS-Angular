@@ -7,7 +7,7 @@ import { Role } from '../../../../../../core/interfaces/role.interface';
 import { RoleService } from '../../../../../../core/services/role/role.service';
 import { PermissionsService } from '../../../../../../core/services/permissions/permissions.service';
 import { ServerErrorResponse } from '../../../../../../core/interfaces/http-error-response.interface';
-import { Permission } from '../../../../../../core/interfaces/permission.interface';
+import { Permissions } from '../../../../../../core/interfaces/permissions.interface';
 import { ObjectsService } from '../../../../../../core/services/objects/objects.service';
 import { Objects } from '../../../../../../core/interfaces/object.interface';
 
@@ -21,8 +21,8 @@ export class AddRolePermissionComponent {
   isNotCreated: boolean;
   rolePermissionForm: FormGroup;
   roles: Role[];
-  permissionActions: Partial<Permission[]>;
-  permissions: Permission[];
+  permissionActions: Partial<Permissions[]>;
+  permissions: Permissions[];
   objects: Objects[];
 
   constructor(
@@ -72,7 +72,7 @@ export class AddRolePermissionComponent {
 
   getAllActions() {
     this.permissionService.getAllPermissionActions().subscribe({
-      next: (permissionActions: Partial<Permission[]>) => {
+      next: (permissionActions: Partial<Permissions[]>) => {
         this.permissionActions = permissionActions;
       }
     });
@@ -102,7 +102,7 @@ export class AddRolePermissionComponent {
 
   getAllPermissions() {
     this.permissionService.getAllPermissions().subscribe({
-      next: (permissions: Permission[]) => {
+      next: (permissions: Permissions[]) => {
         this.permissions = permissions;
       },
       error: (error: ServerErrorResponse) => {

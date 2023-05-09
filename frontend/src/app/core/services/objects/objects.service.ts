@@ -12,7 +12,19 @@ export class ObjectsService extends BaseService<Objects> {
     super(http);
   }
 
+  createObject(object: Objects): Observable<Objects> {
+    return this.post('objects', object);
+  }
+
   getAllObjects(): Observable<Objects[]> {
     return this.getAll('objects');
+  }
+
+  getObjectById(id: number): Observable<Objects> {
+    return this.get(`objects/${id}`);
+  }
+
+  updateObject(id: number, object: Objects): Observable<Objects> {
+    return this.patch(`objects/${id}`, object);
   }
 }

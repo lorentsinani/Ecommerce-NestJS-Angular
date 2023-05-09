@@ -24,9 +24,11 @@ export class EditRoleComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.initRoleIdFromRoute();
+
+    this.role$.subscribe();
   }
 
-  createForm() {
+  private createForm() {
     this.roleForm = this.formBuilder.group({
       name: ['', [Validators.required, stringPatternValidator]]
     });
@@ -42,7 +44,7 @@ export class EditRoleComponent implements OnInit {
     this.roleForm.reset();
   }
 
-  initRoleIdFromRoute() {
+  private initRoleIdFromRoute() {
     this.role$ = this.route.paramMap.pipe(
       switchMap(params => {
         this.roleId = +params.get('id');
@@ -62,8 +64,12 @@ export class EditRoleComponent implements OnInit {
 
   updateRole(role: Role) {
     this.roleService.updateRole(this.roleId, role).subscribe({
-      next: updatedRole => {
+      next: (updatedRole: Role) => {
         this.isUpdated = true;
+
+        this.roleForm.patchValue({
+          name: updatedRole.name
+        });
       },
       error: error => {
         this.isNotUpdated = true;

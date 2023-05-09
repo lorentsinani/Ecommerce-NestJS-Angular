@@ -1,4 +1,4 @@
-import { Permission } from './permission.interface';
+import { Permissions } from './permissions.interface';
 import { Role } from './role.interface';
 
 export interface RolePermissions {
@@ -6,5 +6,5 @@ export interface RolePermissions {
   roleId: number;
   role?: Role;
   permissionId: number;
-  permission?: Permission;
+  permission?: Permissions;
 }

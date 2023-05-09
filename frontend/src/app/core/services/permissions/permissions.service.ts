@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base/base.service';
-import { Permission } from '../../interfaces/permission.interface';
+import { Permissions } from '../../interfaces/permissions.interface';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map } from 'rxjs';
 import { PermissionAction } from '../../constants/enums/permission-action.enum';
@@ -8,16 +8,32 @@ import { PermissionAction } from '../../constants/enums/permission-action.enum';
 @Injectable({
   providedIn: 'root'
 })
-export class PermissionsService extends BaseService<Permission> {
+export class PermissionsService extends BaseService<Permissions> {
   constructor(http: HttpClient) {
     super(http);
   }
 
-  getAllPermissions(): Observable<Permission[]> {
+  createPermission(permission: Permissions): Observable<Permissions> {
+    return this.post(`permissions`, permission);
+  }
+
+  getAllPermissions(): Observable<Permissions[]> {
     return this.getAll('permissions');
   }
 
-  getAllPermissionActions(): Observable<Partial<Permission[]>> {
+  getPermissionById(id: number): Observable<Permissions> {
+    return this.get(`permissions/${id}`);
+  }
+
+  getAllPermissionActions(): Observable<Partial<Permissions[]>> {
     return this.http.get<PermissionAction[]>(`${this.apiUrl}/permissions/actions`).pipe(map(this.extractData), catchError(this.handleError));
+  }
+
+  updatePermission(id: number, permission: Permissions): Observable<Permissions> {
+    return this.patch(`permissions/${id}`, permission);
+  }
+
+  deletePermission(id: number): Observable<Permissions> {
+    return this.delete(`permissions/${id}`);
   }
 }
