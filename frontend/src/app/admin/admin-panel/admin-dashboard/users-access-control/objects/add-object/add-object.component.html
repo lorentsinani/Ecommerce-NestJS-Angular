@@ -1,0 +1,14 @@
+<form [formGroup]="objectForm" (ngSubmit)="onSubmit()">
+
+  <label for="name">Object Name</label>
+  <input type="text" formControlName="name" placeholder="Payment, Product, Orders... ">
+  <br>
+
+  <button type="submit" [disabled]="objectForm.invalid">Add Object</button>
+
+</form>
+
+<p *ngIf="isCreated"> Object is created </p>
+<p *ngIf="isNotCreated"> Object is not created </p>
+
+<button routerLink="/admin/users-access-control">Show List</button>
