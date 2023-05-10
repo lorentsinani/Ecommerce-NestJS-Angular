@@ -8,6 +8,6 @@ export class DateUtil {
 
   static getOneWeekAgoTimestamp() {
     const oneWeekAgoTimestamp = new Date(DateUtil.currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
-    return oneWeekAgoTimestamp.getTime();
+    return new Date(oneWeekAgoTimestamp.getTime());
   }
 }

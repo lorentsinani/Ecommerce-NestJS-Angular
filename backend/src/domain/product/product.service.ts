@@ -57,8 +57,9 @@ export class ProductService {
   // }
   async getNewArrivalProducts() {
     const oneWeekAgoTimestamp = DateUtil.getOneWeekAgoTimestamp();
-    const oneWeekAgoDate = new Date(oneWeekAgoTimestamp);
-    return this.productRepository.getNewArrivalProducts(oneWeekAgoDate);
+    //const oneWeekAgoDate = new Date(oneWeekAgoTimestamp);
+    //return this.productRepository.getNewArrivalProducts(oneWeekAgoDate);
+    return this.productRepository.getNewArrivalProducts(oneWeekAgoTimestamp);
   }
   async update(id: number, updateProductDto: UpdateProductDto): Promise<Product> {
     const updatedProduct = await this.productRepository.updateProduct(id, updateProductDto);
