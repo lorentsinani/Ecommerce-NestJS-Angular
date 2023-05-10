@@ -15,7 +15,7 @@ export class ObjectsService {
   async create(createObjectDto: CreateObjectDto): Promise<Objects> {
     const createdObject = await this.objectsRepository.createObject(createObjectDto);
 
-    if (this.getIdentifierId(createdObject)) {
+    if (!this.getIdentifierId(createdObject)) {
       throw new HttpException(this.NotCreatedExceptionMessage, HttpStatus.BAD_REQUEST);
     }
     return createdObject.raw[0];

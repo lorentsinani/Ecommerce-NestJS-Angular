@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Producer } from '../entities/producer.entity';
 import { DataSource, DeleteResult, InsertResult, Repository, UpdateResult } from 'typeorm';
 import { RolePermissions } from '../entities/role-permission.entity';
 import { CreateRolePermissionsDto } from '../../common/dtos/role-permissions/create-role-permissions.dto';
@@ -8,7 +7,7 @@ import { UpdateRolePermissionsDto } from '../../common/dtos/role-permissions/upd
 @Injectable()
 export class RolePermissionsRepository extends Repository<RolePermissions> {
   constructor(dataSource: DataSource) {
-    super(Producer, dataSource.createEntityManager());
+    super(RolePermissions, dataSource.createEntityManager());
   }
 
   createRolePermissions(createRolePermissionDto: CreateRolePermissionsDto): Promise<InsertResult> {
@@ -16,7 +15,7 @@ export class RolePermissionsRepository extends Repository<RolePermissions> {
   }
 
   findAllRolePermissions(): Promise<RolePermissions[]> {
-    return this.find();
+    return this.find({ relations: ['role', 'permission'] });
   }
 
   findRolePermissionsById(id: number): Promise<RolePermissions | null> {

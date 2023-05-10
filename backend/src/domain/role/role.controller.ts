@@ -1,9 +1,12 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { RoleService } from './role.service';
 import { UpdateRoleDto } from '../../common/dtos/role/update-role.dto';
 import { CreateRoleDto } from '../../common/dtos/role/create-role.dto';
+import { QueryExceptionFilter } from '../../common/filters/query.exception.filter';
 
 @Controller('role')
+@UsePipes(new ValidationPipe())
+@UseFilters(new QueryExceptionFilter('Permission'))
 export class RoleController {
   constructor(private roleService: RoleService) {}
 

@@ -24,7 +24,7 @@ export class RolePermissionsController {
 
   @Patch(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() updateRolePermissionDto: UpdateRolePermissionsDto) {
-    return this.rolePermissionsService.update(+id, updateRolePermissionDto);
+    return this.rolePermissionsService.update(id, updateRolePermissionDto);
   }
 
   @Delete(':id')

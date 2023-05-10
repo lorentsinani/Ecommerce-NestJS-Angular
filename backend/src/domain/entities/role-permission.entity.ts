@@ -3,9 +3,9 @@ import { Role } from './role.entity';
 import { Permission } from './permission.entity';
 import { IRolePermissions } from '../../common/interfaces/role-permissions.interface';
 
-@Entity()
-@Index(['roleId', 'permissionId'], { unique: true }) // @Index is used to make roleId and permissionId unique, because you don't want to attach a permission that role already has. 
-export class RolePermissions implements IRolePermissions{
+@Entity('role_permissions')
+@Index(['roleId', 'permissionId'], { unique: true }) // @Index is used to make roleId and permissionId unique, because you don't want to attach a permission that role already has.
+export class RolePermissions implements IRolePermissions {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -13,13 +13,13 @@ export class RolePermissions implements IRolePermissions{
   roleId: number;
 
   @ManyToOne(() => Role)
-  @JoinColumn({ name: 'roleId', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
   role: Role;
 
   @Column({ name: 'permission_id', type: 'int' })
   permissionId: number;
 
   @ManyToOne(() => Permission)
-  @JoinColumn({ name: 'permissionId', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'permission_id', referencedColumnName: 'id' })
   permission: Permission;
 }
