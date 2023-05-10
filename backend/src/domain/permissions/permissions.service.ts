@@ -4,7 +4,6 @@ import { InsertResult } from 'typeorm';
 import { Permission } from '../entities/permission.entity';
 import { CreatePermissionDto } from '../../common/dtos/permissions/create-permission.dto';
 import { UpdatePermissionDto } from '../../common/dtos/permissions/update-permission.dto';
-import { PermissionAction } from '../../common/constants/enums/permission-action.enum';
 
 @Injectable()
 export class PermissionsService {
@@ -25,6 +24,14 @@ export class PermissionsService {
 
   findAll(): Promise<Permission[]> {
     return this.permissionsRepository.findAllPermissions();
+  }
+
+  findAllPermissionsByObject(objectId: number): Promise<Permission[]> {
+    return this.permissionsRepository.findAllPermissionsByObject(objectId);
+  }
+
+  findAllWithObjects(): Promise<Permission[]> {
+    return this.permissionsRepository.findAllPermissionsWithObjects();
   }
 
   findAllPermissionsOfRole(role_id: number): Promise<Permission[]> {

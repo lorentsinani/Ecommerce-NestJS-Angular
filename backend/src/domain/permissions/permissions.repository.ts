@@ -13,6 +13,14 @@ export class PermissionsRepository extends Repository<Permission> {
   }
 
   findAllPermissions(): Promise<Permission[]> {
+    return this.find();
+  }
+
+  findAllPermissionsByObject(objectId: number): Promise<Permission[]> {
+    return this.createQueryBuilder('permission').leftJoinAndSelect('permission.object', 'object').where('object.id = :objectId', { objectId }).getMany();
+  }
+
+  findAllPermissionsWithObjects(): Promise<Permission[]> {
     return this.find({ relations: ['object'] });
   }
 

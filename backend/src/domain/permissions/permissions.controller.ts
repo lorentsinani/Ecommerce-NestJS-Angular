@@ -22,6 +22,16 @@ export class PermissionsController {
     return this.permissionsService.findAll();
   }
 
+  @Get('object/:objectId')
+  findAllPermissionsByObject(@Param('objectId', ParseIntPipe) objectId: number): Promise<Permission[]> {
+    return this.permissionsService.findAllPermissionsByObject(objectId);
+  }
+
+  @Get('objects')
+  findAllWithObjects(): Promise<Permission[]> {
+    return this.permissionsService.findAllWithObjects();
+  }
+
   @Get('actions')
   findAllPermissionActions(): Promise<Partial<Permission>[]> {
     return this.permissionsService.findAllPermissionActions();
