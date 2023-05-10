@@ -9,6 +9,10 @@
     <option value="update">Update</option>
     <option value="delete">Delete</option>
   </select>
+  <div *ngIf="permissionForm.get('action').invalid && permissionForm.get('action').touched">
+    <div *ngIf="permissionForm.get('action').errors['required']">Action is required.</div>
+    <div *ngIf="permissionForm.get('action').errors['invalidEnum']">Invalid action selected.</div>
+  </div>
 
 
 
@@ -17,6 +21,9 @@
   <select name="objectId" name="objectId" formControlName="objectId">
     <option *ngFor="let object of objects" [value]="object.id">{{ object.name | titlecase }} </option>
   </select>
+  <div *ngIf="permissionForm.get('objectId').invalid && permissionForm.get('objectId').touched">
+    <div *ngIf="permissionForm.get('objectId').errors['required']">Object is required.</div>
+  </div>
 
 
 
