@@ -1,0 +1,58 @@
+form {
+  border: 1px solid #f36b5a;
+  padding: 20px;
+  width: 300px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input[type='text'],
+input[type='password'] {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input[type='text']:focus,
+input[type='password']:focus {
+  outline: none;
+  border: 1px solid #f36b5a;
+}
+
+p {
+  color: #f36b5a;
+  margin: 5px 0;
+}
+
+button {
+  background-color: #f36b5a;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.not-registered {
+  margin-top: 20px;
+  text-align: center;
+}
+.not-registered a {
+  color: #f36b5a;
+  text-decoration: none;
+}
+.not-registered a:hover {
+  text-decoration: underline;
+}

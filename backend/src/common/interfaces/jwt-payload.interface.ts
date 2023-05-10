@@ -1,9 +1,10 @@
 import { IUser } from './user.interface';
 
 export interface JwtPayload {
-  user: IUser;
-  iat: number;
-  exp: number;
+  sub: number;
+  user: Partial<IUser>;
+  iat?: number;
+  exp?: number;
 }
 
 export interface TokenVerifierCustomRequest extends Request {

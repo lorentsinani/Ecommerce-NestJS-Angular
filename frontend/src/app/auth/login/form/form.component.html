@@ -1,15 +1,43 @@
-<form>
-
-
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <label for="email">Email: </label>
-  <input type="text" name="email" placeholder="Email">
+  <input type="text" name="email" placeholder="Email" formControlName="email">
+  <div *ngIf="
+        loginForm.get('email').invalid &&
+        (loginForm.get('email').dirty ||
+          loginForm.get('email').touched)
+      ">
+    <p *ngIf="loginForm.get('email').errors['required']">
+      Email is required
+    </p>
+    <p *ngIf="loginForm.get('email').errors['pattern']">
+      Provide valid email
+    </p>
+  </div>
   <br>
 
   <label for="password">Password: </label>
-  <input type="password" name="password" placeholder="*********">
+  <input type="password" name="password" placeholder="*********" formControlName="password">
+  <div *ngIf="
+        loginForm.get('password').invalid &&
+        (loginForm.get('password').dirty ||
+          loginForm.get('password').touched)
+      ">
+    <p *ngIf="loginForm.get('password').errors['required']">
+      Password is required
+    </p>
+    <p *ngIf="loginForm.get('password').errors['minlength']">
+      Password should contain at least 8 characters
+    </p>
+    <p *ngIf="loginForm.get('password').errors['pattern']">
+      The password should contain at least one lowercase letter, one uppercase letter, one special character, and one
+      number.
+    </p>
+  </div>
   <br>
 
+  <button [disabled]="loginForm.invalid">Login</button>
 
-  <button (click)="onLoginAction()">Login</button>
-
+  <div class="not-registered">
+    Not registered yet? <a routerLink="/register">Register</a>
+  </div>
 </form>

@@ -9,20 +9,24 @@ import { AuthService } from '../../core/services/auth/auth.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  isCreated: boolean = false;
+  userCreated: boolean = false;
+  userExist: boolean = false;
   badRequest: boolean = false;
-  message: string = '';
 
   constructor(private authService: AuthService) {}
 
   registerUser(event: User) {
     this.authService.register(event).subscribe({
       next: response => {
-        this.isCreated = true;
+        this.userCreated = true;
       },
       error: error => {
-        this.badRequest = true;
-        this.message = error.message;
+        if (error.statusCode === 409) {
+          this.userExist = true;
+        } else {
+          this.badRequest = true;
+        }
+        console.log(error);
       }
     });
   }

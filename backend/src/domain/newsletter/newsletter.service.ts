@@ -58,7 +58,7 @@ export class NewsletterService {
   async delete(id: number): Promise<Newsletter> {
     const deletedSubscriber = await this.newsletterRepository.deleteSubscriber(id);
 
-    if (deletedSubscriber.affected) {
+    if (!deletedSubscriber.affected) {
       throw new HttpException(this.NotFoundExceptionMessage, HttpStatus.NOT_FOUND);
     }
 

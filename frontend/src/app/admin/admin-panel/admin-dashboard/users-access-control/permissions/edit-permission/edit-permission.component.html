@@ -1,0 +1,36 @@
+<form [formGroup]="permissionForm" (ngSubmit)="onSubmit()">
+
+  <label for="permission">Select a Permission Action:</label>
+  <select id="permission" name="permission" formControlName="action">
+    <option value="manage">Manage</option>
+    <option value="create">Create</option>
+    <option value="read">Read</option>
+    <option value="update">Update</option>
+    <option value="delete">Delete</option>
+  </select>
+  <div *ngIf="permissionForm.get('action').invalid && permissionForm.get('action').touched">
+    <div *ngIf="permissionForm.get('action').errors['required']">Action is required.</div>
+    <div *ngIf="permissionForm.get('action').errors['invalidEnum']">Invalid action selected.</div>
+  </div>
+
+
+
+
+  <label for="objectId"> Select a Object: </label>
+  <select name="objectId" name="objectId" formControlName="objectId">
+    <option *ngFor="let object of objects" [value]="object.id">{{ object.name | titlecase }} </option>
+  </select>
+  <div *ngIf="permissionForm.get('objectId').invalid && permissionForm.get('objectId').touched">
+    <div *ngIf="permissionForm.get('objectId').errors['required']">Object is required.</div>
+  </div>
+
+
+  <div class="btn-s">
+    <button type="submit" [disabled]="permissionForm.invalid">Edit Permission</button>
+    <button routerLink="/admin/users-access-control/permissions">Show List</button>
+  </div>
+
+</form>
+
+<p *ngIf="isUpdated"> Permission is updated </p>
+<p *ngIf="isNotUpdated"> Permission is not updated </p>

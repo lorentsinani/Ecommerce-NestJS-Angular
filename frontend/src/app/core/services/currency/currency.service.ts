@@ -2,16 +2,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseService } from '../base/base.service';
-import { Currency } from '../../interfaces/currency-interface';
+import { Currency } from '../../interfaces/currency.interface';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-  }),
+    'Content-Type': 'application/json'
+  })
 };
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class CurrencyService extends BaseService<Currency> {
   constructor(http: HttpClient) {

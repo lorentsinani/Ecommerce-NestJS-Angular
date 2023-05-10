@@ -19,14 +19,14 @@ export class Product implements IProduct {
   supplierId: number;
 
   @ManyToOne(() => Suppliers, { nullable: false })
-  @JoinColumn({ name: 'supplierId', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'supplier_id', referencedColumnName: 'id' })
   supplier: Suppliers;
 
   @Column({ name: 'category_id' })
   categoryId: number;
 
   @ManyToOne(() => Category, { nullable: false })
-  @JoinColumn({ name: 'categoryId', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'category_id', referencedColumnName: 'id' })
   category: Category;
 
   @Column({ name: 'released_date', type: 'date', nullable: false })
@@ -57,7 +57,7 @@ export class Product implements IProduct {
   productDetailsId: number;
 
   @ManyToOne(() => ProductDetails, { nullable: false, onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'productDetailsId', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'product_details_id', referencedColumnName: 'id' })
   productDetails: ProductDetails;
 
   @CreateDateColumn({ name: 'created_at' })

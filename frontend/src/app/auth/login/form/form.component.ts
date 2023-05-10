@@ -1,7 +1,10 @@
+import { passwordValidator } from './../../../core/validators/password.validator';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { LoginCredentials } from '../../../core/interfaces/login-credentials.interface';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../core/interfaces/user.interface';
+import { emailValidator } from '../../../core/validators/email.validator';
+
 @Component({
   selector: 'app-login-form',
   templateUrl: './form.component.html',
@@ -9,17 +12,26 @@ import { User } from '../../../core/interfaces/user.interface';
 })
 export class LoginFormComponent {
   @Output() onLoginUser: EventEmitter<LoginCredentials> = new EventEmitter();
-  form: FormGroup;
+  loginForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    this.form = this.formBuilder.group({});
+    this.createForm();
   }
 
-  onLoginAction() {
-    const email = 'aridon@gmail.com';
-    const password = 'aridon123';
-    this.onLoginUser.emit({ email, password });
+  createForm() {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, emailValidator]],
+      password: ['', [Validators.required, passwordValidator]]
+    });
+  }
+
+  onSubmit() {
+    if (this.loginForm.invalid) return;
+
+    this.onLoginUser.emit(this.loginForm.getRawValue());
+
+    this.loginForm.reset();
   }
 }

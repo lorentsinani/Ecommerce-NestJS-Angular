@@ -1,0 +1,19 @@
+<tr>
+  <td>
+    {{ role.id }}
+  </td>
+
+  <td>
+    {{ role.name | titlecase }}
+  </td>
+
+  <td>
+    <button routerLink="edit-role/{{ role.id }}">Edit</button>
+  </td>
+
+  <td>
+    <button (click)="onDeleteAction(role.id)">Delete</button>
+  </td>
+
+
+</tr>

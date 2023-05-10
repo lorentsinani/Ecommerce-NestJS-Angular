@@ -1,0 +1,25 @@
+<button routerLink="add-role">Add Role</button>
+
+<table>
+
+  <thead>
+
+    <app-list-roles-head *ngFor="let column of columns" [column]="column">
+
+
+    </app-list-roles-head>
+
+  </thead>
+
+
+  <tbody>
+
+    <app-list-roles-row *ngFor="let role of roles" [role]="role" (onDeleteRole)="deleteRole($event)">
+
+    </app-list-roles-row>
+
+  </tbody>
+
+  <p *ngIf="emptyData"> No data for this resource </p>
+
+</table>

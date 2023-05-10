@@ -1,0 +1,28 @@
+<button routerLink="add-permission">Add Permission</button>
+
+
+<table>
+
+
+  <thead>
+
+    <app-list-permissions-head *ngFor="let column of columns" [column]="column">
+
+    </app-list-permissions-head>
+
+  </thead>
+
+
+
+  <tbody>
+
+    <app-list-permissions-row *ngFor="let permission of permissions" [permission]="permission"
+      (onDeletePermission)="deletePermission($event)">
+
+    </app-list-permissions-row>
+
+  </tbody>
+
+</table>
+
+<p *ngIf="emptyData"> No data for this resource </p>

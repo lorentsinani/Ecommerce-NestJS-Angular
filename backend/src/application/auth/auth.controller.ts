@@ -4,6 +4,7 @@ import { SignInDto } from '../../common/dtos/application/auth/sing-in.dto';
 import { CreateUserDto } from '../../common/dtos/users/create-user.dto';
 import { IUser } from '../../common/interfaces/user.interface';
 import { DuplicateKeyExceptionFilter } from '../../common/filters/duplicate-key-exception.filter';
+import { LoginResponse } from '../../common/interfaces/login-response.interface';
 import { ResetPasswordDto } from '../../common/dtos/password-reset/password-reset.dto';
 import { User } from '../../domain/entities/user.entity';
 
@@ -13,14 +14,14 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
-  async login(@Body() body: SignInDto) {
+  async login(@Body() body: SignInDto): Promise<LoginResponse> {
     return this.authService.login(body.email, body.password);
   }
 
   @Post('register')
   @UseFilters(new DuplicateKeyExceptionFilter('User'))
   async singUp(@Body() createUserDto: CreateUserDto): Promise<IUser> {
-    return this.authService.register(createUserDto);
+    return this.authService.registerCustomer(createUserDto);
   }
 
   @Post('logout')
