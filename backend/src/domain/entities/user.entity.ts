@@ -17,6 +17,9 @@ export class User implements IUser {
   @Column({ unique: true, length: 100 })
   email: string;
 
+  @Column({ default: false })
+  verified: boolean;
+
   @Column({ length: 255 })
   password: string;
 

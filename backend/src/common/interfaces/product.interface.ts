@@ -17,4 +17,5 @@ export interface IProduct {
   productDetails: IProductDetails;
   createdAt: Date;
   updatedAt: Date;
+  priceAfterDiscount: number;
 }

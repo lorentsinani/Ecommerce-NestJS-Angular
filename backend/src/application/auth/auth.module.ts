@@ -7,6 +7,10 @@ import { JwtTokenVerifierMiddleware } from '../../common/middlewares/jwt-token-v
 import { AuthController } from './auth.controller';
 import { PermissionsModule } from '../../domain/permissions/permissions.module';
 import { RoleModule } from '../../domain/role/role.module';
+import { PermissionsGuard } from '../../common/guards/permissions.guard';
+import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.factory';
+import { MailerModule } from '../../domain/mailer/mailer.module';
+
 
 @Module({
   imports: [
@@ -17,7 +21,8 @@ import { RoleModule } from '../../domain/role/role.module';
       global: true,
       secret: 'secret',
       signOptions: { expiresIn: '1d' }
-    })
+    }),
+    MailerModule
   ],
   providers: [AuthService],
   controllers: [AuthController],

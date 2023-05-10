@@ -25,7 +25,7 @@ import { RoleModule } from './role/role.module';
 import { ServiceModule } from './service/service.module';
 import { ObjectsModule } from './objects/objects.module';
 import { RolePermissionsModule } from './role-permissions/role-permissions.module';
-
+import { WishlistsModule } from './wishlists/wishlists.module';
 
 @Module({
   imports: [
@@ -55,7 +55,8 @@ import { RolePermissionsModule } from './role-permissions/role-permissions.modul
     RoleModule,
     ServiceModule,
     ObjectsModule,
-    RolePermissionsModule
+    RolePermissionsModule,
+    WishlistsModule
   ]
 })
 export class DomainModule {}
