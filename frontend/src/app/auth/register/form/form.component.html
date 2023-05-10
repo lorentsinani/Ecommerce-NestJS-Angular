@@ -1,130 +1,153 @@
 <form [formGroup]="registerForm" (submit)="onSubmit()">
 
-  <label for="firstName">FirstName </label>
-  <input type="text" formControlName="firstName" placeholder="FirstName">
+  <div class="input-control-container">
 
-  <div *ngIf="
+
+    <div class="form-group">
+      <label for="firstName">FirstName </label>
+      <input type="text" formControlName="firstName" placeholder="FirstName">
+
+      <div *ngIf="
         registerForm.get('firstName').invalid &&
         (registerForm.get('firstName').dirty ||
         registerForm.get('firstName').touched)
       ">
-    <p *ngIf="registerForm.get('firstName').errors['required']">
-      FirstName is required
-    </p>
-    <p *ngIf="registerForm.get('firstName').errors['pattern']">
-      Provide valid FirstName
-    </p>
-  </div>
-  <br>
+        <p *ngIf="registerForm.get('firstName').errors['required']">
+          FirstName is required
+        </p>
+        <p *ngIf="registerForm.get('firstName').errors['pattern']">
+          Provide valid FirstName
+        </p>
+      </div>
+      <br>
 
-  <label for="lastName">LastName </label>
-  <input type="text" formControlName="lastName" placeholder="LastName">
-  <div *ngIf="
+      <label for="lastName">LastName </label>
+      <input type="text" formControlName="lastName" placeholder="LastName">
+      <div *ngIf="
       registerForm.get('lastName').invalid &&
       (registerForm.get('lastName').dirty ||
       registerForm.get('lastName').touched)
   ">
-    <p *ngIf="registerForm.get('lastName').errors['required']">
-      LastName is required
-    </p>
-    <p *ngIf="registerForm.get('lastName').errors['pattern']">
-      Provide valid lastName
-    </p>
-  </div>
-  <br>
+        <p *ngIf="registerForm.get('lastName').errors['required']">
+          LastName is required
+        </p>
+        <p *ngIf="registerForm.get('lastName').errors['pattern']">
+          Provide valid lastName
+        </p>
+      </div>
 
-  <label for="email">Email </label>
-  <input type="text" formControlName="email" placeholder="Email">
-  <div *ngIf="
+
+
+
+      <label for="email">Email </label>
+      <input type="text" formControlName="email" placeholder="Email">
+      <div *ngIf="
         registerForm.get('email').invalid &&
         (registerForm.get('email').dirty ||
           registerForm.get('email').touched)
       ">
-    <p *ngIf="registerForm.get('email').errors['required']">
-      Email is required
-    </p>
-    <p *ngIf="registerForm.get('email').errors['pattern']">
-      Provide valid email
-    </p>
-  </div>
-  <br>
+        <p *ngIf="registerForm.get('email').errors['required']">
+          Email is required
+        </p>
+        <p *ngIf="registerForm.get('email').errors['pattern']">
+          Provide valid email
+        </p>
+      </div>
+      <br>
 
 
-  <label for="password">Password </label>
-  <input type="password" formControlName="password" placeholder="password">
+      <label for="password">Password </label>
+      <input type="password" formControlName="password" placeholder="password">
 
-  <div *ngIf="
+      <div *ngIf="
         registerForm.get('password').invalid &&
         (registerForm.get('password').dirty ||
           registerForm.get('password').touched)
       ">
 
 
-    <p *ngIf="registerForm.get('password').errors['required']">
-      Password is required
-    </p>
+        <p *ngIf="registerForm.get('password').errors['required']">
+          Password is required
+        </p>
 
-    <p *ngIf="registerForm.get('password').errors['minlength']">
-      Password should contain at least 8 characters
-    </p>
+        <p *ngIf="registerForm.get('password').errors['minlength']">
+          Password should contain at least 8 characters
+        </p>
 
-    <p *ngIf="registerForm.get('password').errors['pattern']">
-      The password should contain at least one lowercase letter, one uppercase letter, one special character, and one
-      number.
-    </p>
-  </div>
-  <br>
+        <p *ngIf="registerForm.get('password').errors['pattern']">
+          The password should contain at least one lowercase letter, one uppercase letter, one special character, and
+          one
+          number.
+        </p>
+      </div>
+
+    </div>
 
 
-  <label for="country">Country </label>
-  <input type="text" formControlName="country" placeholder="Country">
-  <div *ngIf="
+
+    <div class="form-group">
+
+      <label for="country">Country </label>
+      <input type="text" formControlName="country" placeholder="Country">
+      <div *ngIf="
         registerForm.get('country').invalid &&
         (registerForm.get('country').dirty ||
         registerForm.get('country').touched)
       ">
-    <p *ngIf="registerForm.get('country').errors['required']">
-      Country is required
-    </p>
-    <p *ngIf="registerForm.get('country').errors['pattern']">
-      Provide valid text
-    </p>
-  </div>
-  <br>
+        <p *ngIf="registerForm.get('country').errors['required']">
+          Country is required
+        </p>
+        <p *ngIf="registerForm.get('country').errors['pattern']">
+          Provide valid text
+        </p>
+      </div>
+      <br>
 
-  <label for="city">City </label>
-  <input type="text" formControlName="city" placeholder="City">
-  <div *ngIf="
+      <label for="city">City </label>
+      <input type="text" formControlName="city" placeholder="City">
+      <div *ngIf="
         registerForm.get('city').invalid &&
         (registerForm.get('city').dirty ||
         registerForm.get('city').touched)
       ">
-    <p *ngIf="registerForm.get('city').errors['required']">
-      City is required
-    </p>
-    <p *ngIf="registerForm.get('city').errors['pattern']">
-      Provide valid text
-    </p>
+        <p *ngIf="registerForm.get('city').errors['required']">
+          City is required
+        </p>
+        <p *ngIf="registerForm.get('city').errors['pattern']">
+          Provide valid text
+        </p>
+      </div>
+
+
+
+      <label for="birthdate">BirthDate </label>
+      <input type="date" formControlName="birthdate">
+      <br>
+
+
+      <label for="gender">Gender</label>
+
+      <div class="gender-inputs">
+        <input type="radio" name="gender" formControlName="gender" id="male" value="male">
+        <label for="male">Male</label>
+        <input type="radio" name="gender" formControlName="gender" id="female" value="female">
+        <label for="female">Female</label>
+      </div>
+
+
+    </div>
+
   </div>
-  <br>
 
 
-  <label for="birthdate">BirthDate </label>
-  <input type="date" formControlName="birthdate">
-  <br>
 
+  <div class="btn-s">
+    <div>
+      <button type="submit" [disabled]="registerForm.invalid">Register</button>
+    </div>
 
-  <label for="gender">Gender </label>
-  <input type="radio" name="gender" formControlName="gender" value="male">
-  <label for="male">Male </label>
-  <input type="radio" name="gender" formControlName="gender" value="female">
-  <label for="female">Female </label>
-  <p *ngIf="registerForm.get('gender').errors['required']">
-    Gender is required
-  </p>
-
-  <br>
-
-
-  <button type="submit">Register</button>
+    <div class="login">
+      <a routerLink="/login">Login</a>
+    </div>
+  </div>
 </form>

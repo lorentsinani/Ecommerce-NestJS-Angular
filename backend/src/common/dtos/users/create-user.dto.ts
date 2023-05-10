@@ -4,10 +4,6 @@ import { IsCustomEmail } from '../../decorators/email-format.decorator';
 
 export class CreateUserDto {
   @IsNotEmpty()
-  @IsInt()
-  roleId: number;
-
-  @IsNotEmpty()
   @IsString()
   @Length(1, 50)
   firstName: string;
@@ -41,4 +37,6 @@ export class CreateUserDto {
   @IsString()
   @IsEnum(UserGender)
   gender: UserGender;
+
+  roleId: number;
 }

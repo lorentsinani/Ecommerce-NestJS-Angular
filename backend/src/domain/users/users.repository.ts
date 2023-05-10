@@ -25,6 +25,10 @@ export class UsersRepository extends Repository<User> {
     return this.createQueryBuilder('user').where('user.email = :email', { email }).getOne();
   }
 
+  findOneUserByEmailWithRole(email: string): Promise<User | null> {
+    return this.createQueryBuilder('user').leftJoinAndSelect('user.role', 'role').where('user.email = :email', { email }).getOne();
+  }
+
   updateUser(id: number, updateUserDto: UpdateUserDto): Promise<UpdateResult> {
     return this.createQueryBuilder().update(User).set(updateUserDto).where('id = :id', { id }).returning('*').execute();
   }

@@ -4,6 +4,7 @@ import { RoleRepository } from './role.repository';
 import { CreateRoleDto } from '../../common/dtos/role/create-role.dto';
 import { UpdateRoleDto } from '../../common/dtos/role/update-role.dto';
 import { InsertResult } from 'typeorm';
+import { UserRole } from '../../common/constants/enums/user-rol.enum';
 
 @Injectable()
 export class RoleService {
@@ -26,8 +27,18 @@ export class RoleService {
     return this.roleRepository.findAllRoles();
   }
 
-  findRoleById(role_id: number): Promise<Role | null> {
-    return this.roleRepository.findRoleById(role_id);
+  findRoleById(roleId: number): Promise<Role | null> {
+    return this.roleRepository.findRoleById(roleId);
+  }
+
+  async findRoleByName(roleName: UserRole): Promise<Role> {
+    const role = await this.roleRepository.findRoleByName(roleName);
+
+    if (!role) {
+      throw new HttpException(this.NotFoundExceptionMessage, HttpStatus.NOT_FOUND);
+    }
+
+    return role;
   }
 
   async findById(id: number): Promise<Role> {

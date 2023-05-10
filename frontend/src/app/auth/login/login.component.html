@@ -1,6 +1,9 @@
-<app-login-form (onLoginUser)="loginUser($event)">
+<div class="container">
+  <app-login-form (onLoginUser)="loginUser($event)">
 
-</app-login-form>
+  </app-login-form>
 
 
-<p *ngIf="loggedInFailed"> Invalid credentials </p>
+  <p *ngIf="loggedInFailed"> Invalid credentials </p>
+
+</div>

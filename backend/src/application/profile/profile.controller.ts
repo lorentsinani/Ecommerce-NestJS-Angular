@@ -10,14 +10,14 @@ export class ProfileController {
 
   @Get()
   findUserDetails(@Request() request: TokenVerifierCustomRequest): Promise<User> {
-    const userId = request.jwtPayload?.user.id as number;
+    const userId: number = request.jwtPayload?.user.id as number;
     return this.profileService.findUserDetails(userId);
   }
 
   @Patch()
   @UsePipes(new ValidationPipe())
   updateUserDetails(@Request() request: TokenVerifierCustomRequest, @Body() updateUserDto: UpdateUserDto): Promise<User> {
-    const userId = request.jwtPayload?.user.id as number;
+    const userId: number = request.jwtPayload?.user.id as number;
     return this.profileService.updateUserDetails(userId, updateUserDto);
   }
 }

@@ -22,6 +22,10 @@ export class RoleRepository extends Repository<Role> {
     return this.createQueryBuilder('role').where('role.id = :id', { id }).getOne();
   }
 
+  findRoleByName(roleName: string) {
+    return this.createQueryBuilder('role').where('role.name = :name', { name: roleName }).getOne();
+  }
+
   updateRole(id: number, updateRoleDto: UpdateRoleDto): Promise<UpdateResult> {
     return this.createQueryBuilder().update(Role).set(updateRoleDto).where('id = :id', { id }).returning('*').execute();
   }

@@ -1,10 +1,12 @@
-<app-register-form (onRegisterUser)="registerUser($event)">
+<div class="container">
+  <app-register-form (onRegisterUser)="registerUser($event)">
 
-</app-register-form>
+  </app-register-form>
 
 
-<p *ngIf="userCreated"> User is created successfully </p>
+  <p *ngIf="userCreated"> User is created successfully </p>
 
-<p *ngIf="userExist"> User already exist </p>
+  <p *ngIf="userExist"> User already exist </p>
 
-<p *ngIf="badRequest"> Something went wrong. Please try again! </p>
+  <p *ngIf="badRequest"> Something went wrong. Please try again! </p>
+</div>

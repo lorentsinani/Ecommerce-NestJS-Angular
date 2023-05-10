@@ -21,8 +21,12 @@ export class RegisterComponent {
         this.userCreated = true;
       },
       error: error => {
-        if (error.statusCode === 409) this.userExist = true;
-        else this.badRequest = true;
+        if (error.statusCode === 409) {
+          this.userExist = true;
+        } else {
+          this.badRequest = true;
+        }
+        console.log(error);
       }
     });
   }

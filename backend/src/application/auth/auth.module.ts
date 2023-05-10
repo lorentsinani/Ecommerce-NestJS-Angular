@@ -6,11 +6,13 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtTokenVerifierMiddleware } from '../../common/middlewares/jwt-token-verifier.middleware';
 import { AuthController } from './auth.controller';
 import { PermissionsModule } from '../../domain/permissions/permissions.module';
+import { RoleModule } from '../../domain/role/role.module';
 
 @Module({
   imports: [
     UsersModule,
     PermissionsModule,
+    RoleModule,
     JwtModule.register({
       global: true,
       secret: 'secret',
