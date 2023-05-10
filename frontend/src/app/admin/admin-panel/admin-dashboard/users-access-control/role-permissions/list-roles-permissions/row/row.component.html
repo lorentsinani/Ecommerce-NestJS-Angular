@@ -8,7 +8,7 @@
   </td>
 
   <td *ngIf="rolePermission.role as roleDetails">
-    <span> {{ roleDetails.name }} </span>
+    <span> {{ roleDetails.name | titlecase }} </span>
   </td>
 
   <td>
@@ -16,9 +16,10 @@
   </td>
 
   <td *ngIf="rolePermission.permission as permissionDetails ">
-    <span> {{ permissionDetails.action }} </span>
+    
+    <span> {{ permissionDetails.action | titlecase }} </span>
 
-    <span> {{ permissionDetails.object.name }} </span>
+    <span> {{ permissionDetails.object.name | titlecase }} </span>
   </td>
 
   <td>

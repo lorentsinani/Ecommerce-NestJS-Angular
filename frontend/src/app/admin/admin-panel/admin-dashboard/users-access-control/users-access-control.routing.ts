@@ -13,6 +13,7 @@ export const UsersAccessControlRoute: Route = {
   path: 'users-access-control',
   component: UsersAccessControlComponent,
   children: [
+    { path: '', component: RolesComponent, children: RolesRoute },
     { path: 'roles', component: RolesComponent, children: RolesRoute },
     { path: 'role-permissions', component: RolePermissionsComponent, children: RolePermissionRoute },
     { path: 'permissions', component: PermissionsComponent, children: PermissionsRoute },

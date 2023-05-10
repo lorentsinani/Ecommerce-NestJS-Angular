@@ -36,7 +36,7 @@ export class AddObjectComponent implements OnInit {
   }
 
   private createObject(object: Objects): void {
-    this.objectsService.createObject(object).subscribe({
+    this.objectsService.createObject({ ...object, name: object.name.toLowerCase() }).subscribe({
       next: (createdObject: Objects) => {
         this.isCreated = true;
       },

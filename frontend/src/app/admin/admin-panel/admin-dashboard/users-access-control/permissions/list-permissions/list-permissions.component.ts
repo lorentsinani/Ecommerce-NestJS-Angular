@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ServerErrorResponse } from '../../../../../../core/interfaces/http-error-response.interface';
 import { PermissionsService } from '../../../../../../core/services/permissions/permissions.service';
 import { Permissions } from '../../../../../../core/interfaces/permissions.interface';
@@ -6,7 +6,8 @@ import { Permissions } from '../../../../../../core/interfaces/permissions.inter
 @Component({
   selector: 'app-list-permissions',
   templateUrl: './list-permissions.component.html',
-  styleUrls: ['./list-permissions.component.scss']
+  styleUrls: ['./list-permissions.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ListPermissionsComponent implements OnInit {
   emptyData: boolean;
@@ -16,13 +17,14 @@ export class ListPermissionsComponent implements OnInit {
   constructor(private permissionsService: PermissionsService) {}
 
   ngOnInit(): void {
-    this.getAllPermissions();
+    this.getAllPermissionsWithObjects();
   }
 
-  getAllPermissions() {
-    this.permissionsService.getAllPermissions().subscribe({
+  getAllPermissionsWithObjects() {
+    this.permissionsService.getAllPermissionsWithObjects().subscribe({
       next: (permissions: Permissions[]) => {
         if (permissions.length) {
+          console.log(permissions);
           this.permissions = permissions;
         } else {
           this.emptyData = true;

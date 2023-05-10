@@ -64,7 +64,7 @@ export class EditPermissionComponent implements OnInit {
       tap(permission => {
         this.permissionForm.patchValue({
           action: permission.action,
-          objectId: permission.object.id
+          objectId: permission.objectId
         });
       }),
       catchError(error => {
@@ -89,6 +89,11 @@ export class EditPermissionComponent implements OnInit {
     this.permissionsService.updatePermission(this.permissionId, permission).subscribe({
       next: (updatedPermission: Permissions) => {
         this.isUpdated = true;
+
+        this.permissionForm.patchValue({
+          action: updatedPermission.action,
+          objectId: updatedPermission.objectId
+        });
       },
       error: (error: ServerErrorResponse) => {
         this.isNotUpdated = true;

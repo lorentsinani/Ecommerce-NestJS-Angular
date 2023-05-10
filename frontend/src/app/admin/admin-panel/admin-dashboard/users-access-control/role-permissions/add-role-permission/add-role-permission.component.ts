@@ -2,7 +2,7 @@ import { PermissionAction } from './../../../../../../core/constants/enums/permi
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RolePermissions } from '../../../../../../core/interfaces/role-permissions.interface';
-import { RolePermissionsService } from '../../../../../../core/services/role-permission/role-permissions.service';
+import { RolePermissionsService } from '../../../../../../core/services/role-permissions/role-permissions.service';
 import { Role } from '../../../../../../core/interfaces/role.interface';
 import { RoleService } from '../../../../../../core/services/role/role.service';
 import { PermissionsService } from '../../../../../../core/services/permissions/permissions.service';
@@ -21,7 +21,6 @@ export class AddRolePermissionComponent {
   isNotCreated: boolean;
   rolePermissionForm: FormGroup;
   roles: Role[];
-  permissionActions: Partial<Permissions[]>;
   permissions: Permissions[];
   objects: Objects[];
 
@@ -36,15 +35,15 @@ export class AddRolePermissionComponent {
   ngOnInit() {
     this.createForm();
     this.getAllRoles();
-    this.getAllActions();
     this.getAllObjects();
-    this.getAllPermissions();
+    this.getAllPermissionsBySelectedObject();
   }
 
   createForm() {
     this.rolePermissionForm = this.formBuilder.group({
       role: ['', Validators.required],
-      permission: ['', Validators.required]
+      object: ['', Validators.required],
+      action: ['', Validators.required]
     });
   }
 
@@ -56,9 +55,9 @@ export class AddRolePermissionComponent {
     this.rolePermissionForm.reset();
   }
 
-  createRolePermissions(data: { roleId: number; objectId: number; action: PermissionAction }) {
-    const permissionId = this.findPermissionIdByObjectAndAction(data.objectId, data.action);
-    const roleId = data.roleId;
+  createRolePermissions(data: { role: string; object: string; action: PermissionAction }) {
+    const permissionId = this.findPermissionIdByObjectAndAction(+data.object, data.action);
+    const roleId = +data.role;
 
     this.rolePermissionsService.createRolePermission({ permissionId, roleId }).subscribe({
       next: (rolePermissions: RolePermissions) => {
@@ -66,14 +65,7 @@ export class AddRolePermissionComponent {
       },
       error: (error: ServerErrorResponse) => {
         console.log(error);
-      }
-    });
-  }
-
-  getAllActions() {
-    this.permissionService.getAllPermissionActions().subscribe({
-      next: (permissionActions: Partial<Permissions[]>) => {
-        this.permissionActions = permissionActions;
+        this.isNotCreated = true;
       }
     });
   }
@@ -100,8 +92,16 @@ export class AddRolePermissionComponent {
     });
   }
 
-  getAllPermissions() {
-    this.permissionService.getAllPermissions().subscribe({
+  getAllPermissionsBySelectedObject() {
+    this.rolePermissionForm.get('object').valueChanges.subscribe(objectId => {
+      if (objectId) {
+        this.getAllPermissionsByObject(+objectId);
+      }
+    });
+  }
+
+  getAllPermissionsByObject(objectId: number) {
+    this.permissionService.getAllPermissionsByObject(objectId).subscribe({
       next: (permissions: Permissions[]) => {
         this.permissions = permissions;
       },
@@ -112,7 +112,8 @@ export class AddRolePermissionComponent {
   }
 
   findPermissionIdByObjectAndAction(objectId: number, action: PermissionAction): number {
-    const permission = this.permissions.find(p => p.objectId === objectId && p.action === action);
+    const permission = this.permissions.find(p => p.objectId === objectId && p.action == action);
+    console.log(permission);
     return permission ? permission.id : null;
   }
 }

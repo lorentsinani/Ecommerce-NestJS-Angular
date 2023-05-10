@@ -10,11 +10,11 @@
   </div>
   <br>
 
-  <button type="submit" [disabled]="objectForm.invalid">Edit Object</button>
-
+  <div class="btn-s">
+    <button type="submit" [disabled]="objectForm.invalid">Edit Object</button>
+    <button routerLink="/admin/users-access-control">Show List</button>
+  </div>
 </form>
 
 <p *ngIf="isUpdated"> Object is updated </p>
 <p *ngIf="isNotUpdated"> Object is not updated </p>
-
-<button routerLink="/admin/users-access-control">Show List</button>

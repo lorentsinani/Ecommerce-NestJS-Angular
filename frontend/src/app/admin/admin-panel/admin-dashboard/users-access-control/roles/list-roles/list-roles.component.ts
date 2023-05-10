@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Role } from '../../../../../../core/interfaces/role.interface';
 import { RoleService } from '../../../../../../core/services/role/role.service';
 import { getObjectColumns } from '../../../../../../core/utilities/object-columns.util';
@@ -6,7 +6,8 @@ import { getObjectColumns } from '../../../../../../core/utilities/object-column
 @Component({
   selector: 'app-list-roles',
   templateUrl: './list-roles.component.html',
-  styleUrls: ['./list-roles.component.scss']
+  styleUrls: ['./list-roles.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ListRolesComponent implements OnInit {
   emptyData: boolean;

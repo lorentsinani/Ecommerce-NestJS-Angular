@@ -12,7 +12,7 @@ export class RolePermissionsService extends BaseService<RolePermissions> {
     super(http);
   }
   createRolePermission(rolePermission: RolePermissions): Observable<RolePermissions> {
-    return this.post('role-permission', rolePermission);
+    return this.post('role-permissions', rolePermission);
   }
 
   getAllRolePermissions(): Observable<RolePermissions[]> {
@@ -20,11 +20,11 @@ export class RolePermissionsService extends BaseService<RolePermissions> {
   }
 
   getRolePermissionById(id: number): Observable<RolePermissions> {
-    return this.get(`role-permission/${id}`);
+    return this.get(`role-permissions/${id}`);
   }
 
   update(id: number, rolePermission: RolePermissions): Observable<RolePermissions> {
-    return this.patch('role-permission', rolePermission);
+    return this.patch('role-permissions', rolePermission);
   }
 
   deleteRolePermission(id: number): Observable<RolePermissions> {

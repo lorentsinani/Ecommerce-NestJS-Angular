@@ -10,11 +10,12 @@
   </div>
   <br>
 
-  <button type="submit" [disabled]="objectForm.invalid">Add Object</button>
+  <div class="btn-s">
+    <button type="submit" [disabled]="objectForm.invalid">Add Object</button>
+    <button routerLink="/admin/users-access-control">Show List</button>
+  </div>
 
 </form>
 
 <p *ngIf="isCreated"> Object is created </p>
 <p *ngIf="isNotCreated"> Object is not created </p>
-
-<button routerLink="/admin/users-access-control">Show List</button>

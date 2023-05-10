@@ -15,7 +15,7 @@ import { PermissionAction } from '../../../../../../core/constants/enums/permiss
 })
 export class AddPermissionComponent implements OnInit {
   isCreated: boolean;
-  emptyObjectData: boolean = true;
+  emptyObjectData: boolean;
   isNotCreated: boolean;
   permissionForm: FormGroup;
   objects: Objects[];
@@ -43,7 +43,7 @@ export class AddPermissionComponent implements OnInit {
   }
 
   private createPermission(permission: Permissions) {
-    this.permissionsService.createPermission(permission).subscribe({
+    this.permissionsService.createPermission({ ...permission, objectId: +permission.objectId }).subscribe({
       next: (permission: Permissions) => {
         this.isCreated = true;
       },

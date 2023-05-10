@@ -11,11 +11,12 @@
 
   <br>
 
-  <button type="submit" [disabled]="roleForm.invalid">Add Role</button>
+  <div class="btn-s">
+    <button type="submit" [disabled]="roleForm.invalid">Add Role</button>
+    <button routerLink="/admin/users-access-control/roles">Show List</button>
+  </div>
 
 </form>
 
 <p *ngIf="isCreated"> Role is created </p>
 <p *ngIf="isNotCreated"> Role is not created </p>
-
-<button routerLink="/admin/users-access-control">Show List</button>

@@ -9,10 +9,11 @@
   </div>
   <br>
 
-  <button type="submit" [disabled]="roleForm.invalid">Edit Role</button>
+  <div class="btn-s">
+    <button type="submit" [disabled]="roleForm.invalid">Edit Role</button>
+    <button routerLink="/admin/users-access-control/roles">Show List</button>
+  </div>
 </form>
 
 <p *ngIf="isUpdated">Role is updated</p>
 <p *ngIf="isNotUpdated">Role is not updated</p>
-
-<button routerLink="/admin/users-access-control/roles">Show List</button>

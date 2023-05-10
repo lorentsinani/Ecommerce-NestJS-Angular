@@ -5,7 +5,6 @@
     <option value="manage">Manage</option>
     <option value="create">Create</option>
     <option value="read">Read</option>
-    <option value="write">Write</option>
     <option value="update">Update</option>
     <option value="delete">Delete</option>
   </select>
@@ -26,12 +25,12 @@
   </div>
 
 
-
-  <button type="submit" [disabled]="permissionForm.invalid">Add Permission</button>
+  <div class="btn-s">
+    <button type="submit" [disabled]="permissionForm.invalid">Edit Permission</button>
+    <button routerLink="/admin/users-access-control/permissions">Show List</button>
+  </div>
 
 </form>
 
 <p *ngIf="isUpdated"> Permission is updated </p>
 <p *ngIf="isNotUpdated"> Permission is not updated </p>
-
-<button routerLink="/admin/users-access-control/">Show List</button>

@@ -21,6 +21,14 @@ export class PermissionsService extends BaseService<Permissions> {
     return this.getAll('permissions');
   }
 
+  getAllPermissionsByObject(objectId: number): Observable<Permissions[]> {
+    return this.getAll(`permissions/object/${objectId}`);
+  }
+
+  getAllPermissionsWithObjects(): Observable<Permissions[]> {
+    return this.getAll('permissions/objects');
+  }
+
   getPermissionById(id: number): Observable<Permissions> {
     return this.get(`permissions/${id}`);
   }

@@ -61,7 +61,7 @@ export class EditObjectComponent implements OnInit {
   }
 
   private updateObject(object: Objects): void {
-    this.objectsService.updateObject(this.objectId, object).subscribe({
+    this.objectsService.updateObject(this.objectId, { ...object, name: object.name.toLowerCase() }).subscribe({
       next: (updatedObject: Objects) => {
         this.isUpdated = true;
 

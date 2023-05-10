@@ -5,7 +5,6 @@
     <option value="manage">Manage</option>
     <option value="create">Create</option>
     <option value="read">Read</option>
-    <option value="write">Write</option>
     <option value="update">Update</option>
     <option value="delete">Delete</option>
   </select>
@@ -14,9 +13,6 @@
     <div *ngIf="permissionForm.get('action').errors['required']">Action is required.</div>
     <div *ngIf="permissionForm.get('action').errors['invalidEnum']">Invalid action selected.</div>
   </div>
-
-  <br>
-
 
 
   <div *ngIf="!emptyObjectData">
@@ -34,11 +30,11 @@
     No data for objects resource
   </div>
 
-  <button type="submit" [disabled]="permissionForm.invalid">Add Permission</button>
-
+  <div class="btn-s">
+    <button type="submit" [disabled]="permissionForm.invalid">Add Permission</button>
+    <button routerLink="/admin/users-access-control/permissions">Show List</button>
+  </div>
 </form>
 
 <p *ngIf="isCreated"> Permission is created </p>
 <p *ngIf="isNotCreated"> Permission is not created </p>
-
-<button routerLink="/admin/users-access-control/">Show List</button>

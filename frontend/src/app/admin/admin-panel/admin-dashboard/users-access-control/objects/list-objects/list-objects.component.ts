@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Objects } from '../../../../../../core/interfaces/object.interface';
 import { ObjectsService } from '../../../../../../core/services/objects/objects.service';
 import { ServerErrorResponse } from '../../../../../../core/interfaces/http-error-response.interface';
@@ -7,7 +7,8 @@ import { getObjectColumns } from '../../../../../../core/utilities/object-column
 @Component({
   selector: 'app-list-objects',
   templateUrl: './list-objects.component.html',
-  styleUrls: ['./list-objects.component.scss']
+  styleUrls: ['./list-objects.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ListObjectsComponent {
   columns: string[];

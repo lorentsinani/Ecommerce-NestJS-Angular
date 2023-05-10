@@ -1,9 +1,10 @@
 .sidebar {
   width: 211px;
   padding: 20px;
-  background-color: #333;
+  background-color: #f36b5a;
   color: #fff;
   font-family: Arial, sans-serif;
+  border-radius: 10px;
 
   h2 {
     margin-top: 0;
@@ -28,7 +29,7 @@
       transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: #555;
+        background-color: #d45243;
       }
     }
   }
