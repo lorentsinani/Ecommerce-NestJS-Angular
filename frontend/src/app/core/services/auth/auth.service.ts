@@ -1,3 +1,4 @@
+import { Ability, AbilityBuilder, AbilityTuple } from '@casl/ability';
 import { LoginCredentials } from './../../interfaces/login-credentials.interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -20,7 +21,7 @@ export class AuthService extends BaseService<AuthenticationResponse> {
     return this.post('auth/login', loginCredentials);
   }
 
-  register(userData: User) {
+  register(userData: User): Observable<AuthenticationResponse> {
     return this.post('auth/register', userData);
   }
 
@@ -36,14 +37,12 @@ export class AuthService extends BaseService<AuthenticationResponse> {
   getUserRole() {
     const accessToken = this.getAccessToken();
     if (!accessToken) return null;
-
     const decodedToken: any = jwt_decode(accessToken); // TODO: use a type
-
     const userRole = decodedToken.role;
     return userRole;
   }
 
   getAccessToken(): string {
-    return this.cookieService.get('access_token');
+    return this.cookieService.get('accessToken');
   }
 }

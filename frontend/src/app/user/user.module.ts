@@ -39,6 +39,12 @@ import { PaymentMethodComponent } from './payment-method/payment-method.componen
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { ProfileComponent } from './profile/profile.component';
+import { SecurityDetailsComponent } from './profile/security-details/security-details.component';
+import { ProfileDetailsComponent } from './profile/profile-details/profile-details.component';
+import { ProfileDataInformationComponent } from './profile/profile-details/profile-data-information/profile-data-information.component';
+import { ProfileDataComponent } from './profile/profile-details/profile-data/profile-data.component';
+import { ProfileFormComponent } from './profile/profile-details/profile-form/profile-form.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +75,13 @@ import { MatExpansionModule } from '@angular/material/expansion';
     ContactFormComponent,
     PaginationComponent,
     UserComponent,
-    PaymentMethodComponent
+    PaymentMethodComponent,
+    ProfileComponent,
+    SecurityDetailsComponent,
+    ProfileDetailsComponent,
+    ProfileDataInformationComponent,
+    ProfileDataComponent,
+    ProfileFormComponent
   ],
   imports: [
     CommonModule,
