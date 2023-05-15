@@ -8,7 +8,7 @@ import { AuthController } from './auth.controller';
 import { PermissionsModule } from '../../domain/permissions/permissions.module';
 import { RoleModule } from '../../domain/role/role.module';
 import { PermissionsGuard } from '../../common/guards/permissions.guard';
-import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.factory';
+import { CaslAbilityFactory } from '../../common/providers/casl/casl-ability.factory/casl-ability.factory';
 import { MailerModule } from '../../domain/mailer/mailer.module';
 
 

@@ -16,27 +16,23 @@ import { ResetPasswordDto } from '../../common/dtos/password-reset/password-rese
 import { IJwtConfig } from '../../config/jwt-config';
 import { ConfigService } from '@nestjs/config';
 
-
 interface CustomSocket extends Socket {
   jwtPayload?: JwtPayload;
 }
 
 @Injectable()
 export class AuthService {
-
-  constructor(private usersService: UsersService, private jwtService: JwtService, private permissionsService: PermissionsService, private roleService: RoleService) {}
-
   private jwtConfig: IJwtConfig;
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
     private permissionsService: PermissionsService,
     private mailService: MailerService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private roleService: RoleService
   ) {
     this.jwtConfig = this.configService.get('jwt') as IJwtConfig;
   }
-
 
   async login(email: string, password: string): Promise<LoginResponse> {
     const user = await this.usersService.findOneUserByEmailWithRole(email);
