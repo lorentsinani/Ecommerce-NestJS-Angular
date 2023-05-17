@@ -3,6 +3,7 @@ import { TokenVerifierCustomRequest } from '../../common/interfaces/jwt-payload.
 import { UpdateUserDto } from '../../common/dtos/users/update-user.dto';
 import { User } from '../../domain/entities/user.entity';
 import { ProfileService } from './profile.service';
+import { ChangePasswordDto } from '../../common/dtos/profile/change-password.dto';
 
 @Controller('profile')
 export class ProfileController {
@@ -10,14 +11,25 @@ export class ProfileController {
 
   @Get()
   findUserDetails(@Request() request: TokenVerifierCustomRequest): Promise<User> {
-    const userId: number = request.jwtPayload?.user.id as number;
+    const userId: number = this.getUserIdFromToken(request);
     return this.profileService.findUserDetails(userId);
   }
 
   @Patch()
   @UsePipes(new ValidationPipe())
   updateUserDetails(@Request() request: TokenVerifierCustomRequest, @Body() updateUserDto: UpdateUserDto): Promise<User> {
-    const userId: number = request.jwtPayload?.user.id as number;
+    const userId: number = this.getUserIdFromToken(request);
     return this.profileService.updateUserDetails(userId, updateUserDto);
+  }
+
+  @Patch('update-password')
+  @UsePipes(new ValidationPipe())
+  updateUserPassword(@Request() request: TokenVerifierCustomRequest, @Body() changePassword: ChangePasswordDto): Promise<User> {
+    const userId: number = this.getUserIdFromToken(request);
+    return this.profileService.updateUserPassword(userId, changePassword);
+  }
+
+  getUserIdFromToken(request: TokenVerifierCustomRequest): number {
+    return request.jwtPayload?.user.id as number;
   }
 }

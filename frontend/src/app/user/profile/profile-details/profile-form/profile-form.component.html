@@ -1,0 +1,71 @@
+<div class="form-container">
+  <form [formGroup]="profileDetailsForm" (submit)="onSubmit()">
+    <div class="input-control-container">
+      <div class="form-group">
+        <label for="firstName">FirstName </label>
+        <input type="text" formControlName="firstName" placeholder="FirstName" />
+
+        <div
+          *ngIf="
+            profileDetailsForm.get('firstName').invalid && (profileDetailsForm.get('firstName').dirty || profileDetailsForm.get('firstName').touched)
+          "
+        >
+          <p *ngIf="profileDetailsForm.get('firstName').errors['required']">FirstName is required</p>
+          <p *ngIf="profileDetailsForm.get('firstName').errors['pattern']">Provide valid FirstName</p>
+        </div>
+        <br />
+
+        <label for="lastName">LastName </label>
+        <input type="text" formControlName="lastName" placeholder="LastName" />
+        <div
+          *ngIf="
+            profileDetailsForm.get('lastName').invalid && (profileDetailsForm.get('lastName').dirty || profileDetailsForm.get('lastName').touched)
+          "
+        >
+          <p *ngIf="profileDetailsForm.get('lastName').errors['required']">LastName is required</p>
+          <p *ngIf="profileDetailsForm.get('lastName').errors['pattern']">Provide valid lastName</p>
+        </div>
+
+        <label for="birthdate">BirthDate </label>
+        <input type="date" formControlName="birthdate" />
+      </div>
+
+      <div class="form-group">
+        <label for="country">Country </label>
+        <input type="text" formControlName="country" placeholder="Country" />
+        <div
+          *ngIf="profileDetailsForm.get('country').invalid && (profileDetailsForm.get('country').dirty || profileDetailsForm.get('country').touched)"
+        >
+          <p *ngIf="profileDetailsForm.get('country').errors['required']">Country is required</p>
+          <p *ngIf="profileDetailsForm.get('country').errors['pattern']">Provide valid text</p>
+        </div>
+        <br />
+
+        <label for="city">City </label>
+        <input type="text" formControlName="city" placeholder="City" />
+        <div *ngIf="profileDetailsForm.get('city').invalid && (profileDetailsForm.get('city').dirty || profileDetailsForm.get('city').touched)">
+          <p *ngIf="profileDetailsForm.get('city').errors['required']">City is required</p>
+          <p *ngIf="profileDetailsForm.get('city').errors['pattern']">Provide valid text</p>
+        </div>
+
+        <label for="gender">Gender</label>
+
+        <div class="gender-inputs">
+          <input type="radio" name="gender" formControlName="gender" id="male" value="male" />
+          <label for="male">Male</label>
+          <input type="radio" name="gender" formControlName="gender" id="female" value="female" />
+          <label for="female">Female</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-s">
+      <div>
+        <button type="submit" [disabled]="profileDetailsForm.invalid">Update Details</button>
+      </div>
+    </div>
+  </form>
+
+  <p *ngIf="isUpdated">User details are updated</p>
+  <p *ngIf="isNotUpdated">User details are not updated</p>
+</div>

@@ -1,0 +1,14 @@
+<div class="container">
+  <div>
+    <app-profile-data [user]="user"> </app-profile-data>
+
+    <hr />
+
+    <app-profile-form [user]="user" (onUpdateProfile)="updateProfile($event)"> </app-profile-form>
+
+    <p *ngIf="isUpdated">User details updated successfully.</p>
+    <p *ngIf="isNotUpdated">User details could not be updated.</p>
+  </div>
+
+  <app-profile-data-information> </app-profile-data-information>
+</div>
