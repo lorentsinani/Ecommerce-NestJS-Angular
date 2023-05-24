@@ -14,6 +14,9 @@ import { UserComponent } from './user.component';
 import { HelpCenterComponent } from './help-center/help-center.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { PaymentMethodComponent } from './payment-method/payment-method.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileDetailsComponent } from './profile/profile-details/profile-details.component';
+import { SecurityDetailsComponent } from './profile/security-details/security-details.component';
 
 const routes: Routes = [
   {
@@ -66,7 +69,15 @@ const routes: Routes = [
         path: 'payment',
         component: PaymentMethodComponent
       },
-
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        children: [
+          { path: '', redirectTo: 'details', pathMatch: 'full' },
+          { path: 'details', component: ProfileDetailsComponent },
+          { path: 'security-details', component: SecurityDetailsComponent }
+        ]
+      }
     ]
   }
 ];
@@ -75,4 +86,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class UserRoutingModule { }
+export class UserRoutingModule {}

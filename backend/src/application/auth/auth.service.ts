@@ -23,6 +23,7 @@ interface CustomSocket extends Socket {
 @Injectable()
 export class AuthService {
   private jwtConfig: IJwtConfig;
+
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
@@ -80,34 +81,18 @@ export class AuthService {
 
   private generateRedirectUrl(role: UserRole): string {
     let redirectUrl = '';
-    switch (role) {
-      case UserRole.Admin:
-        redirectUrl = '/admin';
-        break;
-      case UserRole.Employee:
-        redirectUrl = '/employee';
-        break;
-      case UserRole.Customer:
-        redirectUrl = '/';
-        break;
+
+    if (role === UserRole.Admin) {
+      redirectUrl = '/admin';
+    } else if (role === UserRole.Employee) {
+      redirectUrl = '/employee';
+    } else if (role == UserRole.Customer) {
+      redirectUrl = '/';
     }
 
     return redirectUrl;
   }
 
-  //
-
-  //
-
-  //
-
-  //
-
-  //
-
-  //
-
-  //
   async logout() {
     console.log();
   }

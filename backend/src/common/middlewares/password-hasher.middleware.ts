@@ -7,6 +7,9 @@ export class PasswordHasherMiddleware implements NestMiddleware {
     if (request.body && request.body.password && PasswordUtil.checkPasswordStrength(request.body.password)) {
       request.body.password = await PasswordUtil.hashPassword(request.body.password);
       next();
+    } else if (request.body && request.body.newPassword && PasswordUtil.checkPasswordStrength(request.body.newPassword)) {
+      request.body.newPassword = await PasswordUtil.hashPassword(request.body.newPassword);
+      next();
     } else {
       throw new HttpException('Weak password provided', HttpStatus.BAD_REQUEST);
     }
