@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { emailValidator } from '../../../validators/email.validator';
 import { NewsletterService } from './newsletter.service';
@@ -14,7 +13,7 @@ export class NewsletterComponent {
   newsletterForm: FormGroup;
   email: string;
   isNotSubscribe: boolean;
-  constructor(private http: HttpClient, private formBuilder: FormBuilder, private newsletterService: NewsletterService) {}
+  constructor(private formBuilder: FormBuilder, private newsletterService: NewsletterService) {}
 
   ngOnInit() {
     this.createForm();
@@ -31,7 +30,7 @@ export class NewsletterComponent {
       return;
     }
 
-    this.subscribeToNewsletter(this.newsletterForm.value.email);
+    this.subscribeToNewsletter(this.newsletterForm.getRawValue().email);
 
     this.newsletterForm.reset();
   }
