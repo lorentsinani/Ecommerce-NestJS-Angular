@@ -29,8 +29,8 @@ export class AuthService {
     private jwtService: JwtService,
     private permissionsService: PermissionsService,
     private mailService: MailerService,
-    private roleService: RoleService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private roleService: RoleService
   ) {
     this.jwtConfig = this.configService.get('jwt') as IJwtConfig;
   }

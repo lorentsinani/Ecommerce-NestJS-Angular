@@ -8,6 +8,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { NewsletterComponent } from './components/footer/newsletter/newsletter.component';
 import { FooterInfoComponent } from './components/footer/footer-info/footer-info.component';
 import { FooterCopyrightComponent } from './components/footer/footer-copyright/footer-copyright.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 /**
  * The 'core' module is a commonly used module in angular applications for storing components and services that are shared across multiple modules. For example the header and footer component is the same for auth and user module.
@@ -23,7 +24,7 @@ import { FooterCopyrightComponent } from './components/footer/footer-copyright/f
     FooterInfoComponent,
     FooterCopyrightComponent
   ],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
   exports: [HeaderComponent, TopbarComponent, NavbarComponent, FooterComponent, NewsletterComponent, FooterInfoComponent]
 })
 export class CoreModule {}
