@@ -9,9 +9,19 @@
     </div>
   </div>
   <div class="newsletter-footer__right">
-    <form class="newsletter-footer__form">
-      <input type="email" placeholder="Enter your email address" class="newsletter-footer__input">
+    <form class="newsletter-footer__form" (ngSubmit)="onSubmit()" [formGroup]="newsletterForm">
+      <input type="email" placeholder="Enter your email address" class="newsletter-footer__input" name="email" formControlName="email" />
+      <div *ngIf="newsletterForm.get('email').invalid && (newsletterForm.get('email').dirty || newsletterForm.get('email').touched)">
+        <p *ngIf="newsletterForm.get('email').errors['required']">Email is required</p>
+        <p *ngIf="newsletterForm.get('email').errors['pattern']">Provide valid email</p>
+      </div>
       <button type="submit" class="newsletter-footer__button">Join</button>
+      <div *ngIf="isSubscribe">
+        <p>Yaaay, you are subscribed!!!</p>
+      </div>
+      <div *ngIf="isNotSubscribe">
+        <p>Something went wrong, please check email!!</p>
+      </div>
     </form>
   </div>
 </div>
