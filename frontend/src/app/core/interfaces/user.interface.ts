@@ -1,5 +1,6 @@
 import { Admin } from './admin.interface';
 import { Employee } from './employee.interface';
+import { Role } from './role.interface';
 
 export interface User {
   id: number;
@@ -13,6 +14,7 @@ export interface User {
   gender: string;
   userDetails?: Admin | Employee;
   roleId: number;
+  role: Role;
   createdAt: Date;
   updatedAt: Date;
 }
