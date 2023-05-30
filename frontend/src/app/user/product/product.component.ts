@@ -1,6 +1,6 @@
-import { Component, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, EventEmitter, Injectable, Output } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ProductService } from './product.service';
 
 @Component({
   selector: 'app-product',
@@ -11,20 +11,33 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductComponent {
+  @Output() productsData: EventEmitter<any> = new EventEmitter<any>();
+  noProductsFound: boolean = false;
   searchTerm: string;
   private productsSubject: BehaviorSubject<any> = new BehaviorSubject(null);
   public productsFetched: Observable<any> = this.productsSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
-
-  searchProducts(query: string) {
-    const url = `https://localhost:3000/products/search?q=${query}`;
-    return this.http.get(url);
-  }
+  constructor(private productService: ProductService) {}
 
   onSearchSubmit() {
-    this.searchProducts(this.searchTerm).subscribe(data => {
-      this.productsSubject.next(data);
+    if (typeof this.searchTerm !== 'string') {
+      this.noProductsFound = true;
+    }
+
+    this.searchProducts(this.searchTerm);
+
+    this.searchTerm = '';
+  }
+
+  searchProducts(searchTerm: string): void {
+    this.productService.getProducts(searchTerm).subscribe({
+      next: data => {
+        this.productsFetched = data;
+        this.productsData.emit(data);
+      },
+      error: error => {
+        this.noProductsFound = true;
+      }
     });
   }
 
