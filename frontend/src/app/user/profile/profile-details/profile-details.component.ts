@@ -7,6 +7,7 @@ import { stringPatternValidator } from '../../../core/validators/pattern-string.
 import { emailValidator } from '../../../core/validators/email.validator';
 import { passwordValidator } from '../../../core/validators/password.validator';
 import { ServerErrorResponse } from '../../../core/interfaces/http-error-response.interface';
+import { ProfileService } from '../../../core/services/profile/profile.service';
 
 @Component({
   selector: 'app-profile-details',
@@ -18,14 +19,14 @@ export class ProfileDetailsComponent implements OnInit {
   isUpdated: boolean;
   isNotUpdated: boolean;
 
-  constructor(private usersService: UsersService) {}
+  constructor(private profileService: ProfileService) {}
 
   ngOnInit() {
     this.getUserDetails();
   }
 
   getUserDetails() {
-    this.usersService.getUserDetails().subscribe({
+    this.profileService.getUserDetails().subscribe({
       next: (user: User) => {
         this.user = user;
       },
@@ -36,7 +37,7 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   updateProfile(user: User): void {
-    this.usersService.updateUserDetails(user).subscribe({
+    this.profileService.updateUserDetails(user).subscribe({
       next: (user: User) => {
         this.user = user;
         this.isUpdated = true;

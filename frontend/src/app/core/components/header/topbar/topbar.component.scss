@@ -41,3 +41,47 @@
   font-size: 16px;
   color: #f36b5a;
 }
+
+.account {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.fa-user {
+  color: #f36b5a;
+  font-size: 20px;
+}
+
+div {
+  margin-left: 8px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+div:first-child {
+  font-weight: bold;
+  color: #333;
+}
+
+div:last-child {
+  color: #666;
+}
+
+.contact-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 5px;
+}
+
+.contact-info div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 5px;
+}
+
+.contact-info div:first-child {
+  margin-right: 10px;
+}

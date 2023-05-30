@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { AuthenticationResponse } from '../../interfaces/authentication-response.interface';
 import { CookieService } from 'ngx-cookie-service';
 import jwt_decode from 'jwt-decode';
+import { JwtPayload } from '../../interfaces/jwt-payload.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -34,12 +35,18 @@ export class AuthService extends BaseService<AuthenticationResponse> {
     return accessToken !== undefined && accessToken !== '';
   }
 
-  getUserRole() {
-    const accessToken = this.getAccessToken();
-    if (!accessToken) return null;
-    const decodedToken: any = jwt_decode(accessToken); // TODO: use a type
-    const userRole = decodedToken.role;
-    return userRole;
+  getUserRole(): string {
+    const token = this.getDecodeToken();
+    return token.user.role.name;
+  }
+
+  getUserName(): string {
+    const token = this.getDecodeToken();
+    return token.user.firstName;
+  }
+
+  getDecodeToken(): JwtPayload {
+    return jwt_decode(this.getAccessToken());
   }
 
   getAccessToken(): string {
