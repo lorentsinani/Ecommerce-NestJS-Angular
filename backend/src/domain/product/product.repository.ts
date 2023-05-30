@@ -39,10 +39,10 @@ export class ProductRepository extends Repository<Product> {
       .innerJoin('product.productDetails', 'product_details')
       .leftJoinAndSelect('product.category', 'category')
       .where(
-        `product.product_name LIKE :searchTerm 
-          OR product.product_code LIKE :searchTerm 
-          OR product_details.color LIKE :searchTerm 
-          OR category.category_name LIKE :searchTerm`,
+        `CAST(product.product_code AS VARCHAR) LIKE :searchTerm
+        OR product.product_name LIKE :searchTerm 
+        OR product_details.color LIKE :searchTerm 
+        OR category.category_name LIKE :searchTerm`,
         { searchTerm: `%${searchTerm}%` }
       )
       .getMany();
