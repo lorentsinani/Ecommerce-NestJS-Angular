@@ -4,7 +4,7 @@
 
     <hr />
 
-    <app-profile-form [user]="user" (onUpdateProfile)="updateProfile($event)"> </app-profile-form>
+    <app-profile-form [user]="user"> </app-profile-form>
 
     <p *ngIf="isUpdated">User details updated successfully.</p>
     <p *ngIf="isNotUpdated">User details could not be updated.</p>

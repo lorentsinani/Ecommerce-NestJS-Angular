@@ -1,0 +1,50 @@
+<form [formGroup]="form" (ngSubmit)="onCreate()">
+  <div>
+    <label for="deliveryDate">Delivery Date:</label>
+    <input type="date" id="deliveryDate" [formControlName]="'deliveryDate'" required />
+    <div *ngIf="form.controls['deliveryDate'].invalid && form.controls['deliveryDate'].touched" class="error-message">Delivery Date is required.</div>
+  </div>
+
+  <div>
+    <label for="deliveryComments">Delivery Comments:</label>
+    <textarea id="deliveryComments" [formControlName]="'deliveryComments'"></textarea>
+    <div *ngIf="form.controls['deliveryComments'].invalid && form.controls['deliveryComments'].touched" class="error-message">
+      Delivery Comments is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="deliveryCost">Delivery Cost:</label>
+    <input type="number" id="deliveryCost" [formControlName]="'deliveryCost'" required />
+    <div *ngIf="form.controls['deliveryCost'].invalid && form.controls['deliveryCost'].touched" class="error-message">Delivery Cost is required.</div>
+  </div>
+  <div>
+    <label for="deliveryMethodId">Delivery Method ID:</label>
+    <input type="number" id="deliveryMethodId" formControlName="deliveryMethodId" required />
+    <div *ngIf="form.get('deliveryMethodId').invalid && form.get('deliveryMethodId').touched" class="error-message">
+      Delivery Method ID is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="deliveryStatus">Delivery Status:</label>
+    <input type="text" id="deliveryStatus" formControlName="deliveryStatus" required />
+    <div *ngIf="form.get('deliveryStatus').invalid && form.get('deliveryStatus').touched" class="error-message">Delivery Status is required.</div>
+  </div>
+
+  <div>
+    <label for="promisedDeliveryDate">Promised Delivery Date:</label>
+    <input type="date" id="promisedDeliveryDate" formControlName="promisedDeliveryDate" required />
+    <div *ngIf="form.get('promisedDeliveryDate').invalid && form.get('promisedDeliveryDate').touched" class="error-message">
+      Promised Delivery Date is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="deliveryOrderId">Delivery Order ID:</label>
+    <input type="number" id="deliveryOrderId" formControlName="deliveryOrderId" required />
+    <div *ngIf="form.get('deliveryOrderId').invalid && form.get('deliveryOrderId').touched" class="error-message">Delivery Order ID is required.</div>
+  </div>
+
+  <button type="submit" [disabled]="form.invalid">Create</button>
+</form>

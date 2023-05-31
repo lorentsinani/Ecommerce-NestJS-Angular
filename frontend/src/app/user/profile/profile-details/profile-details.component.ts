@@ -13,38 +13,38 @@ import { ServerErrorResponse } from '../../../core/interfaces/http-error-respons
   templateUrl: './profile-details.component.html',
   styleUrls: ['./profile-details.component.scss']
 })
-export class ProfileDetailsComponent implements OnInit {
+export class ProfileDetailsComponent {
   user: User;
   isUpdated: boolean;
   isNotUpdated: boolean;
 
   constructor(private usersService: UsersService) {}
 
-  ngOnInit() {
-    this.getUserDetails();
-  }
+  // ngOnInit() {
+  //   this.getUserDetails();
+  // }
 
-  getUserDetails() {
-    this.usersService.getUserDetails().subscribe({
-      next: (user: User) => {
-        this.user = user;
-      },
-      error: (error: any) => {
-        console.log(error);
-      }
-    });
-  }
+  // getUserDetails() {
+  //   this.usersService.getUserDetails().subscribe({
+  //     next: (user: User) => {
+  //       this.user = user;
+  //     },
+  //     error: (error: any) => {
+  //       console.log(error);
+  //     }
+  //   });
+  // }
 
-  updateProfile(user: User): void {
-    this.usersService.updateUserDetails(user).subscribe({
-      next: (user: User) => {
-        this.user = user;
-        this.isUpdated = true;
-      },
-      error: (error: ServerErrorResponse) => {
-        console.log(error);
-        this.isNotUpdated = true;
-      }
-    });
-  }
+  // updateProfile(user: User): void {
+  //   this.usersService.updateUserDetails(user).subscribe({
+  //     next: (user: User) => {
+  //       this.user = user;
+  //       this.isUpdated = true;
+  //     },
+  //     error: (error: ServerErrorResponse) => {
+  //       console.log(error);
+  //       this.isNotUpdated = true;
+  //     }
+  //   });
+  // }
 }
