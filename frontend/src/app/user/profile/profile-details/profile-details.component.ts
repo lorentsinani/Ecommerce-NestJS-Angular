@@ -15,37 +15,10 @@ import { ProfileService } from '../../../core/services/profile/profile.service';
   styleUrls: ['./profile-details.component.scss']
 })
 export class ProfileDetailsComponent implements OnInit {
-  user: User;
   isUpdated: boolean;
   isNotUpdated: boolean;
 
-  constructor(private profileService: ProfileService) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.getUserDetails();
-  }
-
-  getUserDetails() {
-    this.profileService.getUserDetails().subscribe({
-      next: (user: User) => {
-        this.user = user;
-      },
-      error: (error: any) => {
-        console.log(error);
-      }
-    });
-  }
-
-  updateProfile(user: User): void {
-    this.profileService.updateUserDetails(user).subscribe({
-      next: (user: User) => {
-        this.user = user;
-        this.isUpdated = true;
-      },
-      error: (error: ServerErrorResponse) => {
-        console.log(error);
-        this.isNotUpdated = true;
-      }
-    });
-  }
+  ngOnInit() {}
 }

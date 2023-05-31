@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { RoleGuard } from '../core/guards/role.guard';
+import { ErrorComponent } from '../shared/error/error/error.component';
 
 const routes: Routes = [
   {
@@ -15,10 +16,6 @@ const routes: Routes = [
     //   roles: ['admin']
     // },
     children: [CurrencyRoute, UsersAccessControlRoute]
-  },
-  {
-    path: '**',
-    redirectTo: '/'
   }
 ];
 @NgModule({

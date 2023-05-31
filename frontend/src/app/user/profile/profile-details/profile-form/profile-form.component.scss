@@ -81,3 +81,25 @@ button[type='submit']:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.btn-s {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+
+.link {
+  color: #f36b5a;
+  text-decoration: none;
+}
+
+.sign-out-btn {
+  background-color: #ffffff;
+  color: #f36b5a;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
