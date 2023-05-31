@@ -12,7 +12,7 @@ import { Delivery } from '../../../../../core/interfaces/delivery.interface';
 })
 export class CreateFormDeliveryComponent implements OnInit {
   form: FormGroup;
-
+  deliveries: Delivery[] = [];
   constructor(private deliveryService: DeliveryService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -31,6 +31,11 @@ export class CreateFormDeliveryComponent implements OnInit {
     });
   }
 
+  fetchDeliveries() {
+    this.deliveryService.getAllDeliveries().subscribe(deliveries => {
+      this.deliveries = deliveries; // Assign the fetched deliveries to the component property
+    });
+  }
   onCreate() {
     if (this.form.invalid) {
       return;

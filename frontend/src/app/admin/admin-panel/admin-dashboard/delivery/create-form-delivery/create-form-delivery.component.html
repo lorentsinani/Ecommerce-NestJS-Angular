@@ -40,9 +40,17 @@
     </div>
   </div>
 
-  <div>
+  <!-- <div>
     <label for="deliveryOrderId">Delivery Order ID:</label>
     <input type="number" id="deliveryOrderId" formControlName="deliveryOrderId" required />
+    <div *ngIf="form.get('deliveryOrderId').invalid && form.get('deliveryOrderId').touched" class="error-message">Delivery Order ID is required.</div>
+  </div> -->
+
+  <div>
+    <label for="deliveryOrderId">Delivery Order ID:</label>
+    <select id="deliveryOrderId" formControlName="deliveryOrderId" required>
+      <option *ngFor="let delivery of deliveries" [value]="delivery.id">{{ delivery.id }}</option>
+    </select>
     <div *ngIf="form.get('deliveryOrderId').invalid && form.get('deliveryOrderId').touched" class="error-message">Delivery Order ID is required.</div>
   </div>
 
