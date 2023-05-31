@@ -18,12 +18,19 @@
     <input type="number" id="deliveryCost" [formControlName]="'deliveryCost'" required />
     <div *ngIf="form.controls['deliveryCost'].invalid && form.controls['deliveryCost'].touched" class="error-message">Delivery Cost is required.</div>
   </div>
-  <div>
+  <!-- <div>
     <label for="deliveryMethodId">Delivery Method ID:</label>
     <input type="number" id="deliveryMethodId" formControlName="deliveryMethodId" required />
     <div *ngIf="form.get('deliveryMethodId').invalid && form.get('deliveryMethodId').touched" class="error-message">
       Delivery Method ID is required.
     </div>
+  </div> -->
+  <label for="deliveryMethodId"> Select a Delivery Method: </label>
+  <select name="deliveryMethodId" formControlName="deliveryMethodId">
+    <option *ngFor="let deliveryMethod of deliveriesMethod" [value]="deliveryMethod.id">{{ deliveryMethod.deliveryMethodName | titlecase }}</option>
+  </select>
+  <div *ngIf="form.get('deliveryMethodId').invalid && form.get('deliveryMethodId').touched">
+    <div *ngIf="form.get('deliveryMethodId').errors['required']">Object is required.</div>
   </div>
 
   <div>

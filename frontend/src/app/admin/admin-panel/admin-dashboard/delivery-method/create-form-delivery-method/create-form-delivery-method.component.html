@@ -27,4 +27,6 @@
   </div>
 
   <button type="submit" [disabled]="form.invalid">Create</button>
+  <div *ngIf="isCreated" class="success-message">Delivery method created successfully!</div>
+  <div *ngIf="isNotCreated" class="error-message">Failed to create delivery method.</div>
 </form>

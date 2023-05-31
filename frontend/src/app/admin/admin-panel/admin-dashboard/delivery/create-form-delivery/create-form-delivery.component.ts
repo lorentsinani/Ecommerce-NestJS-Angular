@@ -4,7 +4,8 @@ import { Currency } from '../../../../../core/interfaces/currency.interface';
 import { Component, OnInit } from '@angular/core';
 import { DeliveryService } from '../../../../../core/services/delivery/delivery.service';
 import { Delivery } from '../../../../../core/interfaces/delivery.interface';
-
+import { DeliveryMethod } from '../../../../../core/interfaces/delivery-method.interface';
+import { DeliveryMethodService } from '../../../../../core/services/delivery-method/delivery-method.service';
 @Component({
   selector: 'app-create-form-delivery',
   templateUrl: './create-form-delivery.component.html',
@@ -12,11 +13,14 @@ import { Delivery } from '../../../../../core/interfaces/delivery.interface';
 })
 export class CreateFormDeliveryComponent implements OnInit {
   form: FormGroup;
-  deliveries: Delivery[] = [];
-  constructor(private deliveryService: DeliveryService, private fb: FormBuilder) {}
+  deliveries: Delivery[];
+  deliveriesMethod: DeliveryMethod[];
+  constructor(private deliveryService: DeliveryService, private fb: FormBuilder, private deliveryMethodService: DeliveryMethodService) {}
 
   ngOnInit(): void {
     this.createForm();
+    this.getAllDeliveryMethods();
+    this.getAllDeliveries();
   }
 
   createForm() {
@@ -31,9 +35,14 @@ export class CreateFormDeliveryComponent implements OnInit {
     });
   }
 
-  fetchDeliveries() {
+  getAllDeliveries() {
     this.deliveryService.getAllDeliveries().subscribe(deliveries => {
       this.deliveries = deliveries; // Assign the fetched deliveries to the component property
+    });
+  }
+  getAllDeliveryMethods() {
+    this.deliveryMethodService.getAllDeliveriesMethod().subscribe(deliveriesMethod => {
+      this.deliveriesMethod = deliveriesMethod;
     });
   }
   onCreate() {

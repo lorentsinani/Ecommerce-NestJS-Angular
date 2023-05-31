@@ -19,23 +19,23 @@ export class DeliveryMethodService extends BaseService<DeliveryMethod> {
     super(http);
   }
 
-  createDelivery(data: DeliveryMethod): Observable<DeliveryMethod> {
+  createDeliveryMethod(data: DeliveryMethod): Observable<DeliveryMethod> {
     return this.post(`delivery-method`, data);
   }
 
-  getAllDeliveries(): Observable<DeliveryMethod[]> {
+  getAllDeliveriesMethod(): Observable<DeliveryMethod[]> {
     return this.getAll(`delivery-method`);
   }
 
-  getDeliveryById(id: number): Observable<DeliveryMethod> {
+  getDeliveryMethodById(id: number): Observable<DeliveryMethod> {
     return this.get(`delivery-method/${id}`);
   }
 
-  updateDelivery(id: number, data: Partial<DeliveryMethod>): Observable<DeliveryMethod> {
+  updateDeliveryMethod(id: number, data: Partial<DeliveryMethod>): Observable<DeliveryMethod> {
     return this.put(`delivery-method/${id}`, data);
   }
 
-  deleteDelivery(id: number): Observable<DeliveryMethod> {
+  deleteDeliveryMethod(id: number): Observable<DeliveryMethod> {
     return this.delete(`delivery-method/${id}`);
   }
 }
