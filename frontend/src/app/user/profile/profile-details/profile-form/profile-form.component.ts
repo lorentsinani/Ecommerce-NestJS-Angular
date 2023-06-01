@@ -3,6 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from '../../../../core/services/users/users.service';
 import { stringPatternValidator } from '../../../../core/validators/pattern-string.validator';
 import { User } from '../../../../core/interfaces/user.interface';
+import { ProfileService } from '../../../../core/services/profile/profile.service';
+import { ServerErrorResponse } from '../../../../core/interfaces/http-error-response.interface';
+import { AuthService } from '../../../../core/services/auth/auth.service';
+import { Router } from '@angular/router';
+import { AuthStateService } from '../../../../core/state/auth-state.service';
 
 @Component({
   selector: 'app-profile-form',
@@ -11,16 +16,21 @@ import { User } from '../../../../core/interfaces/user.interface';
 })
 export class ProfileFormComponent {
   profileDetailsForm: FormGroup;
-  isUpdated: boolean;
-  isNotUpdated: boolean;
-  @Input() user: User;
-  @Output() onUpdateProfile: EventEmitter<User> = new EventEmitter();
+  isUpdated: boolean = false;
+  isNotUpdated: boolean = false;
+  user: User;
 
-  constructor(private formBuilder: FormBuilder, private usersService: UsersService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private profileService: ProfileService,
+    private authService: AuthService,
+    private router: Router,
+    private authStateService: AuthStateService
+  ) {}
 
   ngOnInit() {
+    this.getUserDetails();
     this.createForm();
-    this.patchValuesToForm(this.user);
   }
 
   createForm(): void {
@@ -37,9 +47,52 @@ export class ProfileFormComponent {
   onSubmit() {
     if (this.profileDetailsForm.invalid) return;
 
-    this.onUpdateProfile.emit();
+    this.updateProfile(this.profileDetailsForm.getRawValue());
 
     this.patchValuesToForm(this.user);
+  }
+
+  getUserDetails() {
+    this.profileService.getUserDetails().subscribe({
+      next: (user: User) => {
+        this.user = user;
+        this.patchValuesToForm(user);
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
+  }
+
+  updateProfile(user: User): void {
+    this.profileService.updateUserDetails(user).subscribe({
+      next: (user: User) => {
+        this.user = user;
+        this.isUpdated = true;
+        this.getUserDetails();
+      },
+      error: (error: ServerErrorResponse) => {
+        console.log(error);
+        this.isNotUpdated = true;
+      }
+    });
+  }
+
+  onSignOut() {
+    this.authService.logout().subscribe({
+      next: (response: boolean) => {
+        if (response) {
+          this.authService.deleteTokenFromCookie();
+          this.authStateService.updateAuthState(false, '');
+          this.router.navigate(['/']);
+        }
+      },
+      error: (error: ServerErrorResponse) => {
+        if (error.statusCode == 404) {
+          console.log(error.message);
+        }
+      }
+    });
   }
 
   patchValuesToForm(user: User) {

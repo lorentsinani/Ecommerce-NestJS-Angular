@@ -15,7 +15,7 @@ export class ProfileController {
     return this.profileService.findUserDetails(userId);
   }
 
-  @Patch()
+  @Patch('update-details')
   @UsePipes(new ValidationPipe())
   updateUserDetails(@Request() request: TokenVerifierCustomRequest, @Body() updateUserDto: UpdateUserDto): Promise<User> {
     const userId: number = this.getUserIdFromToken(request);
@@ -30,6 +30,6 @@ export class ProfileController {
   }
 
   getUserIdFromToken(request: TokenVerifierCustomRequest): number {
-    return request.jwtPayload?.user.id as number;
+    return request.jwtPayload?.sub as number;
   }
 }

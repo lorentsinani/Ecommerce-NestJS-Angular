@@ -5,9 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Category } from '../entities/category.entity';
 import { CategoryRepository } from './category.repository';
 import { JwtTokenVerifierMiddleware } from '../../common/middlewares/jwt-token-verifier.middleware';
+import { TokenManagementModule } from '../../common/providers/token-management/token-management.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Category])],
+  imports: [TypeOrmModule.forFeature([Category]) , TokenManagementModule],
   providers: [CategoryService, CategoryRepository],
   controllers: [CategoryController],
   exports: [CategoryService]

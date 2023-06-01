@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <a routerLink="/profile" class="account">
+    <a [routerLink]="isAuthenticated ? '/profile' : '/login'" class="account">
       <i class="fas fa-user" style="color: #f36b5a"></i>
       <div *ngIf="isAuthenticated">{{ userName }}</div>
       <div *ngIf="!isAuthenticated">My Account</div>
