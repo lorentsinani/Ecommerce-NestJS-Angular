@@ -1,8 +1,8 @@
-import { IsOptional } from "class-validator";
-import { IsCustomEmail } from "../../decorators/email-format.decorator";
+import { IsOptional } from 'class-validator';
+import { IsCustomEmail } from '../../decorators/email-format.decorator';
 
 export class UpdateNewsletterDto {
-    @IsCustomEmail()
-    @IsOptional()
-    email: string;
+  @IsCustomEmail()
+  @IsOptional()
+  email: string;
 }

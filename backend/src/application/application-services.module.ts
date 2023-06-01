@@ -3,8 +3,10 @@ import { AuthModule } from './auth/auth.module';
 import { AppEmployeeModule } from './app-employee/app-employee.module';
 import { ProfileModule } from './profile/profile.module';
 import { AppAdminModule } from './app-admin/app-admin.module';
+import { ChatModule } from './chat/chat.module';
+import { CaslModule } from '../common/providers/casl/casl.module';
 
 @Module({
-  imports: [AuthModule, AppEmployeeModule, AppAdminModule, ProfileModule]
+  imports: [AuthModule, AppEmployeeModule, AppAdminModule, ProfileModule, ChatModule, CaslModule]
 })
 export class ApplicationServicesModule {}

@@ -1,0 +1,36 @@
+<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Category Name</label>
+    <input type="text" id="name" formControlName="name">
+    <div
+      *ngIf="categoryForm.get('name').invalid && (categoryForm.get('name').dirty || categoryForm.get('name').touched)">
+      <p *ngIf="categoryForm.get('name').errors['required']">Name is required</p>
+    </div>
+  </div>
+
+  <div>
+    <label for="description">Category Description</label>
+    <textarea id="description" formControlName="description"></textarea>
+    <div
+      *ngIf="categoryForm.get('description').invalid && (categoryForm.get('description').dirty || categoryForm.get('description').touched)">
+      <p *ngIf="categoryForm.get('description').errors['required']">Description is required</p>
+    </div>
+  </div>
+
+  <div>
+    <label for="image">Category Image</label>
+    <input type="file" id="image" (change)="onFileSelected($event)" formControlName="image">
+    <div
+      *ngIf="categoryForm.get('image').invalid && (categoryForm.get('image').dirty || categoryForm.get('image').touched)">
+      <p *ngIf="categoryForm.get('image').errors['required']">Image is required</p>
+    </div>
+  </div>
+
+
+  <div class="btns">
+    <button type="submit">Submit</button>
+    <button id="btn-show-all" routerLink="../table">Show All</button>
+  </div>
+
+
+</form>

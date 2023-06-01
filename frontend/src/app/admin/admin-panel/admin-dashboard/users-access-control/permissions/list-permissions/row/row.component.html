@@ -1,0 +1,23 @@
+<tr>
+  <td>
+    {{ permission.id }}
+  </td>
+
+  <td>
+    {{ permission.action }}
+  </td>
+
+
+  <td>
+    {{ permission?.object?.name }}
+  </td>
+
+  <td>
+    <button routerLink="edit-permission/{{ permission.id }}">Edit</button>
+  </td>
+
+  <td>
+    <button (click)="onDeleteAction(permission.id)">Delete</button>
+  </td>
+
+</tr>

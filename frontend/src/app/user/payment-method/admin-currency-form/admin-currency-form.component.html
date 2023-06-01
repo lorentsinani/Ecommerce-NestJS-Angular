@@ -1,0 +1,63 @@
+<form [formGroup]="currencyForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="code">Currency Code </label>
+    <input type="text" id="code" formControlName="code" />
+    <div
+      *ngIf="
+        currencyForm.get('code').invalid &&
+        (currencyForm.get('code').dirty || currencyForm.get('code').touched)
+      "
+    >
+      <p *ngIf="currencyForm.get('code').errors['required']">
+        Code is required
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <label for="exchangeRate">Currency Exchange Rate</label>
+    <input type="number" id="exchangeRate" formControlName="exchangeRate" />
+    <div
+      *ngIf="
+        currencyForm.get('exchangeRate').invalid &&
+        (currencyForm.get('exchangeRate').dirty ||
+          currencyForm.get('exchangeRate').touched)
+      "
+    >
+      <p *ngIf="currencyForm.get('exchangeRate').errors['required']">
+        Exchange Rate is required
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <label for="isBase">Currency Base</label>
+    <input
+      name="boolean-parameter"
+      type="radio"
+      value="true"
+      formControlName="isBase"
+    />true
+    <input
+      name="boolean-parameter"
+      type="radio"
+      value="false"
+      formControlName="isBase"
+    />false
+    <div
+      *ngIf="
+        currencyForm.get('isBase').invalid &&
+        (currencyForm.get('isBase').dirty || currencyForm.get('isBase').touched)
+      "
+    >
+      <p *ngIf="currencyForm.get('isBase').errors['required']">
+        Exchange Rate is required
+      </p>
+    </div>
+  </div>
+
+  <div class="btns">
+    <button type="submit">Submit</button>
+    <button id="btn-show-all" routerLink="../table">Show All</button>
+  </div>
+</form>

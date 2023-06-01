@@ -1,24 +1,24 @@
 import { IUser } from './../../common/interfaces/user.interface';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { UserType } from '../../common/constants/enums/user-type.enum';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { UserGender } from '../../common/constants/enums/user-gender.enum';
+import { Role } from './role.entity';
 
 @Entity()
 export class User implements IUser {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'enum', enum: UserType, default: UserType.Customer })
-  user_type: UserType;
+  @Column({ name: 'first_name', length: 50 })
+  firstName: string;
 
-  @Column({ length: 50 })
-  first_name: string;
-
-  @Column({ length: 50 })
-  last_name: string;
+  @Column({ name: 'last_name', length: 50 })
+  lastName: string;
 
   @Column({ unique: true, length: 100 })
   email: string;
+
+  @Column({ default: false })
+  verified: boolean;
 
   @Column({ length: 255 })
   password: string;
@@ -35,9 +35,16 @@ export class User implements IUser {
   @Column()
   gender: UserGender;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @Column()
+  roleId: number;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @ManyToOne(() => Role)
+  @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
+  role: Role;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

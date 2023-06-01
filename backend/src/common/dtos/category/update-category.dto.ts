@@ -1,21 +1,20 @@
-import { Length, IsString, IsOptional, IsNumber } from 'class-validator';
+import { Length, IsString, IsOptional, IsNotEmpty } from 'class-validator';
 
 export class UpdateCategoryDto {
   @Length(1, 100)
   @IsString()
   @IsOptional()
-  category_name: string;
+  @IsNotEmpty()
+  categoryName: string;
 
   @IsString()
   @IsOptional()
-  category_desc: string;
+  @IsNotEmpty()
+  categoryDesc: string;
 
   @Length(1, 255)
   @IsString()
   @IsOptional()
-  category_image_url: string;
-
-  @IsNumber()
-  @IsOptional()
-  parent_category_id: number;
+  @IsNotEmpty()
+  categoryImageUrl: string;
 }

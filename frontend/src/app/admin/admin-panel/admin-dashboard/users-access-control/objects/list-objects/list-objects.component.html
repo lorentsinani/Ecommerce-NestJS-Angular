@@ -1,0 +1,28 @@
+<button routerLink="add-object">Add Object</button>
+
+
+<table>
+
+  <thead>
+
+    <app-list-objects-head *ngFor="let column of columns" [column]="column">
+
+    </app-list-objects-head>
+
+  </thead>
+
+
+
+
+  <tbody>
+
+    <app-list-objects-row *ngFor="let object of objects" [object]="object">
+
+    </app-list-objects-row>
+
+  </tbody>
+
+
+</table>
+
+<p *ngIf="emptyData"> No data for this resource</p>

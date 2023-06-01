@@ -6,21 +6,18 @@ export class Category implements ICategory {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 100 })
-  category_name: string;
+  @Column({ name: 'category_name', length: 100 })
+  categoryName: string;
 
-  @Column()
-  category_desc: string;
+  @Column({ name: 'category_desc' })
+  categoryDesc: string;
 
-  @Column({ length: 255 })
-  category_image_url: string;
+  @Column({ name: 'category_image', length: 255 })
+  categoryImage: string;
 
-  @Column()
-  parent_category_id: number;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

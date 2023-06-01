@@ -1,0 +1,21 @@
+.user-details {
+  margin-left: 10px;
+
+  .details {
+    margin-left: 5px;
+
+    p {
+      padding: 3px 0;
+    }
+  }
+}
+
+.link {
+  color: #f36b5a;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

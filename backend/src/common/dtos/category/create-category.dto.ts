@@ -1,18 +1,13 @@
-import { Length, IsString, IsNotEmpty, IsNumber } from 'class-validator';
+import { Length, IsString, IsNotEmpty } from 'class-validator';
 
 export class CreateCategoryDto {
   @Length(1, 100)
   @IsString()
   @IsNotEmpty()
-  category_name: string;
+  categoryName: string;
 
   @IsString()
-  category_desc: string;
+  categoryDesc: string;
 
-  @Length(1, 255)
-  @IsString()
-  category_image_url: string;
-
-  @IsNumber()
-  parent_category_id: number;
+  categoryImage: Express.Multer.File | any;
 }

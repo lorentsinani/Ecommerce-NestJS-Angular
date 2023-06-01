@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, Length, IsNumber, IsBoolean, IsDate } from 'class-validator';
+import { IsString, IsNotEmpty, Length, IsBoolean, IsNumber } from 'class-validator';
 
 export class CreateCurrencyDto {
   @IsString()
@@ -6,11 +6,11 @@ export class CreateCurrencyDto {
   @Length(1, 3)
   code: string;
 
-  @IsNumber()
   @IsNotEmpty()
-  exchange_rate: number;
+  @IsNumber()
+  exchangeRate: number;
 
   @IsBoolean()
   @IsNotEmpty()
-  is_base: boolean;
+  isBase: boolean;
 }

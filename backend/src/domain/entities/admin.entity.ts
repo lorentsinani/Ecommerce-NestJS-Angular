@@ -1,14 +1,15 @@
 import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn } from 'typeorm';
 import { User } from './user.entity';
 import { PermissionLevel } from '../../common/constants/enums/permission-level.enum';
+import { IAdmin } from '../../common/interfaces/admin.interface';
 
 @Entity()
-export class Admin {
-  @PrimaryColumn()
-  user_id: number;
+export class Admin implements IAdmin {
+  @PrimaryColumn({ name: 'user_id' })
+  userId: number;
 
-  @Column({ type: 'enum', enum: PermissionLevel })
-  permission_level: PermissionLevel;
+  @Column({ name: 'permission_level', type: 'enum', enum: PermissionLevel })
+  permissionLevel: PermissionLevel;
 
   @OneToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })

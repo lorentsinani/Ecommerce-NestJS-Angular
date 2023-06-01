@@ -13,6 +13,21 @@ import { Producer } from '../../../domain/entities/producer.entity';
 import { Newsletter } from '../../../domain/entities/newsletter.entity';
 import { Product } from '../../../domain/entities/product.entity';
 import { ProductDetails } from '../../../domain/entities/product-details.entity';
+import { Delivery } from '../../../domain/entities/delivery.entity';
+import { Order } from '../../../domain/entities/orders.entity';
+import { DeliveryMethod } from '../../../domain/entities/delivery-method.entity';
+import { Conversation } from '../../../domain/entities/conversation.entity';
+import { Message } from '../../../domain/entities/message.entity';
+import { Notifications } from '../../../domain/entities/notifications.entity';
+import { Role } from '../../../domain/entities/role.entity';
+import { RolePermissions } from '../../../domain/entities/role-permission.entity';
+import { Permission } from '../../../domain/entities/permission.entity';
+import { Objects } from '../../../domain/entities/objects.entity';
+import { ProductImages } from '../../../domain/entities/product-images.entity';
+import { OrderItems } from '../../../domain/entities/order-items.entity';
+import { OrdersStatus } from '../../../domain/entities/orders-status.entity';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { Wishlist } from '../../../domain/entities/wishlist.entity';
 
 @Injectable()
 export class TypeormConfigService implements TypeOrmOptionsFactory {
@@ -28,8 +43,38 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
       username: databaseConfig.username,
       password: databaseConfig.password,
       database: databaseConfig.database,
-      entities: [Admin, User, Employee, Suppliers, Address, Category, Currency, Producer, Newsletter, Product, ProductDetails], // All the entities that you create should be added here
-      synchronize: true
+      entities: [
+        Admin,
+        User,
+        Employee,
+        Suppliers,
+        Address,
+        Category,
+        Currency,
+        Producer,
+        Newsletter,
+        Product,
+        ProductDetails,
+        Delivery,
+        DeliveryMethod,
+        Conversation,
+        Message,
+        Notifications,
+        Role,
+        RolePermissions,
+        Permission,
+        Objects,
+        Notifications,
+        ProductImages,
+        Delivery,
+        DeliveryMethod,
+        Order,
+        OrderItems,
+        OrdersStatus,
+        Wishlist
+      ], // All the entities that you create should be added here
+      synchronize: true,
+      namingStrategy: new SnakeNamingStrategy()
     } as TypeOrmModuleOptions;
   }
 }

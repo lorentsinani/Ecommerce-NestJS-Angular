@@ -1,35 +1,34 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { trigger, transition, style, animate } from '@angular/animations';
+import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../core/services/auth/auth.service';
+import { LoginCredentials } from '../../core/interfaces/login-credentials.interface';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthenticationResponse } from '../../core/interfaces/authentication-response.interface';
+import { LoginResponse } from '../../core/interfaces/login-response.interface';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate(300, style({ opacity: 1 }))
-      ]),
-      transition(':leave', [
-        animate(300, style({ opacity: 0 }))
-      ])
-    ])
-  ]
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  loginForm: FormGroup;
+  loggedInFailed = false;
 
-  constructor(private fb: FormBuilder) {
-    this.loginForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+  constructor(private authService: AuthService, private router: Router, private cookieService: CookieService) {}
+
+  loginUser(loginCredentials: LoginCredentials) {
+    this.authService.login(loginCredentials).subscribe({
+      next: (response: AuthenticationResponse) => {
+        const accessToken = (response as LoginResponse)?.accessToken ?? '';
+        const redirectUrl = (response as LoginResponse)?.redirectUrl ?? '';
+
+        this.cookieService.set('accessToken', accessToken, undefined, '/', undefined, true, 'Strict');
+
+        this.router.navigate([redirectUrl]);
+      },
+      error: error => {
+        this.loggedInFailed = true;
+      }
     });
-  }
-
-  onSubmit() {
-    // Submit logic
   }
 }

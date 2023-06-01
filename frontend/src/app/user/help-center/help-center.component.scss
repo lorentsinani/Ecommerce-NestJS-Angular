@@ -1,0 +1,128 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px auto;
+  max-width: 800px;
+}
+
+.title {
+  font-size: 48px;
+  margin-bottom: 40px;
+  text-align: center;
+  color: #424242;
+}
+
+.search-field {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 60px;
+}
+
+.mat-form-field-infix {
+  border-radius: 30px;
+  background-color: #f7f7f7;
+  border: none;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mat-input-element {
+  font-size: 20px;
+  color: #424242;
+}
+
+.mat-icon-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  border: none;
+  border-radius: 30px;
+  background-color: #f7f7f7;
+  color: #666666;
+  transition: all 0.2s ease-in-out;
+}
+
+.mat-icon-button:hover {
+  transform: scale(1.2);
+  color: #424242;
+  background-color: #e0e0e0;
+}
+
+.subtitle {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #424242;
+}
+
+.faq-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.faq {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 40px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  transition: all 0.2s ease-in-out;
+}
+
+.faq:hover {
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.question {
+  cursor: pointer;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-input {
+  margin-right: 10px;
+}
+
+.search-field {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  font-size: 16px;
+}
+
+.search-button {
+  background-color: #f36b5a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-left: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: -63px;
+}
+
+.search-button:hover {
+  background-color: #f36b5a;
+}
+
+.answer {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+}

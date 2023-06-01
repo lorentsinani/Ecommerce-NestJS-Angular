@@ -12,6 +12,7 @@ import { ProductComponent } from './product/product.component';
 import { AboutComponent } from './about/about.component';
 import { CategoryComponent } from './category/category.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularPaginatorModule } from './product/paginator/paginator.module';
 
 import { UserRoutingModule } from './user-routing.module';
 import { ProductCarouselComponent } from './home/product-carousel/product-carousel.component';
@@ -30,6 +31,20 @@ import { HelpCenterComponent } from './help-center/help-center.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { ContactInfoComponent } from './contact/contact-info/contact-info.component';
 import { ContactFormComponent } from './contact/contact-form/contact-form.component';
+import { PaginationComponent } from './product/pagination/pagination.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CoreModule } from '../core/core.module';
+import { UserComponent } from './user.component';
+import { PaymentMethodComponent } from './payment-method/payment-method.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { ProfileComponent } from './profile/profile.component';
+import { SecurityDetailsComponent } from './profile/security-details/security-details.component';
+import { ProfileDetailsComponent } from './profile/profile-details/profile-details.component';
+import { ProfileDataInformationComponent } from './profile/profile-details/profile-data-information/profile-data-information.component';
+import { ProfileDataComponent } from './profile/profile-details/profile-data/profile-data.component';
+import { ProfileFormComponent } from './profile/profile-details/profile-form/profile-form.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +73,29 @@ import { ContactFormComponent } from './contact/contact-form/contact-form.compon
     PrivacyPolicyComponent,
     ContactInfoComponent,
     ContactFormComponent,
+    PaginationComponent,
+    UserComponent,
+    PaymentMethodComponent,
+    ProfileComponent,
+    SecurityDetailsComponent,
+    ProfileDetailsComponent,
+    ProfileDataInformationComponent,
+    ProfileDataComponent,
+    ProfileFormComponent
   ],
-  imports: [CommonModule, UserRoutingModule, MatCardModule, BrowserAnimationsModule, FormsModule,ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    UserRoutingModule,
+    MatCardModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AngularPaginatorModule,
+    HttpClientModule,
+    CoreModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatExpansionModule
+  ]
 })
 export class UserModule {}

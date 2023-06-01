@@ -1,53 +1,63 @@
-import { Length, IsString, IsOptional } from 'class-validator';
+import { Length, IsString, IsOptional, IsNotEmpty } from 'class-validator';
 import { IsCustomEmail } from '../../decorators/email-format.decorator';
 
 export class UpdateAddressDto {
   @Length(1, 255)
   @IsString()
   @IsOptional()
-  address_line1: string;
+  @IsNotEmpty()
+  addressLine1: string;
 
   @Length(1, 255)
   @IsString()
   @IsOptional()
-  address_line2: string;
+  @IsNotEmpty()
+  addressLine2: string;
 
   @Length(1, 100)
   @IsString()
   @IsOptional()
+  @IsNotEmpty()
   city: string;
 
   @Length(1, 50)
   @IsString()
   @IsOptional()
+  @IsNotEmpty()
   state: string;
 
   @Length(1, 50)
   @IsString()
   @IsOptional()
-  postal_code: string;
+  @IsNotEmpty()
+  postalCode: string;
 
   @Length(1, 15)
   @IsString()
   @IsOptional()
+  @IsNotEmpty()
   country: string;
 
   @IsCustomEmail()
   @IsOptional()
+  @IsNotEmpty()
   email: string;
 
   @Length(1, 20)
   @IsString()
   @IsOptional()
+  @IsNotEmpty()
   phone: string;
 
   @Length(1, 50)
   @IsString()
   @IsOptional()
-  first_name: string;
+  @IsNotEmpty()
+  firstName: string;
 
   @Length(1, 50)
   @IsString()
   @IsOptional()
-  last_name: string;
+  @IsNotEmpty()
+  lastName: string;
 }

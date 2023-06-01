@@ -1,0 +1,40 @@
+<form [formGroup]="rolePermissionForm" (ngSubmit)="onSubmit()">
+  <label for="role">Role: </label>
+  <select id="role" formControlName="role" required>
+    <option *ngFor="let role of roles " [value]="role.id">{{ role.name | titlecase }} </option>
+  </select>
+  <div *ngIf="rolePermissionForm.get('role').invalid && rolePermissionForm.get('role').touched">
+    <div *ngIf="rolePermissionForm.get('role').errors['required']">Role is required.</div>
+  </div>
+
+
+  <label for="permission">Resource: </label>
+  <select id="permission" formControlName="object" required>
+    <option *ngFor="let object of objects" [value]="object.id">
+      {{ object.name | titlecase }}
+    </option>
+  </select>
+  <div *ngIf="rolePermissionForm.get('object').invalid && rolePermissionForm.get('object').touched">
+    <div *ngIf="rolePermissionForm.get('object').errors['required']">Resource is required.</div>
+  </div>
+
+
+  <label for="permission">Select a Permission Action:</label>
+  <select id="permission" name="permission" formControlName="action">
+    <option *ngFor="let p of permissions" [value]="p.action">
+      {{ p.action | titlecase }}
+    </option>
+  </select>
+  <div *ngIf="rolePermissionForm.get('action').invalid && rolePermissionForm.get('action').touched">
+    <div *ngIf="rolePermissionForm.get('action').errors['required']">Action is required.</div>
+    <div *ngIf="rolePermissionForm.get('action').errors['invalidEnum']">Invalid action selected.</div>
+  </div>
+
+  <div class="btn-s">
+    <button type="submit" [disabled]="rolePermissionForm.invalid">Add Role Permission</button>
+    <button routerLink="/admin/users-access-control/role-permissions">Show List</button>
+  </div>
+</form>
+
+<p *ngIf="isCreated"> Role permission is created </p>
+<p *ngIf="isNotCreated"> Role permission is not created </p>

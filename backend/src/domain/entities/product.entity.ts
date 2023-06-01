@@ -9,62 +9,68 @@ export class Product implements IProduct {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', length: 255, nullable: false })
-  product_name: string;
+  @Column({ name: 'product_name', type: 'varchar', length: 255, nullable: false })
+  productName: string;
 
-  @Column({ type: 'varchar', length: 50, unique: true, nullable: false })
-  product_code: string;
+  @Column({ name: 'product_code', type: 'varchar', length: 50, unique: true, nullable: false })
+  productCode: string;
 
-  @Column()
-  supplier_id: number;
+  @Column({ name: 'supplier_id' })
+  supplierId: number;
 
   @ManyToOne(() => Suppliers, { nullable: false })
   @JoinColumn({ name: 'supplier_id', referencedColumnName: 'id' })
   supplier: Suppliers;
 
-  @Column()
-  category_id: number;
+  @Column({ name: 'category_id' })
+  categoryId: number;
 
   @ManyToOne(() => Category, { nullable: false })
   @JoinColumn({ name: 'category_id', referencedColumnName: 'id' })
   category: Category;
 
-  @Column({ type: 'date', nullable: false })
-  released_date: Date;
+  @Column({ name: 'released_date', type: 'date', nullable: false })
+  releasedDate: Date;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false })
-  price_with_vat: number;
+  @Column({ name: 'price_with_vat', type: 'decimal', precision: 10, scale: 2, nullable: false })
+  priceWithVat: number;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false })
-  price_without_vat: number;
+  @Column({ name: 'price_without_vat', type: 'decimal', precision: 10, scale: 2, nullable: false })
+  priceWithoutVat: number;
 
   @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
   vat: number;
 
-  @Column({ type: 'integer', nullable: false })
-  availability_in_stock: number;
+  @Column({ name: 'availability_in_stock', type: 'integer', nullable: false })
+  availabilityInStock: number;
 
   @Column({ type: 'decimal', precision: 5, scale: 2, nullable: true })
   discount: number;
 
-  @Column()
-  product_details_id: number;
+  @Column({ select: false, type: 'decimal', precision: 10, scale: 2, nullable: true })
+  priceAfterDiscount: number;
+
+  @Column({ name: 'discount_expiration_date', type: 'date', nullable: true })
+  discountExpirationDate: Date;
+
+  @Column({ name: 'product_details_id' })
+  productDetailsId: number;
 
   @ManyToOne(() => ProductDetails, { nullable: false, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'product_details_id', referencedColumnName: 'id' })
-  product_details: ProductDetails;
+  productDetails: ProductDetails;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 
   @BeforeInsert()
   @BeforeUpdate()
   calculatePriceWithVat() {
-    if (this.vat && this.price_without_vat) {
-      this.price_with_vat = this.price_without_vat * (1 + this.vat / 100);
+    if (this.vat && this.priceWithoutVat) {
+      this.priceWithVat = this.priceWithoutVat * (1 + this.vat / 100);
     }
   }
 }

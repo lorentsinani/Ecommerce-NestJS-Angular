@@ -1,62 +1,6 @@
-.login-form {
-    max-width: 500px;
-    margin: 5% auto;
-    // text-align: center;
-
-    label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-
-    p {
-        margin-top: 10px;
-
-        a {
-            color: #551a8b;
-            text-decoration: none;
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-    }
-
-    input[type="email"],
-    input[type="password"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-
-        &:focus {
-            outline: none;
-            border-color: #551a8b;
-        }
-    }
-
-    button[type="submit"] {
-        background-color: #551a8b;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        margin: 1% auto;
-        border-radius: 5px;
-        cursor: pointer;
-
-        &:hover {
-            background-color: #451572;
-        }
-    }
-
-    @media screen and (max-width: 600px) {
-        max-width: 100%;
-        padding: 0 10px;
-
-        input[type="email"],
-        input[type="password"] {
-            margin-bottom: 5px;
-        }
-    }
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
 }

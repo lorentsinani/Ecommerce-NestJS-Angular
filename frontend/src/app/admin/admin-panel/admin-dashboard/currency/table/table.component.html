@@ -1,0 +1,26 @@
+<div>
+
+  <table>
+
+    <thead>
+
+      <app-currency-table-head *ngFor="let column of columns" [column]="column">
+
+      </app-currency-table-head>
+
+    </thead>
+
+    <tbody>
+
+      <app-currency-table-row *ngFor="let currency of currencies" [currency]="currency"
+        (onDeleteCurrency)="deleteCurrency($event)">
+
+      </app-currency-table-row>
+
+    </tbody>
+
+  </table>
+
+  <p *ngIf="emptyData"> No data for this resource </p>
+
+</div>

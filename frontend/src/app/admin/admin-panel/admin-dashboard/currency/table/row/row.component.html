@@ -1,0 +1,33 @@
+<tr>
+  <td>
+    {{ currency.id }}
+  </td>
+
+  <td>
+    {{ currency.code | titlecase }}
+  </td>
+
+  <td>
+    {{ currency.exchangeRate }}
+  </td>
+
+  <td>
+    {{ currency.isBase }}
+  </td>
+
+  <td>
+    {{ currency.createdAt }}
+  </td>
+
+  <td>
+    {{ currency.updatedAt }}
+  </td>
+
+  <td>
+    <button routerLink="edit/{{ currency.id }}">Edit</button>
+  </td>
+
+  <td>
+    <button (click)="onDeleteAction(currency.id)">Delete</button>
+  </td>
+</tr>

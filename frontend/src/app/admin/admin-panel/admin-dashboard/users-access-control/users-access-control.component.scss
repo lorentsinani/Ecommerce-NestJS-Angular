@@ -1,0 +1,44 @@
+.access-control-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 1px;
+  border: 1px solid grey;
+}
+
+a {
+  color: #f36b5a;
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+a:hover {
+  color: #fff;
+  background-color: #f36b5a;
+}
+
+a i {
+  font-size: 18px;
+}
+
+a.routerLink--roles i:before {
+  content: '\f007';
+}
+
+a.routerLink--role-permissions i:before {
+  content: '\f023';
+}
+
+a.routerLink--permissions i:before {
+  content: '\f0ae';
+}
+
+a.routerLink--objects i:before {
+  content: '\f1c0';
+}

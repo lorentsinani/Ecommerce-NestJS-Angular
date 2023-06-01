@@ -1,24 +1,29 @@
-import { IsString, IsNumber, IsDate, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsString, IsDate, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsNumberFormat } from '../../decorators/number-format.decorator';
 
 export class UpdateEmployeeDto {
   @IsOptional()
   @IsNotEmpty()
   @IsDate()
-  hire_date: Date;
+  hireDate: Date;
 
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  job_title: string;
+  jobTitle: string;
 
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  address?: string;
+  address: string;
 
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  photo_url?: string;
+  photoUrl: string;
 
   @IsOptional()
-  @IsNumber()
-  salary?: number;
+  @IsNotEmpty()
+  @IsNumberFormat()
+  salary: number;
 }

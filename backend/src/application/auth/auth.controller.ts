@@ -1,49 +1,58 @@
-import { CustomerGuard } from '../../common/guards/user.guard';
-import { Body, Controller, Get, Post, UseFilters, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Patch, Post, Query, UseFilters, Request, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthService } from '../../application/auth/auth.service';
-import { AdminGuard } from '../../common/guards/admin.guard';
-import { EmployeeGuard } from '../../common/guards/emp.guard';
 import { SignInDto } from '../../common/dtos/application/auth/sing-in.dto';
 import { CreateUserDto } from '../../common/dtos/users/create-user.dto';
 import { IUser } from '../../common/interfaces/user.interface';
 import { DuplicateKeyExceptionFilter } from '../../common/filters/duplicate-key-exception.filter';
+import { LoginResponse } from '../../common/interfaces/login-response.interface';
+import { ResetPasswordDto } from '../../common/dtos/password-reset/password-reset.dto';
+import { User } from '../../domain/entities/user.entity';
+import { JwtUtil } from '../../common/utils/jwt-util';
+import { JwtPayload } from '../../common/interfaces/jwt-payload.interface';
+import { Request as R } from 'express';
+interface CustomRequest extends R {
+  jwtPayload?: JwtPayload;
+}
 
 @Controller('auth')
 @UsePipes(new ValidationPipe())
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('signIn')
-  async login(@Body() body: SignInDto) {
-    return this.authService.signIn(body.email, body.password);
+  @Post('login')
+  async login(@Body() body: SignInDto): Promise<LoginResponse> {
+    return this.authService.login(body.email, body.password);
   }
 
-  @Post('signUp')
+  @Post('register')
   @UseFilters(new DuplicateKeyExceptionFilter('User'))
   async singUp(@Body() createUserDto: CreateUserDto): Promise<IUser> {
-    return this.authService.singUp(createUserDto);
+    return this.authService.registerCustomer(createUserDto);
   }
 
-  @Post('singOut')
-  async logout() {
-    return this.authService.singOut();
+  @Post('logout')
+  logout(@Request() request: CustomRequest) {
+    const token = JwtUtil.extractTokenFromHeader(request) as string;
+    return this.authService.logout(token);
   }
 
-  @UseGuards(AdminGuard)
-  @Get('admin')
-  async getAdmin() {
-    return 'Admin Profile';
+  @Post('account-verification-link')
+  sendAccountVerificationLinkToEmail(@Body() email: string): Promise<{ message: string }> {
+    return this.authService.sendAccountVerificationLinkToEmail(email);
   }
 
-  @UseGuards(EmployeeGuard)
-  @Get('employee')
-  async getEmployee() {
-    return 'Employee Profile';
+  @Patch('verify-account')
+  verifyUserAccount(@Query('verify_token') verifyToken: string): Promise<User> {
+    return this.authService.verifyUserAccount(verifyToken);
   }
 
-  @UseGuards(CustomerGuard)
-  @Get('customer')
-  async getCustomer() {
-    return 'Customer Profile';
+  @Post('reset-password-link')
+  sendResetPasswordLinkToEmail(@Body() resetPasswordDto: ResetPasswordDto): Promise<{ message: string }> {
+    return this.authService.sendResetPasswordLinkToEmail(resetPasswordDto);
+  }
+
+  @Patch('reset-password')
+  resetUserPassword(@Query('reset_token') resetToken: string, password: string): Promise<User> {
+    return this.authService.resetUserPassword(resetToken, password);
   }
 }

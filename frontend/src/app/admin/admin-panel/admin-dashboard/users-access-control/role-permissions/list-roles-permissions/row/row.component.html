@@ -1,0 +1,33 @@
+<tr>
+  <td>
+    {{ rolePermission.id }}
+  </td>
+
+  <td>
+    {{ rolePermission.roleId }}
+  </td>
+
+  <td *ngIf="rolePermission.role as roleDetails">
+    <span> {{ roleDetails.name | titlecase }} </span>
+  </td>
+
+  <td>
+    {{ rolePermission.permissionId }}
+  </td>
+
+  <td *ngIf="rolePermission.permission as permissionDetails ">
+    
+    <span> {{ permissionDetails.action | titlecase }} </span>
+
+    <span> {{ permissionDetails.object.name | titlecase }} </span>
+  </td>
+
+  <td>
+    <button routerLink="edit-role-permission/{{ rolePermission.id }}">Edit</button>
+  </td>
+
+  <td>
+    <button (click)="onDeleteAction(rolePermission.id)">Delete</button>
+  </td>
+
+</tr>

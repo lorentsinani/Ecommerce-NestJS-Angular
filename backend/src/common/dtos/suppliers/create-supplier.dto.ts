@@ -5,15 +5,15 @@ export class CreateSupplierDto {
   @IsString()
   @IsNotEmpty()
   @Length(1, 100)
-  company_name: string;
+  companyName: string;
 
   @IsString()
   @IsNotEmpty()
   @Length(1, 100)
-  contact_name: string;
+  contactName: string;
 
   @IsString()
-  contact_title?: string;
+  contactTitle?: string;
 
   @IsString()
   @IsNotEmpty()
@@ -32,7 +32,7 @@ export class CreateSupplierDto {
   @IsString()
   @IsNotEmpty()
   @Length(1, 20)
-  postal_code: string;
+  postalCode: string;
 
   @IsString()
   @IsNotEmpty()
@@ -42,11 +42,11 @@ export class CreateSupplierDto {
   @IsString()
   @IsNotEmpty()
   @Length(1, 20)
-  phone_number: string;
+  phoneNumber: string;
 
   @IsString()
   @Length(1, 20)
-  fax_number?: string;
+  faxNumber?: string;
 
   @IsCustomEmail()
   email: string;

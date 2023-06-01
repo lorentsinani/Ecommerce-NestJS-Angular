@@ -1,25 +1,35 @@
-import { Controller, Get, UseGuards, Request, Patch, Body, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Request, Patch, Body, UsePipes, ValidationPipe } from '@nestjs/common';
 import { TokenVerifierCustomRequest } from '../../common/interfaces/jwt-payload.interface';
-import { CustomerGuard } from '../../common/guards/user.guard';
-import { UsersService } from '../../domain/users/users.service';
 import { UpdateUserDto } from '../../common/dtos/users/update-user.dto';
-import { IUser } from '../../common/interfaces/user.interface';
+import { User } from '../../domain/entities/user.entity';
+import { ProfileService } from './profile.service';
+import { ChangePasswordDto } from '../../common/dtos/profile/change-password.dto';
 
 @Controller('profile')
-// @UseGuards(CustomerGuard)
 export class ProfileController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private profileService: ProfileService) {}
 
   @Get()
-  findUserDetails(@Request() request: TokenVerifierCustomRequest): Promise<IUser> {
-    const userId = request.jwtPayload?.sub as number;
-    return this.usersService.findById(userId);
+  findUserDetails(@Request() request: TokenVerifierCustomRequest): Promise<User> {
+    const userId: number = this.getUserIdFromToken(request);
+    return this.profileService.findUserDetails(userId);
   }
 
-  @Patch()
+  @Patch('update-details')
   @UsePipes(new ValidationPipe())
-  updateUserDetails(@Request() request: TokenVerifierCustomRequest, @Body() updateUserDto: UpdateUserDto): Promise<IUser> {
-    const userId = request.jwtPayload?.sub as number;
-    return this.usersService.update(userId, updateUserDto);
+  updateUserDetails(@Request() request: TokenVerifierCustomRequest, @Body() updateUserDto: UpdateUserDto): Promise<User> {
+    const userId: number = this.getUserIdFromToken(request);
+    return this.profileService.updateUserDetails(userId, updateUserDto);
+  }
+
+  @Patch('update-password')
+  @UsePipes(new ValidationPipe())
+  updateUserPassword(@Request() request: TokenVerifierCustomRequest, @Body() changePassword: ChangePasswordDto): Promise<User> {
+    const userId: number = this.getUserIdFromToken(request);
+    return this.profileService.updateUserPassword(userId, changePassword);
+  }
+
+  getUserIdFromToken(request: TokenVerifierCustomRequest): number {
+    return request.jwtPayload?.sub as number;
   }
 }

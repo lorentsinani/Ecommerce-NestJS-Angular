@@ -7,6 +7,7 @@ CREATE TABLE users
     first_name VARCHAR(50) NOT NULL, 
     last_name VARCHAR(50) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL, 
+    verified BOOLEAN NOT NULL DEFAULT FALSE,
     password VARCHAR(255) NOT NULL, 
     country VARCHAR(50) NOT NULL, 
     city VARCHAR(50) NOT NULL,
@@ -39,6 +40,31 @@ CREATE TABLE admins
     permission_level PermissionLevel NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+ 
+
+
+CREATE TABLE role (
+    id SERIAL PRIMARY KEY , 
+    name varchar(50)
+);
+
+CREATE TABLE role_permissions (
+    id SERIAL PRIMARY KEY, 
+    role_id integer REFERENCES role(id) not null, 
+    permission_id integer REFERENCES permission(id) not null
+); 
+
+create table permission (
+    id serial primary key, 
+    action varchar(50),
+    object_id integer REFERENCES object(id) not null
+); 
+
+create table objects(
+    id serial primary key, 
+    name varchar(50)
+)
+
 
 
 
@@ -172,6 +198,13 @@ CREATE TABLE producer  (
 )
 
 
+CREATE TABLE product_images (
+  id SERIAL PRIMARY KEY,
+  product_id INTEGER NOT NULL REFERENCES product(id) ON DELETE CASCADE,
+  image_url VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
 
 
 
@@ -183,6 +216,79 @@ CREATE TABLE Newsletter (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 
+
+-- Just the employees can se the deliveries table. 
+-- The tables is created to show more additional information for the order  
+CREATE TABLE deliveries (
+    id SERIAL PRIMARY KEY,
+    delivery_date DATE,
+    delivery_comments VARCHAR(255),
+    delivery_cost NUMERIC,
+    delivery_method_id INTEGER REFERENCES delivery_method(id),
+    delivery_status ENUM ('pending', 'in_transit', 'delivered', 'failed'), 
+    delivery_order_id INTEGER,
+    promised_delivery_date DATE,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW(),
+    CONSTRAINT fk_delivery_order_id FOREIGN KEY (delivery_order_id) REFERENCES orders(id)
+);
+
+
+CREATE TABLE delivery_methods
+(
+    id SERIAL PRIMARY KEY,
+    delivery_method_name VARCHAR(50) NOT NULL,
+    phone_number VARCHAR(50) NOT NULL,
+    delivery_time INTERVAL NOT NULL,
+    delivery_method ENUM ('pickup', 'courier', 'shipping') NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+
+-- Order Related
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  order_code VARCHAR(10),
+  customer_id INT NOT NULL,
+  order_comment VARCHAR(255),
+  currency_id INT,
+  employee_id INT,
+  order_status_id INT,
+  address_id INTEGER NOT NULL REFERENCES address(id),
+  order_date DATE,
+  total_amount_with_vat DECIMAL(10, 2),
+  total_amount_without_vat DECIMAL(10, 2),
+  vat DECIMAL(10, 2),
+  CONSTRAINT fk_order_status_id FOREIGN KEY (order_status_id) REFERENCES orders_status(id),
+  CONSTRAINT fk_currency_id FOREIGN KEY (currency_id) REFERENCES currency(id),
+  CONSTRAINT fk_customer_id FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+  CONSTRAINT fk_employee_id FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
+);
+
+
+-- Order Items represent the specific product in a particular order
+CREATE TABLE order_items (
+  order_item_id SERIAL PRIMARY KEY,
+  order_id INT NOT NULL,
+  product_id INT NOT NULL,
+  quantity INT NOT NULL,
+  price_with_vat DECIMAL(10, 2) NOT NULL,
+  price_without_vat DECIMAL(10, 2) NOT NULL,
+  vat DECIMAL(10, 2),
+  total_amount DECIMAL(10, 2),
+  CONSTRAINT fk_order_id FOREIGN KEY (order_id) REFERENCES orders(id),
+  CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+
+-- Orders status represent status of orders  
+CREATE TABLE orders_status (
+  id SERIAL PRIMARY KEY,
+  status_name ENUM ('pending', 'shipped', 'delivered', 'cancelled') NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  UNIQUE(status_name)
+);
 
 
 
@@ -205,13 +311,6 @@ CREATE TABLE Newsletter (
 -- Product related 
 
 
-CREATE TABLE product_images (
-  id SERIAL PRIMARY KEY,
-  product_id INTEGER NOT NULL REFERENCES product(id) ON DELETE CASCADE,
-  image_url VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
-);
 
 
 CREATE TABLE reviews
@@ -239,96 +338,6 @@ CREATE TABLE wishlists (
 
 
 
-
-
-
-
--- Order Related
-CREATE TABLE orders (
-  id SERIAL PRIMARY KEY,
-  customer_id INT NOT NULL,
-  order_comment VARCHAR(255),
-  currency_id INT,
-  employee_id INT,
-  order_status_id INT,
-  address_id INTEGER NOT NULL REFERENCES address(id),
-  order_date DATE,
-  total_amount_with_vat DECIMAL(10, 2),
-  total_amount_without_vat DECIMAL(10, 2),
-  vat DECIMAL(10, 2),
-  CONSTRAINT fk_order_status_id FOREIGN KEY (order_status_id) REFERENCES order_status(id),
-  CONSTRAINT fk_currency_id FOREIGN KEY (currency_id) REFERENCES currency(id),
-  CONSTRAINT fk_customer_id FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
-  CONSTRAINT fk_employee_id FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
-);
-
-
--- Newsletter subscribers
-
-CREATE TABLE Newsletter (
-    id SERIAL PRIMARY KEY,
-    email varchar(100) NOT NULL UNIQUE,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-)
-
-
--- Order Items represent the specific product in a particular order
-CREATE TABLE order_items (
-  order_item_id SERIAL PRIMARY KEY,
-  order_id INT NOT NULL,
-  product_id INT NOT NULL,
-  quantity INT NOT NULL,
-  price_with_vat DECIMAL(10, 2) NOT NULL,
-  price_without_vat DECIMAL(10, 2) NOT NULL,
-  vat DECIMAL(10, 2),
-  total_amount DECIMAL(10, 2),
-  CONSTRAINT fk_order_id FOREIGN KEY (order_id) REFERENCES orders(id),
-  CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products(product_id)
-);
-
-CREATE TABLE order_status
-(
-    id serial PRIMARY KEY,
-    status ENUM ('pending', 'shipped', 'delivered', 'cancelled') NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
-);
-
-
-
-CREATE TABLE deliveries (
-    id SERIAL PRIMARY KEY,
-    delivery_date DATE,
-    delivery_comments VARCHAR(255),
-    delivery_cost NUMERIC,
-    delivery_method_id INTEGER REFERENCES delivery_method(id),
-    delivery_status_id ENUM ('pending', 'in_transit', 'delivered', 'failed'), 
-    delivery_order_id INTEGER,
-    promised_delivery_date DATE,
-    created_at TIMESTAMP DEFAULT NOW(),
-    updated_at TIMESTAMP DEFAULT NOW(),
-    CONSTRAINT fk_delivery_order_id FOREIGN KEY (delivery_order_id) REFERENCES orders(id)
-);
-
-
-CREATE TABLE delivery_methods
-(
-    id SERIAL PRIMARY KEY,
-    delivery_method_name VARCHAR(50) NOT NULL,
-    phone_number VARCHAR(50) NOT NULL,
-    delivery_time INTERVAL NOT NULL,
-    delivery_method ENUM ('pickup', 'courier', 'shipping') NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
-);
-
-
-
-
-
-
-
-
 CREATE TABLE payments (
   payment_id SERIAL PRIMARY KEY,
   order_id INT NOT NULL,
@@ -351,4 +360,38 @@ CREATE TABLE payment_info (
     confirmed_at TIMESTAMP,
     CONSTRAINT fk_payment_id FOREIGN KEY (payment_id) REFERENCES payments(payment_id) ON DELETE CASCADE,
     CONSTRAINT fk_confirmed_by FOREIGN KEY (confirmed_by) REFERENCES employees(employee_id)
+);
+
+
+
+
+
+
+-- CHAT IMPLEMENTATION 
+
+
+CREATE TABLE conversation( 
+    id SERIAL PRIMARY KEY, 
+    customer_id INTEGER REFERENCES users(id) NOT NULL, 
+    employee_id INTEGER REFERENCES users(id) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW NOT NULL , 
+    updated_at TIMESTAMP DEFAULT NOW  NOT NULL
+); 
+
+CREATE TABLE message ( 
+    id SERIAL PRIMARY KEY , 
+    conversation_id INTEGER REFERENCES conversation(id), 
+    sender_id INTEGER  REFERENCES users(id), 
+    content TEXT,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(), 
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+
+CREATE TABLE notifications ( 
+    id SERIAL PRIMARY KEY, 
+    recipient_id INTEGER REFERENCES users(id), 
+    message_content TEXT, 
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(), 
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );

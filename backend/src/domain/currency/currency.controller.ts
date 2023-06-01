@@ -1,43 +1,41 @@
-import { Currency } from './../entities/currency.entity';
 import { Body, Controller, Delete, Get, Param } from '@nestjs/common';
 import { ParseIntPipe, Patch, Post, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Currency } from './../entities/currency.entity';
 import { CurrencyService } from './currency.service';
 import { CreateCurrencyDto } from '../../common/dtos/currency/create-currency.dto';
-import { ICurrency } from '../../common/interfaces/currency.interface';
 import { UpdateCurrencyDto } from '../../common/dtos/currency/update-currency.dto';
-import { DuplicateKeyExceptionFilter } from '../../common/filters/duplicate-key-exception.filter';
 import { NullDtoValidationPipe } from '../../common/pipes/null-dto.validation.pipe';
+import { QueryExceptionFilter } from '../../common/filters/query.exception.filter';
 
 @Controller('currency')
 @UsePipes(new ValidationPipe())
+@UseFilters(new QueryExceptionFilter('Currency'))
 export class CurrencyController {
   constructor(private currencyService: CurrencyService) {}
 
   @Post()
-  @UseFilters(new DuplicateKeyExceptionFilter('Currency'))
-  async create(@Body() currencyBody: CreateCurrencyDto): Promise<ICurrency> {
+  create(@Body() currencyBody: CreateCurrencyDto): Promise<Currency> {
     return this.currencyService.create(currencyBody);
   }
 
   @Get()
-  async findAll(): Promise<ICurrency[]> {
+  findAll(): Promise<Currency[]> {
     return this.currencyService.findAll();
   }
 
   @Get(':id')
-  async findById(@Param('id', ParseIntPipe) id: number): Promise<ICurrency> {
+  findById(@Param('id', ParseIntPipe) id: number): Promise<Currency> {
     return this.currencyService.findById(id);
   }
 
   @Patch(':id')
   @UsePipes(new NullDtoValidationPipe())
-  @UseFilters(new DuplicateKeyExceptionFilter('Currency'))
-  async update(@Param('id', ParseIntPipe) id: number, @Body() currencyBody: UpdateCurrencyDto): Promise<ICurrency> {
+  update(@Param('id', ParseIntPipe) id: number, @Body() currencyBody: UpdateCurrencyDto): Promise<Currency> {
     return this.currencyService.update(id, currencyBody);
   }
 
   @Delete(':id')
-  async deleteCurrency(@Param('id', ParseIntPipe) id: number): Promise<ICurrency> {
+  deleteCurrency(@Param('id', ParseIntPipe) id: number): Promise<Currency> {
     return this.currencyService.delete(id);
   }
 }

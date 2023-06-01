@@ -9,15 +9,15 @@ export class Currency implements ICurrency {
   @Column({ length: 3 })
   code: string;
 
-  @Column()
-  exchange_rate: number;
+  @Column({ name: 'exchange_rate' })
+  exchangeRate: number;
 
-  @Column({ default: false })
-  is_base: boolean;
+  @Column({ name: 'is_base', default: false })
+  isBase: boolean;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

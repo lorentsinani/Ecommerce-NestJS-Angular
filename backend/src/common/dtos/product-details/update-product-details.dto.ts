@@ -1,26 +1,31 @@
-import { IsNumber, IsOptional, IsString, MaxLength } from 'class-validator';
+import { IsInt, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class UpdateProductDetailsDto {
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
   @MaxLength(100)
   origin: string;
 
   @IsOptional()
-  @IsNumber()
+  @IsNotEmpty()
+  @IsInt()
   warranty: number;
 
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
   @MaxLength(100)
   color: string;
 
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
   @MaxLength(100)
   size: string;
 
   @IsOptional()
-  @IsNumber()
-  producer_id: number;
+  @IsNotEmpty()
+  @IsInt()
+  producerId: number;
 }

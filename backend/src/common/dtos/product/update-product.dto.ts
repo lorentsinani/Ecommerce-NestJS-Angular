@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsDecimal, IsInt, IsOptional, MaxLength, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsDecimal, IsInt, IsOptional, MaxLength, IsString } from 'class-validator';
 import { IsDateFormat } from '../../decorators/date-format.decorator';
 
 export class UpdateProductDto {
@@ -6,40 +6,39 @@ export class UpdateProductDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(255)
-  product_name: string;
+  productName: string;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
   @MaxLength(50)
-  product_code: string;
+  productCode: string;
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
-  supplier_id: number;
+  @IsInt()
+  supplierId: number;
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
-  category_id: number;
+  @IsInt()
+  categoryId: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsDateFormat()
-  released_date: Date;
+  releasedDate: Date;
 
   @IsOptional()
   @IsNotEmpty()
   @IsDecimal()
-  price_with_vat: number;
+  priceWithVat: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsDecimal()
-  price_without_vat: number;
+  priceWithoutVat: number;
 
-  @IsOptional()
   @IsOptional()
   @IsDecimal()
   vat?: number;
@@ -47,7 +46,7 @@ export class UpdateProductDto {
   @IsOptional()
   @IsNotEmpty()
   @IsInt()
-  availability_in_stock: number;
+  availabilityInStock: number;
 
   @IsOptional()
   @IsOptional()
@@ -56,6 +55,6 @@ export class UpdateProductDto {
 
   @IsOptional()
   @IsNotEmpty()
-  @IsNumber()
-  product_details_id: number;
+  @IsInt()
+  productDetailsId: number;
 }
