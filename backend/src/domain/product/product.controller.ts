@@ -49,7 +49,10 @@ export class ProductController {
   search(@Body() productSearchDto: ProductSearchDto): Promise<Product[]> {
     return this.productService.search(productSearchDto.q);
   }
-
+  @Get('new-arrivals')
+  async getNewArrivalProducts(): Promise<Product[]> {
+    return this.productService.getNewArrivalProducts();
+  }
   @Patch(':id')
   @UsePipes(new NullDtoValidationPipe())
   update(@Param('id') id: number, @Body() updateProductDto: UpdateProductDto): Promise<Product> {

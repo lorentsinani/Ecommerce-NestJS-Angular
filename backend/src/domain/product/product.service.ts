@@ -5,6 +5,7 @@ import { UpdateProductDto } from '../../common/dtos/product/update-product.dto';
 import { Product } from '../entities/product.entity';
 import { InsertResult } from 'typeorm';
 import { NumberOfProducts } from '../../common/interfaces/number-of-products.interface';
+import { DateUtil } from '../../common/utils/date-util';
 import { DynamicProductFilterDto } from 'src/common/dtos/product/dynamic-product-filter.dto';
 
 @Injectable()
@@ -53,6 +54,11 @@ export class ProductService {
     return productFound;
   }
 
+  async getNewArrivalProducts() {
+    const oneWeekAgoTimestamp = DateUtil.getOneWeekAgoTimestamp();
+    return this.productRepository.getNewArrivalProducts(oneWeekAgoTimestamp);
+  }
+  
   findFilteredProducts(filterDto: DynamicProductFilterDto): Promise<Product[]> {
     return this.productRepository.findProductsFilter(filterDto);
   }
