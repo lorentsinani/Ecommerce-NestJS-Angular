@@ -16,8 +16,8 @@ import { ProfileService } from '../../../core/services/profile/profile.service';
 })
 export class SecurityDetailsComponent implements OnInit {
   securityDetailsForm: FormGroup;
-  isUpdated: boolean;
-  isNotUpdated: boolean;
+  isUpdated: boolean = false;
+  isNotUpdated: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private profileService: ProfileService) {}
 

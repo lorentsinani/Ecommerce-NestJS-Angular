@@ -16,7 +16,6 @@ export class CreateUserDto {
   @IsCustomEmail() // custom decorator
   email: string;
 
-
   @IsBoolean()
   @IsOptional()
   verified: boolean;

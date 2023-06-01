@@ -1,11 +1,26 @@
-<div
-  *ngFor="
-    let details of products
-      | angularPaginator
-        : { itemsPerPage: itemsPerPage, currentPage: currentPage };
-    let i = index
-  "
->
+<div *ngFor="let details of products | angularPaginator : { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i = index">
+  <div *ngFor="let product of productsFetched | async">
+    <div class="products-details-container">
+      <div class="product-image"><img src="{{ product.image }}" /></div>
+      <div class="product-details">
+        <div class="product-infos">
+          <div class="product-rating">{{ product.rating }} ⭐⭐⭐⭐⭐</div>
+          <div class="product-name">{{ product.name }}</div>
+          <div class="product-description">
+            {{ product.description }}
+          </div>
+          <div class="add-to-cart">
+            <button class="add-to-cart-button">Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-checkout">
+          <div class="product-price">{{ product.originalPrice }}</div>
+          <div class="product-off-price">{{ product.onSalePrice }}</div>
+          <div class="add-to-wishlist">❤ Add to wishlist</div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="products-details-container">
     <div class="product-image"><img src="{{ details.image }}" /></div>
     <div class="product-details">
@@ -56,36 +71,21 @@
         </div>
 
         <!-- pagination array -->
-        <div
-          class="page-item"
-          *ngFor="let page of paginator.pages"
-          [ngClass]="{ active: page['active'] }"
-        >
-          <a
-            class="page-link"
-            (click)="
-              !page['active'] && paginator.setCurrentPage(page['number'])
-            "
-          >
+        <div class="page-item" *ngFor="let page of paginator.pages" [ngClass]="{ active: page['active'] }">
+          <a class="page-link" (click)="!page['active'] && paginator.setCurrentPage(page['number'])">
             <button class="page-number-button" *ngIf="!page['active']">
-              {{ page["text"] }}
+              {{ page['text'] }}
             </button>
             <div class="visually-hidden" *ngIf="page['active']">
-              <button
-                class="selected-page-button"
-                style="background-color: #f36b5a"
-              >
-                {{ page["text"] }}
+              <button class="selected-page-button" style="background-color: #f36b5a">
+                {{ page['text'] }}
               </button>
             </div>
           </a>
         </div>
 
         <!-- direction link -->
-        <button
-          class="link-button"
-          [ngClass]="{ disabled: paginator.currentPage === paginator.lastPage }"
-        >
+        <button class="link-button" [ngClass]="{ disabled: paginator.currentPage === paginator.lastPage }">
           <a class="page-link" (click)="paginator.toNextPage()">
             <span aria-hidden="true">></span>
             <!-- <span class="visually-hidden">Next</span> -->

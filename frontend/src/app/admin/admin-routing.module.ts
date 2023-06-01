@@ -4,7 +4,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { AuthGuard } from '../core/guards/auth.guard';
-import { UsersRoute } from './admin-panel/users/users.routing';
+import { DeliveryRoute } from './admin-panel/admin-dashboard/delivery/delivery.routing';
+import { DeliveryMethodRoute } from './admin-panel/admin-dashboard/delivery-method/delivery-method.routing';
+import { RoleGuard } from '../core/guards/role.guard';
+import { ErrorComponent } from '../shared/error/error/error.component';
 
 const routes: Routes = [
   {
@@ -12,14 +15,10 @@ const routes: Routes = [
     component: AdminPanelComponent,
     // canActivate: [AuthGuard],
     // data: {
-    //   role: ['admin']
+    //   roles: ['admin']
     // },
-    children: [CurrencyRoute, UsersAccessControlRoute, UsersRoute]
+    children: [CurrencyRoute, UsersAccessControlRoute, UsersRoute, DeliveryRoute, DeliveryMethodRoute]
   }
-  // {
-  //   path: '**',
-  //   redirectTo: '/'
-  // }
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

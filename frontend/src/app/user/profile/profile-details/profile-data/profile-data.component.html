@@ -1,11 +1,12 @@
 <div class="user-details">
   <h2 class="title">User Details</h2>
 
-  <div class="details">
+  <div class="details" *ngIf="user">
     <p><strong>First Name:</strong> {{ user.firstName }}</p>
     <p><strong>Email:</strong> {{ user.email }}</p>
     <p>
       <a class="link" routerLink="/profile/security-details"><i class="fas fa-key"></i> Change Password</a>
     </p>
   </div>
+  <div *ngIf="!user">Loading user details...</div>
 </div>

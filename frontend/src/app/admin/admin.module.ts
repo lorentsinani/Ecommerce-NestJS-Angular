@@ -29,6 +29,12 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from '../core/interceptors/token.interceptor';
 import { UsersComponent } from './admin-panel/users/users.component';
 import { UsersDetailsComponent } from './admin-panel/users/users-details/users-details.component';
+import { CreateFormDeliveryComponent } from './admin-panel/admin-dashboard/delivery/create-form-delivery/create-form-delivery.component';
+import { TableDeliveryComponent } from './admin-panel/admin-dashboard/delivery/table-delivery/table-delivery.component';
+import { DeliveryComponent } from './admin-panel/admin-dashboard/delivery/delivery.component';
+import { DeliveryMethodComponent } from './admin-panel/admin-dashboard/delivery-method/delivery-method.component';
+
+import { CreateFormDeliveryMethodComponent } from './admin-panel/admin-dashboard/delivery-method/create-form-delivery-method/create-form-delivery-method.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +44,7 @@ import { UsersDetailsComponent } from './admin-panel/users/users-details/users-d
     AdminCategoryTableComponent,
     AdminCategoryFormComponent,
     CurrencyComponent,
+    DeliveryComponent,
     CreateFormComponent,
     UpdateFormComponent,
     TableComponent,
@@ -55,7 +62,11 @@ import { UsersDetailsComponent } from './admin-panel/users/users-details/users-d
     ...PermissionDeclarations,
     ...ObjectsDeclarations,
     UsersComponent,
-    UsersDetailsComponent
+    UsersDetailsComponent,
+    CreateFormDeliveryComponent,
+    TableDeliveryComponent,
+    DeliveryMethodComponent,
+    CreateFormDeliveryMethodComponent
   ],
   imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule],
   providers: [

@@ -5,9 +5,10 @@ import { AppAdminService } from './app-admin.service';
 import { AppAdminController } from './app-admin.controller';
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { JwtTokenVerifierMiddleware } from '../../common/middlewares/jwt-token-verifier.middleware';
+import { TokenManagementModule } from '../../common/providers/token-management/token-management.module';
 
 @Module({
-  imports: [UsersModule, AdminModule, EmployeesModule],
+  imports: [UsersModule, AdminModule, EmployeesModule, TokenManagementModule],
   providers: [AppAdminService],
   controllers: [AppAdminController],
   exports: [AppAdminService]
