@@ -6,6 +6,9 @@ import { DeliveryService } from '../../../../../core/services/delivery/delivery.
 import { Delivery } from '../../../../../core/interfaces/delivery.interface';
 import { DeliveryMethod } from '../../../../../core/interfaces/delivery-method.interface';
 import { DeliveryMethodService } from '../../../../../core/services/delivery-method/delivery-method.service';
+import { Order } from '../../../../../core/interfaces/order.interface';
+import { OrderService } from '../../../../../core/services/order/order.service';
+import { ServerErrorResponse } from '../../../../../core/interfaces/http-error-response.interface';
 @Component({
   selector: 'app-create-form-delivery',
   templateUrl: './create-form-delivery.component.html',
@@ -13,14 +16,21 @@ import { DeliveryMethodService } from '../../../../../core/services/delivery-met
 })
 export class CreateFormDeliveryComponent implements OnInit {
   form: FormGroup;
-  deliveries: Delivery[];
+  orders: Order[];
   deliveriesMethod: DeliveryMethod[];
-  constructor(private deliveryService: DeliveryService, private fb: FormBuilder, private deliveryMethodService: DeliveryMethodService) {}
+  isCreated: boolean;
+  isNotCreated: boolean;
+  constructor(
+    private deliveryService: DeliveryService,
+    private fb: FormBuilder,
+    private deliveryMethodService: DeliveryMethodService,
+    private orderService: OrderService
+  ) {}
 
   ngOnInit(): void {
     this.createForm();
     this.getAllDeliveryMethods();
-    this.getAllDeliveries();
+    this.getAllOrders();
   }
 
   createForm() {
@@ -35,9 +45,9 @@ export class CreateFormDeliveryComponent implements OnInit {
     });
   }
 
-  getAllDeliveries() {
-    this.deliveryService.getAllDeliveries().subscribe(deliveries => {
-      this.deliveries = deliveries; // Assign the fetched deliveries to the component property
+  getAllOrders() {
+    this.orderService.getAllOrders().subscribe(orders => {
+      this.orders = orders; // Assign the fetched deliveries to the component property
     });
   }
   getAllDeliveryMethods() {
@@ -56,6 +66,14 @@ export class CreateFormDeliveryComponent implements OnInit {
   }
 
   createDelivery(delivery: Delivery) {
-    this.deliveryService.createDelivery(delivery).subscribe(delivery => {});
+    this.deliveryService.createDelivery(delivery).subscribe({
+      next: (createdDelivery: Delivery) => {
+        this.isCreated = true;
+      },
+      error: (error: ServerErrorResponse) => {
+        this.isNotCreated = true;
+        console.log(error);
+      }
+    });
   }
 }

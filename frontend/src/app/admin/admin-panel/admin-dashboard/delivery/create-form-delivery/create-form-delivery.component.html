@@ -18,24 +18,24 @@
     <input type="number" id="deliveryCost" [formControlName]="'deliveryCost'" required />
     <div *ngIf="form.controls['deliveryCost'].invalid && form.controls['deliveryCost'].touched" class="error-message">Delivery Cost is required.</div>
   </div>
-  <!-- <div>
-    <label for="deliveryMethodId">Delivery Method ID:</label>
-    <input type="number" id="deliveryMethodId" formControlName="deliveryMethodId" required />
-    <div *ngIf="form.get('deliveryMethodId').invalid && form.get('deliveryMethodId').touched" class="error-message">
-      Delivery Method ID is required.
-    </div>
-  </div> -->
+
   <label for="deliveryMethodId"> Select a Delivery Method: </label>
   <select name="deliveryMethodId" formControlName="deliveryMethodId">
     <option *ngFor="let deliveryMethod of deliveriesMethod" [value]="deliveryMethod.id">{{ deliveryMethod.deliveryMethodName | titlecase }}</option>
   </select>
   <div *ngIf="form.get('deliveryMethodId').invalid && form.get('deliveryMethodId').touched">
-    <div *ngIf="form.get('deliveryMethodId').errors['required']">Object is required.</div>
+    <div *ngIf="form.get('deliveryMethodId').errors['required']">Delivery Method is required.</div>
   </div>
 
   <div>
     <label for="deliveryStatus">Delivery Status:</label>
-    <input type="text" id="deliveryStatus" formControlName="deliveryStatus" required />
+    <select id="deliveryStatus" formControlName="deliveryStatus" required>
+      <option value="">Select a status</option>
+      <option value="pending">Pending</option>
+      <option value="shipped">Shipped</option>
+      <option value="delivered">Delivered</option>
+      <option value="cancelled">Cancelled</option>
+    </select>
     <div *ngIf="form.get('deliveryStatus').invalid && form.get('deliveryStatus').touched" class="error-message">Delivery Status is required.</div>
   </div>
 
@@ -47,19 +47,15 @@
     </div>
   </div>
 
-  <!-- <div>
-    <label for="deliveryOrderId">Delivery Order ID:</label>
-    <input type="number" id="deliveryOrderId" formControlName="deliveryOrderId" required />
-    <div *ngIf="form.get('deliveryOrderId').invalid && form.get('deliveryOrderId').touched" class="error-message">Delivery Order ID is required.</div>
-  </div> -->
-
   <div>
-    <label for="deliveryOrderId">Delivery Order ID:</label>
+    <label for="deliveryOrderId">Select a Delivery Order :</label>
     <select id="deliveryOrderId" formControlName="deliveryOrderId" required>
-      <option *ngFor="let delivery of deliveries" [value]="delivery.id">{{ delivery.id }}</option>
+      <option *ngFor="let order of orders" [value]="order.id">{{ order.orderCode }}</option>
     </select>
     <div *ngIf="form.get('deliveryOrderId').invalid && form.get('deliveryOrderId').touched" class="error-message">Delivery Order ID is required.</div>
   </div>
 
   <button type="submit" [disabled]="form.invalid">Create</button>
+  <div *ngIf="isCreated" class="success-message">Delivery created successfully!</div>
+  <div *ngIf="isNotCreated" class="error-message">Failed to create delivery .</div>
 </form>
