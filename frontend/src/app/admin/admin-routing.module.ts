@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { AuthGuard } from '../core/guards/auth.guard';
+import { UsersRoute } from './admin-panel/users/users.routing';
 
 const routes: Routes = [
   {
@@ -13,7 +14,7 @@ const routes: Routes = [
     // data: {
     //   role: ['admin']
     // },
-    children: [CurrencyRoute, UsersAccessControlRoute]
+    children: [CurrencyRoute, UsersAccessControlRoute, UsersRoute]
   }
   // {
   //   path: '**',
@@ -24,4 +25,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminRoutingModule {}
+export class AdminRoutingModule { }

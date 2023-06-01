@@ -1,0 +1,83 @@
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+form {
+  margin-bottom: 20px;
+
+  div {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+
+    label {
+      width: 120px;
+      margin-right: 10px;
+      font-weight: bold;
+    }
+
+    input[type='text'],
+    input[type='email'],
+    input[type='password'],
+    textarea,
+    select {
+      flex: 1;
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  }
+
+  .radio-group {
+    display: flex;
+    margin-top: 6px;
+
+    label {
+      margin-right: 10px;
+
+      input[type='radio'] {
+        margin-right: 4px;
+      }
+    }
+  }
+
+  button[type='submit'] {
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+
+  th,
+  td {
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+
+  th {
+    font-weight: bold;
+  }
+}
