@@ -4,9 +4,10 @@ import { JwtTokenVerifierMiddleware } from '../../common/middlewares/jwt-token-v
 import { EmployeesModule } from '../../domain/employees/employees.module';
 import { AppEmployeeController } from './app-employee.controller';
 import { AppEmployeeService } from './app-employee.service';
+import { TokenManagementModule } from '../../common/providers/token-management/token-management.module';
 
 @Module({
-  imports: [UsersModule, EmployeesModule],
+  imports: [UsersModule, EmployeesModule,TokenManagementModule],
   providers: [AppEmployeeService],
   controllers: [AppEmployeeController],
   exports: [AppEmployeeService]

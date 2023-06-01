@@ -62,7 +62,7 @@ export class ProductImagesService {
     return deletedProductImage.raw[0];
   }
 
-  getIdentifierId(result: InsertResult): Boolean {
+  getIdentifierId(result: InsertResult): boolean {
     return result.identifiers[0].id == -1 ? false : true;
   }
 }

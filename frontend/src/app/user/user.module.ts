@@ -35,6 +35,16 @@ import { PaginationComponent } from './product/pagination/pagination.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from '../core/core.module';
 import { UserComponent } from './user.component';
+import { PaymentMethodComponent } from './payment-method/payment-method.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { ProfileComponent } from './profile/profile.component';
+import { SecurityDetailsComponent } from './profile/security-details/security-details.component';
+import { ProfileDetailsComponent } from './profile/profile-details/profile-details.component';
+import { ProfileDataInformationComponent } from './profile/profile-details/profile-data-information/profile-data-information.component';
+import { ProfileDataComponent } from './profile/profile-details/profile-data/profile-data.component';
+import { ProfileFormComponent } from './profile/profile-details/profile-form/profile-form.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +74,14 @@ import { UserComponent } from './user.component';
     ContactInfoComponent,
     ContactFormComponent,
     PaginationComponent,
-    UserComponent
+    UserComponent,
+    PaymentMethodComponent,
+    ProfileComponent,
+    SecurityDetailsComponent,
+    ProfileDetailsComponent,
+    ProfileDataInformationComponent,
+    ProfileDataComponent,
+    ProfileFormComponent
   ],
   imports: [
     CommonModule,
@@ -75,7 +92,10 @@ import { UserComponent } from './user.component';
     ReactiveFormsModule,
     AngularPaginatorModule,
     HttpClientModule,
-    CoreModule
+    CoreModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatExpansionModule
   ]
 })
 export class UserModule {}

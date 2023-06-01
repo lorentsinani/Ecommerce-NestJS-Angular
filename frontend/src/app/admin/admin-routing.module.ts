@@ -1,33 +1,21 @@
+import { UsersAccessControlRoute } from './admin-panel/admin-dashboard/users-access-control/users-access-control.routing';
+import { CurrencyRoute } from './admin-panel/admin-dashboard/currency/currency.routing';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
-import { AdminCategoryComponent } from './admin-panel/admin-dashboard/admin-category/admin-category.component';
-import { AdminCategoryFormComponent } from './admin-panel/admin-dashboard/admin-category/admin-category-form/admin-category-form.component';
-import { AdminCategoryTableComponent } from './admin-panel/admin-dashboard/admin-category/admin-category-table/admin-category-table.component';
+import { DeliveryRoute } from './admin-panel/admin-dashboard/delivery/delivery.routing';
+import { DeliveryMethodRoute } from './admin-panel/admin-dashboard/delivery-method/delivery-method.routing';
+import { UsersRoute } from './admin-panel/users/users.routing';
 
 const routes: Routes = [
   {
     path: 'admin',
     component: AdminPanelComponent,
-    // canActivate: [AdminGuard]
-    children: [
-      {
-        path: 'admin-category',
-        component: AdminCategoryComponent,
-
-        children: [
-          {
-            path: 'form',
-            component: AdminCategoryFormComponent
-          },
-          {
-            path: 'table',
-            component: AdminCategoryTableComponent
-          }
-        ]
-      }
-    ]
+    // canActivate: [AuthGuard],
+    // data: {
+    //   roles: ['admin']
+    // },
+    children: [CurrencyRoute, UsersAccessControlRoute, UsersRoute, DeliveryRoute, DeliveryMethodRoute]
   }
 ];
 @NgModule({

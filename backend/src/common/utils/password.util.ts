@@ -6,7 +6,7 @@ export class PasswordUtil {
     return bcrypt.hash(password, saltOrRounds);
   }
 
-  static comparePassword(plainPassword: string, password: string): Promise<boolean> {
+  static async comparePassword(plainPassword: string, password: string): Promise<boolean> {
     return bcrypt.compare(plainPassword, password);
   }
 

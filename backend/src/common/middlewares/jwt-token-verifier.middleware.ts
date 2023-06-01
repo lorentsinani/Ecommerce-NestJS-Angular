@@ -3,6 +3,8 @@ import { HttpException, HttpStatus, Injectable, NestMiddleware } from '@nestjs/c
 import { JwtService } from '@nestjs/jwt';
 import { JwtUtil } from '../utils/jwt-util';
 import { Request, Response, NextFunction } from 'express';
+import { TokenManagementService } from '../providers/token-management/token-management.service';
+
 
 interface CustomRequest extends Request {
   jwtPayload?: JwtPayload;
@@ -10,10 +12,15 @@ interface CustomRequest extends Request {
 
 @Injectable()
 export class JwtTokenVerifierMiddleware implements NestMiddleware {
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(private readonly jwtService: JwtService, private tokenManagementService: TokenManagementService) {}
 
   use(request: CustomRequest, response: Response, next: NextFunction) {
-    const token = JwtUtil.extractTokenFromHeader(request);
+    const token = JwtUtil.extractTokenFromHeader(request) as string;
+
+    if (this.tokenManagementService.isTokenBlacklisted(token)) {
+      throw new HttpException('Invalid JWT token', HttpStatus.UNAUTHORIZED);
+    }
+
     if (!token) {
       throw new HttpException('Missing JWT token', HttpStatus.UNAUTHORIZED);
     }

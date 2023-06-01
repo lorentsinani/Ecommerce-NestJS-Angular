@@ -1,10 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment-dev';
 
 export abstract class BaseService<T> {
-  apiUrl = environment.apiUrl;
+  protected apiUrl = environment.apiUrl;
 
   protected httpOptions = {
     headers: new HttpHeaders({
@@ -14,9 +14,15 @@ export abstract class BaseService<T> {
 
   constructor(protected http: HttpClient) {}
 
-  protected handleError(error: any) {
-    console.error('API Error:', error);
-    return throwError(error);
+  protected handleError(response: HttpErrorResponse): Observable<never> {
+    const errorResponse = {
+      statusCode: response.status,
+      apiUrl: response.url,
+      message: response.error.message,
+      error: response
+    };
+
+    return throwError(() => errorResponse);
   }
 
   protected extractData(res: any) {
@@ -40,6 +46,10 @@ export abstract class BaseService<T> {
 
   protected post(endpoint: string, data: any): Observable<T> {
     return this.http.post<T>(`${this.apiUrl}/${endpoint}`, data, this.httpOptions).pipe(map(this.extractData), catchError(this.handleError));
+  }
+
+  protected patch(endpoint: string, data: any): Observable<T> {
+    return this.http.patch<T>(`${this.apiUrl}/${endpoint}`, data, this.httpOptions).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   protected put(endpoint: string, data: any): Observable<T> {

@@ -2,22 +2,27 @@ import { PasswordHasherMiddleware } from './../../common/middlewares/password-ha
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UsersModule } from '../../domain/users/users.module';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
 import { JwtTokenVerifierMiddleware } from '../../common/middlewares/jwt-token-verifier.middleware';
 import { AuthController } from './auth.controller';
 import { PermissionsModule } from '../../domain/permissions/permissions.module';
-import { PermissionsGuard } from '../../common/guards/permissions.guard';
-import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.factory';
+import { RoleModule } from '../../domain/role/role.module';
+import { MailerModule } from '../../domain/mailer/mailer.module';
+import { TokenManagementModule } from '../../common/providers/token-management/token-management.module';
+
 
 @Module({
   imports: [
     UsersModule,
     PermissionsModule,
+    RoleModule,
+    TokenManagementModule,
     JwtModule.register({
       global: true,
       secret: 'secret',
       signOptions: { expiresIn: '1d' }
-    })
+    }),
+    MailerModule
   ],
   providers: [AuthService],
   controllers: [AuthController],

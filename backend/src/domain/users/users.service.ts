@@ -42,6 +42,16 @@ export class UsersService {
     return userExist;
   }
 
+  async findOneUserByEmailWithRole(email: string): Promise<User> {
+    const userExist = await this.usersRepository.findOneUserByEmailWithRole(email);
+
+    if (!userExist) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+
+    return userExist;
+  }
+
   async userExist(email: string): Promise<User | null> {
     return this.usersRepository.findUserByEmail(email);
   }

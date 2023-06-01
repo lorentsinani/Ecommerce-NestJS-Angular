@@ -1,0 +1,20 @@
+<tr>
+  <td>
+    {{ object.id }}
+  </td>
+
+
+  <td>
+    {{ object.name | titlecase }}
+  </td>
+
+  <td>
+    <button routerLink="edit-object/{{ object.id }}">Edit</button>
+  </td>
+
+
+  <td>
+    <button (click)="onDeleteAction(object.id)">Delete</button>
+  </td>
+
+</tr>

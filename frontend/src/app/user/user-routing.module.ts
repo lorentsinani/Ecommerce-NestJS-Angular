@@ -11,12 +11,18 @@ import { RouterModule, Routes } from '@angular/router';
 import { BlogComponent } from './blog/blog.component';
 import { ChatComponent } from '../shared/chat/chat.component';
 import { UserComponent } from './user.component';
+import { HelpCenterComponent } from './help-center/help-center.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { PaymentMethodComponent } from './payment-method/payment-method.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileDetailsComponent } from './profile/profile-details/profile-details.component';
+import { SecurityDetailsComponent } from './profile/security-details/security-details.component';
+import { AuthGuard } from '../core/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: UserComponent, // use the UserLayoutComponent as the layout component
-    // canActivate: [UserGuard],
+    component: UserComponent,
     children: [
       { path: '', component: HomeComponent },
       {
@@ -52,8 +58,26 @@ const routes: Routes = [
         component: ProductComponent
       },
       {
-        path: 'chat',
-        component: ChatComponent
+        path: 'policy',
+        component: PrivacyPolicyComponent
+      },
+      {
+        path: 'helpcenter',
+        component: HelpCenterComponent
+      },
+      {
+        path: 'payment',
+        component: PaymentMethodComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [AuthGuard],
+        children: [
+          { path: '', redirectTo: 'details', pathMatch: 'full' },
+          { path: 'details', component: ProfileDetailsComponent },
+          { path: 'security-details', component: SecurityDetailsComponent }
+        ]
       }
     ]
   }

@@ -1,0 +1,19 @@
+<form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+  <label for="name">Role Name:</label>
+  <input type="text" id="name" formControlName="name" placeholder="admin, employee, customer">
+  <div *ngIf="roleForm.get('name').invalid && roleForm.get('name').touched">
+    <div *ngIf="roleForm.get('name').errors['required']">Name is required.</div>
+    <div *ngIf="roleForm.get('name').errors['minLength']">Name should have at least 1 character.</div>
+    <div *ngIf="roleForm.get('name').errors['maxLength']">Name should have at most 50 characters.</div>
+    <div *ngIf="roleForm.get('name').errors['pattern']">Name should contain only letters.</div>
+  </div>
+  <br>
+
+  <div class="btn-s">
+    <button type="submit" [disabled]="roleForm.invalid">Edit Role</button>
+    <button routerLink="/admin/users-access-control/roles">Show List</button>
+  </div>
+</form>
+
+<p *ngIf="isUpdated">Role is updated</p>
+<p *ngIf="isNotUpdated">Role is not updated</p>

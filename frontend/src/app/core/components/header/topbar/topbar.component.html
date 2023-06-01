@@ -1,27 +1,41 @@
 <div class="top-bar">
   <div class="left-side">
-    <a href="#">
-      <i class="fab fa-facebook"></i>
-    </a>
-    <a href="#">
-      <i class="fab fa-twitter"></i>
-    </a>
-    <a href="#">
-      <i class="fab fa-instagram"></i>
-    </a>
+    <div>
+      <a href="https://facebook.com">
+        <i class="fab fa-facebook"></i>
+      </a>
+    </div>
+
+    <div>
+      <a href="https://twitter.com">
+        <i class="fab fa-twitter"> </i>
+      </a>
+    </div>
+
+    <div>
+      <a href="https://instagram.com">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
   </div>
+
   <div class="right-side">
     <div class="contact-info">
+      <div>
+        <i class="fas fa-phone" style="color: #f36b5a"></i>
+        <span class="phone">044000111</span>
+      </div>
 
-      <i class="fas fa-phone" style="color: #f36b5a;"></i>
-      <span class="phone">555-1234</span>
-      <i class="fas fa-envelope" style="color: #f36b5a;"></i>
-      <span class="email">contact@example.com</span>
-
+      <div>
+        <i class="fas fa-envelope" style="color: #f36b5a"></i>
+        <span class="email">lorent.sinani@gmail.com</span>
+      </div>
     </div>
-    <a href="#" class="account">
-      <i class="fas fa-user" style="color: #f36b5a;"></i>
-      My Account
+
+    <a [routerLink]="isAuthenticated ? '/profile' : '/login'" class="account">
+      <i class="fas fa-user" style="color: #f36b5a"></i>
+      <div *ngIf="isAuthenticated">{{ userName }}</div>
+      <div *ngIf="!isAuthenticated">My Account</div>
     </a>
   </div>
 </div>

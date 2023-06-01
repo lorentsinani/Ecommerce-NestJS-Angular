@@ -7,9 +7,10 @@ import { EmployeesModule } from '../../domain/employees/employees.module';
 import { ChatController } from './chat.controller';
 import { JwtTokenVerifierMiddleware } from '../../common/middlewares/jwt-token-verifier.middleware';
 import { AuthModule } from '../auth/auth.module';
+import { TokenManagementModule } from '../../common/providers/token-management/token-management.module';
 
 @Module({
-  imports: [ConversationModule, MessagesModule, EmployeesModule, AuthModule],
+  imports: [ConversationModule, MessagesModule, EmployeesModule, AuthModule, TokenManagementModule],
   controllers: [ChatController],
   providers: [ChatGateway, ChatService]
 })

@@ -1,10 +1,4 @@
-import {
-  registerDecorator,
-  ValidationOptions,
-  ValidatorConstraint,
-  ValidatorConstraintInterface,
-  ValidationArguments
-} from 'class-validator';
+import { registerDecorator, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface, ValidationArguments } from 'class-validator';
 
 @ValidatorConstraint({ name: 'dateFormat', async: false })
 export class DateFormatConstraint implements ValidatorConstraintInterface {
@@ -20,8 +14,11 @@ export class DateFormatConstraint implements ValidatorConstraintInterface {
       return false;
     }
 
-    // Check for date format "mm/dd/yyyy" using regex
-    const dateFormatRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/(19|20)\d\d$/;
+    // Check for date format "mm/dd/yyyy" or yyyy-mm-dd using regex
+    //const dateFormatRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/(19|20)\d\d$/;
+
+    const dateFormatRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/(19|20)\d\d$|^(\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
+
     return dateFormatRegex.test(date);
   }
 

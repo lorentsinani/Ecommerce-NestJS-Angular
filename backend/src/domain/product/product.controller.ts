@@ -7,6 +7,7 @@ import { QueryExceptionFilter } from '../../common/filters/query.exception.filte
 import { Product } from '../entities/product.entity';
 import { NumberOfProducts } from '../../common/interfaces/number-of-products.interface';
 import { ProductSearchDto } from '../../common/dtos/product/product-search.dto';
+import { DynamicProductFilterDto } from 'src/common/dtos/product/dynamic-product-filter.dto';
 
 @Controller('product')
 @UsePipes(new ValidationPipe())
@@ -24,6 +25,16 @@ export class ProductController {
     return this.productService.findAll();
   }
 
+  @Get('/filter')
+  async findFilteredProducts(@Query() filterDto: DynamicProductFilterDto): Promise<Product[]> {
+    return this.productService.findFilteredProducts(filterDto);
+  }
+
+  @Get('/discount')
+  async findProductsOnDiscount(): Promise<Product[]> {
+    return this.productService.findProductsOnDiscount();
+  }
+
   @Get(':id')
   findById(@Param('id', ParseIntPipe) id: number): Promise<Product> {
     return this.productService.findById(id);
@@ -34,8 +45,8 @@ export class ProductController {
     return this.productService.countProductsByCategory(category_id);
   }
 
-  @Get('/search')
-  search(@Query('q') productSearchDto: ProductSearchDto): Promise<Product[]> {
+  @Post('/search')
+  search(@Body() productSearchDto: ProductSearchDto): Promise<Product[]> {
     return this.productService.search(productSearchDto.q);
   }
   @Get('new-arrivals')

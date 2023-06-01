@@ -6,6 +6,8 @@ import { UpdateProductDto } from '../../common/dtos/product/update-product.dto';
 import { Category } from '../entities/category.entity';
 import { NumberOfProducts } from '../../common/interfaces/number-of-products.interface';
 import { DateUtil } from '../../common/utils/date-util';
+import { DynamicProductFilterDto } from 'src/common/dtos/product/dynamic-product-filter.dto';
+
 @Injectable()
 export class ProductRepository extends Repository<Product> {
   constructor(dataSource: DataSource, private readonly dateUtil: DateUtil) {
@@ -38,10 +40,10 @@ export class ProductRepository extends Repository<Product> {
       .innerJoin('product.productDetails', 'product_details')
       .leftJoinAndSelect('product.category', 'category')
       .where(
-        `product.product_name LIKE :searchTerm 
-          OR product.product_code LIKE :searchTerm 
-          OR product_details.color LIKE :searchTerm 
-          OR category.category_name LIKE :searchTerm`,
+        `CAST(product.product_code AS VARCHAR) LIKE :searchTerm
+        OR product.product_name LIKE :searchTerm 
+        OR product_details.color LIKE :searchTerm 
+        OR category.category_name LIKE :searchTerm`,
         { searchTerm: `%${searchTerm}%` }
       )
       .getMany();
@@ -56,5 +58,55 @@ export class ProductRepository extends Repository<Product> {
 
   deleteProduct(id: number): Promise<DeleteResult> {
     return this.createQueryBuilder().delete().from(Product).where('id = :id', { id }).returning('*').execute();
+  }
+
+  findProductsOnDiscount(): Promise<Product[]> {
+    const query = this.createQueryBuilder('product')
+      .addSelect('ROUND((product.price_with_vat - (product.price_with_vat * product.discount / 100))::numeric, 2)', 'product_price_after_discount')
+      .andWhere('product.discount > 0.00')
+      .andWhere('product.discountExpirationDate IS NOT NULL');
+
+    return query.getMany();
+  }
+
+  findProductsFilter(filterDto: DynamicProductFilterDto): Promise<Product[]> {
+    const query = this.createQueryBuilder('product');
+
+    if (filterDto.producer_id) {
+      query.innerJoin('product.product_details', 'product_details').andWhere('product_details.producer_id = :producer_id', { producer_id: filterDto.producer_id });
+    }
+
+    if (filterDto.price?.min && filterDto.price?.max) {
+      query.andWhere('product.price_with_vat BETWEEN :min AND :max', {
+        min: filterDto.price.min,
+        max: filterDto.price.max
+      });
+    } else if (filterDto.price?.min) {
+      query.andWhere('product.price_with_vat >= :min', { min: filterDto.price.min });
+    } else if (filterDto.price?.max) {
+      query.andWhere('product.price_with_vat <= :max', { max: filterDto.price.max });
+    }
+
+    if (filterDto.supplier_id) {
+      query.andWhere('product.supplier_id = :supplier_id', {
+        supplier_id: filterDto.supplier_id
+      });
+    }
+
+    if (filterDto.category_id) {
+      query.andWhere('product.category_id = :category_id', {
+        category_id: filterDto.category_id
+      });
+    }
+
+    if (filterDto.discount) {
+      query.andWhere('product.discount > 0.00');
+    }
+
+    if (filterDto.availability_in_stock) {
+      query.andWhere('product.availability_in_stock >= 1');
+    }
+
+    return query.getMany();
   }
 }
