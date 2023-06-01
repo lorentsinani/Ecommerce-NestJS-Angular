@@ -60,7 +60,16 @@ export class UsersDetailsComponent implements OnInit {
       this.getAllRoles();
     });
   }
-
+  showAllUsers() {
+    this.showUsers = !this.showUsers;
+    if (this.showUsers) {
+      this.getAllUsers();
+    }
+  }
+  getRoleName(roleId: number): string {
+    const role = this.roles.find(r => r.id === roleId);
+    return role ? role.name : '';
+  }
   createUser(user: User) {
     this.usersService.createUser(user).subscribe({
       next: (createdUser: User) => {
