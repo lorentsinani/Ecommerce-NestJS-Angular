@@ -11,6 +11,7 @@ import { NewsletterModule } from './newsletter/newsletter.module';
 import { ProductModule } from './product/product.module';
 import { ProductDetailsModule } from './product-details/product-details.module';
 import { ProducerModule } from './producer/producer.module';
+import { ReviewsModule } from './reviews/reviews.module';
 import { DeliveryModule } from './delivery/delivery.module';
 import { DeliveryMethodsModule } from './delivery_method/delivery-method.module';
 import { ProductImagesModule } from './product-images/product-images.module';
@@ -41,6 +42,7 @@ import { WishlistsModule } from './wishlists/wishlists.module';
     ProductModule,
     ProductDetailsModule,
     ProducerModule,
+    ReviewsModule,
     DeliveryModule,
     DeliveryMethodsModule,
     OrdersModule,
