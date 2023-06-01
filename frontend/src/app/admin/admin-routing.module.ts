@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { AuthGuard } from '../core/guards/auth.guard';
+import { DeliveryRoute } from './admin-panel/admin-dashboard/delivery/delivery.routing';
+import { DeliveryMethodRoute } from './admin-panel/admin-dashboard/delivery-method/delivery-method.routing';
 import { RoleGuard } from '../core/guards/role.guard';
 import { ErrorComponent } from '../shared/error/error/error.component';
 
@@ -15,7 +17,7 @@ const routes: Routes = [
     // data: {
     //   roles: ['admin']
     // },
-    children: [CurrencyRoute, UsersAccessControlRoute]
+    children: [CurrencyRoute, UsersAccessControlRoute, DeliveryRoute, DeliveryMethodRoute]
   }
 ];
 @NgModule({

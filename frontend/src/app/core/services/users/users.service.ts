@@ -8,4 +8,8 @@ import { CookieService } from 'ngx-cookie-service';
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {}
+export class UsersService {
+  getUserDetails() {
+    throw new Error('Method not implemented.');
+  }
+}
