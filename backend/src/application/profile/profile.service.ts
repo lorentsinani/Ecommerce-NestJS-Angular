@@ -26,7 +26,7 @@ export class ProfileService {
 
     const { currentPassword, newPassword } = changePasswordDto;
 
-    const passwordMatch = await PasswordUtil.comparePassword(currentPassword, newPassword);
+    const passwordMatch = await PasswordUtil.comparePassword(currentPassword, user.password);
 
     if (!passwordMatch) {
       throw new HttpException(

@@ -1,4 +1,4 @@
-import { Body, Controller, Patch, Post, Query, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Patch, Post, Query, UseFilters, Request, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthService } from '../../application/auth/auth.service';
 import { SignInDto } from '../../common/dtos/application/auth/sing-in.dto';
 import { CreateUserDto } from '../../common/dtos/users/create-user.dto';
@@ -7,6 +7,12 @@ import { DuplicateKeyExceptionFilter } from '../../common/filters/duplicate-key-
 import { LoginResponse } from '../../common/interfaces/login-response.interface';
 import { ResetPasswordDto } from '../../common/dtos/password-reset/password-reset.dto';
 import { User } from '../../domain/entities/user.entity';
+import { JwtUtil } from '../../common/utils/jwt-util';
+import { JwtPayload } from '../../common/interfaces/jwt-payload.interface';
+import { Request as R } from 'express';
+interface CustomRequest extends R {
+  jwtPayload?: JwtPayload;
+}
 
 @Controller('auth')
 @UsePipes(new ValidationPipe())
@@ -25,7 +31,10 @@ export class AuthController {
   }
 
   @Post('logout')
-  async logout(@Body() body: any) {}
+  logout(@Request() request: CustomRequest) {
+    const token = JwtUtil.extractTokenFromHeader(request) as string;
+    return this.authService.logout(token);
+  }
 
   @Post('account-verification-link')
   sendAccountVerificationLinkToEmail(@Body() email: string): Promise<{ message: string }> {

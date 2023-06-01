@@ -12,8 +12,8 @@ export class Category implements ICategory {
   @Column({ name: 'category_desc' })
   categoryDesc: string;
 
-  @Column({ name: 'category_image_url', length: 255 })
-  categoryImageUrl: string;
+  @Column({ name: 'category_image', length: 255 })
+  categoryImage: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

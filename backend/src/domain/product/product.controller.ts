@@ -45,8 +45,8 @@ export class ProductController {
     return this.productService.countProductsByCategory(category_id);
   }
 
-  @Get('/search')
-  search(@Query('q') productSearchDto: ProductSearchDto): Promise<Product[]> {
+  @Post('/search')
+  search(@Body() productSearchDto: ProductSearchDto): Promise<Product[]> {
     return this.productService.search(productSearchDto.q);
   }
 

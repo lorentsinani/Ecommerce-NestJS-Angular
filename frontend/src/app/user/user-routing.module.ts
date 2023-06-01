@@ -17,12 +17,12 @@ import { PaymentMethodComponent } from './payment-method/payment-method.componen
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileDetailsComponent } from './profile/profile-details/profile-details.component';
 import { SecurityDetailsComponent } from './profile/security-details/security-details.component';
+import { AuthGuard } from '../core/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: UserComponent, // use the UserLayoutComponent as the layout component
-    // canActivate: [UserGuard],
+    component: UserComponent,
     children: [
       { path: '', component: HomeComponent },
       {
@@ -72,6 +72,7 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+        canActivate: [AuthGuard],
         children: [
           { path: '', redirectTo: 'details', pathMatch: 'full' },
           { path: 'details', component: ProfileDetailsComponent },

@@ -22,7 +22,8 @@ export class LoginComponent {
         const accessToken = (response as LoginResponse)?.accessToken ?? '';
         const redirectUrl = (response as LoginResponse)?.redirectUrl ?? '';
 
-        this.cookieService.set('access_token', accessToken, undefined, '/', undefined, true, 'Strict');
+        this.cookieService.set('accessToken', accessToken, undefined, '/', undefined, true, 'Strict');
+
         this.router.navigate([redirectUrl]);
       },
       error: error => {

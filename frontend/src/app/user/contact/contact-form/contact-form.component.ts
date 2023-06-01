@@ -21,7 +21,6 @@ export class ContactFormComponent {
   }
 
   onSubmit() {
-    console.log(this.contactForm.value);
     // Implement code to submit form data to server or display success message to user
   }
 }

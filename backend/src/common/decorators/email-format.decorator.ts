@@ -20,7 +20,7 @@ export class EmailFormatConstraint implements ValidatorConstraintInterface {
     }
 
     // Check for email format using regex
-    const emailFormatRegex = /^[a-zA-Z][a-zA-Z0-9_]*[a-zA-Z0-9]+(_[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*(\.[a-zA-Z]{2,})$/;
+    const emailFormatRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailFormatRegex.test(email);
   }
 
