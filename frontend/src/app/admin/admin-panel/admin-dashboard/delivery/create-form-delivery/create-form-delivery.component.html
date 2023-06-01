@@ -58,4 +58,30 @@
   <button type="submit" [disabled]="form.invalid">Create</button>
   <div *ngIf="isCreated" class="success-message">Delivery created successfully!</div>
   <div *ngIf="isNotCreated" class="error-message">Failed to create delivery .</div>
+
+  <button (click)="toggleDeliveryResults()">List All Deliveries</button>
+
+  <table *ngIf="showDeliveryResults && deliveries && deliveries.length > 0">
+    <thead>
+      <tr>
+        <th>Delivery ID</th>
+        <th>Delivery Date</th>
+        <th>Delivery Cost</th>
+        <th>Delivery Status</th>
+        <th>Promised Delivery Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let delivery of deliveries">
+        <td>{{ delivery.id }}</td>
+        <td>{{ delivery.deliveryDate }}</td>
+        <td>{{ delivery.deliveryCost }}</td>
+        <td>{{ delivery.deliveryStatus }}</td>
+        <td>{{ delivery.promisedDeliveryDate }}</td>
+        <td>
+          <button (click)="deleteDelivery(delivery.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </form>

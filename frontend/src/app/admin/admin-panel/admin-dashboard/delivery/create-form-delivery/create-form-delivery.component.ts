@@ -17,6 +17,7 @@ import { ServerErrorResponse } from '../../../../../core/interfaces/http-error-r
 export class CreateFormDeliveryComponent implements OnInit {
   form: FormGroup;
   orders: Order[];
+  deliveries: Delivery[];
   deliveriesMethod: DeliveryMethod[];
   isCreated: boolean;
   isNotCreated: boolean;
@@ -31,6 +32,7 @@ export class CreateFormDeliveryComponent implements OnInit {
     this.createForm();
     this.getAllDeliveryMethods();
     this.getAllOrders();
+    this.toggleDeliveryResults();
   }
 
   createForm() {
@@ -50,6 +52,26 @@ export class CreateFormDeliveryComponent implements OnInit {
       this.orders = orders; // Assign the fetched deliveries to the component property
     });
   }
+
+  getAllDeliveries() {
+    this.deliveryService.getAllDeliveries().subscribe(deliveries => {
+      this.deliveries = deliveries;
+    });
+  }
+  deleteDelivery(id: number) {
+    this.deliveryService.deleteDelivery(id).subscribe(() => {
+      this.deliveries = this.deliveries.filter(delivery => delivery.id !== id);
+    });
+  }
+  showDeliveryResults = false;
+
+  toggleDeliveryResults(): void {
+    this.showDeliveryResults = !this.showDeliveryResults;
+    if (this.showDeliveryResults) {
+      this.getAllDeliveries();
+    }
+  }
+
   getAllDeliveryMethods() {
     this.deliveryMethodService.getAllDeliveriesMethod().subscribe(deliveriesMethod => {
       this.deliveriesMethod = deliveriesMethod;
