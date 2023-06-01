@@ -27,6 +27,8 @@ import { PermissionDeclarations } from './admin-panel/admin-dashboard/users-acce
 import { ObjectsDeclarations } from './admin-panel/admin-dashboard/users-access-control/objects/objects.declarations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from '../core/interceptors/token.interceptor';
+import { UsersComponent } from './admin-panel/users/users.component';
+import { UsersDetailsComponent } from './admin-panel/users/users-details/users-details.component';
 import { CreateFormDeliveryComponent } from './admin-panel/admin-dashboard/delivery/create-form-delivery/create-form-delivery.component';
 import { TableDeliveryComponent } from './admin-panel/admin-dashboard/delivery/table-delivery/table-delivery.component';
 import { DeliveryComponent } from './admin-panel/admin-dashboard/delivery/delivery.component';
@@ -59,6 +61,8 @@ import { CreateFormDeliveryMethodComponent } from './admin-panel/admin-dashboard
     ...RolePermissionDeclarations,
     ...PermissionDeclarations,
     ...ObjectsDeclarations,
+    UsersComponent,
+    UsersDetailsComponent,
     CreateFormDeliveryComponent,
     TableDeliveryComponent,
     DeliveryMethodComponent,

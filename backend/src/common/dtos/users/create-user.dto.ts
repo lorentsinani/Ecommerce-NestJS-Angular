@@ -16,8 +16,8 @@ export class CreateUserDto {
   @IsCustomEmail() // custom decorator
   email: string;
 
-  @IsOptional()
   @IsBoolean()
+  @IsOptional()
   verified: boolean;
 
   password: string; // No decorator needed because of the middleware check
