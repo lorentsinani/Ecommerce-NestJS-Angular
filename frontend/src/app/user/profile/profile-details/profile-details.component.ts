@@ -7,6 +7,7 @@ import { stringPatternValidator } from '../../../core/validators/pattern-string.
 import { emailValidator } from '../../../core/validators/email.validator';
 import { passwordValidator } from '../../../core/validators/password.validator';
 import { ServerErrorResponse } from '../../../core/interfaces/http-error-response.interface';
+import { ProfileService } from '../../../core/services/profile/profile.service';
 
 @Component({
   selector: 'app-profile-details',
@@ -14,37 +15,10 @@ import { ServerErrorResponse } from '../../../core/interfaces/http-error-respons
   styleUrls: ['./profile-details.component.scss']
 })
 export class ProfileDetailsComponent implements OnInit {
-  user: User;
   isUpdated: boolean;
   isNotUpdated: boolean;
 
-  constructor(private usersService: UsersService) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.getUserDetails();
-  }
-
-  getUserDetails() {
-    this.usersService.getUserDetails().subscribe({
-      next: (user: User) => {
-        this.user = user;
-      },
-      error: (error: any) => {
-        console.log(error);
-      }
-    });
-  }
-
-  updateProfile(user: User): void {
-    this.usersService.updateUserDetails(user).subscribe({
-      next: (user: User) => {
-        this.user = user;
-        this.isUpdated = true;
-      },
-      error: (error: ServerErrorResponse) => {
-        console.log(error);
-        this.isNotUpdated = true;
-      }
-    });
-  }
+  ngOnInit() {}
 }

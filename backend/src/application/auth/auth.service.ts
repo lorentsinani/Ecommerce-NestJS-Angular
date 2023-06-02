@@ -15,6 +15,7 @@ import { MailerService } from '../../domain/mailer/mailer.service';
 import { ResetPasswordDto } from '../../common/dtos/password-reset/password-reset.dto';
 import { IJwtConfig } from '../../config/jwt-config';
 import { ConfigService } from '@nestjs/config';
+import { TokenManagementService } from '../../common/providers/token-management/token-management.service';
 
 interface CustomSocket extends Socket {
   jwtPayload?: JwtPayload;
@@ -30,7 +31,8 @@ export class AuthService {
     private permissionsService: PermissionsService,
     private mailService: MailerService,
     private configService: ConfigService,
-    private roleService: RoleService
+    private roleService: RoleService,
+    private tokenManagementService: TokenManagementService
   ) {
     this.jwtConfig = this.configService.get('jwt') as IJwtConfig;
   }
@@ -54,7 +56,7 @@ export class AuthService {
   async registerCustomer(createUserDto: CreateUserDto): Promise<User> {
     const userExist = await this.usersService.userExist(createUserDto.email);
 
-    if (userExist) throw new HttpException('User already exist', HttpStatus.BAD_REQUEST);
+    if (userExist) throw new HttpException('User already exist', HttpStatus.CONFLICT);
 
     const role = await this.roleService.findRoleByName(UserRole.Customer);
 
@@ -93,8 +95,11 @@ export class AuthService {
     return redirectUrl;
   }
 
-  async logout() {
-    console.log();
+  async logout(token: string) {
+    if (!this.tokenManagementService.addTokenToBlacklist(token)) {
+      throw new HttpException('Revoking token failed', HttpStatus.BAD_REQUEST);
+    }
+    return true;
   }
 
   async sendAccountVerificationLinkToEmail(email: string): Promise<{ message: string }> {

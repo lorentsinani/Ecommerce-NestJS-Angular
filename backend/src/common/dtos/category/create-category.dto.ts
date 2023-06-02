@@ -9,7 +9,5 @@ export class CreateCategoryDto {
   @IsString()
   categoryDesc: string;
 
-  @Length(1, 255)
-  @IsString()
-  categoryImageUrl: string;
+  categoryImage: Express.Multer.File | any;
 }

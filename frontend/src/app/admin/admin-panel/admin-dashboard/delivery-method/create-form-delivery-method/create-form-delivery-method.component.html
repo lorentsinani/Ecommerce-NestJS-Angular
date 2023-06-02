@@ -1,0 +1,32 @@
+<form [formGroup]="form" (ngSubmit)="onCreate()">
+  <div>
+    <label for="deliveryMethodName">Delivery Method Name:</label>
+    <input type="string" id="deliveryMethodName" [formControlName]="'deliveryMethodName'" required />
+    <div *ngIf="form.controls['deliveryMethodName'].invalid && form.controls['deliveryMethodName'].touched" class="error-message">
+      Delivery Date is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="phoneNumber">Phone Number</label>
+    <textarea id="phoneNumber" [formControlName]="'phoneNumber'"></textarea>
+    <div *ngIf="form.controls['phoneNumber'].invalid && form.controls['phoneNumber'].touched" class="error-message">phoneNumber is required.</div>
+  </div>
+
+  <div>
+    <label for="deliveryTime">Delivery Time:</label>
+    <input type="string" id="deliveryTime" [formControlName]="'deliveryTime'" required />
+    <div *ngIf="form.controls['deliveryTime'].invalid && form.controls['deliveryTime'].touched" class="error-message">Delivery Cost is required.</div>
+  </div>
+  <div>
+    <label for="deliveryMethod">Delivery Method:</label>
+    <input type="string" id="deliveryMethod" [formControlName]="'deliveryMethod'" required />
+    <div *ngIf="form.controls['deliveryMethod'].invalid && form.controls['deliveryMethod'].touched" class="error-message">
+      Delivery Method is required.
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="form.invalid">Create</button>
+  <div *ngIf="isCreated" class="success-message">Delivery method created successfully!</div>
+  <div *ngIf="isNotCreated" class="error-message">Failed to create delivery method.</div>
+</form>

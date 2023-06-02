@@ -4,6 +4,7 @@ import { UpdateCategoryDto } from '../../common/dtos/category/update-category.dt
 import { CategoryRepository } from './category.repository';
 import { Category } from '../entities/category.entity';
 import { InsertResult } from 'typeorm';
+import { uploadImage } from 'src/common/utils/upload-util';
 
 @Injectable()
 export class CategoryService {
@@ -13,6 +14,7 @@ export class CategoryService {
   constructor(private readonly categoryRepository: CategoryRepository) {}
 
   async create(categoryBody: CreateCategoryDto): Promise<Category> {
+    categoryBody = { ...categoryBody, categoryImage: await uploadImage(categoryBody.categoryImage as Express.Multer.File, 'categories') };
     const createdCategory = await this.categoryRepository.createCategory(categoryBody);
 
     if (!this.getIdentifierId(createdCategory)) {

@@ -4,6 +4,7 @@ import { User } from '../../interfaces/user.interface';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, catchError, map } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { Observable, catchError, map } from 'rxjs';
 export class ProfileService extends BaseService<User> {
   private accessToken: string;
 
-  constructor(http: HttpClient, private cookieService: CookieService) {
+  constructor(http: HttpClient, private authService: AuthService) {
     super(http);
     this.setAuthorizationHeader();
   }
@@ -21,7 +22,9 @@ export class ProfileService extends BaseService<User> {
   }
 
   updateUserDetails(user: User): Observable<User> {
-    return this.http.patch<User>(`${this.apiUrl}/profile`, user, this.httpOptions).pipe(map(this.extractData), catchError(this.handleError));
+    return this.http
+      .patch<User>(`${this.apiUrl}/profile/update-details`, user, this.httpOptions)
+      .pipe(map(this.extractData), catchError(this.handleError));
   }
 
   updateUserPassword(updatePasswordData: any): Observable<User> {
@@ -31,7 +34,7 @@ export class ProfileService extends BaseService<User> {
   }
 
   setAuthorizationHeader() {
-    this.accessToken = this.cookieService.get('accessToken');
+    this.accessToken = this.authService.getAccessToken();
     if (this.accessToken) {
       this.httpOptions.headers.set('Authorization', `Bearer ${this.accessToken}`);
     }
