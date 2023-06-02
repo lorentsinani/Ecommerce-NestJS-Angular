@@ -70,6 +70,7 @@
             <th>Last Name</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -78,6 +79,7 @@
             <td>{{ user.lastName }}</td>
             <td>{{ user.email }}</td>
             <td>{{ getRoleName(user.roleId) }}</td>
+            <td><button (click)="deleteUser(user.id)">Delete</button></td>
         </tr>
     </tbody>
 </table>
