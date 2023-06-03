@@ -1,5 +1,4 @@
 <form [formGroup]="permissionForm" (ngSubmit)="onSubmit()">
-
   <label for="permission">Select a Permission Action:</label>
   <select id="permission" name="permission" formControlName="action">
     <option value="manage">Manage</option>
@@ -14,21 +13,17 @@
     <div *ngIf="permissionForm.get('action').errors['invalidEnum']">Invalid action selected.</div>
   </div>
 
-
   <div *ngIf="!emptyObjectData">
-
     <label for="objectId"> Select a Object: </label>
     <select name="objectId" formControlName="objectId">
-      <option *ngFor="let object of objects" [value]="object.id">{{ object.name | titlecase }} </option>
+      <option *ngFor="let object of objects" [value]="object.id">{{ object.name | titlecase }}</option>
     </select>
     <div *ngIf="permissionForm.get('objectId').invalid && permissionForm.get('objectId').touched">
       <div *ngIf="permissionForm.get('objectId').errors['required']">Object is required.</div>
     </div>
   </div>
 
-  <div *ngIf="emptyObjectData">
-    No data for objects resource
-  </div>
+  <div *ngIf="emptyObjectData">No data for objects resource</div>
 
   <div class="btn-s">
     <button type="submit" [disabled]="permissionForm.invalid">Add Permission</button>
@@ -36,5 +31,5 @@
   </div>
 </form>
 
-<p *ngIf="isCreated"> Permission is created </p>
-<p *ngIf="isNotCreated"> Permission is not created </p>
+<p *ngIf="isCreated">Permission is created</p>
+<p *ngIf="isNotCreated">Permission is not created</p>

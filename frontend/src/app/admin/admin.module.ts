@@ -35,6 +35,8 @@ import { DeliveryComponent } from './admin-panel/admin-dashboard/delivery/delive
 import { DeliveryMethodComponent } from './admin-panel/admin-dashboard/delivery-method/delivery-method.component';
 
 import { CreateFormDeliveryMethodComponent } from './admin-panel/admin-dashboard/delivery-method/create-form-delivery-method/create-form-delivery-method.component';
+import { OrdersComponent } from './admin-panel/admin-dashboard/orders/orders.component';
+import { OrdersDetailsComponent } from './admin-panel/admin-dashboard/orders/orders-details/orders-details.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,9 @@ import { CreateFormDeliveryMethodComponent } from './admin-panel/admin-dashboard
     CreateFormDeliveryComponent,
     TableDeliveryComponent,
     DeliveryMethodComponent,
-    CreateFormDeliveryMethodComponent
+    CreateFormDeliveryMethodComponent,
+    OrdersComponent,
+    OrdersDetailsComponent
   ],
   imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule],
   providers: [
