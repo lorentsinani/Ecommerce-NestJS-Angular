@@ -27,6 +27,8 @@ import { PermissionDeclarations } from './admin-panel/admin-dashboard/users-acce
 import { ObjectsDeclarations } from './admin-panel/admin-dashboard/users-access-control/objects/objects.declarations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from '../core/interceptors/token.interceptor';
+import { OrdersComponent } from './admin-panel/admin-dashboard/orders/orders.component';
+import { OrdersDetailsComponent } from './admin-panel/admin-dashboard/orders/orders-details/orders-details.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { TokenInterceptor } from '../core/interceptors/token.interceptor';
     ...RolesDeclarations,
     ...RolePermissionDeclarations,
     ...PermissionDeclarations,
-    ...ObjectsDeclarations
+    ...ObjectsDeclarations,
+    OrdersComponent,
+    OrdersDetailsComponent
   ],
   imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule],
   providers: [
