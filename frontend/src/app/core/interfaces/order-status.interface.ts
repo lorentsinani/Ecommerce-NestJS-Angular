@@ -1,5 +1,7 @@
+import { OrderStatus } from '../../../../../backend/src/common/constants/enums/orders-status.enum';
+
 export interface OrdersStatus {
   id: number;
-  statusName: OrdersStatus;
+  statusName: OrderStatus;
   description: string;
 }

@@ -1,0 +1,94 @@
+<form [formGroup]="form" (ngSubmit)="onCreate()">
+  <div>
+    <label for="orderCode">Order Code:</label>
+    <input type="string" id="orderCode" formControlName="orderCode" />
+  </div>
+  <div>
+    <label for="customerId">Customer:</label>
+    <select id="customerId" formControlName="customerId">
+      <option value="">Select Customer</option>
+      <option *ngFor="let customer of customers" [value]="customer.id">{{ customer.firstName }}</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="orderComment">Order Comment:</label>
+    <input type="string" id="orderComment" formControlName="orderComment" />
+  </div>
+
+  <div>
+    <label for="currencyId">Currency:</label>
+    <select id="currencyId" formControlName="currencyId">
+      <option value="">Select Currency</option>
+      <option *ngFor="let curr of currency" [value]="curr.id">{{ curr.code }}</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="employeeId">Employee:</label>
+    <select id="employeeId" formControlName="employeeId">
+      <option value="">Select Employee</option>
+      <option *ngFor="let emp of employee" [value]="emp.user.id">{{ emp.user.firstName }}</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="orderStatusId">Order Status:</label>
+    <select id="orderStatusId" formControlName="orderStatusId">
+      <option value="">Select Order Status</option>
+      <option *ngFor="let order of orderStatus" [value]="order.id">{{ order.statusName }}</option>
+      <!-- Add options for order status IDs -->
+    </select>
+  </div>
+
+  <div>
+    <label for="addressId">Address:</label>
+    <select id="addressId" formControlName="addressId">
+      <option value="">Select Address</option>
+      <option *ngFor="let address of address" [value]="address.id">{{ address.addressLine1 }}</option>
+      <!-- Add options for address IDs -->
+    </select>
+  </div>
+  <div>
+    <label for="totalAmountWithVat">Total Amount (with VAT):</label>
+    <input type="number" id="totalAmountWithVat" formControlName="totalAmountWithVat" />
+  </div>
+  <div>
+    <label for="vat">Vat:</label>
+    <input type="number" id="vat" formControlName="vat" />
+  </div>
+
+  <div>
+    <label for="totalAmountWithoutVat">Total Amount (without VAT):</label>
+    <input type="number" id="totalAmountWithoutVat" formControlName="totalAmountWithoutVat" />
+  </div>
+  <button type="submit">Create</button>
+  <div *ngIf="isCreated" class="success-message">Order created successfully!</div>
+  <div *ngIf="isNotCreated" class="error-message">Failed to create delivery .</div>
+</form>
+
+<button (click)="toggleTable()">List all Orders</button>
+
+<table *ngIf="showTable">
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Order Code</th>
+      <th>Customer</th>
+      <th>Order Status</th>
+      <!-- Add more table headers for other order properties -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of orders">
+      <td>{{ order.id }}</td>
+      <td>{{ order.orderCode }}</td>
+      <td>{{ order.orderComment }}</td>
+      <td>{{ order.orderDate }}</td>
+      <td>
+        <button (click)="deleteOrder(order.id)">Delete</button>
+      </td>
+      <!-- Add more table cells for other order properties -->
+    </tr>
+  </tbody>
+</table>
