@@ -70,6 +70,11 @@ export class UsersDetailsComponent implements OnInit {
     const role = this.roles.find(r => r.id === roleId);
     return role ? role.name : '';
   }
+  deleteUser(userId: number) {
+    this.usersService.deleteUser(userId).subscribe(() => {
+      this.user = this.user.filter(user => user.id !== userId);
+    });
+  }
   createUser(user: User) {
     this.usersService.createUser(user).subscribe({
       next: (createdUser: User) => {
@@ -81,4 +86,5 @@ export class UsersDetailsComponent implements OnInit {
       }
     });
   }
+
 }
