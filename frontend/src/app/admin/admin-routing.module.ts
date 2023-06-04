@@ -9,6 +9,7 @@ import { OrdersRoute } from './admin-panel/admin-dashboard/orders/orders.routing
 import { DeliveryRoute } from './admin-panel/admin-dashboard/delivery/delivery.routing';
 import { DeliveryMethodRoute } from './admin-panel/admin-dashboard/delivery-method/delivery-method.routing';
 import { UsersRoute } from './admin-panel/users/users.routing';
+import { AdminProductRoute } from './admin-panel/admin-dashboard/admin-product/admin-product.routing';
 
 const routes: Routes = [
   {
@@ -18,7 +19,7 @@ const routes: Routes = [
     // data: {
     //   roles: ['admin']
     // },
-    children: [CurrencyRoute, UsersAccessControlRoute, OrdersRoute, UsersRoute, DeliveryRoute, DeliveryMethodRoute]
+    children: [CurrencyRoute, UsersAccessControlRoute, OrdersRoute, UsersRoute, DeliveryRoute, DeliveryMethodRoute, AdminProductRoute]
   }
 ];
 @NgModule({
