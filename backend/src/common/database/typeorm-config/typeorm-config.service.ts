@@ -28,6 +28,7 @@ import { OrderItems } from '../../../domain/entities/order-items.entity';
 import { OrdersStatus } from '../../../domain/entities/orders-status.entity';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { Wishlist } from '../../../domain/entities/wishlist.entity';
+import { Reviews } from '../../../domain/entities/reviews.entity';
 
 @Injectable()
 export class TypeormConfigService implements TypeOrmOptionsFactory {
@@ -71,7 +72,8 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
         Order,
         OrderItems,
         OrdersStatus,
-        Wishlist
+        Wishlist,
+        Reviews
       ], // All the entities that you create should be added here
       synchronize: true,
       namingStrategy: new SnakeNamingStrategy()

@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ReviewsRepository } from './reviews.repository';
-import { CreateProductReviewDto } from '../../common/dtos/reviews/create-reviews.dto';
-import { IReviews } from '../../common/interfaces/reviews.interface';
-import { UpdateProductReviewDto } from '../../common/dtos/reviews/update-reviews.dto';
+import { CreateReviewDto } from '../../common/dtos/reviews/create-reviews.dto';
+import { UpdateReviewDto } from '../../common/dtos/reviews/update-reviews.dto';
+import { Reviews } from '../entities/reviews.entity';
 
 @Injectable()
 export class ReviewService {
@@ -11,7 +11,7 @@ export class ReviewService {
 
   constructor(private readonly reviewRepository: ReviewsRepository) {}
 
-  async create(createProductReviewDto: CreateProductReviewDto): Promise<IReviews> {
+  async create(createProductReviewDto: CreateReviewDto): Promise<Reviews> {
     const createdReview = await this.reviewRepository.createReview(createProductReviewDto);
 
     if (!createProductReviewDto) {
@@ -20,11 +20,11 @@ export class ReviewService {
     return createdReview.raw[0];
   }
 
-  async findAll(): Promise<IReviews[]> {
+  async findAll(): Promise<Reviews[]> {
     return this.reviewRepository.findAllReviews();
   }
 
-  async findById(id: number): Promise<IReviews> {
+  async findById(id: number): Promise<Reviews> {
     const reviewExists = await this.reviewRepository.findReviewById(id);
 
     if (!reviewExists) {
@@ -33,7 +33,7 @@ export class ReviewService {
     return reviewExists;
   }
 
-  async update(id: number, updateReviewDto: UpdateProductReviewDto): Promise<IReviews> {
+  async update(id: number, updateReviewDto: UpdateReviewDto): Promise<Reviews> {
     const updatedReview = await this.reviewRepository.updateReview(id, updateReviewDto);
 
     if (!updatedReview.affected) {
@@ -42,7 +42,7 @@ export class ReviewService {
     return updatedReview.raw[0];
   }
 
-  async delete(id: number): Promise<IReviews> {
+  async delete(id: number): Promise<Reviews> {
     const deletedReview = await this.reviewRepository.deleteProduct(id);
 
     if (!deletedReview.affected) {
