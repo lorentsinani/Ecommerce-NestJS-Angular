@@ -1,0 +1,116 @@
+<form [formGroup]="form" (ngSubmit)="onCreate()">
+  <div>
+    <label for="productName">Product Name:</label>
+    <input type="text" id="productName" formControlName="productName" />
+  </div>
+  <div>
+    <label for="productCode">Product Code:</label>
+    <input type="text" id="productCode" formControlName="productCode" />
+  </div>
+
+  <div>
+    <label for="supplierId">Supplier:</label>
+    <select id="supplierId" formControlName="supplierId">
+      <option value="">Select Supplier</option>
+      <option *ngFor="let supplier of suppliers" [value]="supplier.id">{{ supplier.companyName }}</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="categoryId">Category:</label>
+    <select id="categoryId" formControlName="categoryId">
+      <option value="">Select Category</option>
+      <option *ngFor="let category of categories" [value]="category.id">{{ category.category_name }}</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="releasedDate">Released Date:</label>
+    <input type="date" id="releasedDate" formControlName="releasedDate" />
+  </div>
+
+  <div>
+    <label for="priceWithVat">Price (with VAT):</label>
+    <input type="number" id="priceWithVat" formControlName="priceWithVat" />
+  </div>
+
+  <div>
+    <label for="priceWithoutVat">Price (without VAT):</label>
+    <input type="number" id="priceWithoutVat" formControlName="priceWithoutVat" />
+  </div>
+
+  <div>
+    <label for="vat">VAT:</label>
+    <input type="number" id="vat" formControlName="vat" />
+  </div>
+
+  <div>
+    <label for="availabilityInStock">Availability in Stock:</label>
+    <input type="number" id="availabilityInStock" formControlName="availabilityInStock" />
+  </div>
+
+  <div>
+    <label for="discount">Discount:</label>
+    <input type="number" id="discount" formControlName="discount" />
+  </div>
+
+  <div>
+    <label for="discountExpirationDate">Discount Expiration Date:</label>
+    <input type="date" id="discountExpirationDate" formControlName="discountExpirationDate" />
+  </div>
+
+  <!-- <div>
+    <label for="productDetailsId">Product Details:</label>
+    <select id="productDetailsId" formControlName="productDetailsId">
+      <option value="">Select Product Details</option>
+      <option *ngFor="let productDetails of productDetails" [value]="productDetails.id">{{ productDetails.name }}</option>
+    </select>
+  </div> -->
+
+  <button type="submit">Create</button>
+  <div *ngIf="isCreated" class="success-message">Product created successfully!</div>
+  <div *ngIf="isNotCreated" class="error-message">Failed to create product.</div>
+</form>
+
+<button (click)="toggleTable()">List all Products</button>
+
+<table *ngIf="showTable">
+  <thead>
+    <tr>
+      <th>Product ID</th>
+      <th>Product Name</th>
+      <th>Product Code</th>
+      <th>Supplier</th>
+      <th>Category</th>
+      <th>Released Date</th>
+      <th>Price (with VAT)</th>
+      <th>Price (without VAT)</th>
+      <th>VAT</th>
+      <th>Availability in Stock</th>
+      <th>Discount</th>
+      <th>Discount Expiration Date</th>
+      <th>Product Details</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products">
+      <td>{{ product.id }}</td>
+      <td>{{ product.productName }}</td>
+      <td>{{ product.productCode }}</td>
+      <td>{{ product.supplierId }}</td>
+      <td>{{ product.categoryId }}</td>
+      <td>{{ product.releasedDate | date }}</td>
+      <td>{{ product.priceWithVat }}</td>
+      <td>{{ product.priceWithoutVat }}</td>
+      <td>{{ product.vat }}</td>
+      <td>{{ product.availabilityInStock }}</td>
+      <td>{{ product.discount }}</td>
+      <td>{{ product.discountExpirationDate | date }}</td>
+      <!-- <td>{{ product.productDetails.name }}</td> -->
+      <td>
+        <button (click)="deleteProduct(product.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
