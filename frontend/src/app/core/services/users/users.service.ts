@@ -28,4 +28,7 @@ export class UsersService extends BaseService<User> {
   updateUser(id: number, data: Partial<User>): Observable<User> {
     return this.patch(`users/${id}`, data);
   }
+  deleteUser(id: number): Observable<User> {
+    return this.delete(`users/${id}`);
+  }
 }
